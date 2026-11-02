@@ -1,0 +1,12 @@
+{
+  "task": "agent-self-integration",
+  "agent": "claude-bold-ptolemy",
+  "scope": [
+    "scripts/agents.py",
+    "tests/test_agent_workflow.py",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "docs/AGENT_WORKFLOW.md"
+  ],
+  "branch": "claude/bold-ptolemy-dt1ah7"
+}
