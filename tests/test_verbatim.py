@@ -15,8 +15,9 @@ class FakeCorpus(verbatim.Corpus):
 
     def __init__(self, texts, prototype=''):
         self.texts, self.prototype, self.unreadable = dict(texts), {}, []
-        self.blob = '\n'.join(self.texts.values())
+        self.blob = verbatim.SEP.join(self.texts.values())
         self.prototype_blob = prototype
+        self.index()
 
 
 CORPUS = FakeCorpus({'sources/script.json': 'היי, אני נירה\nנשימה בטנית', 'sources/cards.json': 'שוברי קרח'},
@@ -83,6 +84,15 @@ class Prototypes(unittest.TestCase):
             with self.subTest(page=page):
                 self.assertEqual(len(verbatim.html_problems(page, CORPUS)), 1)
         self.assertEqual(verbatim.html_problems('<p>היי, &#1488;ני נירה</p>', CORPUS), [])
+
+    def test_line_breaks_cannot_split_wording_into_sourced_fragments(self):
+        continued = "<script>x = 'היי, אני\\\nנירה';</script>"  # JS evaluates to 'היי, אנינירה'
+        self.assertEqual(len(verbatim.html_problems(continued, CORPUS)), 1)
+        crlf = "<script>x = 'היי, אני\\\r\nנירה';</script>"
+        self.assertEqual(len(verbatim.html_problems(crlf, CORPUS)), 1)
+        joined = '<p>נשימה בטנית\nשוברי קרח</p>'  # two sourced lines displayed as one new phrase
+        self.assertEqual(len(verbatim.html_problems(joined, CORPUS)), 1)
+        self.assertEqual(verbatim.html_problems('<p>היי,   אני\n נירה</p>', CORPUS), [])
 
     def test_escaped_script_strings_are_decoded(self):
         escaped = ''.join('\\u%04x' % ord(c) for c in 'טקסט מומצא')

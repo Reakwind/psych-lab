@@ -24,6 +24,9 @@ import source_guard  # noqa: E402
 
 HEBREW = re.compile(r'[֐-׿]')
 LFS = b'version https://git-lfs.github.com/spec/v1'
+# Boundary between separate source strings, cells, paragraphs and files. Not whitespace, so
+# collapsing whitespace for matching can never join two unrelated pieces into one phrase.
+SEP = '\x00'
 TEXT_SOURCES = {'.json', '.txt', '.md', '.csv', '.html', '.htm', '.xlsx', '.docx'}
 
 
@@ -61,24 +64,24 @@ def source_text(path):
         return None
     if suffix == '.json':
         values = list(json_strings(json.loads(data.decode('utf-8'))))
-        return '\n'.join(values + [c for v in values if ',' in v and '\n' in v for c in csv_cells(v)])
+        return SEP.join(values + [c for v in values if ',' in v and '\n' in v for c in csv_cells(v)])
     if suffix in {'.txt', '.md'}:
         return data.decode('utf-8')
     if suffix == '.csv':
         text = data.decode('utf-8', errors='replace')
-        return text + '\n' + '\n'.join(csv_cells(text))
+        return text + SEP + SEP.join(csv_cells(text))
     if suffix in {'.html', '.htm'}:
         text = html.unescape(data.decode('utf-8'))
-        return text + '\n' + '\n'.join(re.sub(r'<[^>]+>', '\n', text).split('\n'))
+        return text + SEP + SEP.join(re.sub(r'<[^>]+>', SEP, text).split(SEP))
     if suffix == '.xlsx':
         with zipfile.ZipFile(file) as z:
             parts = xml_runs(z.read('xl/sharedStrings.xml').decode('utf-8'), 't') if 'xl/sharedStrings.xml' in z.namelist() else []
             parts += [html.unescape(n) for n in re.findall(r'<sheet [^>]*name="([^"]+)"', z.read('xl/workbook.xml').decode('utf-8'))]
-        return '\n'.join(parts)
+        return SEP.join(parts)
     if suffix == '.docx':
         with zipfile.ZipFile(file) as z:
             xml = z.read('word/document.xml').decode('utf-8')
-        return '\n'.join(''.join(xml_runs(p, 'w:t')) for p in re.findall(r'<w:p[ >].*?</w:p>', xml, re.S))
+        return SEP.join(''.join(xml_runs(p, 'w:t')) for p in re.findall(r'<w:p[ >].*?</w:p>', xml, re.S))
     return ''
 
 
@@ -99,18 +102,29 @@ class Corpus:
                 self.unreadable.append(path)
             elif text:
                 (self.prototype if path.startswith(PROTOTYPE) else self.texts)[path] = text
-        self.blob = '\n'.join(self.texts.values())
-        self.prototype_blob = '\n'.join(self.prototype.values())
+        self.blob = SEP.join(self.texts.values())
+        self.prototype_blob = SEP.join(self.prototype.values())
+        self.index()
+
+    def index(self):
+        # Displayed text is compared with whitespace collapsed on both sides, as screens show it,
+        # so a whole run is matched at once and line breaks cannot split it into sourced fragments.
+        self.flat = collapse(self.blob)
+        self.prototype_flat = collapse(self.prototype_blob)
 
     def in_source(self, text, path):
         return path in self.texts and text in self.texts[path]
 
     def anywhere(self, text):
-        return text in self.blob
+        return collapse(text) in self.flat
 
     def why_missing(self, text):
         return ('found only in the original design prototype, not in a program source'
-                if text in getattr(self, 'prototype_blob', '') else 'not found in any program source')
+                if collapse(text) in self.prototype_flat else 'not found in any program source')
+
+
+def collapse(text):
+    return re.sub(r'\s+', ' ', text).strip()
 
 
 def quote_problems(data, corpus, where=''):
@@ -148,7 +162,8 @@ def js_strings(code):
         j, buf = i + 1, []
         while j < n and code[j] != quote and code[j] != '\n':
             if code[j] == '\\' and j + 1 < n:
-                buf.append(code[j:j + 2]); j += 2
+                step = 3 if code.startswith('\r\n', j + 1) else 2
+                buf.append(code[j:j + step]); j += step
             else:
                 buf.append(code[j]); j += 1
         return ''.join(buf), j + 1
@@ -212,8 +227,10 @@ def js_strings(code):
     return [js_unescape(s) for s in out]
 
 
-JS_ESCAPE = re.compile(r'\\(u\{[0-9a-fA-F]+\}|u[0-9a-fA-F]{4}|x[0-9a-fA-F]{2}|.)', re.S)
-SIMPLE = {'n': '\n', 'r': '\r', 't': '\t', 'b': '\b', 'f': '\f', 'v': '\v', '0': '\0'}
+JS_ESCAPE = re.compile(r'\\(u\{[0-9a-fA-F]+\}|u[0-9a-fA-F]{4}|x[0-9a-fA-F]{2}|\r\n|.)', re.S)
+SIMPLE = {'n': '\n', 'r': '\r', 't': '\t', 'b': '\b', 'f': '\f', 'v': '\v', '0': '\0',
+          # Line continuations: JavaScript drops a backslash followed by a line terminator.
+          '\n': '', '\r\n': '', '\r': '', '\u2028': '', '\u2029': ''}
 
 
 def js_unescape(literal):
@@ -259,11 +276,10 @@ def html_problems(text, corpus):
     parser.feed(text)
     parser.close()
     problems = []
-    for run in parser.runs:
-        for line in run.split('\n'):  # already decoded once by the parser; never decode twice
-            line = line.strip()
-            if HEBREW.search(line) and not corpus.anywhere(line):
-                problems.append(f'{corpus.why_missing(line)}: {line[:60]!r}')
+    for run in parser.runs:  # already decoded once by the parser; never decode twice
+        text = collapse(run)  # one whole run, as displayed
+        if HEBREW.search(text) and not corpus.anywhere(text):
+            problems.append(f'{corpus.why_missing(text)}: {text[:60]!r}')
     return problems
 
 
