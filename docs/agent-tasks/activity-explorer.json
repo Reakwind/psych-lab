@@ -7,7 +7,15 @@
     "psych-lab/index.html",
     "tests/test_verbatim.py",
     "psych-lab/intervention/build.py",
-    "psych-lab/intervention/BUILD_NOTES.md"
+    "psych-lab/intervention/BUILD_NOTES.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "docs/AGENT_WORKFLOW.md",
+    "docs/CLOUD.md",
+    "scripts/agents.py",
+    "tests/test_agent_workflow.py",
+    ".github/rulesets/main.json",
+    ".github/rulesets/history.json"
   ],
   "branch": "claude/bold-ptolemy-dt1ah7--activity-explorer"
 }
