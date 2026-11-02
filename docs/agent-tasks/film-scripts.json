@@ -10,6 +10,7 @@
     "tests/test_film_scripts.py",
     "psych-lab/film-scripts.json",
     "psych-lab/index.html",
+    "psych-lab/serve.py",
     "package.json"
   ],
   "branch": "claude/bold-ptolemy-dt1ah7--film-scripts"

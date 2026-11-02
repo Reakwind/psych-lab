@@ -16,6 +16,7 @@ class FakeCorpus(verbatim.Corpus):
 
     def __init__(self, texts, prototype=''):
         self.texts, self.prototype, self.unreadable = dict(texts), {}, []
+        self.paths = set(self.texts)
         self.blob = verbatim.SEP.join(self.texts.values())
         self.prototype_blob = prototype
         self.index()
@@ -39,6 +40,27 @@ class Quotes(unittest.TestCase):
         problems = verbatim.quote_problems(quote, CORPUS, 'q')
         self.assertEqual(len(problems), 1)
         self.assertIn('q.activity', problems[0])
+
+    def test_quotes_match_as_displayed(self):
+        # A soft line break in the source shows as a space; it is not a different text.
+        corpus = FakeCorpus({'sources/a.docx': 'שורה אחת\nשורה שתיים'})
+        self.assertEqual(verbatim.quote_problems({'text': 'שורה אחת שורה שתיים', 'source': 'sources/a.docx'}, corpus), [])
+        self.assertTrue(verbatim.quote_problems({'text': ' ', 'source': 'sources/a.docx'}, corpus))
+        # Separate paragraphs still never join into one quote.
+        corpus = FakeCorpus({'sources/a.docx': 'שורה אחת' + verbatim.SEP + 'שורה שתיים'})
+        self.assertTrue(verbatim.quote_problems({'text': 'שורה אחת שורה שתיים', 'source': 'sources/a.docx'}, corpus))
+
+    def test_only_a_registered_source_path_is_exempt(self):
+        corpus = FakeCorpus({'sources/תסריט.docx': 'נשימה בטנית'})
+        self.assertEqual(verbatim.quote_problems({'source': 'sources/תסריט.docx', 'n': 1}, corpus), [])
+        # Anything else under "source" is ordinary text and must still be sourced.
+        problems = verbatim.quote_problems({'source': 'טקסט מומצא'}, corpus, 'f')
+        self.assertEqual(len(problems), 1)
+        self.assertIn('f.source', problems[0])
+
+    def test_docx_line_breaks_and_tabs_are_whitespace(self):
+        xml = '<w:p><w:r><w:t>ברקע.</w:t><w:br/><w:t xml:space="preserve">ובפעמים</w:t><w:tab/><w:t>&amp;</w:t></w:r></w:p>'
+        self.assertEqual(verbatim.docx_paragraph(xml), 'ברקע.\nובפעמים\t&')
 
     def test_other_hebrew_strings_must_exist_somewhere(self):
         self.assertEqual(verbatim.quote_problems({'a': ['שוברי קרח', 'Lab label']}, CORPUS), [])

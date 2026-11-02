@@ -14,7 +14,8 @@
     "agent:setup": "python3 scripts/agents.py setup",
     "doctor": "python3 scripts/agents.py doctor",
     "media:check": "python3 scripts/check_project.py --media",
-    "verbatim": "python3 scripts/verbatim.py"
+    "verbatim": "python3 scripts/verbatim.py",
+    "film-scripts": "python3 scripts/film_scripts.py"
   },
   "devDependencies": {
     "acorn": "8.14.0",
