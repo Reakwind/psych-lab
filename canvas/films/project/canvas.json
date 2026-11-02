@@ -1,0 +1,442 @@
+{
+ "v": 3,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-02T13:45:00Z"
+ },
+ "title": "Psych Lab — Films & scripts",
+ "launch": {
+  "view": "canvas"
+ },
+ "pages": [],
+ "boards": {
+  "Main.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1100,
+   "h": 560,
+   "title": "Films & scripts · index"
+  },
+  "f/S01.dc.html": {
+   "x": 0,
+   "y": 880,
+   "w": 1240,
+   "h": 1886,
+   "title": "Film S01"
+  },
+  "f/S02.dc.html": {
+   "x": 1320,
+   "y": 880,
+   "w": 1240,
+   "h": 2610,
+   "title": "Film S02"
+  },
+  "f/S03a.dc.html": {
+   "x": 2640,
+   "y": 880,
+   "w": 1240,
+   "h": 3393,
+   "title": "Film S03a"
+  },
+  "f/S03b.dc.html": {
+   "x": 3960,
+   "y": 880,
+   "w": 1240,
+   "h": 3722,
+   "title": "Film S03b"
+  },
+  "f/S04.dc.html": {
+   "x": 0,
+   "y": 4762,
+   "w": 1240,
+   "h": 1852,
+   "title": "Film S04"
+  },
+  "f/S05.dc.html": {
+   "x": 1320,
+   "y": 4762,
+   "w": 1240,
+   "h": 3020,
+   "title": "Film S05"
+  },
+  "f/S06.dc.html": {
+   "x": 2640,
+   "y": 4762,
+   "w": 1240,
+   "h": 1887,
+   "title": "Film S06"
+  },
+  "f/S07.dc.html": {
+   "x": 3960,
+   "y": 4762,
+   "w": 1240,
+   "h": 3570,
+   "title": "Film S07"
+  },
+  "f/S08.dc.html": {
+   "x": 0,
+   "y": 8492,
+   "w": 1240,
+   "h": 2490,
+   "title": "Film S08"
+  },
+  "f/S09.dc.html": {
+   "x": 1320,
+   "y": 8492,
+   "w": 1240,
+   "h": 2681,
+   "title": "Film S09"
+  },
+  "f/S10.dc.html": {
+   "x": 2640,
+   "y": 8492,
+   "w": 1240,
+   "h": 2047,
+   "title": "Film S10"
+  },
+  "f/S11.dc.html": {
+   "x": 3960,
+   "y": 8492,
+   "w": 1240,
+   "h": 1969,
+   "title": "Film S11"
+  },
+  "f/S12.dc.html": {
+   "x": 0,
+   "y": 11333,
+   "w": 1240,
+   "h": 2231,
+   "title": "Film S12"
+  },
+  "f/S14.dc.html": {
+   "x": 1320,
+   "y": 11333,
+   "w": 1240,
+   "h": 2367,
+   "title": "Film S14"
+  },
+  "f/S15.dc.html": {
+   "x": 2640,
+   "y": 11333,
+   "w": 1240,
+   "h": 3417,
+   "title": "Film S15"
+  },
+  "f/S16.dc.html": {
+   "x": 3960,
+   "y": 11333,
+   "w": 1240,
+   "h": 3034,
+   "title": "Film S16"
+  },
+  "f/S17.dc.html": {
+   "x": 0,
+   "y": 14910,
+   "w": 1240,
+   "h": 2776,
+   "title": "Film S17"
+  },
+  "f/S19.dc.html": {
+   "x": 1320,
+   "y": 14910,
+   "w": 1240,
+   "h": 2799,
+   "title": "Film S19"
+  },
+  "f/S23.dc.html": {
+   "x": 2640,
+   "y": 14910,
+   "w": 1240,
+   "h": 3164,
+   "title": "Film S23"
+  },
+  "f/S25.dc.html": {
+   "x": 3960,
+   "y": 14910,
+   "w": 1240,
+   "h": 3340,
+   "title": "Film S25"
+  },
+  "f/S27.dc.html": {
+   "x": 0,
+   "y": 18410,
+   "w": 1240,
+   "h": 2163,
+   "title": "Film S27"
+  },
+  "f/S28.dc.html": {
+   "x": 1320,
+   "y": 18410,
+   "w": 1240,
+   "h": 2771,
+   "title": "Film S28"
+  },
+  "f/S29.dc.html": {
+   "x": 2640,
+   "y": 18410,
+   "w": 1240,
+   "h": 2265,
+   "title": "Film S29"
+  },
+  "f/S30.dc.html": {
+   "x": 3960,
+   "y": 18410,
+   "w": 1240,
+   "h": 2849,
+   "title": "Film S30"
+  },
+  "f/S32.dc.html": {
+   "x": 0,
+   "y": 21419,
+   "w": 1240,
+   "h": 3122,
+   "title": "Film S32"
+  },
+  "f/S33a.dc.html": {
+   "x": 1320,
+   "y": 21419,
+   "w": 1240,
+   "h": 3246,
+   "title": "Film S33a"
+  },
+  "f/S33b.dc.html": {
+   "x": 2640,
+   "y": 21419,
+   "w": 1240,
+   "h": 3169,
+   "title": "Film S33b"
+  },
+  "f/S34.dc.html": {
+   "x": 3960,
+   "y": 21419,
+   "w": 1240,
+   "h": 2481,
+   "title": "Film S34"
+  },
+  "f/S35.dc.html": {
+   "x": 0,
+   "y": 24825,
+   "w": 1240,
+   "h": 1851,
+   "title": "Film S35"
+  },
+  "f/S37.dc.html": {
+   "x": 1320,
+   "y": 24825,
+   "w": 1240,
+   "h": 2451,
+   "title": "Film S37"
+  },
+  "f/S42.dc.html": {
+   "x": 2640,
+   "y": 24825,
+   "w": 1240,
+   "h": 2174,
+   "title": "Film S42"
+  },
+  "f/S43.dc.html": {
+   "x": 3960,
+   "y": 24825,
+   "w": 1240,
+   "h": 3179,
+   "title": "Film S43"
+  },
+  "f/S44.dc.html": {
+   "x": 0,
+   "y": 28164,
+   "w": 1240,
+   "h": 2731,
+   "title": "Film S44"
+  },
+  "f/S45.dc.html": {
+   "x": 1320,
+   "y": 28164,
+   "w": 1240,
+   "h": 2124,
+   "title": "Film S45"
+  },
+  "f/S46.dc.html": {
+   "x": 2640,
+   "y": 28164,
+   "w": 1240,
+   "h": 1853,
+   "title": "Film S46"
+  },
+  "f/S48.dc.html": {
+   "x": 3960,
+   "y": 28164,
+   "w": 1240,
+   "h": 3391,
+   "title": "Film S48"
+  },
+  "f/S49.dc.html": {
+   "x": 0,
+   "y": 31715,
+   "w": 1240,
+   "h": 3514,
+   "title": "Film S49"
+  },
+  "f/S53.dc.html": {
+   "x": 1320,
+   "y": 31715,
+   "w": 1240,
+   "h": 2519,
+   "title": "Film S53"
+  },
+  "f/S54.dc.html": {
+   "x": 2640,
+   "y": 31715,
+   "w": 1240,
+   "h": 1731,
+   "title": "Film S54"
+  },
+  "f/S56.dc.html": {
+   "x": 3960,
+   "y": 31715,
+   "w": 1240,
+   "h": 2047,
+   "title": "Film S56"
+  },
+  "f/S57.dc.html": {
+   "x": 0,
+   "y": 35389,
+   "w": 1240,
+   "h": 2290,
+   "title": "Film S57"
+  },
+  "f/S58.dc.html": {
+   "x": 1320,
+   "y": 35389,
+   "w": 1240,
+   "h": 1590,
+   "title": "Film S58"
+  },
+  "f/S60.dc.html": {
+   "x": 2640,
+   "y": 35389,
+   "w": 1240,
+   "h": 2081,
+   "title": "Film S60"
+  },
+  "f/S63.dc.html": {
+   "x": 3960,
+   "y": 35389,
+   "w": 1240,
+   "h": 2070,
+   "title": "Film S63"
+  },
+  "f/S64.dc.html": {
+   "x": 0,
+   "y": 37839,
+   "w": 1240,
+   "h": 1920,
+   "title": "Film S64"
+  },
+  "f/S65.dc.html": {
+   "x": 1320,
+   "y": 37839,
+   "w": 1240,
+   "h": 2353,
+   "title": "Film S65"
+  },
+  "f/S66.dc.html": {
+   "x": 2640,
+   "y": 37839,
+   "w": 1240,
+   "h": 1789,
+   "title": "Film S66"
+  },
+  "f/S70.dc.html": {
+   "x": 3960,
+   "y": 37839,
+   "w": 1240,
+   "h": 1749,
+   "title": "Film S70"
+  },
+  "f/S73.dc.html": {
+   "x": 0,
+   "y": 40352,
+   "w": 1240,
+   "h": 1819,
+   "title": "Film S73"
+  },
+  "f/S76.dc.html": {
+   "x": 1320,
+   "y": 40352,
+   "w": 1240,
+   "h": 2575,
+   "title": "Film S76"
+  },
+  "f/S99.dc.html": {
+   "x": 2640,
+   "y": 40352,
+   "w": 1240,
+   "h": 2197,
+   "title": "Film S99"
+  }
+ },
+ "order": [
+  "Main.dc.html",
+  "f/S01.dc.html",
+  "f/S02.dc.html",
+  "f/S03a.dc.html",
+  "f/S03b.dc.html",
+  "f/S04.dc.html",
+  "f/S05.dc.html",
+  "f/S06.dc.html",
+  "f/S07.dc.html",
+  "f/S08.dc.html",
+  "f/S09.dc.html",
+  "f/S10.dc.html",
+  "f/S11.dc.html",
+  "f/S12.dc.html",
+  "f/S14.dc.html",
+  "f/S15.dc.html",
+  "f/S16.dc.html",
+  "f/S17.dc.html",
+  "f/S19.dc.html",
+  "f/S23.dc.html",
+  "f/S25.dc.html",
+  "f/S27.dc.html",
+  "f/S28.dc.html",
+  "f/S29.dc.html",
+  "f/S30.dc.html",
+  "f/S32.dc.html",
+  "f/S33a.dc.html",
+  "f/S33b.dc.html",
+  "f/S34.dc.html",
+  "f/S35.dc.html",
+  "f/S37.dc.html",
+  "f/S42.dc.html",
+  "f/S43.dc.html",
+  "f/S44.dc.html",
+  "f/S45.dc.html",
+  "f/S46.dc.html",
+  "f/S48.dc.html",
+  "f/S49.dc.html",
+  "f/S53.dc.html",
+  "f/S54.dc.html",
+  "f/S56.dc.html",
+  "f/S57.dc.html",
+  "f/S58.dc.html",
+  "f/S60.dc.html",
+  "f/S63.dc.html",
+  "f/S64.dc.html",
+  "f/S65.dc.html",
+  "f/S66.dc.html",
+  "f/S70.dc.html",
+  "f/S73.dc.html",
+  "f/S76.dc.html",
+  "f/S99.dc.html"
+ ],
+ "notes": {
+  "row-films": {
+   "x": 0,
+   "y": 640,
+   "text": "Films · 51",
+   "kind": "title1",
+   "maxW": 5200
+  }
+ },
+ "designSystems": []
+}

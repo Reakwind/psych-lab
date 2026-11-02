@@ -1,0 +1,884 @@
+{
+ "v": 3,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-02T13:45:00Z"
+ },
+ "title": "Psych Lab — Activities",
+ "launch": {
+  "view": "canvas"
+ },
+ "pages": [],
+ "boards": {
+  "Main.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1100,
+   "h": 760,
+   "title": "Activities · index"
+  },
+  "a/PS-ACT-001.dc.html": {
+   "x": 0,
+   "y": 1080,
+   "w": 760,
+   "h": 1085,
+   "title": "PS-ACT-001 · Belly Breathing"
+  },
+  "a/PS-ACT-005.dc.html": {
+   "x": 840,
+   "y": 1080,
+   "w": 760,
+   "h": 1052,
+   "title": "PS-ACT-005 · Box Breathing"
+  },
+  "a/PS-ACT-019.dc.html": {
+   "x": 1680,
+   "y": 1080,
+   "w": 760,
+   "h": 1052,
+   "title": "PS-ACT-019 · Physiological Sigh"
+  },
+  "a/PS-ACT-020.dc.html": {
+   "x": 2520,
+   "y": 1080,
+   "w": 760,
+   "h": 1019,
+   "title": "PS-ACT-020 · Coherent Breathing"
+  },
+  "a/PS-ACT-002.dc.html": {
+   "x": 0,
+   "y": 2565,
+   "w": 760,
+   "h": 1773,
+   "title": "PS-ACT-002 · Inner Voice Workout"
+  },
+  "a/PS-ACT-002-motivation.dc.html": {
+   "x": 840,
+   "y": 2565,
+   "w": 1100,
+   "h": 4129,
+   "title": "Inner Voice · Motivation"
+  },
+  "a/PS-ACT-002-balanced.dc.html": {
+   "x": 1680,
+   "y": 2565,
+   "w": 1100,
+   "h": 4742,
+   "title": "Inner Voice · Balancing thoughts"
+  },
+  "a/PS-ACT-002-relaxation.dc.html": {
+   "x": 2520,
+   "y": 2565,
+   "w": 1100,
+   "h": 4256,
+   "title": "Inner Voice · Relaxation"
+  },
+  "a/PS-ACT-002-mindfulness.dc.html": {
+   "x": 3360,
+   "y": 2565,
+   "w": 1100,
+   "h": 2710,
+   "title": "Inner Voice · Mindfulness"
+  },
+  "a/PS-ACT-002-compassion.dc.html": {
+   "x": 4200,
+   "y": 2565,
+   "w": 1100,
+   "h": 2984,
+   "title": "Inner Voice · Compassion & validation"
+  },
+  "a/PS-ACT-002-labels.dc.html": {
+   "x": 0,
+   "y": 7467,
+   "w": 1100,
+   "h": 2691,
+   "title": "Inner Voice · Labels"
+  },
+  "a/PS-ACT-002-flexible.dc.html": {
+   "x": 840,
+   "y": 7467,
+   "w": 1100,
+   "h": 5488,
+   "title": "Inner Voice · Flexible thinking (General sheet)"
+  },
+  "a/PS-ACT-004.dc.html": {
+   "x": 0,
+   "y": 13355,
+   "w": 760,
+   "h": 1532,
+   "title": "PS-ACT-004 · Cardversation"
+  },
+  "a/PS-ACT-004-deck-1.dc.html": {
+   "x": 840,
+   "y": 13355,
+   "w": 900,
+   "h": 8000,
+   "title": "Cardversation · deck 1"
+  },
+  "a/PS-ACT-004-deck-2.dc.html": {
+   "x": 1680,
+   "y": 13355,
+   "w": 900,
+   "h": 8000,
+   "title": "Cardversation · deck 2"
+  },
+  "a/PS-ACT-004-deck-3.dc.html": {
+   "x": 2520,
+   "y": 13355,
+   "w": 900,
+   "h": 8000,
+   "title": "Cardversation · deck 3"
+  },
+  "a/PS-ACT-004-deck-4.dc.html": {
+   "x": 3360,
+   "y": 13355,
+   "w": 900,
+   "h": 8000,
+   "title": "Cardversation · deck 4"
+  },
+  "a/PS-ACT-004-deck-5.dc.html": {
+   "x": 4200,
+   "y": 13355,
+   "w": 900,
+   "h": 2615,
+   "title": "Cardversation · deck 5"
+  },
+  "a/PS-ACT-009.dc.html": {
+   "x": 0,
+   "y": 21755,
+   "w": 760,
+   "h": 8000,
+   "title": "PS-ACT-009 · Exploring a Pleasant Experience"
+  },
+  "a/PS-ACT-010.dc.html": {
+   "x": 840,
+   "y": 21755,
+   "w": 760,
+   "h": 7046,
+   "title": "PS-ACT-010 · A Moment of Gratitude"
+  },
+  "a/PS-CONT-109.dc.html": {
+   "x": 1680,
+   "y": 21755,
+   "w": 760,
+   "h": 6069,
+   "title": "PS-CONT-109 · This Matters to Me"
+  },
+  "a/PS-ACT-011.dc.html": {
+   "x": 2520,
+   "y": 21755,
+   "w": 760,
+   "h": 6048,
+   "title": "PS-ACT-011 · This Matters to Me"
+  },
+  "a/PS-ACT-003.dc.html": {
+   "x": 0,
+   "y": 30155,
+   "w": 760,
+   "h": 1187,
+   "title": "PS-ACT-003 · Grounding"
+  },
+  "a/PS-CONT-060.dc.html": {
+   "x": 840,
+   "y": 30155,
+   "w": 760,
+   "h": 1187,
+   "title": "PS-CONT-060 · Observing Thoughts"
+  },
+  "a/PS-CONT-065.dc.html": {
+   "x": 1680,
+   "y": 30155,
+   "w": 760,
+   "h": 1155,
+   "title": "PS-CONT-065 · Guided Relaxation"
+  },
+  "a/PS-CONT-067.dc.html": {
+   "x": 2520,
+   "y": 30155,
+   "w": 760,
+   "h": 1302,
+   "title": "PS-CONT-067 · Progressive Muscle Relaxation"
+  },
+  "a/PS-CONT-068.dc.html": {
+   "x": 3360,
+   "y": 30155,
+   "w": 760,
+   "h": 1153,
+   "title": "PS-CONT-068 · Safe Place Guided Imagery"
+  },
+  "a/PS-CONT-070.dc.html": {
+   "x": 4200,
+   "y": 30155,
+   "w": 760,
+   "h": 1228,
+   "title": "PS-CONT-070 · Awareness of Breath"
+  },
+  "a/PS-CONT-071.dc.html": {
+   "x": 0,
+   "y": 31617,
+   "w": 760,
+   "h": 1302,
+   "title": "PS-CONT-071 · Body Scan"
+  },
+  "a/PS-CONT-074.dc.html": {
+   "x": 840,
+   "y": 31617,
+   "w": 760,
+   "h": 1300,
+   "title": "PS-CONT-074 · A Moment of Self-Compassion"
+  },
+  "a/PS-CONT-103.dc.html": {
+   "x": 1680,
+   "y": 31617,
+   "w": 760,
+   "h": 1300,
+   "title": "PS-CONT-103 · I Am Enough (practice)"
+  },
+  "a/PS-CONT-058.dc.html": {
+   "x": 2520,
+   "y": 31617,
+   "w": 760,
+   "h": 1064,
+   "title": "PS-CONT-058 · Grounding"
+  },
+  "a/PS-CONT-104.dc.html": {
+   "x": 3360,
+   "y": 31617,
+   "w": 760,
+   "h": 1195,
+   "title": "PS-CONT-104 · One-Breath Reset"
+  },
+  "a/PS-CONT-105.dc.html": {
+   "x": 4200,
+   "y": 31617,
+   "w": 760,
+   "h": 1227,
+   "title": "PS-CONT-105 · Soften One Place"
+  },
+  "a/PS-CONT-106.dc.html": {
+   "x": 0,
+   "y": 33079,
+   "w": 760,
+   "h": 1195,
+   "title": "PS-CONT-106 · Three Anchors"
+  },
+  "a/PS-CONT-066.dc.html": {
+   "x": 840,
+   "y": 33079,
+   "w": 760,
+   "h": 1137,
+   "title": "PS-CONT-066 · Nighttime Guided Imagery"
+  },
+  "a/PS-CONT-069.dc.html": {
+   "x": 1680,
+   "y": 33079,
+   "w": 760,
+   "h": 1105,
+   "title": "PS-CONT-069 · Nighttime Safe Place"
+  },
+  "a/PS-CONT-077.dc.html": {
+   "x": 2520,
+   "y": 33079,
+   "w": 760,
+   "h": 1137,
+   "title": "PS-CONT-077 · Nighttime Body Scan"
+  },
+  "a/PS-CONT-078.dc.html": {
+   "x": 3360,
+   "y": 33079,
+   "w": 760,
+   "h": 1105,
+   "title": "PS-CONT-078 · Hands and Feet Before Sleep"
+  },
+  "a/PS-CONT-110.dc.html": {
+   "x": 4200,
+   "y": 33079,
+   "w": 760,
+   "h": 858,
+   "title": "PS-CONT-110 · A Moment of Self-Compassion – Loving Kindness Version"
+  },
+  "a/PS-ACT-006.dc.html": {
+   "x": 0,
+   "y": 34674,
+   "w": 760,
+   "h": 1520,
+   "title": "PS-ACT-006 · Take a Breather"
+  },
+  "a/PS-ACT-007.dc.html": {
+   "x": 840,
+   "y": 34674,
+   "w": 760,
+   "h": 1356,
+   "title": "PS-ACT-007 · Mindfulness"
+  },
+  "a/PS-ACT-008.dc.html": {
+   "x": 1680,
+   "y": 34674,
+   "w": 760,
+   "h": 1287,
+   "title": "PS-ACT-008 · In the Moment"
+  },
+  "a/PS-ACT-012.dc.html": {
+   "x": 2520,
+   "y": 34674,
+   "w": 760,
+   "h": 1394,
+   "title": "PS-ACT-012 · Relaxation"
+  },
+  "a/PS-ACT-013.dc.html": {
+   "x": 3360,
+   "y": 34674,
+   "w": 760,
+   "h": 1427,
+   "title": "PS-ACT-013 · Self-Care"
+  },
+  "a/PS-ACT-014.dc.html": {
+   "x": 4200,
+   "y": 34674,
+   "w": 760,
+   "h": 1427,
+   "title": "PS-ACT-014 · Flexible Thinking"
+  },
+  "a/PS-ACT-015.dc.html": {
+   "x": 0,
+   "y": 36354,
+   "w": 760,
+   "h": 1427,
+   "title": "PS-ACT-015 · Attention & Emotional Balance"
+  },
+  "a/PS-ACT-016.dc.html": {
+   "x": 840,
+   "y": 36354,
+   "w": 760,
+   "h": 1394,
+   "title": "PS-ACT-016 · Cultivating Calm"
+  },
+  "a/PS-ACT-017.dc.html": {
+   "x": 1680,
+   "y": 36354,
+   "w": 760,
+   "h": 1394,
+   "title": "PS-ACT-017 · Meaningful Action"
+  },
+  "a/PS-CONT-001.dc.html": {
+   "x": 0,
+   "y": 38181,
+   "w": 760,
+   "h": 816,
+   "title": "PS-CONT-001 · Welcome"
+  },
+  "a/PS-CONT-002.dc.html": {
+   "x": 840,
+   "y": 38181,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-002 · Apathy: When It's Hard to Start"
+  },
+  "a/PS-CONT-003.dc.html": {
+   "x": 1680,
+   "y": 38181,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-003 · Practicing with Parkinson's"
+  },
+  "a/PS-CONT-004.dc.html": {
+   "x": 2520,
+   "y": 38181,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-004 · Managing Your Energy"
+  },
+  "a/PS-CONT-005.dc.html": {
+   "x": 3360,
+   "y": 38181,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-005 · Thoughts Are Not Facts"
+  },
+  "a/PS-CONT-029.dc.html": {
+   "x": 4200,
+   "y": 38181,
+   "w": 760,
+   "h": 977,
+   "title": "PS-CONT-029 · Balancing Thoughts"
+  },
+  "a/PS-CONT-006.dc.html": {
+   "x": 0,
+   "y": 39318,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-006 · The Bus Driver"
+  },
+  "a/PS-CONT-007.dc.html": {
+   "x": 840,
+   "y": 39318,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-007 · Sharing with Someone Close"
+  },
+  "a/PS-CONT-008.dc.html": {
+   "x": 1680,
+   "y": 39318,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-008 · Stress, Anxiety and Calming the Body"
+  },
+  "a/PS-CONT-047.dc.html": {
+   "x": 2520,
+   "y": 39318,
+   "w": 760,
+   "h": 1019,
+   "title": "PS-CONT-047 · Breathing Practice Basics"
+  },
+  "a/PS-CONT-009.dc.html": {
+   "x": 3360,
+   "y": 39318,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-009 · The Struggle Switch"
+  },
+  "a/PS-CONT-010.dc.html": {
+   "x": 4200,
+   "y": 39318,
+   "w": 760,
+   "h": 922,
+   "title": "PS-CONT-010 · No One Right Way"
+  },
+  "a/PS-CONT-048.dc.html": {
+   "x": 0,
+   "y": 40497,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-048 · Relaxation Before Sleep"
+  },
+  "a/PS-CONT-049.dc.html": {
+   "x": 840,
+   "y": 40497,
+   "w": 760,
+   "h": 880,
+   "title": "PS-CONT-049 · In-the-Moment Tools"
+  },
+  "a/PS-CONT-011.dc.html": {
+   "x": 1680,
+   "y": 40497,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-011 · Getting the Most from Practice"
+  },
+  "a/PS-CONT-012.dc.html": {
+   "x": 2520,
+   "y": 40497,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-012 · Wind-Down Routines"
+  },
+  "a/PS-CONT-013.dc.html": {
+   "x": 3360,
+   "y": 40497,
+   "w": 760,
+   "h": 977,
+   "title": "PS-CONT-013 · What Is Mindfulness?"
+  },
+  "a/PS-CONT-014.dc.html": {
+   "x": 4200,
+   "y": 40497,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-014 · Mindfulness and Neuroplasticity"
+  },
+  "a/PS-CONT-072.dc.html": {
+   "x": 0,
+   "y": 41634,
+   "w": 760,
+   "h": 814,
+   "title": "PS-CONT-072 · How to talk with others about Parkinson's"
+  },
+  "a/PS-CONT-015.dc.html": {
+   "x": 840,
+   "y": 41634,
+   "w": 760,
+   "h": 816,
+   "title": "PS-CONT-015 · The White Bear"
+  },
+  "a/PS-CONT-016.dc.html": {
+   "x": 1680,
+   "y": 41634,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-016 · Mindfulness in Everyday Life"
+  },
+  "a/PS-CONT-017.dc.html": {
+   "x": 2520,
+   "y": 41634,
+   "w": 760,
+   "h": 816,
+   "title": "PS-CONT-017 · The Chessboard Metaphor"
+  },
+  "a/PS-CONT-018.dc.html": {
+   "x": 3360,
+   "y": 41634,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-018 · What Is Self-Care?"
+  },
+  "a/PS-CONT-019.dc.html": {
+   "x": 4200,
+   "y": 41634,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-019 · Doing What's Good for Us"
+  },
+  "a/PS-CONT-020.dc.html": {
+   "x": 0,
+   "y": 42642,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-020 · Self-Validation"
+  },
+  "a/PS-CONT-021.dc.html": {
+   "x": 840,
+   "y": 42642,
+   "w": 760,
+   "h": 882,
+   "title": "PS-CONT-021 · I Am Enough"
+  },
+  "a/PS-CONT-022.dc.html": {
+   "x": 1680,
+   "y": 42642,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-022 · Finding Your Way to Stay Connected"
+  },
+  "a/PS-CONT-023.dc.html": {
+   "x": 2520,
+   "y": 42642,
+   "w": 760,
+   "h": 816,
+   "title": "PS-CONT-023 · Values and Meaningful Action"
+  },
+  "a/PS-CONT-024.dc.html": {
+   "x": 3360,
+   "y": 42642,
+   "w": 760,
+   "h": 816,
+   "title": "PS-CONT-024 · The Compass Metaphor"
+  },
+  "a/PS-CONT-025.dc.html": {
+   "x": 4200,
+   "y": 42642,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-025 · Role Changes"
+  },
+  "a/PS-CONT-026.dc.html": {
+   "x": 0,
+   "y": 43684,
+   "w": 760,
+   "h": 848,
+   "title": "PS-CONT-026 · Understanding the Discomfort Cycle"
+  },
+  "a/PS-CONT-027.dc.html": {
+   "x": 840,
+   "y": 43684,
+   "w": 760,
+   "h": 816,
+   "title": "PS-CONT-027 · The Uninvited Guest"
+  },
+  "a/PS-CONT-028.dc.html": {
+   "x": 1680,
+   "y": 43684,
+   "w": 760,
+   "h": 816,
+   "title": "PS-CONT-028 · Putting It All Together"
+  },
+  "a/PS-CONT-034.dc.html": {
+   "x": 2520,
+   "y": 43684,
+   "w": 760,
+   "h": 772,
+   "title": "PS-CONT-034 · Grounding"
+  },
+  "a/PS-CONT-037.dc.html": {
+   "x": 3360,
+   "y": 43684,
+   "w": 760,
+   "h": 772,
+   "title": "PS-CONT-037 · Observing Thoughts"
+  },
+  "a/PS-CONT-035.dc.html": {
+   "x": 4200,
+   "y": 43684,
+   "w": 760,
+   "h": 739,
+   "title": "PS-CONT-035 · Relaxation"
+  },
+  "a/PS-CONT-036.dc.html": {
+   "x": 0,
+   "y": 44692,
+   "w": 760,
+   "h": 739,
+   "title": "PS-CONT-036 · Mindfulness"
+  },
+  "a/PS-CONT-039.dc.html": {
+   "x": 840,
+   "y": 44692,
+   "w": 760,
+   "h": 772,
+   "title": "PS-CONT-039 · A Moment of Self-Compassion"
+  },
+  "a/PS-CONT-108.dc.html": {
+   "x": 1680,
+   "y": 44692,
+   "w": 760,
+   "h": 772,
+   "title": "PS-CONT-108 · I Am Enough (practice)"
+  },
+  "a/PS-CONT-030.dc.html": {
+   "x": 2520,
+   "y": 44692,
+   "w": 760,
+   "h": 694,
+   "title": "PS-CONT-030 · Belly Breathing"
+  },
+  "a/PS-CONT-045.dc.html": {
+   "x": 3360,
+   "y": 44692,
+   "w": 760,
+   "h": 855,
+   "title": "PS-CONT-045 · Inner Voice Workout"
+  },
+  "a/PS-CONT-046.dc.html": {
+   "x": 4200,
+   "y": 44692,
+   "w": 760,
+   "h": 888,
+   "title": "PS-CONT-046 · Cardversation"
+  },
+  "a/PS-CONT-031.dc.html": {
+   "x": 0,
+   "y": 45740,
+   "w": 760,
+   "h": 726,
+   "title": "PS-CONT-031 · Box Breathing"
+  },
+  "a/PS-CONT-038.dc.html": {
+   "x": 840,
+   "y": 45740,
+   "w": 760,
+   "h": 758,
+   "title": "PS-CONT-038 · Pleasant Moment"
+  },
+  "a/PS-CONT-107.dc.html": {
+   "x": 1680,
+   "y": 45740,
+   "w": 760,
+   "h": 758,
+   "title": "PS-CONT-107 · A Moment of Gratitude"
+  },
+  "a/PS-CONT-040.dc.html": {
+   "x": 2520,
+   "y": 45740,
+   "w": 760,
+   "h": 772,
+   "title": "PS-CONT-040 · Flexible Thinking"
+  },
+  "a/PS-CONT-041.dc.html": {
+   "x": 3360,
+   "y": 45740,
+   "w": 760,
+   "h": 772,
+   "title": "PS-CONT-041 · Attention & Emotional Balance"
+  },
+  "a/PS-CONT-042.dc.html": {
+   "x": 4200,
+   "y": 45740,
+   "w": 760,
+   "h": 739,
+   "title": "PS-CONT-042 · Cultivating Calm"
+  },
+  "a/PS-CONT-043.dc.html": {
+   "x": 0,
+   "y": 46672,
+   "w": 760,
+   "h": 739,
+   "title": "PS-CONT-043 · Meaningful Action"
+  },
+  "a/PS-CONT-033.dc.html": {
+   "x": 840,
+   "y": 46672,
+   "w": 760,
+   "h": 726,
+   "title": "PS-CONT-033 · Physiological Sigh"
+  },
+  "a/PS-CONT-032.dc.html": {
+   "x": 1680,
+   "y": 46672,
+   "w": 760,
+   "h": 694,
+   "title": "PS-CONT-032 · Coherent Breathing"
+  },
+  "a/DA-CONT-063.dc.html": {
+   "x": 2520,
+   "y": 46672,
+   "w": 760,
+   "h": 889,
+   "title": "DA-CONT-063 · Light Stretches"
+  }
+ },
+ "order": [
+  "Main.dc.html",
+  "a/PS-ACT-001.dc.html",
+  "a/PS-ACT-005.dc.html",
+  "a/PS-ACT-019.dc.html",
+  "a/PS-ACT-020.dc.html",
+  "a/PS-ACT-002.dc.html",
+  "a/PS-ACT-002-motivation.dc.html",
+  "a/PS-ACT-002-balanced.dc.html",
+  "a/PS-ACT-002-relaxation.dc.html",
+  "a/PS-ACT-002-mindfulness.dc.html",
+  "a/PS-ACT-002-compassion.dc.html",
+  "a/PS-ACT-002-labels.dc.html",
+  "a/PS-ACT-002-flexible.dc.html",
+  "a/PS-ACT-004.dc.html",
+  "a/PS-ACT-004-deck-1.dc.html",
+  "a/PS-ACT-004-deck-2.dc.html",
+  "a/PS-ACT-004-deck-3.dc.html",
+  "a/PS-ACT-004-deck-4.dc.html",
+  "a/PS-ACT-004-deck-5.dc.html",
+  "a/PS-ACT-009.dc.html",
+  "a/PS-ACT-010.dc.html",
+  "a/PS-CONT-109.dc.html",
+  "a/PS-ACT-011.dc.html",
+  "a/PS-ACT-003.dc.html",
+  "a/PS-CONT-060.dc.html",
+  "a/PS-CONT-065.dc.html",
+  "a/PS-CONT-067.dc.html",
+  "a/PS-CONT-068.dc.html",
+  "a/PS-CONT-070.dc.html",
+  "a/PS-CONT-071.dc.html",
+  "a/PS-CONT-074.dc.html",
+  "a/PS-CONT-103.dc.html",
+  "a/PS-CONT-058.dc.html",
+  "a/PS-CONT-104.dc.html",
+  "a/PS-CONT-105.dc.html",
+  "a/PS-CONT-106.dc.html",
+  "a/PS-CONT-066.dc.html",
+  "a/PS-CONT-069.dc.html",
+  "a/PS-CONT-077.dc.html",
+  "a/PS-CONT-078.dc.html",
+  "a/PS-CONT-110.dc.html",
+  "a/PS-ACT-006.dc.html",
+  "a/PS-ACT-007.dc.html",
+  "a/PS-ACT-008.dc.html",
+  "a/PS-ACT-012.dc.html",
+  "a/PS-ACT-013.dc.html",
+  "a/PS-ACT-014.dc.html",
+  "a/PS-ACT-015.dc.html",
+  "a/PS-ACT-016.dc.html",
+  "a/PS-ACT-017.dc.html",
+  "a/PS-CONT-001.dc.html",
+  "a/PS-CONT-002.dc.html",
+  "a/PS-CONT-003.dc.html",
+  "a/PS-CONT-004.dc.html",
+  "a/PS-CONT-005.dc.html",
+  "a/PS-CONT-029.dc.html",
+  "a/PS-CONT-006.dc.html",
+  "a/PS-CONT-007.dc.html",
+  "a/PS-CONT-008.dc.html",
+  "a/PS-CONT-047.dc.html",
+  "a/PS-CONT-009.dc.html",
+  "a/PS-CONT-010.dc.html",
+  "a/PS-CONT-048.dc.html",
+  "a/PS-CONT-049.dc.html",
+  "a/PS-CONT-011.dc.html",
+  "a/PS-CONT-012.dc.html",
+  "a/PS-CONT-013.dc.html",
+  "a/PS-CONT-014.dc.html",
+  "a/PS-CONT-072.dc.html",
+  "a/PS-CONT-015.dc.html",
+  "a/PS-CONT-016.dc.html",
+  "a/PS-CONT-017.dc.html",
+  "a/PS-CONT-018.dc.html",
+  "a/PS-CONT-019.dc.html",
+  "a/PS-CONT-020.dc.html",
+  "a/PS-CONT-021.dc.html",
+  "a/PS-CONT-022.dc.html",
+  "a/PS-CONT-023.dc.html",
+  "a/PS-CONT-024.dc.html",
+  "a/PS-CONT-025.dc.html",
+  "a/PS-CONT-026.dc.html",
+  "a/PS-CONT-027.dc.html",
+  "a/PS-CONT-028.dc.html",
+  "a/PS-CONT-034.dc.html",
+  "a/PS-CONT-037.dc.html",
+  "a/PS-CONT-035.dc.html",
+  "a/PS-CONT-036.dc.html",
+  "a/PS-CONT-039.dc.html",
+  "a/PS-CONT-108.dc.html",
+  "a/PS-CONT-030.dc.html",
+  "a/PS-CONT-045.dc.html",
+  "a/PS-CONT-046.dc.html",
+  "a/PS-CONT-031.dc.html",
+  "a/PS-CONT-038.dc.html",
+  "a/PS-CONT-107.dc.html",
+  "a/PS-CONT-040.dc.html",
+  "a/PS-CONT-041.dc.html",
+  "a/PS-CONT-042.dc.html",
+  "a/PS-CONT-043.dc.html",
+  "a/PS-CONT-033.dc.html",
+  "a/PS-CONT-032.dc.html",
+  "a/DA-CONT-063.dc.html"
+ ],
+ "notes": {
+  "row-breathing": {
+   "x": 0,
+   "y": 840,
+   "text": "Breathing · 4",
+   "kind": "title1",
+   "maxW": 3280
+  },
+  "row-inner": {
+   "x": 0,
+   "y": 2325,
+   "text": "Inner Voice · 1",
+   "kind": "title1",
+   "maxW": 4960
+  },
+  "row-cards": {
+   "x": 0,
+   "y": 13115,
+   "text": "Cardversation · 1",
+   "kind": "title1",
+   "maxW": 4960
+  },
+  "row-reflection": {
+   "x": 0,
+   "y": 21515,
+   "text": "Reflection · 4",
+   "kind": "title1",
+   "maxW": 3280
+  },
+  "row-audio": {
+   "x": 0,
+   "y": 29915,
+   "text": "Guided audio · 18",
+   "kind": "title1",
+   "maxW": 4960
+  },
+  "row-choice": {
+   "x": 0,
+   "y": 34434,
+   "text": "Choice groups · 9",
+   "kind": "title1",
+   "maxW": 4960
+  },
+  "row-video": {
+   "x": 0,
+   "y": 37941,
+   "text": "Videos · 52",
+   "kind": "title1",
+   "maxW": 4960
+  }
+ },
+ "designSystems": []
+}

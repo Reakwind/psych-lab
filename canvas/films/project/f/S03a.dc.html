@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Film S03a beside its script</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#2B6A62}a:hover{color:#00201C}
+.lab{box-sizing:border-box;background:#F5FBF8;color:#171D1B;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-y:auto}
+.he{font-family:Rubik,system-ui,sans-serif;text-align:right;unicode-bidi:plaintext}
+.kicker{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#3F4946;font-weight:600;margin:0}
+.title{font-size:28px;line-height:1.3;margin:4px 0 2px;font-weight:600}
+.sub{color:#3F4946;margin:0}
+.sec{border-top:1px solid #BEC9C5;padding-top:12px;margin-top:16px}
+.sec h3{margin:0 0 8px;font-size:12px;color:#3F4946;text-transform:uppercase;letter-spacing:.06em}
+.meta{font-size:13px;color:#3F4946;margin:4px 0}
+.gap{display:inline-block;background:#FFDEA3;color:#261900;border-radius:8px;padding:4px 10px;font-size:13px;margin:4px 0}
+.issue{background:#FFF4DC;color:#261900;border-radius:8px;padding:6px 10px;font-size:13px;margin:6px 0}
+.tag{display:inline-block;background:#E3EAE7;color:#3F4946;border-radius:999px;padding:2px 10px;font-size:12px;margin:0 6px 6px 0}
+.text{font-size:17px;line-height:1.7;margin:6px 0}
+.box{background:#FFFFFF;border:1px solid #DDE4E1;border-radius:12px;padding:12px 14px;margin:10px 0}
+.lbl{font-size:12px;color:#3F4946;margin-top:8px}
+ul.he{padding-right:20px;padding-left:0}
+mark{background:#F1D79C;color:inherit;border-radius:3px;padding:0 2px}
+table{border-collapse:collapse;width:100%}
+td,th{border-top:1px solid #DDE4E1;padding:8px 6px;vertical-align:top;text-align:left;font-size:13px}
+th{color:#3F4946;font-weight:600}
+td.he{font-size:16px}
+
+</style>
+</helmet>
+<div class="lab" style="width: 1240px; height: 3393px; padding: 32px 36px; display: flex; gap: 40px; align-items: flex-start">
+<div style="width: 360px; flex-shrink: 0; display: flex; flex-direction: column; gap: 10px">
+<p class="kicker">Film beside its script</p>
+<h2 class="title">Film S03a</h2>
+<video controls="controls" preload="none" playsinline="playsinline" src="/_blob/0f9e49ca28c376dc0aa47cf7e60e1537" style="width: 360px; height: 360px; object-fit: cover; border-radius: 16px; background: #E9EFEC; display: block"></video>
+<p class="meta" style="margin-bottom: 0">Script document</p>
+<p class="meta" style="margin-top: 0; overflow-wrap: anywhere"><code>sources/film-scripts/תסריטים/תרגול עם פרקינסון.docx</code></p>
+<p class="meta">25 of 25 lines narrated word for word · voiced with the ElevenLabs API</p>
+<p class="issue">A later copy-edit of this script exists: PS-CONT-003 in Psychology Hebrew.docx, with 44 differences from the film. The film follows the document beside it.</p>
+<p class="meta">Highlighted words differ between the script and what was narrated.</p>
+<p class="meta"><a href="https://claude.ai/artifact/GfG5m5VUL9zqniG5M9FHzT" target="_blank" rel="noopener">Activities</a> · <a href="https://claude.ai/artifact/8NYov7M3HXKPhX49GV6WMw" target="_blank" rel="noopener">Phone preview</a> · <a href="https://claude.ai/artifact/WAWMSHN8NVvUtk2Mp5vaW6" target="_blank" rel="noopener">Home</a></p>
+</div>
+<div style="flex: 1 1 auto; min-width: 0">
+<sc-for list="{{lines}}" as="line" hint-placeholder-count="6">
+<section class="sec" style="margin-top: 0; margin-bottom: 14px">
+<sc-if value="{{line.v}}" hint-placeholder-val="{{ true }}"><span class="tag">Word for word</span></sc-if>
+<sc-if value="{{line.nv}}" hint-placeholder-val="{{ false }}"><span class="tag" style="background: #F3E2BD; color: #6B4D12">Differs from the script</span></sc-if>
+<sc-for list="{{line.script}}" as="q" hint-placeholder-count="1"><p class="he text" dir="rtl" lang="he" style="font-size: 18px"><sc-for list="{{q.words}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-for>
+<sc-if value="{{line.hasSaid}}" hint-placeholder-val="{{ false }}"><p class="lbl">Narrated as</p><p class="he text" dir="rtl" lang="he" style="background: #EFF5F2; border-radius: 8px; padding: 4px 10px; font-size: 16px"><sc-for list="{{line.said}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-if>
+<sc-if value="{{line.hasVoiced}}" hint-placeholder-val="{{ false }}"><p class="lbl">Text sent to ElevenLabs (adjusted for pronunciation)</p><p class="he text" dir="rtl" lang="he" style="background: #EFF5F2; border-radius: 8px; padding: 4px 10px; font-size: 16px"><sc-for list="{{line.voiced}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-if>
+</section>
+</sc-for>
+<details style="margin-top: 16px"><summary class="meta">Script text not in the film (1)</summary>
+<p class="he text" dir="rtl" lang="he">תרגול עם פרקינסון</p>
+</details>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":3393}}'>
+class Component extends DCLogic {
+  // Each line as the script document and the narration record have it; words are split only to mark differences.
+  data() { return {"lines":[{"v":true,"script":["היי, קוראים לי אריאל שחף, אני פסיכולוג קליני ומורה למיינדפולנס."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["במהלך התוכנית נכיר יחד דרכים פשוטות להרגיע את הגוף, לעבוד עם מחשבות ורגשות, ולהתמודד עם אתגרי היומיום בדרך קצת יותר גמישה ותומכת."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["כשאנשים שומעים בפעם הראשונה על תרגילי הרפיה או מיינדפולנס, לפעמים עולה המחשבה: \"זה לא ממש בשבילי\"."],"sc":[],"said":null,"fc":[],"voiced":["כשאנשים שומעים בפעם הראשונה על תרגילי הרפיה או מיינדפולנס, לפעמים עולה המחשבה: זה לא ממש בשבילי."],"vc":[12,15]},{"v":true,"script":["איך אני אמור לשבת בשקט אם יש לי רעד? מה אם לא נוח לי? ומה אם אני בכלל לא מצליח להירגע?"],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אז בדיוק על זה רציתי לדבר איתכם"],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["קודם כל, ממש לא צריך לשבת בלי לזוז, כדי לתרגל."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["למעשה, חלק מהתרגול הוא ללמוד לזהות מה קורה לנו עכשיו בגוף ובראש ולעבוד עם המציאות של הרגע הנוכחי כפי שהיא."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["זה חשוב במיוחד עם פרקינסון, כי התחושות, יכולת הריכוז, והתנועתיות של הגוף משתנות בכל יום, וגם במהלך היום, למשל בהתאם לזמן לקיחת התרופה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אז סביר להניח שכל תרגול ירגיש קצת אחרת. וזה בסדר, ככה תרגול צריך להיות."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["במהלך התרגולים, יכול להיות שתגלו כל מיני דברים על עצמיכם.","אולי תגלו שנוח לכם יותר לתרגל בשעות מסוימות, למשל כשהתרופה משפיעה והתסמינים פחות מורגשים."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["או שאולי דווקא כשאתם לא במיטבכם, תגלו שהתרגול נותן איזושהי נקודת אחיזה מרגיעה. שווה לנסות בזמנים ומצבים שונים ולראות מה עובד לכם."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אותו דבר לגבי התנוחה.","אפשר לשבת זקוף, אפשר להישען, ואפשר, והרבה פעמים גם מומלץ, גם לשכב. אפשר להשתמש בכרית או בתמיכה אחרת. העיקר למצוא תנוחה שיחסית נוחה לכם כרגע."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["יכול להיות שבמהלך התרגול יהיו רעד, נוקשות או תנועות לא רצוניות, וזה בסדר. לא צריך לחכות שהם ייעלמו או להתאמץ לעצור אותם כדי לתרגל."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["חלק מהתרגול הוא ללמוד איך להיות ולעבוד עם מה שנוכח כרגע, ולאפשר גם לתנועות ולתחושות האלה להיות חלק מהחוויה של הרגע הזה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["גם בתרגילי הנשימה, ההנחיות הן לא מבחן שצריך להצליח בו. לקחת נשימה עמוקה יותר, לעקוב אחרי קצב קבוע יכולים לפעמים להרגיש קשים או לא נוחים, במיוחד בפרקינסון."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["גם כאן, המטרה היא להתנסות בעדינות, לעשות התאמות ולגלות בהדרגה איזה קצב ואיזו דרך מרגישים מתאימים ונוחים יותר."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["כל סוג של תרגול הוא עצירה והקשבה פנימה. וכשאנחנו מקשיבים, אנחנו עשויים לשמוע כל מיני דברים מעניינים."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["יכול להיות שיום אחד תרגול מסוים ירגיע - זה מעניין,","ביום אחר הוא יעורר חוסר סבלנות או עייפות - גם זה מעניין."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אנחנו רק מקשיבים. שמים לב. לא שופטים. לא מבקרים."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["מדי פעם, המחשבות ינדדו לרעשים מהסביבה, לתחושות הגוף, להמשך היום.","ככה זה עם מחשבות."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["כשזה יקרה, ניקח נשימה ונחזור לתרגול, עד הנדידה הבאה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["בקיצור, העצה שלי היא לתת לעצמכם זמן להתנסות וללמוד."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אתם לא צריכים להתאמץ לשנות את עצמכם בשביל לתרגל, וגם לא חייבים לפתור מראש את כל הספקות או הרגשות המעורבים שאולי יש לכם בנושא."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["פשוט בואו נראה אם אפשר לבוא עם ראש פתוח, ולנסות ללמוד מכל תרגול דבר אחד קטן על מה שמתאים לכם."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["עם הזמן, הדברים הקטנים האלה יצטברו ויעזרו לכם למצוא את הדרך שלכם לתרגל."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]}]}; }
+  renderVals() {
+    const split = (texts, changed) => {
+      const marks = new Set(changed || []);
+      let at = 0;
+      return texts.map((t) => ({ words: t.replace(/\s+/g, ' ').trim().split(' ').filter(Boolean).map((w) => { const m = marks.has(at++); return { t: w, m, p: !m }; }) }));
+    };
+    return {
+      lines: this.data().lines.map((l) => ({
+        v: l.v, nv: !l.v,
+        script: split(l.script, l.sc),
+        hasSaid: !!l.said, said: l.said ? split([l.said], l.fc)[0].words : [],
+        hasVoiced: !!l.voiced, voiced: l.voiced ? split(l.voiced, l.vc).flatMap((q) => q.words) : []
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

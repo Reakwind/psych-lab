@@ -1,0 +1,26 @@
+{
+ "v": 3,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-02T13:45:00Z"
+ },
+ "title": "Psych Lab — Home",
+ "launch": {
+  "view": "canvas"
+ },
+ "pages": [],
+ "boards": {
+  "Main.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1280,
+   "h": 1000,
+   "title": "Psych Lab · home"
+  }
+ },
+ "order": [
+  "Main.dc.html"
+ ],
+ "notes": {},
+ "designSystems": []
+}

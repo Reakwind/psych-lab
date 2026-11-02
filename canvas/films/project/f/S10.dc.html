@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Film S10 beside its script</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#2B6A62}a:hover{color:#00201C}
+.lab{box-sizing:border-box;background:#F5FBF8;color:#171D1B;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-y:auto}
+.he{font-family:Rubik,system-ui,sans-serif;text-align:right;unicode-bidi:plaintext}
+.kicker{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#3F4946;font-weight:600;margin:0}
+.title{font-size:28px;line-height:1.3;margin:4px 0 2px;font-weight:600}
+.sub{color:#3F4946;margin:0}
+.sec{border-top:1px solid #BEC9C5;padding-top:12px;margin-top:16px}
+.sec h3{margin:0 0 8px;font-size:12px;color:#3F4946;text-transform:uppercase;letter-spacing:.06em}
+.meta{font-size:13px;color:#3F4946;margin:4px 0}
+.gap{display:inline-block;background:#FFDEA3;color:#261900;border-radius:8px;padding:4px 10px;font-size:13px;margin:4px 0}
+.issue{background:#FFF4DC;color:#261900;border-radius:8px;padding:6px 10px;font-size:13px;margin:6px 0}
+.tag{display:inline-block;background:#E3EAE7;color:#3F4946;border-radius:999px;padding:2px 10px;font-size:12px;margin:0 6px 6px 0}
+.text{font-size:17px;line-height:1.7;margin:6px 0}
+.box{background:#FFFFFF;border:1px solid #DDE4E1;border-radius:12px;padding:12px 14px;margin:10px 0}
+.lbl{font-size:12px;color:#3F4946;margin-top:8px}
+ul.he{padding-right:20px;padding-left:0}
+mark{background:#F1D79C;color:inherit;border-radius:3px;padding:0 2px}
+table{border-collapse:collapse;width:100%}
+td,th{border-top:1px solid #DDE4E1;padding:8px 6px;vertical-align:top;text-align:left;font-size:13px}
+th{color:#3F4946;font-weight:600}
+td.he{font-size:16px}
+
+</style>
+</helmet>
+<div class="lab" style="width: 1240px; height: 2047px; padding: 32px 36px; display: flex; gap: 40px; align-items: flex-start">
+<div style="width: 360px; flex-shrink: 0; display: flex; flex-direction: column; gap: 10px">
+<p class="kicker">Film beside its script</p>
+<h2 class="title">Film S10</h2>
+<video controls="controls" preload="none" playsinline="playsinline" src="/_blob/9f2c33299ac129c2ea13c2d899034bdb" style="width: 360px; height: 360px; object-fit: cover; border-radius: 16px; background: #E9EFEC; display: block"></video>
+<p class="meta" style="margin-bottom: 0">Script document</p>
+<p class="meta" style="margin-top: 0; overflow-wrap: anywhere"><code>sources/film-scripts/תסריטים/אינטרו לתרגול התבוננות במחשבות.docx</code></p>
+<p class="meta">13 of 13 lines narrated word for word · voiced with the ElevenLabs API</p>
+
+<p class="meta">Highlighted words differ between the script and what was narrated.</p>
+<p class="meta"><a href="https://claude.ai/artifact/GfG5m5VUL9zqniG5M9FHzT" target="_blank" rel="noopener">Activities</a> · <a href="https://claude.ai/artifact/8NYov7M3HXKPhX49GV6WMw" target="_blank" rel="noopener">Phone preview</a> · <a href="https://claude.ai/artifact/WAWMSHN8NVvUtk2Mp5vaW6" target="_blank" rel="noopener">Home</a></p>
+</div>
+<div style="flex: 1 1 auto; min-width: 0">
+<sc-for list="{{lines}}" as="line" hint-placeholder-count="6">
+<section class="sec" style="margin-top: 0; margin-bottom: 14px">
+<sc-if value="{{line.v}}" hint-placeholder-val="{{ true }}"><span class="tag">Word for word</span></sc-if>
+<sc-if value="{{line.nv}}" hint-placeholder-val="{{ false }}"><span class="tag" style="background: #F3E2BD; color: #6B4D12">Differs from the script</span></sc-if>
+<sc-for list="{{line.script}}" as="q" hint-placeholder-count="1"><p class="he text" dir="rtl" lang="he" style="font-size: 18px"><sc-for list="{{q.words}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-for>
+<sc-if value="{{line.hasSaid}}" hint-placeholder-val="{{ false }}"><p class="lbl">Narrated as</p><p class="he text" dir="rtl" lang="he" style="background: #EFF5F2; border-radius: 8px; padding: 4px 10px; font-size: 16px"><sc-for list="{{line.said}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-if>
+<sc-if value="{{line.hasVoiced}}" hint-placeholder-val="{{ false }}"><p class="lbl">Text sent to ElevenLabs (adjusted for pronunciation)</p><p class="he text" dir="rtl" lang="he" style="background: #EFF5F2; border-radius: 8px; padding: 4px 10px; font-size: 16px"><sc-for list="{{line.voiced}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-if>
+</section>
+</sc-for>
+<details style="margin-top: 16px"><summary class="meta">Script text not in the film (2)</summary>
+<p class="he text" dir="rtl" lang="he">https://remepyhealth-my.sharepoint.com/:w:/r/personal/ariel_remepy_com/_layouts/15/Doc.aspx?sourcedoc=%7BABE641C9-4FE3-49A2-8CF2-5255EEC16833%7D&amp;file=Observing%20Thoughts%20Introduction.docx&amp;action=default&amp;mobileredirect=true</p>
+<p class="he text" dir="rtl" lang="he">אינטרו להתבוננות במחשבות</p>
+</details>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":2047}}'>
+class Component extends DCLogic {
+  // Each line as the script document and the narration record have it; words are split only to mark differences.
+  data() { return {"lines":[{"v":true,"script":["המוח שלנו מייצר מחשבות בלי הפסקה. זיכרונות, תוכניות, דאגות, שאלות, ומשאלות."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["והרבה פעמים אנחנו כבר עמוק בתוך המחשבה לפני ששמנו לב בכלל שאנחנו חושבים אותה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["בתרגול הבא ננסה לעשות משהו קצת אחר.","במקום ללכת עם כל מחשבה לאן שהיא לוקחת אותנו, ננסה להתבונן בה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["לשים לב: הנה מחשבה. אולי אפילו לתת לה שם - \"זה זכרון\", \"זה תכנון\", \"זאת דאגה\" - ואז לחזור לנשימה או לתחושה בגוף."],"sc":[],"said":null,"fc":[],"voiced":["לשים לב: הנה מחשבה.","אולי אפילו לתת לה שם - זה זכרון, זה תכנון, זאת דאגה - ואז לחזור לנשימה או לתחושה בגוף."],"vc":[10,11,12,13,14,15]},{"v":true,"script":["אנחנו לא מנסים להפסיק לחשוב. גם לא לחלק ציונים למחשבות שלנו, או להחליף מחשבות קיימות במחשבות חיוביות יותר."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אנחנו מתרגלים את היכולת המדהימה של המח האנושי, לזהות מחשבות ולהתבונן בהן ממרחק בריא."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["לראות אותן כמשהו שחולף בתודעה כרגע ולא כמשהו שצריך מיד להאמין לו, לפתור אותו או לפעול לפיו."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["המרחק הקטן הזה יכול להיות משמעותי בוויסות רגשי כי הוא פותח לנו את האפשרות לבחור איך להגיב."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["יש לנו רגע להבחין:","האם זה דפוס חשיבה שמוכר לי מעצמי.","האם זאת מחשבה שאני רוצה להמשיך איתה עכשיו?"],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["האם יש כאן משהו שדורש ממני פעולה?","או שאפשר פשוט לתת לה לעבור?"],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["סביר מאוד שבשלב מסוים בתרגול תשכחו מכל מה שאמרתי עד עכשיו ותמצאו את עצמכם שוב בתוך מחשבה. זה קורה לי כל הזמן. ולכולם."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["זה לא אומר שאיבדתם את התרגול, כי מתישהו תשימו לב שנסחפתם עם מחשבה, וזה בדיוק הרגע שבו תוכלו להתבונן בה מבחוץ ולחזור לרגע הזה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["ככל שנתרגל את התנועה הזאת נוכל אולי לחזור לרגע הזה יותר בקלות, להתבונן בדפוסים שלנו עם יותר חמלה, ולאפשר לנו יותר מרחב ויציבות פנימית."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]}]}; }
+  renderVals() {
+    const split = (texts, changed) => {
+      const marks = new Set(changed || []);
+      let at = 0;
+      return texts.map((t) => ({ words: t.replace(/\s+/g, ' ').trim().split(' ').filter(Boolean).map((w) => { const m = marks.has(at++); return { t: w, m, p: !m }; }) }));
+    };
+    return {
+      lines: this.data().lines.map((l) => ({
+        v: l.v, nv: !l.v,
+        script: split(l.script, l.sc),
+        hasSaid: !!l.said, said: l.said ? split([l.said], l.fc)[0].words : [],
+        hasVoiced: !!l.voiced, voiced: l.voiced ? split(l.voiced, l.vc).flatMap((q) => q.words) : []
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

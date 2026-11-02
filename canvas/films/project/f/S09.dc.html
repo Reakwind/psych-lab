@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Film S09 beside its script</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#2B6A62}a:hover{color:#00201C}
+.lab{box-sizing:border-box;background:#F5FBF8;color:#171D1B;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-y:auto}
+.he{font-family:Rubik,system-ui,sans-serif;text-align:right;unicode-bidi:plaintext}
+.kicker{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#3F4946;font-weight:600;margin:0}
+.title{font-size:28px;line-height:1.3;margin:4px 0 2px;font-weight:600}
+.sub{color:#3F4946;margin:0}
+.sec{border-top:1px solid #BEC9C5;padding-top:12px;margin-top:16px}
+.sec h3{margin:0 0 8px;font-size:12px;color:#3F4946;text-transform:uppercase;letter-spacing:.06em}
+.meta{font-size:13px;color:#3F4946;margin:4px 0}
+.gap{display:inline-block;background:#FFDEA3;color:#261900;border-radius:8px;padding:4px 10px;font-size:13px;margin:4px 0}
+.issue{background:#FFF4DC;color:#261900;border-radius:8px;padding:6px 10px;font-size:13px;margin:6px 0}
+.tag{display:inline-block;background:#E3EAE7;color:#3F4946;border-radius:999px;padding:2px 10px;font-size:12px;margin:0 6px 6px 0}
+.text{font-size:17px;line-height:1.7;margin:6px 0}
+.box{background:#FFFFFF;border:1px solid #DDE4E1;border-radius:12px;padding:12px 14px;margin:10px 0}
+.lbl{font-size:12px;color:#3F4946;margin-top:8px}
+ul.he{padding-right:20px;padding-left:0}
+mark{background:#F1D79C;color:inherit;border-radius:3px;padding:0 2px}
+table{border-collapse:collapse;width:100%}
+td,th{border-top:1px solid #DDE4E1;padding:8px 6px;vertical-align:top;text-align:left;font-size:13px}
+th{color:#3F4946;font-weight:600}
+td.he{font-size:16px}
+
+</style>
+</helmet>
+<div class="lab" style="width: 1240px; height: 2681px; padding: 32px 36px; display: flex; gap: 40px; align-items: flex-start">
+<div style="width: 360px; flex-shrink: 0; display: flex; flex-direction: column; gap: 10px">
+<p class="kicker">Film beside its script</p>
+<h2 class="title">Film S09</h2>
+<video controls="controls" preload="none" playsinline="playsinline" src="/_blob/eab69631cccaa993a285551cfc119b99" style="width: 360px; height: 360px; object-fit: cover; border-radius: 16px; background: #E9EFEC; display: block"></video>
+<p class="meta" style="margin-bottom: 0">Script document</p>
+<p class="meta" style="margin-top: 0; overflow-wrap: anywhere"><code>sources/film-scripts/תסריטים/מטאפורת נהג האוטובוס.docx</code></p>
+<p class="meta">15 of 15 lines narrated word for word · voiced with the ElevenLabs API</p>
+<p class="issue">A later copy-edit of this script exists: PS-CONT-006 in Psychology Hebrew.docx, with 41 differences from the film. The film follows the document beside it.</p>
+<p class="meta">Highlighted words differ between the script and what was narrated.</p>
+<p class="meta"><a href="https://claude.ai/artifact/GfG5m5VUL9zqniG5M9FHzT" target="_blank" rel="noopener">Activities</a> · <a href="https://claude.ai/artifact/8NYov7M3HXKPhX49GV6WMw" target="_blank" rel="noopener">Phone preview</a> · <a href="https://claude.ai/artifact/WAWMSHN8NVvUtk2Mp5vaW6" target="_blank" rel="noopener">Home</a></p>
+</div>
+<div style="flex: 1 1 auto; min-width: 0">
+<sc-for list="{{lines}}" as="line" hint-placeholder-count="6">
+<section class="sec" style="margin-top: 0; margin-bottom: 14px">
+<sc-if value="{{line.v}}" hint-placeholder-val="{{ true }}"><span class="tag">Word for word</span></sc-if>
+<sc-if value="{{line.nv}}" hint-placeholder-val="{{ false }}"><span class="tag" style="background: #F3E2BD; color: #6B4D12">Differs from the script</span></sc-if>
+<sc-for list="{{line.script}}" as="q" hint-placeholder-count="1"><p class="he text" dir="rtl" lang="he" style="font-size: 18px"><sc-for list="{{q.words}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-for>
+<sc-if value="{{line.hasSaid}}" hint-placeholder-val="{{ false }}"><p class="lbl">Narrated as</p><p class="he text" dir="rtl" lang="he" style="background: #EFF5F2; border-radius: 8px; padding: 4px 10px; font-size: 16px"><sc-for list="{{line.said}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-if>
+<sc-if value="{{line.hasVoiced}}" hint-placeholder-val="{{ false }}"><p class="lbl">Text sent to ElevenLabs (adjusted for pronunciation)</p><p class="he text" dir="rtl" lang="he" style="background: #EFF5F2; border-radius: 8px; padding: 4px 10px; font-size: 16px"><sc-for list="{{line.voiced}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-if>
+</section>
+</sc-for>
+<details style="margin-top: 16px"><summary class="meta">Script text not in the film (2)</summary>
+<p class="he text" dir="rtl" lang="he">מטאפורת נהג האוטובוס</p>
+<p class="he text" dir="rtl" lang="he">הבריף: The bus driver metaphore .docx</p>
+</details>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":2681}}'>
+class Component extends DCLogic {
+  // Each line as the script document and the narration record have it; words are split only to mark differences.
+  data() { return {"lines":[{"v":true,"script":["דמיינו שאתם נוהגים באוטובוס. אתם יושבים בכיסא הנהג, הידיים על ההגה, ויש לכם כיוון שאליו אתם רוצים לנסוע. אבל אתם לא לבד באוטובוס."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["לאורך הדרך עולים ויורדים כל מיני נוסעים. חלקם נחמדים ומנומסים וחלקם קולניים, תובעניים ונודניקים."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["נוסע אחד אומר: \"אין מצב שאתה תצליח לעשות את זה..\"","נוסע אחר אומר: \"תסתובב חזרה הביתה זה לא ייגמר טוב.\""],"sc":[],"said":null,"fc":[],"voiced":["נוסע אחד אומר: אין מצב שאתה תצליח לעשות את זה.","נוסע אחר אומר: תסתובב חזרה הביתה זה לא ייגמר טוב."],"vc":[3,9,13,19]},{"v":true,"script":["האוטובוס הוא קצת כמו החיים שלנו. היעד ששמנו באפליקציית הניווט מייצג את הדברים שחשובים לנו והכיוון שבו אנחנו רוצים להתקדם."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["והנוסעים הם החוויות הפנימיות שמצטרפות אלינו בדרך: מחשבות אוטומטיות שהמוח זורק לנו, רגשות, זיכרונות, עייפות, תחושות לא נעימות בגוף או סימפטומים."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["בין הנוסעים הרועשים יותר אפשר למצוא חרדה, תסכול, מבוכה, בושה וביקורת עצמית."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["כשעולה נוסע שאנחנו ממש לא רוצים באוטובוס, טבעי שננסה להשתיק אותו, להתווכח איתו או לשכנע אותו לרדת. לפעמים אנחנו אפילו מתחילים לעשות איתו עסקאות."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["למשל אם רגש המבוכה שאומר לך: ״רוצה שאני ארד מהאוטובוס? סבבה, אז תפסיק ללכת לאירועים משפחתיים. ״"],"sc":[],"said":null,"fc":[],"voiced":["למשל אם רגש המבוכה שאומר לך: רוצה שאני ארד מהאוטובוס?","סבבה, אז תפסיק ללכת לאירועים משפחתיים."],"vc":[6]},{"v":true,"script":["אבל אז, בלי שהתכוונו, הנוסעים מתחילים לקבוע את המסלול. אנחנו משקיעים כל כך הרבה תשומת לב ואנרגיה בניסיון להיפטר מהם, שלא נשארת לנו אנרגיה לנווט את האוטובוס לכיוון שחשוב לנו."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["המטאפורה הזאת שבאה מגישה טיפולית ששמה ACT, מציעה לנו לנסות להמשיך לנהוג גם כשהנוסעים נמצאים על האוטובוס. הם אולי ימשיכו לדבר, וחלקם אפילו יישארו איתנו לאורך הדרך."],"sc":[],"said":null,"fc":[],"voiced":["המטאפורה הזאת שבאה מגישה טיפולית ששמה אקט, מציעה לנו לנסות להמשיך לנהוג גם כשהנוסעים נמצאים על האוטובוס.","הם אולי ימשיכו לדבר, וחלקם אפילו יישארו איתנו לאורך הדרך."],"vc":[6]},{"v":true,"script":["אבל הם הנוסעים לא הנהגים. ההגה עדיין בידיים שלנו, ואפשר לשאול את עצמינו: לאן חשוב לי לנסוע עכשיו? וזה משהו שאפשר לתרגל."],"sc":[],"said":null,"fc":[],"voiced":["אבל הם הנוסעים לא הנהגים.","ההגה עדיין בידיים שלנו, ואפשר לשאול את עצמנו: לאן חשוב לי לנסוע עכשיו?","וזה משהו שאפשר לתרגל."],"vc":[12]},{"v":true,"script":["תרגול מיינדפולנס יכול לעזור לנו לשים לב איזה נוסע מדבר, בלי להיכנס איתו מיד לוויכוח. נשימה יכולה לעזור לנו להתייצב ולהישאר עם הידיים על ההגה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["ותרגולים של חקירת רגעים נעימים והכרת תודה יכולים לעזור לנו לראות שלאורך הדרך יש לא רק נוסעים קשים, אלא גם נוסעים נעימים."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["גם שאר הפעילויות שאתם עושים: פעילות גופנית, ריפוי בעיסוק, תרגול דיבור או פעילות באפליקציה, יכולות להיות חלק מהדרך לדברים שחשובים לכם: עצמאות, קשר עם אנשים, או תחביבים."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אנחנו לא יכולים לבחור כל נוסע שיעלה לאוטובוס. וגם לא לשלוט בכל מה שנפגוש בדרך. אבל אפשר לתרגל את היכולת להישאר בכיסא הנהג ולבחור את הפנייה הבאה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]}]}; }
+  renderVals() {
+    const split = (texts, changed) => {
+      const marks = new Set(changed || []);
+      let at = 0;
+      return texts.map((t) => ({ words: t.replace(/\s+/g, ' ').trim().split(' ').filter(Boolean).map((w) => { const m = marks.has(at++); return { t: w, m, p: !m }; }) }));
+    };
+    return {
+      lines: this.data().lines.map((l) => ({
+        v: l.v, nv: !l.v,
+        script: split(l.script, l.sc),
+        hasSaid: !!l.said, said: l.said ? split([l.said], l.fc)[0].words : [],
+        hasVoiced: !!l.voiced, voiced: l.voiced ? split(l.voiced, l.vc).flatMap((q) => q.words) : []
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

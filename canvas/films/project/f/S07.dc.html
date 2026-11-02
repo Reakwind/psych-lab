@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Film S07 beside its script</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#2B6A62}a:hover{color:#00201C}
+.lab{box-sizing:border-box;background:#F5FBF8;color:#171D1B;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-y:auto}
+.he{font-family:Rubik,system-ui,sans-serif;text-align:right;unicode-bidi:plaintext}
+.kicker{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#3F4946;font-weight:600;margin:0}
+.title{font-size:28px;line-height:1.3;margin:4px 0 2px;font-weight:600}
+.sub{color:#3F4946;margin:0}
+.sec{border-top:1px solid #BEC9C5;padding-top:12px;margin-top:16px}
+.sec h3{margin:0 0 8px;font-size:12px;color:#3F4946;text-transform:uppercase;letter-spacing:.06em}
+.meta{font-size:13px;color:#3F4946;margin:4px 0}
+.gap{display:inline-block;background:#FFDEA3;color:#261900;border-radius:8px;padding:4px 10px;font-size:13px;margin:4px 0}
+.issue{background:#FFF4DC;color:#261900;border-radius:8px;padding:6px 10px;font-size:13px;margin:6px 0}
+.tag{display:inline-block;background:#E3EAE7;color:#3F4946;border-radius:999px;padding:2px 10px;font-size:12px;margin:0 6px 6px 0}
+.text{font-size:17px;line-height:1.7;margin:6px 0}
+.box{background:#FFFFFF;border:1px solid #DDE4E1;border-radius:12px;padding:12px 14px;margin:10px 0}
+.lbl{font-size:12px;color:#3F4946;margin-top:8px}
+ul.he{padding-right:20px;padding-left:0}
+mark{background:#F1D79C;color:inherit;border-radius:3px;padding:0 2px}
+table{border-collapse:collapse;width:100%}
+td,th{border-top:1px solid #DDE4E1;padding:8px 6px;vertical-align:top;text-align:left;font-size:13px}
+th{color:#3F4946;font-weight:600}
+td.he{font-size:16px}
+
+</style>
+</helmet>
+<div class="lab" style="width: 1240px; height: 3570px; padding: 32px 36px; display: flex; gap: 40px; align-items: flex-start">
+<div style="width: 360px; flex-shrink: 0; display: flex; flex-direction: column; gap: 10px">
+<p class="kicker">Film beside its script</p>
+<h2 class="title">Film S07</h2>
+<video controls="controls" preload="none" playsinline="playsinline" src="/_blob/6b82aa7c34211f41dfcc94a3a71d544d" style="width: 360px; height: 360px; object-fit: cover; border-radius: 16px; background: #E9EFEC; display: block"></video>
+<p class="meta" style="margin-bottom: 0">Script document</p>
+<p class="meta" style="margin-top: 0; overflow-wrap: anywhere"><code>sources/film-scripts/תסריטים/מחשבות הן לא עובדות - סופי.docx</code></p>
+<p class="meta">26 of 26 lines narrated word for word · voiced with the ElevenLabs API</p>
+<p class="issue">A later copy-edit of this script exists: PS-CONT-005 in Psychology Hebrew.docx, with 30 differences from the film. The film follows the document beside it.</p>
+<p class="meta">Highlighted words differ between the script and what was narrated.</p>
+<p class="meta"><a href="https://claude.ai/artifact/GfG5m5VUL9zqniG5M9FHzT" target="_blank" rel="noopener">Activities</a> · <a href="https://claude.ai/artifact/8NYov7M3HXKPhX49GV6WMw" target="_blank" rel="noopener">Phone preview</a> · <a href="https://claude.ai/artifact/WAWMSHN8NVvUtk2Mp5vaW6" target="_blank" rel="noopener">Home</a></p>
+</div>
+<div style="flex: 1 1 auto; min-width: 0">
+<sc-for list="{{lines}}" as="line" hint-placeholder-count="6">
+<section class="sec" style="margin-top: 0; margin-bottom: 14px">
+<sc-if value="{{line.v}}" hint-placeholder-val="{{ true }}"><span class="tag">Word for word</span></sc-if>
+<sc-if value="{{line.nv}}" hint-placeholder-val="{{ false }}"><span class="tag" style="background: #F3E2BD; color: #6B4D12">Differs from the script</span></sc-if>
+<sc-for list="{{line.script}}" as="q" hint-placeholder-count="1"><p class="he text" dir="rtl" lang="he" style="font-size: 18px"><sc-for list="{{q.words}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-for>
+<sc-if value="{{line.hasSaid}}" hint-placeholder-val="{{ false }}"><p class="lbl">Narrated as</p><p class="he text" dir="rtl" lang="he" style="background: #EFF5F2; border-radius: 8px; padding: 4px 10px; font-size: 16px"><sc-for list="{{line.said}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-if>
+<sc-if value="{{line.hasVoiced}}" hint-placeholder-val="{{ false }}"><p class="lbl">Text sent to ElevenLabs (adjusted for pronunciation)</p><p class="he text" dir="rtl" lang="he" style="background: #EFF5F2; border-radius: 8px; padding: 4px 10px; font-size: 16px"><sc-for list="{{line.voiced}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-if>
+</section>
+</sc-for>
+<details style="margin-top: 16px"><summary class="meta">Script text not in the film (1)</summary>
+<p class="he text" dir="rtl" lang="he">מחשבות הן לא עובדות</p>
+</details>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":3570}}'>
+class Component extends DCLogic {
+  // Each line as the script document and the narration record have it; words are split only to mark differences.
+  data() { return {"lines":[{"v":true,"script":["אולי אתם מכירים את הסיטואציה:","אתם מתקשרים לחברה טובה. היא לא עונה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אתם שולחים הודעה, עוברות כמה שעות, ועדיין אין תשובה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אולי אתם חושבים: \"קרה לה משהו.\" אולי: \"היא מתעלמת ממני.\" ואולי: \"היא בטח עסוקה.\""],"sc":[],"said":null,"fc":[],"voiced":["אולי אתם חושבים: קרה לה משהו.","אולי: היא מתעלמת ממני.","ואולי: היא בטח עסוקה."],"vc":[3,5,7,9,11,13]},{"v":true,"script":["המצב הוא אותו מצב. מה שמשתנה הוא המחשבה שלכם עליו."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אם תחשבו שקרה לה משהו, אולי תדאגו ותתקשרו שוב ושוב. אם תחשבו שהיא מתעלמת מכם, אולי תפגעו או תכעסו. ואם תחשבו שהיא עסוקה, כנראה שפשוט תמשיכו ביום שלכם."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["המחשבות שלנו משפיעות על מה שאנחנו מרגישים ועל מה שאנחנו עושים."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["והן יכולות להרגיש מאוד משכנעות. לפעמים ממש כמו עובדות."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אבל מחשבה היא לא עובדה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["הרבה פעמים היא הפרשנות של המוח למה שקורה.","המוח שלנו מנסה להבין את העולם במהירות."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["כשחסר לו מידע, הוא משלים את החסר לפי מה שאנחנו מכירים, ואפילו לפי איך שאנחנו מרגישים באותו רגע."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["כדי לעשות את זה, המוח משתמש לפעמים בקיצורי דרך. הם עוזרים לו לפשט מצבים מורכבים ולהפחית את חוסר הוודאות, אבל לפעמים זה בא על חשבון הדיוק."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["לפעמים קיצורי הדרך האלה הופכים למה שנקרא מלכודות חשיבה. והרבה פעמים הן נוטות דווקא לכיוון השלילי או המאיים יותר."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["זה לא מקרי: המוח שלנו בנוי לזהות סכנות ולהגן עלינו, ולכן במיוחד כשאנחנו בלחץ, הוא יכול למהר להניח שמשהו לא בסדר. הבעיה היא שהמחשבות האלה יכולות לגרום לנו להרגיש ולחוות את הדברים בצורה שלילית יותר."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["לכן לפעמים הוא קופץ ישר לתרחיש הכי גרוע: \"לא חזרו אליי עם תוצאות הבדיקה. בטח משהו לא בסדר.\""],"sc":[],"said":null,"fc":[],"voiced":["לכן לפעמים הוא קופץ ישר לתרחיש הכי גרוע: לא חזרו אליי עם תוצאות הבדיקה.","בטח משהו לא בסדר."],"vc":[8,17]},{"v":true,"script":["או הולך לקצה: \"אם אני לא יכול לעשות את זה כמו פעם, אין טעם לעשות את זה בכלל.\""],"sc":[],"said":null,"fc":[],"voiced":["או הולך לקצה: אם אני לא יכול לעשות את זה כמו פעם, אין טעם לעשות את זה בכלל."],"vc":[3,17]},{"v":true,"script":["אלה דפוסי חשיבה אנושיים וטבעיים.","המטרה היא לא להפסיק אותם, אלא להתחיל לזהות אותם."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["כי כשאנחנו מזהים מחשבה כמחשבה, נוצר קצת מרחב.","אנחנו כבר לא חייבים ללכת אחריה באופן אוטומטי."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["יש טריק קטן שעובד להרבה אנשים: ניקח את המחשבה: \"שום דבר אף פעם לא מסתדר לי.\""],"sc":[],"said":null,"fc":[],"voiced":["יש טריק קטן שעובד להרבה אנשים: ניקח את המחשבה: שום דבר אף פעם לא מסתדר לי."],"vc":[9,15]},{"v":true,"script":["ועכשיו נוסיף סימן שאלה: \"שום דבר אף פעם לא מסתדר לי?\"","אותן מילים. רק סימן שאלה."],"sc":[],"said":null,"fc":[],"voiced":["ועכשיו נוסיף סימן שאלה: שום דבר אף פעם לא מסתדר לי?","אותן מילים.","רק סימן שאלה."],"vc":[4,10]},{"v":true,"script":["ופתאום אפשר לעצור ולבדוק: האם זו עובדה? האם יש עוד דרך להסתכל על מה שקורה?"],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["ליכולת הזאת קוראים גמישות מחשבתית."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["באפליקציה יש מגוון פעילויות שיעזרו לכם לפתח בדיוק את היכולת הזאת.","תלמדו לזהות מחשבות, לקחת מהן קצת מרחק, ובהדרגה לבחור גם איך להגיב."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["הגמישות המחשבתית הזאת לא אומרת שצריך לחשוב חיובי.","היא פשוט מזכירה לנו שלא כל מחשבה שעולה חייבת לקבוע איך נרגיש או מה נעשה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אז בפעם הבאה שמחשבה מעוררת בכם רגש חזק, לא צריך להתווכח איתה או למהר לשנות אותה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["רק לעצור לרגע ולשאול:","מה המחשבה שעוברת לי בראש עכשיו? האם היא עובדה, או הפרשנות שלי על מה שקורה?"],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["לפעמים המרווח הקטן הזה מספיק כדי לפתוח אפשרות להגיב קצת אחרת."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]}]}; }
+  renderVals() {
+    const split = (texts, changed) => {
+      const marks = new Set(changed || []);
+      let at = 0;
+      return texts.map((t) => ({ words: t.replace(/\s+/g, ' ').trim().split(' ').filter(Boolean).map((w) => { const m = marks.has(at++); return { t: w, m, p: !m }; }) }));
+    };
+    return {
+      lines: this.data().lines.map((l) => ({
+        v: l.v, nv: !l.v,
+        script: split(l.script, l.sc),
+        hasSaid: !!l.said, said: l.said ? split([l.said], l.fc)[0].words : [],
+        hasVoiced: !!l.voiced, voiced: l.voiced ? split(l.voiced, l.vc).flatMap((q) => q.words) : []
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

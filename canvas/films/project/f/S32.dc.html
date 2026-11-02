@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Film S32 beside its script</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#2B6A62}a:hover{color:#00201C}
+.lab{box-sizing:border-box;background:#F5FBF8;color:#171D1B;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-y:auto}
+.he{font-family:Rubik,system-ui,sans-serif;text-align:right;unicode-bidi:plaintext}
+.kicker{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#3F4946;font-weight:600;margin:0}
+.title{font-size:28px;line-height:1.3;margin:4px 0 2px;font-weight:600}
+.sub{color:#3F4946;margin:0}
+.sec{border-top:1px solid #BEC9C5;padding-top:12px;margin-top:16px}
+.sec h3{margin:0 0 8px;font-size:12px;color:#3F4946;text-transform:uppercase;letter-spacing:.06em}
+.meta{font-size:13px;color:#3F4946;margin:4px 0}
+.gap{display:inline-block;background:#FFDEA3;color:#261900;border-radius:8px;padding:4px 10px;font-size:13px;margin:4px 0}
+.issue{background:#FFF4DC;color:#261900;border-radius:8px;padding:6px 10px;font-size:13px;margin:6px 0}
+.tag{display:inline-block;background:#E3EAE7;color:#3F4946;border-radius:999px;padding:2px 10px;font-size:12px;margin:0 6px 6px 0}
+.text{font-size:17px;line-height:1.7;margin:6px 0}
+.box{background:#FFFFFF;border:1px solid #DDE4E1;border-radius:12px;padding:12px 14px;margin:10px 0}
+.lbl{font-size:12px;color:#3F4946;margin-top:8px}
+ul.he{padding-right:20px;padding-left:0}
+mark{background:#F1D79C;color:inherit;border-radius:3px;padding:0 2px}
+table{border-collapse:collapse;width:100%}
+td,th{border-top:1px solid #DDE4E1;padding:8px 6px;vertical-align:top;text-align:left;font-size:13px}
+th{color:#3F4946;font-weight:600}
+td.he{font-size:16px}
+
+</style>
+</helmet>
+<div class="lab" style="width: 1240px; height: 3122px; padding: 32px 36px; display: flex; gap: 40px; align-items: flex-start">
+<div style="width: 360px; flex-shrink: 0; display: flex; flex-direction: column; gap: 10px">
+<p class="kicker">Film beside its script</p>
+<h2 class="title">Film S32</h2>
+<video controls="controls" preload="none" playsinline="playsinline" src="/_blob/db1366dd2743a44568f6590c7360446c" style="width: 360px; height: 360px; object-fit: cover; border-radius: 16px; background: #E9EFEC; display: block"></video>
+<p class="meta" style="margin-bottom: 0">Script document</p>
+<p class="meta" style="margin-top: 0; overflow-wrap: anywhere"><code>sources/film-scripts/תסריטים/איך לתקשר עם אחרים על פרקינסון.docx</code></p>
+<p class="meta">18 of 18 lines narrated word for word · voiced with the ElevenLabs API</p>
+
+<p class="meta">Highlighted words differ between the script and what was narrated.</p>
+<p class="meta"><a href="https://claude.ai/artifact/GfG5m5VUL9zqniG5M9FHzT" target="_blank" rel="noopener">Activities</a> · <a href="https://claude.ai/artifact/8NYov7M3HXKPhX49GV6WMw" target="_blank" rel="noopener">Phone preview</a> · <a href="https://claude.ai/artifact/WAWMSHN8NVvUtk2Mp5vaW6" target="_blank" rel="noopener">Home</a></p>
+</div>
+<div style="flex: 1 1 auto; min-width: 0">
+<sc-for list="{{lines}}" as="line" hint-placeholder-count="6">
+<section class="sec" style="margin-top: 0; margin-bottom: 14px">
+<sc-if value="{{line.v}}" hint-placeholder-val="{{ true }}"><span class="tag">Word for word</span></sc-if>
+<sc-if value="{{line.nv}}" hint-placeholder-val="{{ false }}"><span class="tag" style="background: #F3E2BD; color: #6B4D12">Differs from the script</span></sc-if>
+<sc-for list="{{line.script}}" as="q" hint-placeholder-count="1"><p class="he text" dir="rtl" lang="he" style="font-size: 18px"><sc-for list="{{q.words}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-for>
+<sc-if value="{{line.hasSaid}}" hint-placeholder-val="{{ false }}"><p class="lbl">Narrated as</p><p class="he text" dir="rtl" lang="he" style="background: #EFF5F2; border-radius: 8px; padding: 4px 10px; font-size: 16px"><sc-for list="{{line.said}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-if>
+<sc-if value="{{line.hasVoiced}}" hint-placeholder-val="{{ false }}"><p class="lbl">Text sent to ElevenLabs (adjusted for pronunciation)</p><p class="he text" dir="rtl" lang="he" style="background: #EFF5F2; border-radius: 8px; padding: 4px 10px; font-size: 16px"><sc-for list="{{line.voiced}}" as="w" hint-placeholder-count="8"><sc-if value="{{w.m}}" hint-placeholder-val="{{ false }}"><mark>{{w.t}}</mark></sc-if><sc-if value="{{w.p}}" hint-placeholder-val="{{ true }}"><span>{{w.t}}</span></sc-if> </sc-for></p></sc-if>
+</section>
+</sc-for>
+<details style="margin-top: 16px"><summary class="meta">Script text not in the film (1)</summary>
+<p class="he text" dir="rtl" lang="he">איך לתקשר עם אחרים על פרקינסון:</p>
+</details>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":3122}}'>
+class Component extends DCLogic {
+  // Each line as the script document and the narration record have it; words are split only to mark differences.
+  data() { return {"lines":[{"v":true,"script":["לפעמים הפרקינסון יכול להכניס אתכם לשיחות שלא בהכרח תכננתם לנהל."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["מישהו שם לב לרעד ושואל מה קרה.","מישהי מתקשה לשמוע או להבין משהו שאמרתם.","או שמגיעה השאלה המוכרת: \"הכול בסדר?\""],"sc":[],"said":null,"fc":[],"voiced":["מישהו שם לב לרעד ושואל מה קרה.","מישהי מתקשה לשמוע או להבין משהו שאמרתם.","או שמגיעה השאלה המוכרת: הכול בסדר?"],"vc":[18,19]},{"v":true,"script":["וברגע אחד צריך להחליט: מה אני רוצה להגיד? כמה להסביר? והאם בכלל מתחשק לי לדבר על זה עכשיו?"],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["לדבר עם אנשים על פרקינסון זה לא תמיד פשוט. אצל מישהו אחד זה יעורר מבוכה או חשש , אצל מישהי אחרת כעס ותסכול."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["התחושות האלה מובנות ולא תמיד קל למצוא את המילים בזמן אמת."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["בואו נתחיל בזה שאתם לא חייבים להסביר את הפרקינסון לכל אחד.","פרקינסון זה משהו שאתם מתמודדים איתו, לא משהו שמגדיר אתכם."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אתם מחליטים אם לשתף, את מי וכמה.","וכשכן תרצו לדבר, מחשבה מראש על מה תרצו לומר, יכולה לעזור לכם להרגיש קצת יותר מוכנים."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["אז מה אומרים?","לפעמים אפשר פשוט להסביר את מה שרלוונטי לרגע הזה:","למשל \"הפרקינסון משפיע על הקול שלי, אז יכול להיות שתצטרכו לבקש ממני לחזור על משהו.\""],"sc":[],"said":null,"fc":[],"voiced":["אז מה אומרים?","לפעמים אפשר פשוט להסביר את מה שרלוונטי לרגע הזה: למשל הפרקינסון משפיע על הקול שלי, אז יכול להיות שתצטרכו לבקש ממני לחזור על משהו."],"vc":[13,26]},{"v":true,"script":["אפשר גם להציב גבול: \"תודה ששאלת, אבל אני מעדיף לא לדבר על זה עכשיו.\""],"sc":[],"said":null,"fc":[],"voiced":["אפשר גם להציב גבול: תודה ששאלת, אבל אני מעדיף לא לדבר על זה עכשיו."],"vc":[4,13]},{"v":true,"script":["לפעמים דווקא עם האנשים הקרובים, שמכירים אתכם הכי טוב, צריך להסביר יותר.","כי חלק מהסימפטומים יכולים להיראות מבחוץ אחרת לגמרי ממה שהם מרגישים מבפנים."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["למשל, תנועה איטית יותר או קושי להתחיל פעולה יכולים להיראות כחוסר רצון להשתתף או עצלנות, וזה לא המצב."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["האטה בדיבור ושינוי ביכולת ההבעה יכולים להתפרש כחוסר עניין בשיחה, וזה גם לא המצב."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["במקרים כאלה, הסבר קטן יכול למנוע הרבה אי־הבנות:","\"אני כן רוצה לבוא. פשוט לוקח לי יותר זמן להתארגן.\"","\"אני מקשיבה, גם אם לא תמיד רואים את זה על הפנים שלי.\""],"sc":[],"said":null,"fc":[],"voiced":["במקרים כאלה, הסבר קטן יכול למנוע הרבה אי־הבנות: אני כן רוצה לבוא.","פשוט לוקח לי יותר זמן להתארגן.","אני מקשיבה, גם אם לא תמיד רואים את זה על הפנים שלי."],"vc":[8,17,18,29]},{"v":true,"script":["אפשר גם להגיד יעזור לכם להשתתף בצורה שמתאימה לכם.","\"אם לוקח לי יותר זמן לענות, תנו לי עוד כמה שניות.\"","או: \"אם לא שמעתם אותי, אני מעדיפה שתגידו לי ואני אחזור על זה.\""],"sc":[],"said":null,"fc":[],"voiced":["אפשר גם להגיד יעזור לכם להשתתף בצורה שמתאימה לכם.","אם לוקח לי יותר זמן לענות, תנו לי עוד כמה שניות.","או: אם לא שמעתם אותי, אני מעדיפה שתגידו לי ואני אחזור על זה."],"vc":[9,19,21,32]},{"v":true,"script":["לפעמים חוסר ההבנה יכול להגיע ממקום אוהב."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["ולסיום אנשים שרוצים לעזור יכולים למהר לעשות משהו במקומכם, אבל לא כל קושי דורש עזרה. ולא כל עזרה באמת עוזרת."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["לפעמים חלק חשוב בשיחה הוא להגיד לאנשים מתי אתם רוצים עזרה, ואיך אתם רוצים לקבל אותה."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]},{"v":true,"script":["לא תמיד קל לדבר על הדברים האלה, ולא צריך לדעת מראש מה לומר בכל מצב. לאט לאט אפשר למצוא את המילים שעוזרות לכם להרגיש מובנים ומובנות יותר, לשמור על הגבולות שלכם ולקבל תמיכה בדרך שמתאימה לכם."],"sc":[],"said":null,"fc":[],"voiced":null,"vc":[]}]}; }
+  renderVals() {
+    const split = (texts, changed) => {
+      const marks = new Set(changed || []);
+      let at = 0;
+      return texts.map((t) => ({ words: t.replace(/\s+/g, ' ').trim().split(' ').filter(Boolean).map((w) => { const m = marks.has(at++); return { t: w, m, p: !m }; }) }));
+    };
+    return {
+      lines: this.data().lines.map((l) => ({
+        v: l.v, nv: !l.v,
+        script: split(l.script, l.sc),
+        hasSaid: !!l.said, said: l.said ? split([l.said], l.fc)[0].words : [],
+        hasVoiced: !!l.voiced, voiced: l.voiced ? split(l.voiced, l.vc).flatMap((q) => q.words) : []
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>
