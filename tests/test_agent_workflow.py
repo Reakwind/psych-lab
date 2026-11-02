@@ -359,5 +359,68 @@ class GitIntegration(unittest.TestCase):
             workflow.resume_state(task('different-task', ['owned.txt']))
 
 
+
+class DailySession(unittest.TestCase):
+    def test_scope_update_keeps_every_other_section(self):
+        old = task(scope=['a.txt'])
+        text = workflow.body(old, 'Summary', 'Changed things', 'Tests pass', 'None') + '\n🤖 footer\n'
+        new = {**old, 'scope': ['a.txt', 'docs/b.md']}
+        updated = workflow.with_contract(text, new)
+        self.assertEqual(workflow.published_contract({'body': updated}), new)
+        self.assertIn('- `docs/b.md`', updated)
+        for kept in ['Changed things', 'Tests pass', '🤖 footer']:
+            self.assertIn(kept, updated)
+        with self.assertRaises(ValueError):
+            workflow.with_contract('no contract here', new)
+
+
+class AfterMerge(unittest.TestCase):
+    """After the squash merge: main is fast-forwarded and the session's clean worktree is removed."""
+
+    def setUp(self):
+        self.env = patch.dict(os.environ, {'GIT_CONFIG_GLOBAL': os.devnull, 'GIT_CONFIG_NOSYSTEM': '1'})
+        self.env.start()
+        self.addCleanup(self.env.stop)
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        base = Path(self.temp.name)
+        self.origin, self.primary, self.work = base / 'origin.git', base / 'primary', base / 'primary/.worktrees/session'
+        subprocess.check_call(['git', 'init', '--bare', '-b', 'main', str(self.origin)], stdout=subprocess.DEVNULL)
+        subprocess.check_call(['git', 'clone', '-q', str(self.origin), str(self.primary)], stderr=subprocess.DEVNULL)
+        self.git(self.primary, 'config', 'user.name', 'Test')
+        self.git(self.primary, 'config', 'user.email', 'test@example.invalid')
+        (self.primary / '.gitignore').write_text('.worktrees/\n.agent-context.json\n')
+        self.git(self.primary, 'add', '.gitignore')
+        self.git(self.primary, 'commit', '-qm', 'start')
+        self.git(self.primary, 'push', '-q', 'origin', 'main')
+        self.git(self.primary, 'worktree', 'add', '-q', '-b', 'claude/session', str(self.work), 'origin/main')
+        # The day's PR is squash-merged on GitHub: origin/main moves on, main here is now behind.
+        other = base / 'other'
+        subprocess.check_call(['git', 'clone', '-q', str(self.origin), str(other)], stderr=subprocess.DEVNULL)
+        (other / 'merged.txt').write_text('the day\'s work\n')
+        self.git(other, 'add', 'merged.txt')
+        self.git(other, '-c', 'user.name=T', '-c', 'user.email=t@example.invalid', 'commit', '-qm', 'squash')
+        self.git(other, 'push', '-q', 'origin', 'main')
+        for module in (safety, workflow):
+            p = patch.object(module, 'ROOT', self.work)
+            p.start()
+            self.addCleanup(p.stop)
+
+    def git(self, where, *args):
+        return subprocess.check_output(['git', *args], cwd=where, text=True, stderr=subprocess.DEVNULL).strip()
+
+    def test_main_is_fast_forwarded_and_clean_worktree_removed(self):
+        notes = workflow.after_merge()
+        self.assertEqual(self.git(self.primary, 'rev-parse', 'main'), self.git(self.primary, 'rev-parse', 'origin/main'))
+        self.assertTrue((self.primary / 'merged.txt').exists())
+        self.assertFalse(self.work.exists())
+        self.assertTrue(any('removed' in n for n in notes), notes)
+
+    def test_worktree_with_uncommitted_work_is_kept(self):
+        (self.work / 'draft.txt').write_text('not committed\n')
+        notes = workflow.after_merge()
+        self.assertTrue((self.work / 'draft.txt').exists())
+        self.assertTrue(any('kept' in n for n in notes), notes)
+
 if __name__ == '__main__':
     unittest.main()
