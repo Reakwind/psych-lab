@@ -210,7 +210,7 @@ class TextRuns(HTMLParser):
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.runs, self.raw, self.errors, self.buffer = [], None, [], []
+        self.runs, self.raw, self.errors, self.buffer, self.nested = [], None, [], [], []
 
     def flush(self):
         if self.buffer:
@@ -226,7 +226,15 @@ class TextRuns(HTMLParser):
         for name, value in attrs:
             if not value:
                 continue
-            code = value[len('javascript:'):] if value.lower().startswith('javascript:') else \
+            if name.lower() == 'srcdoc':
+                # A nested document: check it as a full page (text, attributes, scripts).
+                self.nested.append(value)
+                continue
+            # Browsers strip leading/trailing C0 controls and spaces and drop tabs/newlines inside
+            # a URL before reading its scheme, so " java\tscript:" still runs as code.
+            url = re.sub(r'[\t\n\r]', '', value).strip('\x00\x01\x02\x03\x04\x05\x06\x07\x08\x0b\x0c\x0e\x0f'
+                                                          '\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f ')
+            code = url[url.index(':') + 1:] if url.lower().startswith('javascript:') else \
                 value if name.lower().startswith('on') else None
             if code is None:
                 self.runs.append(value)
@@ -269,6 +277,8 @@ def html_problems(text, corpus):
     parser.feed(text)
     parser.close()
     problems = list(parser.errors)  # an unreadable script fails closed
+    for document in parser.nested:
+        problems += html_problems(document, corpus)
     for run in parser.runs:  # already decoded once by the parser; never decode twice
         text = collapse(run)  # one whole run, as displayed
         if HEBREW.search(text) and not corpus.anywhere(text):

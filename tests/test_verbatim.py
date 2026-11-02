@@ -126,6 +126,15 @@ class Prototypes(unittest.TestCase):
                 self.assertIn('טקסט מומצא', problems[0])
         self.assertEqual(verbatim.html_problems('<button onclick="go(\'שוברי קרח\')">x</button>', CORPUS), [])
 
+    def test_obfuscated_javascript_urls_and_srcdoc_documents(self):
+        escaped = ''.join('\\u%04x' % ord(c) for c in 'טקסט מומצא')
+        refs = ''.join('&amp;#%d;' % ord(c) for c in 'טקסט מומצא לחלוטין')
+        for page in ['<a href=" javascript:alert(\'%s\')">x</a>' % escaped,
+                     '<a href="java\tscript:alert(\'%s\')">x</a>' % escaped,
+                     '<iframe srcdoc="&lt;p&gt;%s&lt;/p&gt;"></iframe>' % refs]:
+            with self.subTest(page=page):
+                self.assertEqual(len(verbatim.html_problems(page, CORPUS)), 1)
+
     def test_escaped_script_strings_are_decoded(self):
         escaped = ''.join('\\u%04x' % ord(c) for c in 'טקסט מומצא')
         problems = verbatim.html_problems('<script>document.body.textContent = "%s";</script>' % escaped, CORPUS)
