@@ -1,0 +1,13 @@
+{
+  "task": "preview-sourced-copy",
+  "agent": "claude-bold-ptolemy",
+  "scope": [
+    "psych-lab/intervention/app.mjs",
+    "psych-lab/intervention/index.html",
+    "psych-lab/intervention/style.css",
+    "psych-lab/intervention/BUILD_NOTES.md",
+    "scripts/verbatim.py",
+    "tests/test_verbatim.py"
+  ],
+  "branch": "claude/bold-ptolemy-dt1ah7--preview-sourced-copy"
+}
