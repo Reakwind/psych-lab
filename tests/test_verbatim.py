@@ -68,6 +68,15 @@ class Prototypes(unittest.TestCase):
                 self.assertEqual(len(problems), 1, problems)
                 self.assertIn('טקסט מומצא לחלוטין', problems[0])
 
+    def test_script_strings_are_checked_whole(self):
+        # Quotes inside a string are prose: sourced fragments must not certify altered wording.
+        page = r"""<script>document.body.textContent = 'היי, "אני" נירה';</script>"""
+        self.assertEqual(len(verbatim.html_problems(page, CORPUS)), 1)
+        self.assertEqual(verbatim.html_problems("<script>x = 'היי, אני נירה';</script>", CORPUS), [])
+        template = verbatim.html_problems('<script>x = `היי ${n} מומצא לגמרי`;</script>', CORPUS)
+        self.assertEqual(len(template), 1)  # 'היי' is sourced; the invented chunk is not
+        self.assertIn('מומצא לגמרי', template[0])
+
     def test_escaped_script_strings_are_decoded(self):
         escaped = ''.join('\\u%04x' % ord(c) for c in 'טקסט מומצא')
         problems = verbatim.html_problems('<script>document.body.textContent = "%s";</script>' % escaped, CORPUS)

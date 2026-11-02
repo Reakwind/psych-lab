@@ -134,9 +134,82 @@ def quote_problems(data, corpus, where=''):
     return problems
 
 
-# A run of Hebrew text: Hebrew letters joined by spaces, digits and prose punctuation, stopping at
-# code characters (ASCII quotes, backticks, brackets, operators) that cannot be part of displayed prose.
-HEBREW_RUN = re.compile(r"[\u0590-\u05FF][\u0590-\u05FF0-9 \t.,:;!?\u05F3\u05F4()\u2013\u2014\u2026%\-]*")
+# JavaScript string values: comments and regular expressions are skipped, quotes inside them
+# cannot open a string, and every string (or template-literal chunk) is checked as one whole value,
+# so neither hidden text nor recombined fragments can pass.
+REGEX_AFTER = set('(,=:[!&|?{};+-*%<>~^') | {''}
+KEYWORDS_BEFORE_REGEX = {'return', 'typeof', 'case', 'do', 'else', 'in', 'of', 'new', 'delete', 'void', 'throw', 'yield', 'await'}
+
+
+def js_strings(code):
+    out, i, n, prev = [], 0, len(code), ''
+
+    def read_quoted(i, quote):
+        j, buf = i + 1, []
+        while j < n and code[j] != quote and code[j] != '\n':
+            if code[j] == '\\' and j + 1 < n:
+                buf.append(code[j:j + 2]); j += 2
+            else:
+                buf.append(code[j]); j += 1
+        return ''.join(buf), j + 1
+
+    def read_template(i):
+        j, buf, chunks = i + 1, [], []
+        while j < n and code[j] != '`':
+            if code[j] == '\\' and j + 1 < n:
+                buf.append(code[j:j + 2]); j += 2
+            elif code.startswith('${', j):
+                chunks.append(''.join(buf)); buf = []
+                depth, j = 1, j + 2
+                start = j
+                while j < n and depth:
+                    depth += {'{': 1, '}': -1}.get(code[j], 0); j += 1
+                out.extend(js_strings(code[start:j - 1]))
+            else:
+                buf.append(code[j]); j += 1
+        chunks.append(''.join(buf))
+        return chunks, j + 1
+
+    while i < n:
+        c = code[i]
+        if c in ' \t\r\n':
+            i += 1
+        elif code.startswith('//', i):
+            i = code.find('\n', i) % (n + 1) if '\n' in code[i:] else n
+        elif code.startswith('/*', i):
+            end = code.find('*/', i + 2)
+            i = n if end < 0 else end + 2
+        elif c in '"\'':
+            value, i = read_quoted(i, c)
+            out.append(value); prev = 'str'
+        elif c == '`':
+            chunks, i = read_template(i)
+            out.extend(chunks); prev = 'str'
+        elif c == '/' and (prev in REGEX_AFTER or prev in KEYWORDS_BEFORE_REGEX):
+            j, in_class = i + 1, False
+            while j < n and code[j] != '\n':
+                if code[j] == '\\':
+                    j += 2; continue
+                if code[j] == '[':
+                    in_class = True
+                elif code[j] == ']':
+                    in_class = False
+                elif code[j] == '/' and not in_class:
+                    break
+                j += 1
+            i = j + 1
+            while i < n and code[i].isalpha():
+                i += 1
+            prev = 'regex'
+        else:
+            m = re.match(r'[A-Za-z_$][\w$]*|\d[\w.]*', code[i:])
+            if m:
+                prev = m[0] if m[0] in KEYWORDS_BEFORE_REGEX else 'word'
+                i += len(m[0])
+            else:
+                prev = c if c not in ')]' else 'word'
+                i += 1
+    return [js_unescape(s) for s in out]
 
 
 JS_ESCAPE = re.compile(r'\\(u\{[0-9a-fA-F]+\}|u[0-9a-fA-F]{4}|x[0-9a-fA-F]{2}|.)', re.S)
@@ -175,9 +248,7 @@ class TextRuns(HTMLParser):
 
     def handle_data(self, data):
         if self.raw == 'script':
-            # No JavaScript parsing: every Hebrew run in the decoded script is checked wherever it
-            # appears (strings, comments, template literals), so quote tricks cannot hide text.
-            self.runs += HEBREW_RUN.findall(js_unescape(data))
+            self.runs += js_strings(data)
         elif self.raw is None:
             self.runs.append(data)
 
