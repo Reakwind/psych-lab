@@ -1,0 +1,19 @@
+{
+  "task": "agent-dev-setup",
+  "agent": "claude-bold-ptolemy",
+  "scope": [
+    "scripts/agents.py",
+    "scripts/agent_safety.py",
+    "scripts/cloud-bootstrap.sh",
+    "tests/test_agent_workflow.py",
+    ".claude/settings.json",
+    ".gitignore",
+    "package.json",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "README.md",
+    "docs/AGENT_WORKFLOW.md",
+    "docs/CLOUD.md"
+  ],
+  "branch": "claude/bold-ptolemy-dt1ah7"
+}
