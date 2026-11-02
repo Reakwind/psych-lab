@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "Source-based Parkinson's psychological intervention preview and animation workshop",
-  "engines": {"node": ">=22"},
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "start": "python3 psych-lab/serve.py --port 63684",
     "start:cloud": "python3 psych-lab/serve.py --host 0.0.0.0 --port 63684",
@@ -11,7 +13,10 @@
     "check": "python3 scripts/check_project.py",
     "agent:setup": "python3 scripts/agents.py setup",
     "doctor": "python3 scripts/agents.py doctor",
-    "media:check": "python3 scripts/check_project.py --media"
+    "media:check": "python3 scripts/check_project.py --media",
+    "verbatim": "python3 scripts/verbatim.py"
   },
-  "devDependencies": {"playwright": "1.64.1"}
+  "devDependencies": {
+    "playwright": "1.64.1"
+  }
 }
