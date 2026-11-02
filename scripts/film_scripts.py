@@ -6,8 +6,9 @@ Usage: python3 scripts/film_scripts.py [--check]
 Inputs are read, never changed:
 - sources/film-scripts/: the owner's script documents (DOCX), the source of truth for the films.
 - voice-over/elevenlabs/prepped-all.json: the text each film's voice-over was generated from with
-  the ElevenLabs API. Per scene, `orig` is the script line and `sents[].plain`/`marked` are the
-  sentences sent to the voice engine (`marked` carries vowel marks for pronunciation).
+  the ElevenLabs API. Per scene, `orig` is the script line and `sents[].plain` are the sentences
+  voice-over/elevenlabs/generate.py sends to ElevenLabs (maqaf sent as a hyphen). The vowel-marked
+  `marked` text is not sent there (an earlier voice pipeline used it), so it is not reported.
 - psych-lab/intervention/sources/hebrew-production-scripts.json: a later copy-edit of some scripts.
 
 Writes psych-lab/film-scripts.json. Program text in it is only ever quoted from a source document
@@ -29,9 +30,6 @@ SCRIPTS = 'sources/film-scripts/'
 NARRATION = 'voice-over/elevenlabs/prepped-all.json'
 LATER = 'psych-lab/intervention/sources/hebrew-production-scripts.json'
 OUT = 'psych-lab/film-scripts.json'
-# Vowel and cantillation marks; the maqaf (05BE), paseq (05C0), sof pasuq (05C3) and nun hafukha
-# (05C6) are letters/punctuation of the text itself and stay.
-VOWELS = re.compile('[֑-ׇֽֿׁׂׅׄ]')
 
 
 def words(text):
@@ -139,10 +137,6 @@ def build():
                 line['script_changed'], line['film_changed'] = script_changed, film_changed
             if film_voiced or voiced_changed:
                 line['voiced_changed'] = voiced_changed  # positions in the joined plain sentences
-            respelled = [k for k, sent in enumerate(scene['sents'])
-                         if verbatim.collapse(VOWELS.sub('', sent['marked'])) != verbatim.collapse(sent['plain'])]
-            if respelled:
-                line['respelled'] = respelled  # sentences whose vowel-marked text is spelled differently
             lines.append(line)
         film_words = [w for scene in scene_words for w in scene]
         best = max(later.items(), key=lambda kv: len(set(kv[1]) & set(film_words)) / max(1, len(set(kv[1]))),

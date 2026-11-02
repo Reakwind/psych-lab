@@ -142,10 +142,6 @@ function renderFilmScript(view,row){
    box.append(node('div','Text sent to ElevenLabs (adjusted for pronunciation)','said-label'));
    const p=heText('p','said');wordsInto(p,splitWords(scene.sents.map(s=>s.plain).join(' ')),new Set(line.voiced_changed));box.append(p);
   }
-  for(const k of line.respelled||[]){
-   box.append(node('div','Vowel-marked text sent to ElevenLabs (spelled differently)','said-label'));
-   const p=heText('p','said');p.textContent=scene.sents[k].marked;box.append(p);
-  }
   view.append(box);
  }
  if(film.not_narrated.length){

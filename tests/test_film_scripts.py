@@ -36,10 +36,6 @@ class Alignment(unittest.TestCase):
         _, left = self.spans(['סוף'], ['קישור לבריף', 'הערה', 'סוף'])
         self.assertEqual(left, [['קישור לבריף'], ['הערה']])
 
-    def test_vowel_marks_are_ignored_but_spelling_is_not(self):
-        self.assertEqual(film_scripts.VOWELS.sub('', 'בְּיוֹם־יוֹם'), 'ביום־יום')
-        self.assertNotEqual(film_scripts.VOWELS.sub('', 'מְקֻוֶּה'), 'מקווה')
-
 
 class Repository(unittest.TestCase):
     @classmethod
@@ -64,6 +60,16 @@ class Repository(unittest.TestCase):
         narration = json.loads((ROOT / film_scripts.NARRATION).read_text(encoding='utf-8'))
         for fid, film in self.data['films'].items():
             self.assertEqual([l['scene'] for l in film['lines']], list(range(len(narration[fid]['scenes']))), fid)
+
+    def test_lines_report_only_what_generate_py_sends(self):
+        # generate.py voices sents[].plain; the vowel-marked text never reaches ElevenLabs.
+        generator = (ROOT / 'voice-over/elevenlabs/generate.py').read_text(encoding='utf-8')
+        self.assertIn("s['plain']", generator)
+        self.assertNotIn("['marked']", generator)
+        allowed = {'scene', 'script', 'verbatim', 'script_changed', 'film_changed', 'voiced_changed'}
+        for fid, film in self.data['films'].items():
+            for line in film['lines']:
+                self.assertLessEqual(set(line), allowed, fid)
 
     def test_all_quoted_text_is_verbatim_from_the_scripts(self):
         problems, _ = verbatim.check([str(ROOT / film_scripts.OUT)], self.corpus)
