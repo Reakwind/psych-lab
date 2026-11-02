@@ -18,7 +18,7 @@ The full intervention lives at `/?view=intervention&day=1`. The Lab contains 51 
 
 ## Git safety
 
-- Never commit or push directly to main. Never merge your own work as a worker. A designated integrator reviews and squash-merges one green, current PR at a time. Integrator review can be performed by a separately assigned AI agent; routine implementation does not require repeated owner approval.
+- Never commit or push directly to main. Owner decision (2026-11-02): do not wait for the owner to read or approve PRs. Each agent integrates its own PR with `python3 scripts/agents.py merge` once it is ready: submitted (not draft), current with main, every required check green on the exact head, Codex finished reviewing that exact head (`agents.py request-review` after fix pushes), and every review finding fixed or answered and resolved. The command refuses otherwise. Merge one PR at a time. Start every later task with `python3 scripts/agents.py next`, which cuts `<session-branch>--<task>` from main and claims it; a squash-merged branch cannot be reused because its old commits would ride along with the wrong trailers. Clinical content still needs specific owner authorization, as stated above.
 - Never use reset, clean, checkout to discard files, restore of working files, rebase, amend, force pushes (including force-with-lease), mirror pushes, ref deletion, branch deletion/renaming, worktree pruning/removal, history filtering, or Git metadata edits. Do not delete even merged branches; server rules preserve history.
 - Never bypass hooks or policy: no `--no-verify`, `-c core.hooksPath=...`, policy removal, alternate Git index/config overrides, or scripts that perform equivalent destructive operations.
 - Do not use broad `git add .` / `git add -A`, stash away someone else's work, resolve conflicts with ours/theirs wholesale, or replace unrelated files. Stage explicitly owned paths through `scripts/agents.py commit`.
@@ -29,12 +29,14 @@ The full intervention lives at `/?view=intervention&day=1`. The Lab contains 51 
 
 Run `npm test` and `npm run check`. For media work, hydrate LFS and run `npm run media:check`, the existing encoded-film/audio checks, and visual review of relevant frames. For UX changes, inspect desktop and phone layouts and attach evidence. Do not count skipped/simulated flows as complete timing evidence. Keep clinical source gaps visible.
 
+Report to the owner directly in the conversation, plainly: every blocker, failure, risk, source gap, skipped check, and decision you need, each with your recommendation. Repository files, status JSON and PR bodies are records, not the place to tell the owner something; never leave a problem only there.
+
 Do not invent narration, claims, therapy examples, timing evidence, recorded media, or source authority. For animation work also read animation-kit/WORKFLOW.md; its creative guidance applies, while this agreement governs Git, publication, ownership, and user communication.
 
 Never commit credentials, .env files, temporary signed URLs, local agent context, dependency folders, render-frame caches, or machine-specific paths. Do not send messages to others or publish elsewhere without task authorization. Do not select a public code/content license on the owner's behalf.
 
 ## Enforcement boundary
 
-Git hooks and Claude hooks prevent common accidents in a cooperative checkout. Arbitrary code or an administrator can bypass local hooks; do not claim they are a security sandbox. GitHub rules independently block force pushes and branch deletion, require scoped PR policy and quality checks, and keep main current. Agents should receive selected-repository, ordinary write access through their provider integration, never an administrator token. Repository settings and governance changes belong to the integrator.
+Git hooks and Claude hooks prevent common accidents in a cooperative checkout. Arbitrary code or an administrator can bypass local hooks; do not claim they are a security sandbox. GitHub rules independently block force pushes and branch deletion, require scoped PR policy and quality checks, and keep main current. Agents should receive selected-repository, ordinary write access through their provider integration, never an administrator token. Repository settings, rulesets and access changes belong to the owner; recommend them in the conversation rather than changing them.
 
 The initial publishing coordinator may bootstrap the first main commit before protections exist; after publication all further changes use PRs.
