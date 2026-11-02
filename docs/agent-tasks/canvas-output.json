@@ -37,7 +37,8 @@
     "scripts/cloud-bootstrap.sh",
     "scripts/verbatim.py",
     "tests/test_verbatim.py",
-    "tests/test_canvas.py"
+    "tests/test_canvas.py",
+    "animation-kit/WORKFLOW.md"
   ],
   "branch": "claude/friendly-cerf-6vbmwn"
 }
