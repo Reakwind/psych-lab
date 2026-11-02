@@ -55,6 +55,12 @@ def xml_runs(xml, tag):
     return [html.unescape(t) for t in re.findall(rf'<{tag}(?:\s[^>]*)?>([^<]*)</{tag}>', xml)]
 
 
+def shared_strings(xml):
+    """Each cell string as Excel shows it: formatted runs of one cell joined, phonetic guides dropped."""
+    return [''.join(xml_runs(re.sub(r'<rPh\b.*?</rPh>', '', si, flags=re.S), 't'))
+            for si in re.findall(r'<si(?:\s[^>]*)?>(.*?)</si>', xml, re.S)]
+
+
 def source_text(path):
     """All readable text of one source file, or None when it cannot be read (e.g. LFS pointer)."""
     file = ROOT / path
@@ -77,7 +83,7 @@ def source_text(path):
         return text + SEP + SEP.join(re.sub(r'<[^>]+>', SEP, text).split(SEP))
     if suffix == '.xlsx':
         with zipfile.ZipFile(file) as z:
-            parts = xml_runs(z.read('xl/sharedStrings.xml').decode('utf-8'), 't') if 'xl/sharedStrings.xml' in z.namelist() else []
+            parts = shared_strings(z.read('xl/sharedStrings.xml').decode('utf-8')) if 'xl/sharedStrings.xml' in z.namelist() else []
             parts += [html.unescape(n) for n in re.findall(r'<sheet [^>]*name="([^"]+)"', z.read('xl/workbook.xml').decode('utf-8'))]
         return SEP.join(parts)
     if suffix == '.docx':

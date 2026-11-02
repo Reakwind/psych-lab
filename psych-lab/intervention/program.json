@@ -25,7 +25,8 @@
     "inner-voice": {
       "title": "inner voice workout.xlsx",
       "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/_layouts/15/Doc.aspx?sourcedoc=%7B8E658AD5-2BB4-4708-94F2-03754A4D88C4%7D&file=inner+voice+workout.xlsx&action=default&mobileredirect=true&web=1",
-      "updated_at": "2026-09-30T20:32:07Z"
+      "updated_at": "2026-11-02T12:34:33Z",
+      "path": "sources/activity-sheets/inner voice workout.xlsx"
     },
     "metadata": {
       "title": "PD Content Metadata (Active).xlsx",
@@ -101,6 +102,11 @@
       "title": "Remepy app media — current source videos (013, 029; 047 held out for an ID conflict)",
       "url": "https://remepyhealth.sharepoint.com/sites/Product/Shared%20Documents/Therapeutics%20-%20Product/PD/Content/pd_media/psychology",
       "updated_at": "2026-10-07"
+    },
+    "protocol": {
+      "title": "Protocol.xlsx",
+      "updated_at": "2026-11-02T12:35:54Z",
+      "path": "sources/activity-sheets/Protocol.xlsx"
     }
   },
   "clips": {
@@ -4964,14 +4970,16 @@
         "text": "גם התחלה קטנה נחשבת.",
         "english": "Starting small still counts.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אפשר לעשות פחות ממה שתכננתי, וזה עדיין נחשב.",
+        "text": "גם אם אעשה פחות ממה שתכננתי, זה עדיין נחשב.",
         "english": "I can do less than I planned, and it still counts.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -4980,22 +4988,25 @@
         "text": "אחרי שאתחיל, אולי הצעד הבא ירגיש קל יותר.",
         "english": "Once I begin, the next step may feel easier.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אפשר להתאים את הפעילות לאיך שאני היום.",
-        "english": "I can adjust what I do to how I feel today.",
+        "text": "זה לא חייב להיות ביצוע מושלם, אפשר להתאים את הפעילות לאיך שאני היום.",
+        "english": "It doesn't have to be perfect. I can adjust what I do to how I feel today.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם ביום קשה אולי יש משהו קטן שאפשר לעשות, בדרך שמתאימה לי היום.",
-        "english": "Even on a hard day, there may be something small I can do, in a way that suits me today.",
+        "text": "גם ביום קשה אחפש משהו קטן שאוכל לעשות, בדרך שמתאימה לי.",
+        "english": "Even on a hard day, I'll look for something small I can do, in a way that suits me.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "בדיוק! ככה אנחנו תומכים בעצמנו. התאמות הן לא ויתור או חולשה. לשים לב ולעשות התאמות זו מיומנות חשובה ויעילה. 🫶",
         "incorrect": "כדאי לתת למחשבה הזאת עוד צ'אנס. יום קשה לא חייב להיות יום של שום דבר. גם צעד קטן, בדרך שמתאימה ליום הזה, נחשב."
@@ -5004,6 +5015,7 @@
         "text": "הפסקה יכולה לעזור לי להמשיך.",
         "english": "Taking a break can help me keep going.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5012,22 +5024,25 @@
         "text": "גם אם האנרגיה שלי נמוכה, אפשר להתחיל במשהו קטן.",
         "english": "Even if my energy is low, I can begin with something small.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם אם יש בי ספק, אפשר לנסות ולראות איך זה מרגיש.",
-        "english": "Even if I'm not sure, I can give it a try and see how it feels.",
+        "text": "גם אם אני בספק אם אצליח, אפשר לנסות ולראות איך זה מרגיש.",
+        "english": "Even if I'm not sure I'll succeed, I can give it a try and see how it feels.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אין צורך לעשות את זה מושלם. העיקר הוא לנסות לעשות.",
+        "text": "זה לא צריך להיות ביצוע מושלם. העיקר זה לנסות.",
         "english": "It doesn’t have to be perfect. What matters is giving it a try.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "נכון מאוד! כשאנחנו מאפשרים לעצמנו לעשות משהו באופן לא-מושלם, קל יותר פשוט לעשות. 💪",
         "incorrect": "כדאי לתת למחשבה הזאת עוד צ'אנס. הרצון לעשות משהו באופן מושלם יכול להקשות עלינו להתחיל בכלל."
@@ -5036,22 +5051,25 @@
         "text": "אפשר להתחיל בלי להתחייב לעשות הכול.",
         "english": "I can start without committing to the whole thing.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "בדיוק! אפשר לעשות את הצעד הראשון ולתת לדברים להתפתח משם. העיקר להתחיל. 👣",
         "incorrect": "כדאי לתת למחשבה הזאת עוד צ'אנס. כשמתמקדים רק בצעד הראשון, קל יותר להתחיל. ומשם, לפעמים גם קל יותר להמשיך."
       },
       {
-        "text": "אי אפשר להתחיל בלי מוטיבציה",
+        "text": "אי אפשר להתחיל בלי מוטיבציה.",
         "english": "I can't start if I'm not feeling motivated.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
-        "correct": "עלית על זה! זו טעות נפוצה שלא באמת עוזרת לנו. חשוב לזכור שלפעמים מוטיבציה דווקא באה אחרי שהתחלנו. ✨",
-        "incorrect": "שווה להסתכל שוב, זו מלכודת מחשבתית. כשמחכים להרגיש מוטיבציה, קשה יותר להתחיל, ולעיתים המוטיבציה באה רק אחרי שהתחלנו."
+        "correct": "עלית על זה! זו טעות נפוצה שלא באמת עוזרת לנו. חשוב לזכור שלפעמים מוטיבציה דווקא באה אחרי שמתחילים. ✨",
+        "incorrect": "שווה להסתכל שוב, זו מלכודת מחשבתית. כשמחכים להרגיש מוטיבציה, קשה יותר להתחיל, ולעיתים המוטיבציה באה רק אחרי שמתחילים."
       },
       {
-        "text": "אם אין לי את היכולת לעשות את הדבר בצורה מלאה ומושלמת, אין טעם להתחיל.",
-        "english": "If I can't do it fully and perfectly, there's no point in starting.",
+        "text": "אם אין לי את היכולת לעשות את זה בצורה מושלמת, אין טעם להתחיל.",
+        "english": "If I can't do it perfectly, there's no point in starting.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5060,22 +5078,25 @@
         "text": "אם פספסתי יום, הרסתי את הרצף, אז אין טעם להמשיך.",
         "english": "If I missed a day, I've ruined the streak, so there's no point in continuing.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
-        "correct": "עלית על זה! המוח שלנו נוטה לשפוט אותנו לחומרה. חשוב לזכור שירידות ועליות הן חלק מהחיים, ולתמוך בעצמנו גם כשקשה לנו. ❤️",
+        "correct": "עלית על זה! המוח שלנו נוטה לשפוט אותנו לחומרה. עליות וירידות הן חלק מהחיים. ❤️",
         "incorrect": "שווה להסתכל שוב, זו מלכודת מחשבתית. כשאנחנו מחמירים עם עצמנו על יום שפספסנו, קשה יותר לחזור לפעולה. והרי המטרה היא לעזור לעצמנו לחזור 🫶"
       },
       {
         "text": "אם הסימפטומים שלי יותר קשים היום, כל היום אבוד.",
         "english": "If my symptoms are worse today, the whole day is lost.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "אם הקצב שלי איטי, זה נובע מעצלנות.",
-        "english": "If I slow down, I’m just being lazy.",
+        "english": "If my pace is slow, it's because I'm lazy.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5084,6 +5105,7 @@
         "text": "אם אין לי את היכולת לעשות את זה טוב, עדיף שלא אעשה בכלל.",
         "english": "If I can’t do it well, I’d rather not do it at all.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5092,6 +5114,7 @@
         "text": "חובה לעשות את זה כמו שצריך - תמיד.",
         "english": "I always have to get it right.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5100,78 +5123,88 @@
         "text": "אם אני עושה פחות ממה שתכננתי, זה כבר לא נחשב.",
         "english": "If I do less than I planned, it doesn't count.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אני כבר בפיגור, אז אין טעם להתחיל עכשיו.",
-        "english": "I’m already behind, so there’s no point starting now.",
+        "text": "עוד לא התחלתי ואני כבר בפיגור, אז עדיף פשוט לוותר.",
+        "english": "I haven't even started and I'm already behind, so I might as well give up.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אם אני עושה את זה עם הקלות, זה לא באמת נחשב שעשיתי.",
-        "english": "If I have to make it easier, it doesn’t really count.",
+        "text": "לעשות משהו עם הקלות זה לא באמת נחשב לעשות",
+        "english": "Doing something with adjustments doesn't really count as doing it.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
         "correct": "כל הכבוד שלא נפלת במלכודת! אם עשית משהו עם הקלות זה אומר שמצאת דרך 💡 לעשות על אף הקושי. וזה מדהים.",
-        "incorrect": "להפך, זה דווקא נחשב מאוד. אם הקלת על עצמך, זה אומר שמצאת דרך לעשות למרות שהיה שם קושי. "
+        "incorrect": "להפך, זה דווקא נחשב מאוד. אם הקלת על עצמך, זה אומר שמצאת דרך לעשות למרות שהיה שם קושי."
       },
       {
-        "text": "אפשר לפצל את הפעילות ולנוח בדרך. ככה יהיה לי קל יותר להמשיך.",
+        "text": "אם אקח הפסקות למנוחה במהלך הפעילות יהיה לי קל יותר להמשיך.",
         "english": "I can take breaks during an activity. That will make it easier for me to continue.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
-        "correct": "בדיוק! לנהל את האנרגיה בצורה חכמה זה לשים לב מתי הבטריה מתחילה להתרוקן ולטעון אותה מדי פעם. 🔋",
+        "correct": "בדיוק! ניהול אנרגיה חכם זה לשים לב מתי הבטריה מתחילה להתרוקן ולטעון אותה מדי פעם. 🔋",
         "incorrect": "כדאי לתת למחשבה הזאת עוד צ'אנס. מנוחה באמצע הדרך היא לא ויתור, והיא יכולה לעזור לנו להמשיך."
       },
       {
         "text": "מותר לי לעצור גם לפני שנגמר לי הכוח. ",
         "english": "I'm allowed to stop before I run out of energy.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אם יש לי צורך לפצל את הפעילות או לנוח באמצע, אז כבר עדיף לוותר עליה ולא לעשות כלום.",
-        "english": "If I need to split the activity or rest in the middle, I might as well give up and do nothing.",
+        "text": "אם יש לי צורך בפסקת מנוחה באמצע פעילות, עדיף כבר לוותר ולא לעשות כלום.",
+        "english": "If I need a rest break in the middle of an activity, I might as well give up and do nothing.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם אם קשה לי להתניע, זה לא אומר שזו עצלנות.",
-        "english": "Even if it's hard for me to get going, it doesn't mean I'm lazy.",
+        "text": "קושי להתניע זה לא עצלנות.",
+        "english": "Having a hard time getting started isn't laziness.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "ביום קשה אין טעם לנסות לעשות שום דבר. אני אחכה ליום טוב.",
+        "text": "ביום קשה אין טעם לנסות. עדיף לחכות ליום טוב.",
         "english": "On a hard day there's no point in trying to do anything. I'll wait for a good day.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אפשר להתחיל גם בלי מוטיבציה. לפעמים היא באה רק אחרי שמתחילים.",
-        "english": "I can start even if I don't feel motivated. Motivation may come after I begin.",
+        "text": "לפעמים המוטיבציה באה רק אחרי שמתחילים.",
+        "english": "Sometimes motivation only comes after I start.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
-        "correct": "בדיוק! הרבה פעמים המוטיבציה נבנית מתוך העשייה ולא לפניה. אפילו צעד ראשון קטנטן יכול להניע את הדברים. 🌱",
-        "incorrect": "כדאי לתת למחשבה הזאת עוד צ'אנס. להרגיש מוטיבציה זה לא תנאי להתחלה. התחושה באה בדרך כלל תוך כדי תנועה, ולכן מספיק צעד ראשון קטן מאוד."
+        "correct": "בדיוק! הרבה פעמים המוטיבציה נבנית מתוך העשייה. אפילו צעד ראשון קטנטן יכול להניע את הדברים. 🌱",
+        "incorrect": "כדאי לתת למחשבה הזאת עוד צ'אנס. מוטיבציה היא לא תנאי הכרחי להתחלה. היא יכולה לבוא תוך כדי תנועה, ולכן מספיק צעד ראשון קטן מאוד."
       },
       {
         "text": "אפשר לעשות צעד קטן עכשיו ולראות אם המוטיבציה מגיעה בעקבותיו.",
         "english": "I can take one small step now and see whether motivation follows.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5180,14 +5213,16 @@
         "text": "אם דרך אחת לא עובדת, אפשר לנסות דרך אחרת.",
         "english": "If one approach isn’t working, I can try another.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "לא הכול חייב להיות מושלם כדי שיהיה שווה לעשות אותו.",
-        "english": "Good enough is still worth doing.",
+        "text": "התנאים לא חייבים להיות מושלמים כדי לנסות.",
+        "english": "Conditions don't have to be perfect for me to give it a try.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5195,25 +5230,28 @@
     ],
     "balanced": [
       {
-        "text": "גם אם כרגע אני מרגיש קושי ותסכול אולי יש משהו שיכול לעזור לי להתמודד קצת יותר טוב",
+        "text": "אם אני חווה קושי ותסכול אולי יש משהו שיכול לעזור לי להתמודד קצת יותר טוב",
         "english": "Even if I'm struggling and frustrated right now, there may be something that helps me cope a little better",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "זה שאני עושה משהו בדרך אחרת לא הופך אותו לפחות משמעותי.",
-        "english": "Doing something differently doesn’t make it less worthwhile.",
+        "text": "זה שאני עושה משהו בדרך שונה מבעבר לא הופך אותו לפחות משמעותי.",
+        "english": "Doing something differently than before doesn't make it less meaningful.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם אם הבוקר התחיל רע. אפשר לראות מה יתאפשר לי בהמשך היום.",
-        "english": "Even if the morning started badly, I can see what becomes possible later in the day.",
+        "text": "גם אם הבוקר התחיל רע אראה מה יתאפשר לי בהמשך היום.",
+        "english": "Even if the morning started badly, I'll see what becomes possible later in the day.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5222,6 +5260,7 @@
         "text": "היכולת שלי משתנה מיום ליום. יום אחד לא מספר את כל הסיפור.",
         "english": "My ability changes from day to day. One day doesn't tell the whole story.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5230,6 +5269,7 @@
         "text": "רגע מביך יכול להיות לא נעים, אבל יש ביכולתי לשאת אותו.",
         "english": "An awkward moment can be unpleasant, but I can bear it.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5238,14 +5278,16 @@
         "text": "גם כשמשהו קשה, יש לי את היכולת למצוא דרך להתמודד איתו.",
         "english": "Even when something is hard, I can find a way to deal with it.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "בדיוק! לא צריך לדעת את כל התשובות מראש. הרבה פעמים  אנחנו מגלים את הכוחות שלנו דרך התמודדות עם קושי. 💪",
-        "incorrect": "שווה לתת למחשבה הזאת הזדמנות.  נכון, אין לנו תמיד את כל התשובות, אבל יש לנו את היכולת להתמודד ולמצוא פתרונות תוך כדי תנועה."
+        "incorrect": "שווה לתת למחשבה הזאת הזדמנות. נכון, אין לנו תמיד את כל התשובות, אבל יש לנו את היכולת להתמודד ולמצוא פתרונות תוך כדי תנועה."
       },
       {
         "text": "דברים בלתי צפויים יכולים להיות קשים, ועדיין יש לי את היכולת להתמודד איתם.",
         "english": "Unexpected things can be hard, and I can still handle them.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5254,6 +5296,7 @@
         "text": "קשה לדעת מה יהיה אבל מסקרן אותי לראות איך זה יתפתח.",
         "english": "I don't know what the future holds, but I’m curious to see how this goes.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "יפה! כשאנחנו באים בסקרנות, אנחנו נותנים לעצמנו הזדמנות לראות מה באמת יקרה. 🧐",
         "incorrect": "זאת דווקא מחשבה מועילה. סקרנות עוזרת לנו להשאר פתוחים לאפשרויות שונות, במקום להחליט מראש איך הדברים יתפתחו."
@@ -5262,22 +5305,25 @@
         "text": "לא הספקתי הכול, אבל כן הספקתי כמה דברים.",
         "english": "I didn’t get everything done, but I did get some things done.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם אם יש לי צורך בעזרה עכשיו, זה לא מוחק את כל מה שכן ביכולתי לעשות.",
-        "english": "Even if I need help right now, it doesn't erase everything I can do.",
+        "text": "לבקש עזרה במשהו לא מוחק את כל מה שאני עושה בכוחות עצמי.",
+        "english": "Asking for help with something doesn't erase everything I do on my own.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "ברור שזה קרה דווקא לי. שום דבר לא הולך לי חלק אף פעם .",
+        "text": "ברור שזה קרה דווקא לי. שום דבר לא הולך לי חלק אף פעם.",
         "english": "Of course this happened to me. Things never go my way.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
         "correct": "יפה, עלית על זה! מכשול אחד יכול בקלות להפוך ל״זה תמיד קורה לי״. אבל הקשיים שלנו לא מגדירים אותנו. 🫶",
         "incorrect": "אופס, זו מלכודת מחשבה. מילים כמו ״תמיד״ ו״אף פעם״ יכולות לגרום למכשול אחד להרגיש הרבה יותר גדול ממה שהוא."
@@ -5286,6 +5332,7 @@
         "text": "לא הספקתי את כל מה שתכננתי, אז כל מה שעשיתי לא שווה כלום.",
         "english": "I didn't get everything I planned done, so everything I did is worth nothing.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5294,6 +5341,7 @@
         "text": "כולם מצליחים להסתדר איכשהו. רק לי אין מושג מה לעשות.",
         "english": "Everyone manages somehow. Only I don't know what to do.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5302,6 +5350,7 @@
         "text": "הזמינו אותי רק כי מרחמים עליי.",
         "english": "I was only invited because they feel sorry for me.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
         "correct": "בדיוק! אנחנו לא באמת יכולים לדעת למה מישהו הזמין אותנו, אלא אם הוא יספר לנו. 💡",
         "incorrect": "נקודה למחשבה: המחשבה הזאת מניחה שאנחנו יודעים מה עובר למישהו אחר בראש. בדרך כלל, אנחנו לא באמת יודעים."
@@ -5310,6 +5359,7 @@
         "text": "אם הבוקר התחיל רע, כל היום כבר אבוד.",
         "english": "If the morning started badly, the whole day is already lost.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5318,6 +5368,7 @@
         "text": "שום דבר אף פעם לא עוזר, אז אין טעם לנסות.",
         "english": "Nothing ever helps, so there's no point in trying",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5326,6 +5377,7 @@
         "text": "אמורה להיות לי היכולת לעשות את זה בדיוק כמו פעם.",
         "english": "I should be able to do this exactly as I used to.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5334,6 +5386,7 @@
         "text": "הם לא באמת התכוונו למחמאה הזאת. הם סתם ניסו להיות נחמדים.",
         "english": "That wasn't a sincere compliment, they were just being nice.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5342,14 +5395,16 @@
         "text": "אתמול הצלחתי והיום לא. סימן שיש אצלי רק נסיגה.",
         "english": "Yesterday I succeeded and today I didn't. It means I'm only going backwards.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "שוב שיניתי את דעתי. פשוט אין לי את היכולת לקבל החלטות.",
-        "english": "I changed my mind again. I never know what I want.",
+        "english": "I changed my mind again. I just can't make decisions.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5358,6 +5413,7 @@
         "text": "אם יש משהו שלא מצליח לי, סימן שאני לא שווה כלום.",
         "english": "If there's something I can't do, it means I'm worth nothing.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5366,14 +5422,16 @@
         "text": "אם היה לי קשה במפגש הזה, אז כנראה שכבר לא מתאים לי יותר לפגוש אנשים.",
         "english": "If that meeting was hard for me, I probably shouldn't meet people anymore.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "שום דבר לא מצליח לי כפי שצריך.",
-        "english": "I can't do anything the way it should be done.",
+        "text": "שום דבר לא מצליח לי.",
+        "english": "Nothing ever works out for me.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5382,46 +5440,52 @@
         "text": "אם נאלצתי לבטל תוכניות, אז בטח אכזבתי את כולם.",
         "english": "If I had to cancel plans, I must have let everyone down.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "ניסיתי את זה פעם וזה לא עזר. אין טעם לנסות שום דבר אחר.",
-        "english": "I tried this once and it didn't help. There's no point in trying anything else.",
+        "text": "ניסיתי את זה פעם וזה לא עזר. אין טעם לנסות שוב.",
+        "english": "I tried this once and it didn't help. There's no point in trying again.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם אם המפגש החברתי הזה לא הלך כפי שרציתי, בפעם אחרת או בדרך אחרת אולי ילך יותר טוב.",
-        "english": "Even if that social gathering didn't go the way I wanted, next time, or in a different way, it might go better.",
+        "text": "המפגש החברתי הזה לא הלך כפי שרציתי, אבל בפעם אחרת אולי ילך יותר טוב.",
+        "english": "That social gathering didn't go the way I wanted, but another time it might go better.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "משהו יכול להיות קשה, ועדיין חשוב מספיק כדי שאתמודד איתו.",
-        "english": "Something can be hard, and still matter to me enough to cope with the difficulty.",
+        "english": "Something can be hard and still matter enough for me to face it.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם אם שיניתי תוכניות ויכול להיות שאכזבתי מישהו, זה לא אומר שתמיד אכזבתי אנשים.",
-        "english": "Even if I changed plans and may have disappointed someone, it doesn't mean I always let people down.",
+        "text": "גם אם שיניתי תוכניות וזה איכזב מישהו, זה לא אומר שאני אכזבה.",
+        "english": "Even if I changed plans and it disappointed someone, that doesn't make me a disappointment.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "זה לא עזר לי כמו שקיוויתי הפעם. אולי בדרך קצת אחרת, זה יעבוד טוב יותר.",
-        "english": "It didn't help as much as I'd hoped this time. Maybe in a slightly different way, it will work better.",
+        "text": "אם לא הלך לי בדרך אחת, אולי בדרך אחרת, זה יעבוד טוב יותר.",
+        "english": "If one way didn't work, maybe another way will work better.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5430,38 +5494,43 @@
         "text": "אם אני לא רואה שיפור ברור, כנראה שכל המאמץ שלי לחינם.",
         "english": "If I don't see a clear improvement, all my effort has probably been for nothing.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אני רוצה לראות שיפור. גם כשקשה לי להבחין בו, אפשר לשים לב למאמץ שלי בדברים שחשובים לי ולדרך שאני עושה.",
-        "english": "I want to see improvement. Even when it's hard to notice, I can pay attention to the effort I put into what matters to me and to the path I'm on.",
+        "text": "גם כשאני לא חווה שיפור גדול, אני גאה בעצמי על הדרך שאני עושה.",
+        "english": "Even when I don't see a big improvement, I'm proud of myself for the path I'm on.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אם שיניתי את התוכנית זה לא אומר שויתרתי.",
+        "text": "אם שיניתי את התוכנית זה לא אומר שוויתרתי.",
         "english": "Changing the plan doesn’t mean I’m giving up.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "בדיוק! לפעמים התאמת התוכנית היא דווקא דרך להמשיך, ולא לוותר.",
         "incorrect": "כדאי לתת למחשבה הזאת עוד צ'אנס. לפעמים שינוי בתוכנית הוא בדיוק מה שמאפשר לנו להמשיך."
       },
       {
-        "text": "גם לעשות רק חלק יכול להיות משמעותי.",
+        "text": "גם לעשות רק חלק ממשהו יכול להיות משמעותי.",
         "english": "Doing part of something can still be worthwhile.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אולי מה שעבד אתמול לא תואם את הצורך שלי היום.",
-        "english": "Maybe what worked yesterday isn’t what I need today.",
+        "text": "הצרכים שלי משתנים, ולכן חשוב שאקשיב לעצמי ואעשה התאמות כשצריך.",
+        "english": "My needs change, so it's important to listen to myself and make adjustments when needed.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5470,6 +5539,7 @@
         "text": "יש לי את האפשרות להתאים את הציפיות שלי לאיך שאני היום.",
         "english": "I can adjust my expectations to the kind of day I’m having.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5478,6 +5548,7 @@
         "text": "גם שינוי בתוכניות יכול להוביל ליום טוב.",
         "english": "A change of plans can still lead to a good day.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5486,6 +5557,7 @@
         "text": "אם זה לא כמו שתכננתי, עדיף לא לעשות את זה בכלל.",
         "english": "If I can’t do it the way I planned, I’d rather not do it at all.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5494,6 +5566,7 @@
         "text": "כבר החלטתי, אז עכשיו אין ברירה אלא לדבוק בזה.",
         "english": "I’ve already decided, so I have to stick with it.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5502,24 +5575,27 @@
         "text": "אם שיניתי את התוכנית, סימן שלא הצלחתי לעמוד במה שתכננתי.",
         "english": "Changing the plan means I failed to follow through.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "להוריד ציפיות, זה סתם לוותר לעצמי.",
-        "english": "If I lower my expectations, I’m just making excuses.",
+        "english": "Lowering my expectations is just letting myself off the hook.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
-        "correct": "יפה, עלית על זה! התאמת את הציפיות למצב זה לא ויתור. זאת התמודדות עם מה שמתאים ואפשרי עכשיו.",
+        "correct": "יפה, עלית על זה! להתאים את הציפיות למצב זה לא ויתור. זאת התמודדות עם מה שמתאים ואפשרי עכשיו.",
         "incorrect": "זהירות, יש כאן מלכודת. הציפיות שלנו לא חייבות להישאר אותו דבר כשהמצב משתנה."
       }
     ],
     "relaxation": [
       {
-        "text": "גם ביום עמוס, אפשר להרשות לעצמי לקחת כמה דקות של שקט.",
-        "english": "I can afford to take a few quiet minutes, even on a busy day.",
+        "text": "גם ביום עמוס, מותר לי לקחת כמה דקות של שקט.",
+        "english": "Even on a busy day, I'm allowed to take a few quiet minutes.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5528,22 +5604,25 @@
         "text": "לא חייבים להירגע באותה הדרך בכל פעם.",
         "english": "Relaxing doesn’t have to look the same every time.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "נכון! מה שעוזר לנו יכול להשתנות מיום ליום. כשיש לנו כמה דרכים להירגע, יש לנו אפשרות לבחור מה מתאים לנו. 🌈",
         "incorrect": "כדאי לתת למחשבה הזאת הזדמנות. אין דרך אחת נכונה להירגע. מה שעוזר לנו יכול להשתנות בהתאם ליום, למצב ולצורך."
       },
       {
-        "text": "אנחנו לא בוחרים מתי יופיע מתח, אבל יש לנו יכולת לבחור איך להגיב אליו.",
-        "english": "I can’t control when stress appears, but I can influence how I respond to it.",
+        "text": "אין לי יכולת לבחור מתי יופיע מתח, אבל יש לי יכולת לבחור איך להגיב אליו.",
+        "english": "I can't choose when stress shows up, but I can choose how to respond to it.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "בדיוק! אין לנו שליטה במתי יופיע מתח, אבל כשהוא מגיע, יש דברים שאפשר לעשות כדי לתמוך בעצמנו. 🌊",
         "incorrect": "שווה לחשוב על זה שוב. אי אפשר תמיד למנוע מתח, אבל זה לא אומר שאין לנו מה לעשות כשהוא מגיע."
       },
       {
-        "text": "אנחנו לא צריכים לשלוט בכל מה שאנחנו מרגישים. לפעמים שינוי קטן ומגע עדין זה מה שאפשר לתת.",
-        "english": "I don't have to control everything I'm feeling. Sometimes a small change and a gentle touch is what I can offer.",
+        "text": "לא תמיד צריך לשנות את מה שאני חווה. לפעמים מספיק לתת לחוויה מקום ולהתייחס לעצמי בעדינות.",
+        "english": "I don't always have to change what I'm experiencing. Sometimes it's enough to make room for the experience and be gentle with myself.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5552,6 +5631,7 @@
         "text": "גם לגלות מה לא עובד בשבילי היום יכול ללמד אותי משהו.",
         "english": "Discovering what doesn't work for me today also teaches me something.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5560,14 +5640,16 @@
         "text": "תרגול הרפיה יכול לעזור לי, גם אם הוא לא מעלים את כל המתח.",
         "english": "Practicing relaxation can support me, even if it does not remove all the tension.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "לעצור לרגע ולבדוק מה שלומי זה חלק משמעותי מלדאוג לעצמי.",
-        "english": "Pausing to notice what I need is already part of self-care.",
+        "english": "Pausing for a moment to check in with myself is an important part of taking care of myself.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5576,6 +5658,7 @@
         "text": "אם זה לא עוזר, אפשר לנסות בדרך אחרת או בעזרת כלי אחר.",
         "english": "If it’s not helping, I can try a different approach or tool.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5584,14 +5667,16 @@
         "text": "משהו שלא עזר לי היום יכול להרגיש אחרת מחר.",
         "english": "Something that didn't help today may feel different tomorrow.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם שינוי קטן לטובה, אפילו של חמישה אחוזים, זה מספיק טוב לתרגול שלי היום.",
+        "text": "גם שינוי קטן לטובה, אפילו של 5%, זה מספיק טוב לתרגול שלי היום.",
         "english": "Even a small change for the better, as small as five percent, is good enough for my practice today.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "בדיוק! גם הקלה קטנה נחשבת. לא צריך שינוי גדול בכל תרגול - עם הזמן, צעדים קטנים יוצרים שינוי גדול 🌱 המשיכו כך!",
         "incorrect": "כדאי לתת למחשבה הזאת עוד צ'אנס. שינוי לא חייב להיות גדול כדי להיחשב. גם שיפור של חמישה אחוזים הוא התקדמות ששווה לשים אליה לב."
@@ -5600,6 +5685,7 @@
         "text": "אין לי שום יכולת השפעה על מתח ורגיעה. שום דבר שאעשה לא ישפיע עליהם.",
         "english": "I have no ability to influence tension and calm. Nothing I do will affect them.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5608,6 +5694,7 @@
         "text": "אם אני בלחץ אז אין לי סיכוי להצליח לחוות קצת רגיעה. גם לא טיפה.",
         "english": "If I'm stressed, I have no chance of experiencing even a little calm. Not even a bit.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5616,6 +5703,7 @@
         "text": "כשאני בלחץ, אני בלחץ, אין לי מה לעשות עם זה.",
         "english": "When I’m stressed, there’s nothing I can do about it.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5624,6 +5712,7 @@
         "text": "אם מצאתי משהו שעובד, הוא אמור לעבוד בכל פעם בצורה מושלמת.",
         "english": "Once I find something that works, it should work perfectly every time.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5632,6 +5721,7 @@
         "text": "כדי לתרגל הרפיה צריך הרבה זמן וסביבה מאוד ספציפית, אחרת זה לא יעבוד.",
         "english": "To practice relaxation I need a lot of time and a very specific environment, otherwise it won't work.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
         "correct": "עלית על זה! הרפיה לא צריכה זמן ומקום מושלמים. כמה דקות, בכל מקום שנמצאים בו, כבר יכולות לעזור. 🌿",
         "incorrect": "שווה להסתכל שוב, זו מלכודת מחשבה. כשמחכים לתנאים מושלמים, אולי לא נתרגל בכלל."
@@ -5640,6 +5730,7 @@
         "text": "תרגול ההרפיה האחרון לא עזר, אז אין טעם לנסות את זה שוב.",
         "english": "The last relaxation practice didn't help, so there's no point trying it again.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5648,6 +5739,7 @@
         "text": "תמיד אמורה להיות לי היכולת לשלוט בתחושות הגוף שלי.",
         "english": "I should always be able to control how my body feels.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5656,6 +5748,7 @@
         "text": "הרפיה עובדת לאחרים, אבל לי היא אף פעם לא עובדת.",
         "english": "Relaxation works for other people, but it would never work for me.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5664,6 +5757,7 @@
         "text": "אם אני עדיין במתח, סימן שעשיתי משהו לא נכון.",
         "english": "If I still feel tense, it means I did it wrong.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
         "correct": "יפה! עלית על זה. הרפיה לא חייבת להעלים את כל המתח כדי לעזור. גם שינוי קטן יכול להשפיע. 🌱",
         "incorrect": "אופס, זו מלכודת מחשבה. הרפיה היא לא הכול או כלום. גם שינוי קטן יכול להשפיע."
@@ -5672,6 +5766,7 @@
         "text": "תרגול הרפיה עובד רק אם הוא מביא אותי לרוגע מוחלט.",
         "english": "Practicing relaxation only works if it makes me feel completely calm.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5680,22 +5775,25 @@
         "text": "אולי אוכל לתת לכתפיים להתרכך קצת. לא חייבים לשחרר הכול.",
         "english": "Maybe I can let my shoulders soften a little. I don't have to release everything.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם אם אני רוצה להירגע, וזה לא קורה כרגע, אפשר לקבל את זה. לא אוסיף לזה גם כעס וביקורתיות.",
-        "english": "Even if I want to relax and it isn't happening right now, I can accept that. I won't add anger and criticism on top of it.",
+        "text": "גם אם אני רוצה להירגע, וזה לא מצליח לי, זה בסדר. לא אוסיף לזה גם כעס וביקורתיות.",
+        "english": "Even if I want to relax and it isn't working, that's okay. I won't add anger and self-criticism on top of it.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם כלי מוכר אפשר להיעזר בו שוב, בלי לצפות מעצמי להיות תמיד ברוגע.",
-        "english": "I can use a familiar tool again, without expecting myself to always be calm.",
+        "text": "תרגול מוכר יכול לעזור בכל פעם בדרך אחרת. לא חייבים להרגיש רגועים כדי להפיק ממנו משהו.",
+        "english": "A familiar practice can help in a different way each time. I don't have to feel calm to get something out of it.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5704,22 +5802,25 @@
         "text": "קיוויתי להירדם. גם אם זה לא קרה, נתתי לעצמי זמן לנוח 🙂",
         "english": "I hoped to fall asleep. Even if it didn't happen, I gave myself time to rest. 🙂",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם במפגש עם קושי אפשר לנסות לפגוש את עצמי עם קצת יותר סבלנות וחמלה.",
-        "english": "Even when facing difficulty, I can try to meet myself with a bit more patience and compassion.",
+        "text": "גם כשקשה לי, זה לא אומר שעליי להיות קשה עם עצמי.",
+        "english": "Even when things are hard for me, I don't have to be hard on myself.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "אם הגוף שלי זז באמצע התרגול, הרסתי אותו.",
-        "english": "If I move in the middle of the practice, I've ruined it.",
+        "english": "If my body moves in the middle of the practice, I've ruined it.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5728,14 +5829,16 @@
         "text": "לא מצליח לי לשחרר את כל המתח. אז בשביל מה לנסות?",
         "english": "I can't release all the tension. So why even try?",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "אם הכלי הזה באמת היה טוב, הוא היה עובד לי בכל פעם בצורה מושלמת.",
-        "english": "",
+        "english": "If this tool were really good, it would work perfectly for me every time.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5744,6 +5847,7 @@
         "text": "שוב קשה לי. למה אין לי יכולת פשוט להירגע כמו אנשים אחרים?",
         "english": "It's hard for me again. Why can't I just relax like other people?",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5752,6 +5856,7 @@
         "text": "לפעמים אין לי סבלנות לתרגול ארוך. זה לא מונע ממני לנסות משהו קטן.",
         "english": "Sometimes I don't have the patience for a long practice. That doesn't stop me from trying something small.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5760,14 +5865,16 @@
         "text": "גם אם הגוף שלי זז קצת או רועד, אפשר להמשיך לתרגל הרפיה.",
         "english": "Even if my body moves a little or trembles, I can still practice relaxation.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "קצת תנועה או רעד לא הורסים את התרגול. אפשר להמשיך בעדינות.",
+        "text": "קצת תנועה או רעד לא הורסים את התרגול. אפשר להמשיך יחד איתם.",
         "english": "A little movement or tremor doesn't ruin my practice. I can keep going gently.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5776,6 +5883,7 @@
         "text": "אני בדרך כלל עושה את זה אחרת, אז כנראה שזה לא יעבוד.",
         "english": "That’s not how I usually do it, so it probably won’t work.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5786,22 +5894,25 @@
         "text": "לשים לב שהמחשבות שלי נדדו זה חלק מהתרגול.",
         "english": "Noticing that my mind wandered is part of the practice.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אפשר להחזיר את תשומת הלב לרגע הזה כמה פעמים שצריך.",
-        "english": "I can bring my attention back as many times as I need to.",
+        "text": "אפשר להחזיר את תשומת הלב לכאן ועכשיו כמה פעמים שצריך.",
+        "english": "I can bring my attention back to the here and now as many times as I need to.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "המחשבות שלי לא צריכות להיעלם כדי שאוכל להיות כאן ועכשיו.",
+        "text": "המחשבות שלי לא צריכות להיעלם כדי שאוכל להיות בתוך הרגע הזה.",
         "english": "My thoughts don’t have to disappear for me to be present.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5810,14 +5921,16 @@
         "text": "אין משהו מסויים שצריך להרגיש עכשיו.",
         "english": "There’s no particular way I need to feel right now.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "ממש ככה! מיינדפולנס לא אמור לגרום לנו להרגיש משהו מסויים, אלא לאפשר לנו לשים לב למה שנמצא.",
         "incorrect": "האמת היא, שאין משהו אחד שאמורים להרגיש בזמן מיינדפולנס. כל הרגשה יכולה להיות חלק מהתרגול."
       },
       {
         "text": "אני אתרגל מיינדפולנס עם הגוף ועם מצב הרוח שיש לי היום.",
-        "english": "I can practice with today’s body and state of mind.",
+        "english": "I'll practice mindfulness with the body and mood I have today.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5826,6 +5939,7 @@
         "text": "מיינדפולנס זה לשים לב למה שנמצא כאן, לא לנסות ליצור חוויה מושלמת.",
         "english": "Mindfulness is about noticing what is here, not creating a perfect experience.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5834,6 +5948,7 @@
         "text": "גם רגע קצר של תשומת לב נחשב.",
         "english": "A brief moment of awareness still counts.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5842,14 +5957,16 @@
         "text": "אפשר לזוז או לשנות תנוחה ולהמשיך לתרגל.",
         "english": "I can move or change position and keep practicing.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "אשים לב למה שקורה בגוף שלי בלי לנסות לשנות את זה.",
-        "english": "I can notice what’s happening in my body without needing to change it.",
+        "english": "I'll notice what's happening in my body without trying to change it.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5858,14 +5975,16 @@
         "text": "אפשר לתרגל מיינדפולנס גם תוך כדי פעולות יומיומיות.",
         "english": "I can practice mindfulness while doing everyday things.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "נכון! אפשר לתרגל מיינדפולנס בכל זמן ובכל מקום. כל מה שצריך זה להפנות את תשומת הלב למה שאנחנו עושים.",
         "incorrect": "תאמינו או לא, פעולות יומיומיות הן הזדמנות מצוינת לתרגל מיינדפולנס. העניין הוא פשוט לשים לב למה שקורה כאן ועכשיו."
       },
       {
         "text": "אם לא ארוקן את הראש ממחשבות, מיינדפולנס לא יעבוד.",
-        "english": "I need to clear my mind for mindfulness to work.",
+        "english": "If I don't clear my head of thoughts, mindfulness won't work.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5874,14 +5993,16 @@
         "text": "בזמן תרגול מיינדפולנס, המחשבות שלי כל הזמן נודדות. כנראה שאני עושה משהו לא נכון.",
         "english": "When I practice mindfulness, my mind keeps wandering. I must be doing this wrong.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
         "correct": "צדקת, זו מלכודת מחשבתית! זה טבעי שהמחשבות נודדות. לשים לב שזה קרה ולהחזיר את תשומת הלב זה חלק מהתרגול. 🌿",
-        "incorrect": "אופס, זו מלכודת. זה שהמחשבות נודדות לא אומר שעשינו משהו לא נכון. למעשה,זה ששמנו לב שהן נדדו מראה שאנחנו בתוך התרגול."
+        "incorrect": "אופס, זו מלכודת. זה שהמחשבות נודדות לא אומר שעשינו משהו לא נכון. למעשה, זה ששמנו לב שהן נדדו מראה שאנחנו בתוך התרגול."
       },
       {
         "text": "אין לי את הידע והיכולת לתרגל מיינדפולנס.",
-        "english": "I’m just not good at mindfulness.",
+        "english": "I don't have the knowledge or ability to practice mindfulness.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5890,14 +6011,16 @@
         "text": "במיינדפולנס אמורים להצליח להישאר מרוכזים כל הזמן.",
         "english": "I should be able to stay focused the whole time.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "הייתי מצפה שכבר ארגיש רוגע מוחלט.",
-        "english": "I should feel peaceful by now.",
+        "text": "אני לא חווה רוגע מוחלט בתרגול. כנראה שאני עושה אותו לא נכון.",
+        "english": "I don't feel completely calm during the practice. I must be doing it wrong.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5906,6 +6029,7 @@
         "text": "אי אפשר לתרגל מיינדפולנס כשיש תנועה או אי־נוחות בגוף.",
         "english": "I can’t practice mindfulness when there's movement or discomfort in my body.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
         "correct": "יפה שעלית על זה! זו מלכודת מחשבתית. מיינדפולנס לא דורש מאיתנו להיות בלי תנועה. אפשר לשים לב גם לתנועה ולאי־נוחות. 🌱",
         "incorrect": "שווה להסתכל שוב, זו מלכודת מחשבתית. לא חייבים להיות בלי תנועה כדי לתרגל מיינדפולנס. אפשר לשים לב לתנועה ולתת לה להיות."
@@ -5914,14 +6038,16 @@
         "text": "אם עולות מחשבות קשות, סימן שהתרגול לא עובד.",
         "english": "Difficult thoughts mean the practice is not working.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "צריך להפסיק לחשוב כדי להיות בנוכחות",
-        "english": "I need to stop thinking before I can be present.",
+        "text": "צריך להפסיק לחשוב כדי להיות בתרגול מיינדפולנס.",
+        "english": "I need to stop thinking in order to practice mindfulness.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5930,14 +6056,16 @@
         "text": "אם לא אשב בשקט, זה לא באמת נחשב מיינדפולנס.",
         "english": "If I’m not sitting quietly, it doesn’t really count as mindfulness.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אני אנסה להתרכז יותר כדי שהמחשבות שלי לא ינדדו.",
-        "english": "I need to try harder to keep my mind from wandering.",
+        "text": "אני אנסה להתרכז ממש חזק כדי שהמחשבות שלי לא ינדדו.",
+        "english": "I'll try really hard to focus so my thoughts don't wander.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -5948,6 +6076,7 @@
         "text": "הגיוני שקשה לי עם זה. זה באמת לא מצב פשוט.",
         "english": "It makes sense that I’m finding this difficult. It's not an easy situation.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5956,14 +6085,16 @@
         "text": "אפרגן לעצמי על המאמץ, גם כשדברים לא מסתדרים כמו שקיוויתי.",
         "english": "I can give myself credit for my effort, even when things don’t go as I hoped.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אפשר לקחת אחריות בלי לתקוף את עצמי.",
-        "english": "I can take responsibility without attacking myself.",
+        "text": "אפשר לקחת אחריות בלי להאשים או לתקוף את עצמי.",
+        "english": "I can take responsibility without blaming or attacking myself.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5972,14 +6103,16 @@
         "text": "זה בסדר שקשה לי עם זה.",
         "english": "It's okay that this is hard for me.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
-        "correct": "בדיוק! זה שקשה לנו לא אומר שאנחנו נכשלים. כשמאפשרים לקושי להיות, נפתח מקום לתמיכה ולחום. 💛",
-        "incorrect": "כדאי לתת למחשבה הזאת עוד צ'אנס. כשאומרים לעצמנו שלא אמור להיות קשה, מוסיפים לחץ על הקושי. קבלה שלו יכולה להקל עלינו לבקש את מה שאנחנו צריכים."
+        "correct": "בדיוק! זה שקשה לנו לא אומר שאנחנו נכשלים. כשמאפשרים לקושי להיות, בלי להיאבק בו, מתפנה לנו מקום לקבלת תמיכה וחום. 💛",
+        "incorrect": "כדאי לתת למחשבה הזאת עוד צ'אנס. להגיד לעצמנו שלא אמור להיות קשה, רק מוסיף לחץ על הקושי. כשאנחנו מקבלים את הקושי, קל לנו יותר לבקש את מה שאנחנו צריכים."
       },
       {
-        "text": "אפשר להתאכזב בלי להיות קשה עם עצמי.",
+        "text": "אפשר להתאכזב ממשהו בלי להיות קשה עם עצמי.",
         "english": "I can be disappointed without being hard on myself.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5988,6 +6121,7 @@
         "text": "עשיתי היום את הכי טוב שיכולתי עם מה שהיה לי.",
         "english": "I did the best I could with what I had today.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -5996,6 +6130,7 @@
         "text": "זה אפשרי להתייחס לעצמי יפה ובמקביל לרצות לעשות דברים אחרת בפעם הבאה.",
         "english": "I can be kind to myself and still want to do things differently next time.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "בדיוק! להיות טובים לעצמנו לא אומר להתעלם ממה שהיינו רוצים לשנות. אפשר לעשות את שני הדברים.",
         "incorrect": "בעצם, כשאנחנו קשים עם עצמנו, לפעמים קשה יותר ללמוד ממה שקרה. קצת חמלה יכולה לעזור לנו להסתכל על הדברים בצורה ברורה יותר."
@@ -6004,14 +6139,16 @@
         "text": "מותר לי לשנות את דעתי לגבי מה שאוכל לעשות היום.",
         "english": "I’m allowed to change my mind about what I can manage today.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם אם לא נעים לי לבקש עזרה, מותר לי לפעמים להיעזר במישהו אחר.",
-        "english": "Even if it's uncomfortable for me to ask for help, I'm allowed to get help from someone else sometimes.",
+        "text": "גם אם לא תמיד נעים לי לבקש עזרה, זה בסדר לעשות את זה לפעמים.",
+        "english": "Even if it's not always comfortable for me to ask for help, it's okay to do it sometimes.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6020,14 +6157,16 @@
         "text": "אפשר ליהנות מהרגע הזה בלי להרגיש צורך להרוויח אותו.",
         "english": "I can enjoy this moment without needing to earn it.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "הביכותי את עצמי. כולם בטח חושבים שאני אדם מגוחך.",
+        "text": "הבכתי את עצמי. כולם בטח חושבים שאני אדם מגוחך.",
         "english": "I embarrassed myself. Everyone must think I’m ridiculous.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6036,6 +6175,7 @@
         "text": "לא אמור להיות לי צורך בכל כך הרבה עזרה.",
         "english": "I shouldn’t need this much support.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6044,14 +6184,16 @@
         "text": "אין לי זכות להתבאס ממשהו כל כך קטן.",
         "english": "I have no right to be upset about something so small.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
-        "correct": "בחירה מצוינת! משהו יכול להיראות קטן ועדיין להשפיע עלינו. אין סיבה לשפוט את עצמנו על זה.",
-        "incorrect": "נקודה למחשבה: להגיד לעצמנו שאנחנו לא אמורים להתבאס לא מעלים את ההרגשה. להכיר במה שאנחנו מרגישים יכול לעזור לנו להמשיך הלאה."
+        "correct": "נכון! זאת מלכודת! משהו יכול להיראות קטן ועדיין להשפיע עלינו. אין סיבה לשפוט את עצמנו על זה.",
+        "incorrect": "נקודה למחשבה: להגיד לעצמנו שאנחנו לא אמורים להתבאס לא מעלים את ההרגשה. כשאנחנו מכירים במה שאנחנו מרגישים, זה יכול לעזור לנו להמשיך הלאה."
       },
       {
         "text": "אני עשיתי את הטעות, אז מגיע לי להרגיש רע בגללה.",
         "english": "I made the mistake, so I deserve to feel bad about it.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6060,6 +6202,7 @@
         "text": "לא אמור להיות לי צורך בהפסקה כשכולם עדיין ממשיכים.",
         "english": "I shouldn’t need a break when everyone else is still going.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6068,6 +6211,7 @@
         "text": "להגיד שקשה לי זה סתם להתלונן.",
         "english": "If I say this is difficult, I’m just complaining.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6076,14 +6220,16 @@
         "text": "אסור שמישהו יראה שקשה לי.",
         "english": "I can't let anyone see that I have difficulties.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "צריך להפסיק לרחם על עצמי, זה פתטי.",
-        "english": "I need to stop feeling sorry for myself, it's pathetic.",
+        "text": "די. מספיק עם הרחמים העצמיים. זה מגוחך.",
+        "english": "Enough. Enough with the self-pity. It's ridiculous.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6092,14 +6238,16 @@
         "text": "אם אפסיק לבקר את עצמי, אני אתעצל ובסוף אוותר.",
         "english": "If I stop criticizing myself, I’ll become lazy and give up.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
-        "correct": "בול! אנחנו לא צריכים להיות קשים עם עצמנו כדי לשמור על מוטיבציה. אם נעודד את עצמנו, זה גם יכול לעזור לנו להמשיך.",
-        "incorrect": "שווה לחשוב על זה שוב. להיות קשים עם עצמנו יכול דווקא לרוקן את המוטיבציה במקום לחזק אותה."
+        "correct": "תפיסה טובה! אנחנו לא צריכים להיות קשים עם עצמנו כדי לשמור על מוטיבציה. אם נעודד את עצמנו, זה גם יכול לעזור לנו להמשיך.",
+        "incorrect": "שווה לחשוב על זה שוב. כשאנחנו קשים עם עצמנו זה יכול דווקא לרוקן את המוטיבציה במקום לחזק אותה."
       },
       {
         "text": "אנשים אחרים מתמודדים יותר טוב ממני. כנראה שמשהו לא בסדר איתי.",
         "english": "Other people cope better. There must be something wrong with me.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6108,6 +6256,7 @@
         "text": "זה לא חייב להיראות כמו שדמיינתי כדי שזה יעבוד.",
         "english": "It doesn’t have to look the way I imagined to still work for me.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "בדיוק ככה! כשאנחנו משחררים קצת את איך שהדברים אמורים להתנהל, אנחנו מפנים מקום גם לאפשרויות אחרות.",
         "incorrect": "נקודה למחשבה: כשנצמדים יותר מדי לאיך שדמיינו שהדברים יתנהלו, לפעמים קשה יותר לראות אפשרויות אחרות."
@@ -6115,9 +6264,10 @@
     ],
     "labels": [
       {
-        "text": "אפשר להרגיש לא בנוח ועדיין להשתתף.",
-        "english": "I can feel self-conscious and still take part.",
+        "text": "אפשר להשתתף בפעילות חברתית גם כשזה לא מרגיש הכי נוח.",
+        "english": "I can take part in social activities even when it doesn't feel completely comfortable.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "יפה! אנחנו לא חייבים להרגיש לגמרי בנוח כדי להשתתף. לפעמים הביטחון נבנה תוך כדי תנועה.",
         "incorrect": "שווה לחשוב על זה שוב. אם נחכה עד שנרגיש לגמרי בנוח, אנחנו עלולים לוותר על דברים שחשובים לנו."
@@ -6126,6 +6276,7 @@
         "text": "רגע מביך לא מגדיר אותי.",
         "english": "An awkward moment doesn’t define me.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6134,6 +6285,7 @@
         "text": "לא צריך להסתיר את התסמינים כדי להיות בחברת אנשים.",
         "english": "I don't have to hide my symptoms to be around other people.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6142,6 +6294,7 @@
         "text": "פרקינסון הוא חלק מהחיים שלי, אבל הוא לא כל מי שאני.",
         "english": "Parkinson’s is part of my life, but it isn’t all of who I am.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6150,6 +6303,7 @@
         "text": "אין לי יכולת לשלוט באיך שאחרים מגיבים אליי, אבל התגובה שלהם לא מגדירה אותי.",
         "english": "I can’t control how everyone reacts to me, but their reaction doesn’t define me.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "נכון! אנחנו לא יכולים לבחור איך אחרים יגיבו, אבל התגובה שלהם לא קובעת מי אנחנו או מה יש לנו להציע.",
         "incorrect": "נקודה למחשבה: תגובות של אחרים יכולות להשפיע עלינו, אבל הן לא מגדירות אותנו."
@@ -6158,22 +6312,25 @@
         "text": "עדיין יש לי הרבה מה להביא לשיחה.",
         "english": "I still have plenty to bring to a conversation.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "גם אם לא אעשה דברים כמו כולם, אוכל להרגיש שייכות.",
-        "english": "I don’t have to do things the same way as everyone else to belong.",
+        "english": "Even if I don't do things like everyone else, I can still feel I belong.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "יש שלל דרכים להישאר בקשר. אני אבחר את הדרך שמתאימה לי.",
-        "english": "I can stay connected in ways that work for me now.",
+        "english": "There are many ways to stay in touch. I'll choose the one that works for me.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6182,6 +6339,7 @@
         "text": "זה בסדר לקחת קצת יותר זמן בשיחה.",
         "english": "It’s okay if I need a little more time in a conversation.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6190,6 +6348,7 @@
         "text": "אפשר לחוות רגע לא נעים ולהמשיך הלאה.",
         "english": "I can have an uncomfortable moment and keep going.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6198,6 +6357,7 @@
         "text": "אם אנשים ישימו לב לתסמינים שלי, הם יראו רק את הפרקינסון.",
         "english": "If people notice my symptoms, they’ll only see the Parkinson’s.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
         "correct": "עלית על זה! אנשים אולי ישימו לב לתסמין, אבל זה לא אומר שזה הדבר היחיד שהם רואים. אנחנו תמיד יותר מדבר אחד.",
         "incorrect": "שווה לחשוב על זה שוב. זה שמישהו שם לב לתסמין לא אומר שהוא מפסיק לראות את כל שאר הדברים שבך."
@@ -6206,6 +6366,7 @@
         "text": "לא נשאר בי שום דבר טוב.",
         "english": "There is nothing good left in me.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6214,6 +6375,7 @@
         "text": "עדיף להישאר בבית מאשר להסתכן במבוכה.",
         "english": "I should stay home rather than risk embarrassing myself.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
         "correct": "בדיוק! מבוכה יכולה להיות לא נעימה, אבל אפשר לעבור אותה. המנעות היא לא האפשרות היחידה.",
         "incorrect": "נקודה למחשבה: כשאנחנו נמנעים ממצבים מחשש למבוכה, הם יכולים להיות קשים יותר להתמודדות."
@@ -6222,6 +6384,7 @@
         "text": "לכולם קל יותר להשתלב מאשר לי.",
         "english": "Everyone else fits in more easily than I do.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6230,6 +6393,7 @@
         "text": "אם לא אוכל להשתתף כמו פעם, אין טעם ללכת.",
         "english": "If I can’t join in like I used to, there’s no point going.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6238,14 +6402,16 @@
         "text": "לאנשים יימאס לחכות לי.",
         "english": "People will get tired of waiting for me.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אני רוצה להסתיר את מה שקשה לי כדי שאנשים לא יסתכלו עליי אחרת.",
-        "english": "I need to hide what I’m struggling with so people don’t see me differently.",
+        "text": "אני אסתיר את מה שקשה לי כדי שאנשים לא יסתכלו עליי אחרת.",
+        "english": "I'll hide what I'm struggling with so people don't see me differently.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6254,14 +6420,16 @@
         "text": "בגללי נהיה לא נעים. חבל שבאתי.",
         "english": "I made things awkward. I shouldn’t have come.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אני מעמסה כשאנשים אחרים צריכים להתאים את עצמם אליי.",
-        "english": "I’m a burden when other people have to adjust for me.",
+        "text": "אני מעמסה כי אנשים אחרים צריכים להתאים את עצמם אליי.",
+        "english": "I'm a burden because other people have to adjust for me.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6270,14 +6438,16 @@
         "text": "עדיף להתרחק מאנשים מאשר שיראו אותי ככה.",
         "english": "It’s easier to avoid people than let them see me like this.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "יש דרך נכונה לעשות את זה, וזאת לא הדרך.",
-        "english": "There’s a right way to do this, and this isn’t it.",
+        "text": "יש דרך אחת נכונה לעשות את זה, וזאת לא הדרך.",
+        "english": "There's only one right way to do this, and this isn't it.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6286,6 +6456,7 @@
         "text": "זה לא היה אמור להתנהל ככה. עכשיו הכול נהרס.",
         "english": "It wasn’t supposed to go like this. Now the whole thing is ruined.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6296,6 +6467,7 @@
         "text": "גם התחלה קטנה נחשבת.",
         "english": "Starting small still counts.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6304,6 +6476,7 @@
         "text": "הפסקה יכולה לעזור לי להמשיך.",
         "english": "Taking a break can help me keep going.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6312,14 +6485,16 @@
         "text": "אפשר להתחיל בלי להתחייב לעשות הכול.",
         "english": "I can start without committing to the whole thing.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "בדיוק! אפשר לעשות את הצעד הראשון ולתת לדברים להתפתח משם. העיקר להתחיל. 👣",
         "incorrect": "כדאי לתת למחשבה הזאת עוד צ'אנס. כשמתמקדים רק בצעד הראשון, קל יותר להתחיל. ומשם, לפעמים גם קל יותר להמשיך."
       },
       {
-        "text": "גם אם הבוקר התחיל רע. אפשר לראות מה יתאפשר לי בהמשך היום.",
-        "english": "Even if the morning started badly, I can see what becomes possible later in the day.",
+        "text": "גם אם הבוקר התחיל רע אראה מה יתאפשר לי בהמשך היום.",
+        "english": "Even if the morning started badly, I'll see what becomes possible later in the day.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6328,30 +6503,34 @@
         "text": "קשה לדעת מה יהיה אבל מסקרן אותי לראות איך זה יתפתח.",
         "english": "I don't know what the future holds, but I’m curious to see how this goes.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "יפה! כשאנחנו באים בסקרנות, אנחנו נותנים לעצמנו הזדמנות לראות מה באמת יקרה. 🧐",
         "incorrect": "זאת דווקא מחשבה מועילה. סקרנות עוזרת לנו להשאר פתוחים לאפשרויות שונות, במקום להחליט מראש איך הדברים יתפתחו."
       },
       {
-        "text": "גם ביום עמוס, אפשר להרשות לעצמי לקחת כמה דקות של שקט.",
-        "english": "I can afford to take a few quiet minutes, even on a busy day.",
+        "text": "גם ביום עמוס, מותר לי לקחת כמה דקות של שקט.",
+        "english": "Even on a busy day, I'm allowed to take a few quiet minutes.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אנחנו לא בוחרים מתי יופיע מתח, אבל יש לנו יכולת לבחור איך להגיב אליו.",
-        "english": "I can’t control when stress appears, but I can influence how I respond to it.",
+        "text": "אין לי יכולת לבחור מתי יופיע מתח, אבל יש לי יכולת לבחור איך להגיב אליו.",
+        "english": "I can't choose when stress shows up, but I can choose how to respond to it.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "בדיוק! אין לנו שליטה במתי יופיע מתח, אבל כשהוא מגיע, יש דברים שאפשר לעשות כדי לתמוך בעצמנו. 🌊",
         "incorrect": "שווה לחשוב על זה שוב. אי אפשר תמיד למנוע מתח, אבל זה לא אומר שאין לנו מה לעשות כשהוא מגיע."
       },
       {
-        "text": "גם שינוי קטן לטובה, אפילו של חמישה אחוזים, זה מספיק טוב לתרגול שלי היום.",
+        "text": "גם שינוי קטן לטובה, אפילו של 5%, זה מספיק טוב לתרגול שלי היום.",
         "english": "Even a small change for the better, as small as five percent, is good enough for my practice today.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "בדיוק! גם הקלה קטנה נחשבת. לא צריך שינוי גדול בכל תרגול - עם הזמן, צעדים קטנים יוצרים שינוי גדול 🌱 המשיכו כך!",
         "incorrect": "כדאי לתת למחשבה הזאת עוד צ'אנס. שינוי לא חייב להיות גדול כדי להיחשב. גם שיפור של חמישה אחוזים הוא התקדמות ששווה לשים אליה לב."
@@ -6360,14 +6539,16 @@
         "text": "לשים לב שהמחשבות שלי נדדו זה חלק מהתרגול.",
         "english": "Noticing that my mind wandered is part of the practice.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "המחשבות שלי לא צריכות להיעלם כדי שאוכל להיות כאן ועכשיו.",
+        "text": "המחשבות שלי לא צריכות להיעלם כדי שאוכל להיות בתוך הרגע הזה.",
         "english": "My thoughts don’t have to disappear for me to be present.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6376,6 +6557,7 @@
         "text": "אפשר לתרגל מיינדפולנס גם תוך כדי פעולות יומיומיות.",
         "english": "I can practice mindfulness while doing everyday things.",
         "type": "Golden thought",
+        "type_he": "מחשבת זהב",
         "keep": true,
         "correct": "נכון! אפשר לתרגל מיינדפולנס בכל זמן ובכל מקום. כל מה שצריך זה להפנות את תשומת הלב למה שאנחנו עושים.",
         "incorrect": "תאמינו או לא, פעולות יומיומיות הן הזדמנות מצוינת לתרגל מיינדפולנס. העניין הוא פשוט לשים לב למה שקורה כאן ועכשיו."
@@ -6384,22 +6566,25 @@
         "text": "אפרגן לעצמי על המאמץ, גם כשדברים לא מסתדרים כמו שקיוויתי.",
         "english": "I can give myself credit for my effort, even when things don’t go as I hoped.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אפשר לקחת אחריות בלי לתקוף את עצמי.",
-        "english": "I can take responsibility without attacking myself.",
+        "text": "אפשר לקחת אחריות בלי להאשים או לתקוף את עצמי.",
+        "english": "I can take responsibility without blaming or attacking myself.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם אם לא נעים לי לבקש עזרה, מותר לי לפעמים להיעזר במישהו אחר.",
-        "english": "Even if it's uncomfortable for me to ask for help, I'm allowed to get help from someone else sometimes.",
+        "text": "גם אם לא תמיד נעים לי לבקש עזרה, זה בסדר לעשות את זה לפעמים.",
+        "english": "Even if it's not always comfortable for me to ask for help, it's okay to do it sometimes.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6408,6 +6593,7 @@
         "text": "פרקינסון הוא חלק מהחיים שלי, אבל הוא לא כל מי שאני.",
         "english": "Parkinson’s is part of my life, but it isn’t all of who I am.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6416,14 +6602,16 @@
         "text": "עדיין יש לי הרבה מה להביא לשיחה.",
         "english": "I still have plenty to bring to a conversation.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "יש שלל דרכים להישאר בקשר. אני אבחר את הדרך שמתאימה לי.",
-        "english": "I can stay connected in ways that work for me now.",
+        "english": "There are many ways to stay in touch. I'll choose the one that works for me.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
@@ -6432,38 +6620,43 @@
         "text": "אם דרך אחת לא עובדת, אפשר לנסות דרך אחרת.",
         "english": "If one approach isn’t working, I can try another.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "גם לעשות רק חלק יכול להיות משמעותי.",
+        "text": "גם לעשות רק חלק ממשהו יכול להיות משמעותי.",
         "english": "Doing part of something can still be worthwhile.",
         "type": "Take it in",
+        "type_he": "לאמץ",
         "keep": true,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "אי אפשר להתחיל בלי מוטיבציה",
+        "text": "אי אפשר להתחיל בלי מוטיבציה.",
         "english": "I can't start if I'm not feeling motivated.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
-        "correct": "עלית על זה! זו טעות נפוצה שלא באמת עוזרת לנו. חשוב לזכור שלפעמים מוטיבציה דווקא באה אחרי שהתחלנו. ✨",
-        "incorrect": "שווה להסתכל שוב, זו מלכודת מחשבתית. כשמחכים להרגיש מוטיבציה, קשה יותר להתחיל, ולעיתים המוטיבציה באה רק אחרי שהתחלנו."
+        "correct": "עלית על זה! זו טעות נפוצה שלא באמת עוזרת לנו. חשוב לזכור שלפעמים מוטיבציה דווקא באה אחרי שמתחילים. ✨",
+        "incorrect": "שווה להסתכל שוב, זו מלכודת מחשבתית. כשמחכים להרגיש מוטיבציה, קשה יותר להתחיל, ולעיתים המוטיבציה באה רק אחרי שמתחילים."
       },
       {
         "text": "אם פספסתי יום, הרסתי את הרצף, אז אין טעם להמשיך.",
         "english": "If I missed a day, I've ruined the streak, so there's no point in continuing.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
-        "correct": "עלית על זה! המוח שלנו נוטה לשפוט אותנו לחומרה. חשוב לזכור שירידות ועליות הן חלק מהחיים, ולתמוך בעצמנו גם כשקשה לנו. ❤️",
+        "correct": "עלית על זה! המוח שלנו נוטה לשפוט אותנו לחומרה. עליות וירידות הן חלק מהחיים. ❤️",
         "incorrect": "שווה להסתכל שוב, זו מלכודת מחשבתית. כשאנחנו מחמירים עם עצמנו על יום שפספסנו, קשה יותר לחזור לפעולה. והרי המטרה היא לעזור לעצמנו לחזור 🫶"
       },
       {
         "text": "אם אני עושה פחות ממה שתכננתי, זה כבר לא נחשב.",
         "english": "If I do less than I planned, it doesn't count.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6472,6 +6665,7 @@
         "text": "כולם מצליחים להסתדר איכשהו. רק לי אין מושג מה לעשות.",
         "english": "Everyone manages somehow. Only I don't know what to do.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6480,14 +6674,16 @@
         "text": "אתמול הצלחתי והיום לא. סימן שיש אצלי רק נסיגה.",
         "english": "Yesterday I succeeded and today I didn't. It means I'm only going backwards.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "שוב שיניתי את דעתי. פשוט אין לי את היכולת לקבל החלטות.",
-        "english": "I changed my mind again. I never know what I want.",
+        "english": "I changed my mind again. I just can't make decisions.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6496,6 +6692,7 @@
         "text": "אם אני בלחץ אז אין לי סיכוי להצליח לחוות קצת רגיעה. גם לא טיפה.",
         "english": "If I'm stressed, I have no chance of experiencing even a little calm. Not even a bit.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6504,6 +6701,7 @@
         "text": "כדי לתרגל הרפיה צריך הרבה זמן וסביבה מאוד ספציפית, אחרת זה לא יעבוד.",
         "english": "To practice relaxation I need a lot of time and a very specific environment, otherwise it won't work.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
         "correct": "עלית על זה! הרפיה לא צריכה זמן ומקום מושלמים. כמה דקות, בכל מקום שנמצאים בו, כבר יכולות לעזור. 🌿",
         "incorrect": "שווה להסתכל שוב, זו מלכודת מחשבה. כשמחכים לתנאים מושלמים, אולי לא נתרגל בכלל."
@@ -6512,14 +6710,16 @@
         "text": "תרגול הרפיה עובד רק אם הוא מביא אותי לרוגע מוחלט.",
         "english": "Practicing relaxation only works if it makes me feel completely calm.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
         "text": "אם לא ארוקן את הראש ממחשבות, מיינדפולנס לא יעבוד.",
-        "english": "I need to clear my mind for mindfulness to work.",
+        "english": "If I don't clear my head of thoughts, mindfulness won't work.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6528,14 +6728,16 @@
         "text": "בזמן תרגול מיינדפולנס, המחשבות שלי כל הזמן נודדות. כנראה שאני עושה משהו לא נכון.",
         "english": "When I practice mindfulness, my mind keeps wandering. I must be doing this wrong.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
         "correct": "צדקת, זו מלכודת מחשבתית! זה טבעי שהמחשבות נודדות. לשים לב שזה קרה ולהחזיר את תשומת הלב זה חלק מהתרגול. 🌿",
-        "incorrect": "אופס, זו מלכודת. זה שהמחשבות נודדות לא אומר שעשינו משהו לא נכון. למעשה,זה ששמנו לב שהן נדדו מראה שאנחנו בתוך התרגול."
+        "incorrect": "אופס, זו מלכודת. זה שהמחשבות נודדות לא אומר שעשינו משהו לא נכון. למעשה, זה ששמנו לב שהן נדדו מראה שאנחנו בתוך התרגול."
       },
       {
         "text": "אם עולות מחשבות קשות, סימן שהתרגול לא עובד.",
         "english": "Difficult thoughts mean the practice is not working.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6544,6 +6746,7 @@
         "text": "לא אמור להיות לי צורך בכל כך הרבה עזרה.",
         "english": "I shouldn’t need this much support.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6552,6 +6755,7 @@
         "text": "אני עשיתי את הטעות, אז מגיע לי להרגיש רע בגללה.",
         "english": "I made the mistake, so I deserve to feel bad about it.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6560,22 +6764,25 @@
         "text": "אם אפסיק לבקר את עצמי, אני אתעצל ובסוף אוותר.",
         "english": "If I stop criticizing myself, I’ll become lazy and give up.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
-        "correct": "בול! אנחנו לא צריכים להיות קשים עם עצמנו כדי לשמור על מוטיבציה. אם נעודד את עצמנו, זה גם יכול לעזור לנו להמשיך.",
-        "incorrect": "שווה לחשוב על זה שוב. להיות קשים עם עצמנו יכול דווקא לרוקן את המוטיבציה במקום לחזק אותה."
+        "correct": "תפיסה טובה! אנחנו לא צריכים להיות קשים עם עצמנו כדי לשמור על מוטיבציה. אם נעודד את עצמנו, זה גם יכול לעזור לנו להמשיך.",
+        "incorrect": "שווה לחשוב על זה שוב. כשאנחנו קשים עם עצמנו זה יכול דווקא לרוקן את המוטיבציה במקום לחזק אותה."
       },
       {
         "text": "אם אנשים ישימו לב לתסמינים שלי, הם יראו רק את הפרקינסון.",
         "english": "If people notice my symptoms, they’ll only see the Parkinson’s.",
         "type": "Thought trap",
+        "type_he": "מלכודת מחשבתית",
         "keep": false,
         "correct": "עלית על זה! אנשים אולי ישימו לב לתסמין, אבל זה לא אומר שזה הדבר היחיד שהם רואים. אנחנו תמיד יותר מדבר אחד.",
         "incorrect": "שווה לחשוב על זה שוב. זה שמישהו שם לב לתסמין לא אומר שהוא מפסיק לראות את כל שאר הדברים שבך."
       },
       {
-        "text": "אני מעמסה כשאנשים אחרים צריכים להתאים את עצמם אליי.",
-        "english": "I’m a burden when other people have to adjust for me.",
+        "text": "אני מעמסה כי אנשים אחרים צריכים להתאים את עצמם אליי.",
+        "english": "I'm a burden because other people have to adjust for me.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
@@ -6584,14 +6791,16 @@
         "text": "כבר החלטתי, אז עכשיו אין ברירה אלא לדבוק בזה.",
         "english": "I’ve already decided, so I have to stick with it.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
       },
       {
-        "text": "יש דרך נכונה לעשות את זה, וזאת לא הדרך.",
-        "english": "There’s a right way to do this, and this isn’t it.",
+        "text": "יש דרך אחת נכונה לעשות את זה, וזאת לא הדרך.",
+        "english": "There's only one right way to do this, and this isn't it.",
         "type": "Let it go",
+        "type_he": "לשחרר",
         "keep": false,
         "correct": "",
         "incorrect": ""
