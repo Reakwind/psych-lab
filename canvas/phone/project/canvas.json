@@ -20,13 +20,13 @@
   "Phone.dc.html": {
    "x": 840,
    "y": 0,
-   "w": 390,
+   "w": 880,
    "h": 844,
-   "title": "Phone · all 87 sessions",
+   "title": "Phone · all 87 sessions, timed",
    "is_interactive": true
   },
   "HeldOut-047.dc.html": {
-   "x": 1310,
+   "x": 1800,
    "y": 0,
    "w": 520,
    "h": 820,

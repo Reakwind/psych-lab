@@ -451,8 +451,13 @@ function phoneSessions() {
       return step;
     });
     const range = sessionRange(P, session, {}, {});
+    const hasChoice = session.activities.some(o => P.activities[o.id].kind === 'choice');
     return {n: session.number, id: session.id, title: session.title, english: session.english, week: session.week, day: session.app_day,
-      acts: session.activities.map(o => o.id), range: time(range.low) + (range.high - range.low > 1 ? '–' + time(range.high) : ''), steps: out};
+      acts: session.activities.map(o => o.id), range: time(range.low) + (range.high - range.low > 1 ? '–' + time(range.high) : ''),
+      low: Math.round(range.low), high: Math.round(range.high),
+      missing: range.missing.map(id => P.activities[id]?.english || id),
+      choice: hasChoice && range.missing.length ? 'Includes every option of the choice; choosing a recorded practice may avoid a gap.' : '',
+      steps: out};
   });
 }
 
@@ -467,7 +472,7 @@ function phoneData() {
       planned: a.audio?.seconds || a.planned_seconds || 0}];
   }));
   const typeLabel = type => Object.values(P.thoughts).flat().find(t => t.type === type && t.type_he)?.type_he || '';
-  return {sessions, acts,
+  return {sessions, acts, daily: P.daily_totals_minutes,
     thoughts: Object.fromEntries(Object.entries(P.thoughts).map(([k, v]) => [k, v.map(t => ({text: t.text, keep: !!t.keep, type: t.type, type_he: t.type_he || '', correct: t.correct || '', incorrect: t.incorrect || ''}))])),
     cards: P.cards.map(d => ({name: d.name, action: d.type === 'action', cards: d.cards.map(c => ({number: c.number, a: c.a || '', b: c.b || '', ideas_a: c.ideas_a || '', ideas_b: c.ideas_b || '', followups: (c.followups || []).filter(f => f.text).map(f => ({text: f.text, ideas: f.ideas || ''}))}))})),
     labels: {let: typeLabel('Let it go'), keep: typeLabel('Take it in')}};
@@ -478,7 +483,7 @@ const PHONE_MARKUP = fs.readFileSync(path.join(HERE, 'phone-markup.html'), 'utf8
 
 function buildPhone() {
   const data = phoneData();
-  const phone = {path: 'Phone.dc.html', w: 390, h: 844, title: 'Phone · all 87 sessions', interactive: true,
+  const phone = {path: 'Phone.dc.html', w: 880, h: 844, title: 'Phone · all 87 sessions, timed', interactive: true,
     html: `<!doctype html>
 <html lang="en">
 <head>
@@ -500,6 +505,19 @@ body{margin:0}
 .opt{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:72px;border:1.5px solid #BEC9C5;border-radius:20px;background:#FFFFFF;padding:12px 16px;cursor:pointer;color:inherit;margin-bottom:10px}
 .word{display:inline-block;background:#E3EAE7;border-radius:999px;padding:4px 12px;margin:0 0 8px 8px;font-size:16px}
 .orb{width:180px;height:180px;border-radius:50%;background:#B3EFE4;margin:0 auto;transition:transform .1s linear}
+.panel{box-sizing:border-box;width:458px;height:844px;overflow-y:auto;background:#FFFFFF;border-radius:20px;padding:22px 24px;color:#171D1B;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.panel h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#3F4946;margin:16px 0 6px}
+.panel p{margin:2px 0}
+.panel .big{font-size:30px;font-weight:600;font-variant-numeric:tabular-nums}
+.panel .muted{color:#3F4946;font-size:13px}
+.panel .bar{display:flex;height:10px;border-radius:999px;background:#E3EAE7;overflow:hidden;margin:6px 0}
+.panel .rowline{display:flex;justify-content:space-between;gap:10px;border-top:1px solid #E3EAE7;padding:5px 0;font-size:13px}
+.panel .now{font-weight:600;color:#2B6A62}
+.panel .pbtn{border:1.5px solid #BEC9C5;background:#F5FBF8;border-radius:10px;padding:6px 12px;font:inherit;cursor:pointer;color:inherit;min-height:36px}
+.panel .seg2{display:inline-flex;border:1.5px solid #BEC9C5;border-radius:10px;overflow:hidden}
+.panel .seg2 button{border:0;background:transparent;padding:5px 12px;font:inherit;cursor:pointer;color:inherit}
+.panel .seg2 button.is-selected{background:#CCE8E2}
+.panel textarea{width:100%;height:180px;font:12px/1.4 ui-monospace,monospace;box-sizing:border-box}
 </style>
 </helmet>
 ${PHONE_MARKUP}
@@ -537,13 +555,17 @@ ${en('h1', 'Phone preview', 'title')}
 <p>Breathing phase names and timings are Lab assumptions. Missing recordings and videos keep their time slot and say so. Sessions 8 and 28 play the current Remepy app clips PS-CONT-029 and PS-CONT-013; PS-CONT-013 is a 720p preview encode.</p>
 </div>
 <div class="box">
+<p class="kicker">Timing</p>
+<p>The panel beside the phone measures visible time per session and per step, compares the content plan with the 30-minute planned day (Protocol.xlsx light or heavy speech plan), and keeps a log of timed runs in this browser. A run counts as a complete experience only when nothing was skipped, scrubbed, missing or ended early.</p>
+</div>
+<div class="box">
 <p class="kicker">Not carried over from the local preview</p>
-<p>Timing runs, review notes, favourites and the tool library. Leave notes as canvas comments instead.</p>
+<p>Review notes (leave canvas comments instead), favourites and the tool library.</p>
 </div>`)})};
   const boards = [
     {path: main.path, frame: {x: 0, y: 0, w: main.w, h: main.h, title: main.title}, html: main.html},
-    {path: phone.path, frame: {x: 840, y: 0, w: 390, h: 844, title: phone.title, is_interactive: true}, html: phone.html},
-    {path: held.path, frame: {x: 1310, y: 0, w: held.w, h: held.h, title: held.title}, html: held.html}];
+    {path: phone.path, frame: {x: 840, y: 0, w: 880, h: 844, title: phone.title, is_interactive: true}, html: phone.html},
+    {path: held.path, frame: {x: 1800, y: 0, w: held.w, h: held.h, title: held.title}, html: held.html}];
   return {boards, notes: {}};
 }
 
@@ -554,7 +576,7 @@ function buildHome(stats) {
     ['original', 'The preserved design canvas: who we design for, the design system, daily experience, practices and games, program rhythm, the 51 animated script films with their storyboards, Ruth\'s journey and the scene library.'],
     ['activities', `${stats.activities} activities, one board each: intro pages, intro films, schedules, all ${stats.thoughts} Inner Voice thoughts, ${stats.cards} Cardversation cards, every reflection screen and the four recordings.`],
     ['films', `The ${stats.films} films beside the script documents they narrate; ${stats.exactFilms} are word for word and differences are highlighted.`],
-    ['phone', `Walk any of the ${stats.sessions} psychology sessions on a phone, in the order the sources give them.`]];
+    ['phone', `Walk and time any of the ${stats.sessions} psychology sessions on a phone, in the order the sources give them, against the 30-minute planned day.`]];
   const gaps = [
     `Eight scheduled practice recordings are not yet recorded: ${status.scheduled_recording_status.ids.join(', ')} (owner confirmation ${status.scheduled_recording_status.confirmed_on}).`,
     `Five library-only recordings were not supplied: ${status.unavailable_library_only_recordings.join(', ')}.`,

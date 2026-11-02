@@ -1,9 +1,68 @@
   constructor(props) {
     super(props);
-    this.state = { view: 'list', s: 0, i: 0, steps: [], sub: {} };
+    this.state = { view: 'list', s: 0, i: 0, steps: [], sub: {}, runs: this.loadRuns(), plan: 'light', paused: false, showJson: false };
+    this.run = null;
   }
-  componentDidMount() { this.timer = setInterval(() => this.tick(), 200); }
-  componentWillUnmount() { clearInterval(this.timer); this.holdStop(); }
+  componentDidMount() {
+    this.timer = setInterval(() => this.tick(), 200);
+    // The run clock counts visible time only: it stops while the page is hidden or the clock is paused.
+    this.clock = setInterval(() => { if (this.run && this.run.since) this.setState({ now: Date.now() }); }, 1000);
+    this.onVisibility = () => {
+      if (!this.run || this.run.done) return;
+      if (document.visibilityState === 'visible') { if (!this.state.paused) this.run.since = Date.now(); }
+      else this.bank(true);
+      this.setState({ now: Date.now() });
+    };
+    document.addEventListener('visibilitychange', this.onVisibility);
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearInterval(this.clock); document.removeEventListener('visibilitychange', this.onVisibility); this.holdStop(); }
+  // ---- timing: visible time per run and per step, as the retired preview's review panel measured it ----
+  loadRuns() { try { return JSON.parse(window.localStorage.getItem('psych-lab-phone-runs-v1') || '[]'); } catch (e) { return []; } }
+  saveRuns(runs) { try { window.localStorage.setItem('psych-lab-phone-runs-v1', JSON.stringify(runs)); return true; } catch (e) { return false; } }
+  bank(stop) {
+    const r = this.run;
+    if (!r || !r.since) return;
+    const now = Date.now(), d = now - r.since;
+    r.ms += d;
+    if (r.current) r.current.ms += d;
+    r.since = stop ? null : now;
+  }
+  runMs() { const r = this.run; return r ? r.ms + (r.since ? Date.now() - r.since : 0) : 0; }
+  startRun(session) {
+    this.run = { session: session.n, id: session.id, started_at: new Date().toISOString(), ms: 0, since: Date.now(), steps: [], current: null, reasons: [], missing: [], selections: {}, done: false };
+    this.setState({ paused: false });
+  }
+  accelerate(reason) { if (this.run && this.run.reasons.indexOf(reason) < 0) this.run.reasons.push(reason); }
+  gap(id) { if (this.run && id && this.run.missing.indexOf(id) < 0) this.run.missing.push(id); }
+  // How the step being left was used: skipping, scrubbing and missing content make the run a partial preview.
+  judgeStep() {
+    const st = this.state.steps[this.state.i], sub = this.state.sub;
+    if (!this.run || !st) return;
+    if (st.kind === 'video') {
+      if (!(st.clip && st.clip.url)) { this.gap(st.source_id || st.activity); this.accelerate('missing video slot'); }
+      else if (!this.mediaDone) this.accelerate('video left before it ended');
+    }
+    if (st.kind === 'audio') {
+      if (!(st.audio && st.audio.url)) { this.gap(st.activity); this.accelerate('missing practice recording'); }
+      else if (!this.mediaDone) this.accelerate('recording left before it ended');
+    }
+    if (st.kind === 'breathing' && !sub.finished) this.accelerate('practice ended early');
+  }
+  finishRun(completed, reason) {
+    const r = this.run;
+    if (!r || r.done) return;
+    this.bank(true);
+    if (reason) this.accelerate(reason);
+    r.done = true;
+    const record = { session: r.session, id: r.id, started_at: r.started_at, ended_at: new Date().toISOString(),
+      visible_seconds: Math.round(r.ms / 1000), completed, complete_experience: completed && !r.reasons.length && !r.missing.length,
+      reasons: r.reasons.slice(), missing_assets: r.missing.slice(), selections: Object.assign({}, r.selections),
+      screens: r.steps.map((x) => ({ step: x.label, seconds: Math.round(x.ms / 1000) })) };
+    const runs = [record].concat(this.state.runs).slice(0, 200);
+    this.saveRuns(runs);
+    this.setState({ runs, paused: false });
+  }
+  leave(patch) { if (this.run && !this.run.done) this.finishRun(false, 'left before the end'); this.holdStop(); this.setState(Object.assign({ sub: {} }, patch)); }
   // Reflection hold button: as in the retired preview, holding it for 3.5 s moves on; letting go early
   // cancels. Continue beside it is the explicit bypass.
   holdStart() {
@@ -36,9 +95,19 @@
     if (st && st.kind === 'reflection') { sub.part = 0; sub.ideas = false; }
     if (st && st.kind === 'breathing') { sub.running = false; sub.progress = 0; sub.phaseAt = 0; sub.pace = 1; sub.finished = false; }
     this.holdStop();
+    this.mediaDone = false; this.mediaLast = 0;
+    const names = { prepage: 'Before you begin', video: 'Video', context: 'Context', choice: 'Choose one practice', breathing: 'Breathing practice', audio: 'Guided audio', inner: 'Inner Voice round', cards: 'Conversation cards', reflection: 'Guided reflection', motivation: 'Choose your motivation', rating: 'Practice feedback', complete: 'Session summary' };
+    if (this.run && !this.run.done && st) {
+      this.bank(false);
+      const act = this.data().acts[st.activity];
+      const label = (names[st.kind] || st.kind) + (st.kind === 'video' && st.clip ? ' · ' + st.clip.id.replace(/^SOURCE-/, '') : act ? ' · ' + act.english : '');
+      this.run.current = { label, ms: 0 };
+      this.run.steps.push(this.run.current);
+    }
     this.setState({ steps, i, sub, view: 'flow', hold: 0 });
+    if (st && st.kind === 'complete') this.finishRun(true);
   }
-  next() { const s = this.state; if (s.i < s.steps.length - 1) this.enter(s.steps, s.i + 1); }
+  next() { const s = this.state; if (s.i < s.steps.length - 1) { this.judgeStep(); this.enter(s.steps, s.i + 1); } }
   setSub(patch) { this.setState({ sub: Object.assign({}, this.state.sub, patch) }); }
   renderVals() {
     const D = this.data(), s = this.state, sub = s.sub, fmt = (x) => this.fmt(x);
@@ -53,12 +122,12 @@
       range: session.range + ' of recorded or planned content, plus reading and choosing time',
       overviewActs: session.acts.map((id) => ({ title: D.acts[id].title, kind: kinds[D.acts[id].kind] || 'Video' })),
       hasMotivation: session.n === 1,
-      start: () => this.enter(session.steps.slice(), 0),
-      toList: () => this.setState({ view: 'list', sub: {} }),
+      start: () => { this.startRun(session); this.enter(session.steps.slice(), 0); },
+      toList: () => this.leave({ view: 'list' }),
       prevSession: () => this.setState({ view: 'overview', s: Math.max(0, s.s - 1) }),
-      nextSession: () => this.setState({ view: 'overview', s: Math.min(D.sessions.length - 1, s.s + 1), sub: {} }),
+      nextSession: () => this.leave({ view: 'overview', s: Math.min(D.sessions.length - 1, s.s + 1) }),
       hasNextSession: s.s < D.sessions.length - 1,
-      close: () => this.setState({ view: 'overview', sub: {} }),
+      close: () => this.leave({ view: 'overview' }),
       go: () => this.next()
     };
     const st = s.steps[s.i] || {}, a = D.acts[st.activity] || null;
@@ -93,7 +162,7 @@
       v.choiceOptions = (st.options || []).map((o) => {
         const item = D.acts[o.id];
         return { title: item.title, english: item.english, kind: kinds[item.kind] || 'Video', time: fmt(item.planned),
-          pick: () => this.enter(s.steps.slice(0, s.i + 1).concat(o.steps, s.steps.slice(s.i + 1)), s.i + 1) };
+          pick: () => { if (this.run) this.run.selections[st.activity] = o.id; this.enter(s.steps.slice(0, s.i + 1).concat(o.steps, s.steps.slice(s.i + 1)), s.i + 1); } };
       });
     }
     // Breathing
@@ -187,5 +256,44 @@
         v.rfTip = R.tip; v.rfHasTip = !!R.tip;
       }
     }
+    // Media use, for timing: ended, or scrubbed forward past what was watched.
+    v.mediaEnded = () => { this.mediaDone = true; };
+    v.mediaTime = (e) => { const el = e && e.target; if (el && !el.seeking) this.mediaLast = el.currentTime; };
+    v.mediaSeeking = (e) => { const el = e && e.target; if (el && el.currentTime > (this.mediaLast || 0) + 2) this.accelerate('scrubbed media'); };
+    // Timing panel
+    const r = this.run, live = !!(r && !r.done && s.view === 'flow');
+    v.tSession = s.view === 'list' ? 'Choose a session in the phone' : session.id + ' · ' + session.english;
+    v.tDay = 'App day ' + session.day + ' · psych week ' + session.week;
+    v.tContent = fmt(session.low) + (session.high - session.low > 1 ? '–' + fmt(session.high) : '');
+    const cycle = (session.n - 1) % 7, other = (D.daily[s.plan][cycle] - 3) * 60;
+    const lo = other + session.low, hi = other + session.high;
+    v.tPlanLabel = 'Protocol.xlsx ' + s.plan + ' speech plan, day ' + (cycle + 1) + ' of 7: ' + D.daily[s.plan][cycle] + ' min of activities, 3 of them psychology';
+    v.tDayTotal = fmt(lo) + (hi - lo > 1 ? '–' + fmt(hi) : '') + ' / 30:00 planned day';
+    v.tOver = lo > 1800; v.tWithin = !v.tOver;
+    v.tOtherStyle = 'width: ' + Math.min(100, other / 1800 * 100).toFixed(1) + '%; background: #9AA9A5';
+    v.tPsychStyle = 'width: ' + Math.max(0, Math.min(100 - other / 1800 * 100, session.high / 1800 * 100)).toFixed(1) + '%; background: ' + (hi > 1800 ? '#B47D43' : '#2B6A62');
+    v.planLight = () => this.setState({ plan: 'light' }); v.planHeavy = () => this.setState({ plan: 'heavy' });
+    v.lightCls = s.plan === 'light' ? 'is-selected' : ''; v.heavyCls = s.plan === 'heavy' ? 'is-selected' : '';
+    v.lightPressed = s.plan === 'light' ? 'true' : 'false'; v.heavyPressed = s.plan === 'heavy' ? 'true' : 'false';
+    v.tMissing = session.missing.map((t) => ({ t })); v.tHasMissing = session.missing.length > 0; v.tNoMissing = !v.tHasMissing;
+    v.tChoiceNote = session.choice;
+    v.tClock = fmt(this.runMs() / 1000);
+    v.tLive = live;
+    v.tState = !r || r.done && s.view !== 'flow' ? 'Start a session in the phone to measure it.'
+      : r.done ? (this.state.runs[0] && this.state.runs[0].complete_experience ? 'Complete experience recorded.' : 'Preview complete · contains skipped, simulated or missing content.')
+      : s.paused ? 'Clock paused. Resume when ready.'
+      : r.reasons.length ? 'Partial preview · ' + r.reasons.join(', ')
+      : 'Measuring visible time through the session.';
+    v.tPauseLabel = s.paused ? 'Resume clock' : 'Pause clock';
+    v.tPause = () => { if (!live) return; if (s.paused) { this.run.since = Date.now(); this.setState({ paused: false }); } else { this.bank(true); this.setState({ paused: true }); } };
+    v.tSteps = r ? r.steps.map((x, k) => ({ label: x.label, time: fmt(x.ms / 1000 + (x === r.current && r.since ? (Date.now() - r.since) / 1000 : 0)), current: x === r.current && !r.done, done: !(x === r.current && !r.done) })) : [];
+    v.tHasSteps = v.tSteps.length > 0;
+    v.runSummary = 'Time in this session: ' + fmt((r ? r.ms : 0) / 1000);
+    v.runPartial = !!(r && r.done && this.state.runs[0] && !this.state.runs[0].complete_experience);
+    v.tRuns = s.runs.slice(0, 12).map((x) => ({ label: x.id + ' · ' + fmt(x.visible_seconds), status: x.complete_experience ? 'complete experience' : x.completed ? 'partial: ' + (x.reasons.join(', ') || 'missing content') : 'not finished' }));
+    v.tHasRuns = s.runs.length > 0; v.tRunCount = s.runs.length + ' timed run' + (s.runs.length === 1 ? '' : 's') + ' saved in this browser';
+    v.tToggleJson = () => this.setState({ showJson: !s.showJson }); v.tJsonLabel = s.showJson ? 'Hide runs as JSON' : 'Show runs as JSON';
+    v.tShowJson = s.showJson; v.tJson = s.showJson ? JSON.stringify(s.runs, null, 1) : '';
+    v.tClear = () => { this.saveRuns([]); this.setState({ runs: [], showJson: false }); };
     return v;
   }

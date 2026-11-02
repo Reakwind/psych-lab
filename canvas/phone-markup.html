@@ -1,3 +1,4 @@
+<div style="width: 880px; height: 844px; display: flex; gap: 32px; background: #E9EFEC">
 <div class="app" style="--font-display: 'Rubik', system-ui, sans-serif; --font-body: 'Rubik', system-ui, sans-serif">
 
 <sc-if value="{{isList}}" hint-placeholder-val="{{ true }}">
@@ -74,7 +75,7 @@
   <p class="lab muted" style="margin: 0; font-size: 14px">{{vidKind}}</p>
   <sc-if value="{{hasActTitle}}" hint-placeholder-val="{{ true }}"><h1 class="t-title he" dir="rtl" lang="he">{{actTitle}}</h1></sc-if>
   <sc-if value="{{vidHas}}" hint-placeholder-val="{{ true }}">
-    <video controls="controls" playsinline="playsinline" preload="metadata" src="{{vidSrc}}" style="width: 342px; height: 400px; object-fit: contain; border-radius: 20px; background: #E9EFEC; display: block"></video>
+    <video controls="controls" playsinline="playsinline" preload="metadata" src="{{vidSrc}}" onEnded="{{mediaEnded}}" onTimeUpdate="{{mediaTime}}" onSeeking="{{mediaSeeking}}" style="width: 342px; height: 400px; object-fit: contain; border-radius: 20px; background: #E9EFEC; display: block"></video>
     <p class="lab muted" style="margin: 0; font-size: 14px">{{vidMeta}}</p>
   </sc-if>
   <sc-if value="{{vidMissing}}" hint-placeholder-val="{{ false }}">
@@ -123,7 +124,7 @@
   <p class="lab muted" style="margin: 0; font-size: 14px">Guided audio</p>
   <h1 class="t-headline he" dir="rtl" lang="he">{{actTitle}}</h1>
   <sc-if value="{{auHas}}" hint-placeholder-val="{{ true }}">
-    <audio controls="controls" preload="metadata" src="{{auSrc}}" style="width: 100%"></audio>
+    <audio controls="controls" preload="metadata" src="{{auSrc}}" onEnded="{{mediaEnded}}" onTimeUpdate="{{mediaTime}}" onSeeking="{{mediaSeeking}}" style="width: 100%"></audio>
     <p class="lab muted" style="margin: 0; font-size: 14px">{{auMeta}}</p>
   </sc-if>
   <sc-if value="{{auMissing}}" hint-placeholder-val="{{ false }}">
@@ -252,6 +253,8 @@
 <sc-if value="{{kComplete}}" hint-placeholder-val="{{ false }}">
 <div class="screen center" style="justify-content: center; gap: 16px">
   <h1 class="t-headline lab">Session complete</h1>
+  <p class="lab" style="margin: 0">{{runSummary}}</p>
+  <sc-if value="{{runPartial}}" hint-placeholder-val="{{ false }}"><p class="lab muted" style="margin: 0; font-size: 15px">This run included skipped, simulated or missing content.</p></sc-if>
   <p class="gap"><strong>No source text</strong> · closing message</p>
 </div>
 <div style="padding: 0 24px 20px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px">
@@ -261,4 +264,40 @@
 </sc-if>
 </sc-if>
 
+</div>
+
+<div class="panel">
+  <p class="muted">Psych Lab · timing</p>
+  <p style="font-size: 18px; font-weight: 600">{{tSession}}</p>
+  <p class="muted">{{tDay}}</p>
+  <h2>Run clock</h2>
+  <p class="big">{{tClock}}</p>
+  <p>{{tState}}</p>
+  <sc-if value="{{tLive}}" hint-placeholder-val="{{ false }}"><p style="margin-top: 6px"><button class="pbtn" onClick="{{tPause}}">{{tPauseLabel}}</button></p></sc-if>
+  <sc-if value="{{tHasSteps}}" hint-placeholder-val="{{ false }}">
+    <h2>Time per step</h2>
+    <sc-for list="{{tSteps}}" as="x" hint-placeholder-count="4">
+      <sc-if value="{{x.current}}" hint-placeholder-val="{{ false }}"><div class="rowline now"><span>{{x.label}}</span><span>{{x.time}}</span></div></sc-if>
+      <sc-if value="{{x.done}}" hint-placeholder-val="{{ true }}"><div class="rowline"><span>{{x.label}}</span><span>{{x.time}}</span></div></sc-if>
+    </sc-for>
+  </sc-if>
+  <h2>Content plan</h2>
+  <p><strong>{{tContent}}</strong> of recorded media and planned activity time. Reading, feedback and navigation are additional.</p>
+  <h2>Planned day</h2>
+  <div class="seg2"><button class="{{lightCls}}" onClick="{{planLight}}" aria-pressed="{{lightPressed}}">Light speech</button><button class="{{heavyCls}}" onClick="{{planHeavy}}" aria-pressed="{{heavyPressed}}">Heavy speech</button></div>
+  <div class="bar"><div style="{{tOtherStyle}}"></div><div style="{{tPsychStyle}}"></div></div>
+  <sc-if value="{{tWithin}}" hint-placeholder-val="{{ true }}"><p><strong>{{tDayTotal}}</strong></p></sc-if>
+  <sc-if value="{{tOver}}" hint-placeholder-val="{{ false }}"><p style="color: #8A4B10"><strong>{{tDayTotal}}</strong></p></sc-if>
+  <p class="muted">{{tPlanLabel}}. The remaining minutes are a comparison scenario, not measured app time.</p>
+  <h2>Source gaps on this path</h2>
+  <sc-if value="{{tHasMissing}}" hint-placeholder-val="{{ false }}"><sc-for list="{{tMissing}}" as="m" hint-placeholder-count="2"><p>{{m.t}}</p></sc-for><p class="muted">{{tChoiceNote}}</p></sc-if>
+  <sc-if value="{{tNoMissing}}" hint-placeholder-val="{{ true }}"><p class="muted">Media available for this path. Reading and interaction time still needs a full run.</p></sc-if>
+  <h2>Timed runs</h2>
+  <p class="muted">{{tRunCount}}</p>
+  <sc-if value="{{tHasRuns}}" hint-placeholder-val="{{ false }}">
+    <sc-for list="{{tRuns}}" as="x" hint-placeholder-count="3"><div class="rowline"><span style="white-space: nowrap">{{x.label}}</span><span class="muted" style="text-align: right">{{x.status}}</span></div></sc-for>
+    <p style="margin-top: 8px; display: flex; gap: 8px"><button class="pbtn" onClick="{{tToggleJson}}">{{tJsonLabel}}</button><button class="pbtn" onClick="{{tClear}}">Clear runs</button></p>
+    <sc-if value="{{tShowJson}}" hint-placeholder-val="{{ false }}"><label class="muted" style="display: block; margin-top: 6px">Runs as JSON, to copy<textarea readonly="readonly" value="{{tJson}}"></textarea></label></sc-if>
+  </sc-if>
+</div>
 </div>
