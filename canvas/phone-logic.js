@@ -62,6 +62,24 @@
     this.saveRuns(runs);
     this.setState({ runs, paused: false });
   }
+  // Pausing the clock pauses what is playing (media, breathing timer); starting content again resumes the clock.
+  pauseClock() {
+    if (!this.run || this.run.done || this.state.paused) return;
+    this.bank(true);
+    this.resumeMedia = !!(this.media && !this.media.paused && !this.media.ended);
+    if (this.resumeMedia) this.media.pause();
+    this.resumeBreath = !!this.state.sub.running;
+    this.setState({ paused: true, sub: Object.assign({}, this.state.sub, { running: false }) });
+  }
+  resumeClock(fromContent) {
+    if (!this.run || this.run.done || !this.state.paused) return;
+    if (document.visibilityState === 'visible') this.run.since = Date.now();
+    const sub = this.state.sub;
+    if (!fromContent && this.resumeMedia && this.media) { const p = this.media.play(); if (p && p.catch) p.catch(() => {}); }
+    const running = !fromContent && this.resumeBreath ? { running: true } : {};
+    this.resumeMedia = false; this.resumeBreath = false;
+    this.setState({ paused: false, sub: Object.assign({}, sub, running) });
+  }
   leave(patch) { if (this.run && !this.run.done) this.finishRun(false, 'left before the end'); this.holdStop(); this.setState(Object.assign({ sub: {} }, patch)); }
   // Reflection hold button: as in the retired preview, holding it for 3.5 s moves on; letting go early
   // cancels. Continue beside it is the explicit bypass.
@@ -79,6 +97,7 @@
   tick() {
     const st = this.state.steps[this.state.i], sub = this.state.sub;
     if (this.state.view !== 'flow' || !st || st.kind !== 'breathing' || !sub.running || sub.finished) return;
+    if (this.state.paused || document.visibilityState !== 'visible') return;  // measured time and practice time stay together
     const progress = Math.min(st.seconds, sub.progress + 0.2);
     const finished = progress >= st.seconds;
     this.setState({ sub: Object.assign({}, sub, { progress, phaseAt: sub.phaseAt + 0.2 * sub.pace, finished, running: !finished }) });
@@ -107,7 +126,14 @@
     this.setState({ steps, i, sub, view: 'flow', hold: 0 });
     if (st && st.kind === 'complete') this.finishRun(true);
   }
-  next() { const s = this.state; if (s.i < s.steps.length - 1) { this.judgeStep(); this.enter(s.steps, s.i + 1); } }
+  next() {
+    const s = this.state;
+    if (s.i >= s.steps.length - 1) return;
+    this.judgeStep();
+    // Moving on while the clock is paused leaves that time unmeasured: the run is no longer a complete experience.
+    if (s.paused) { this.accelerate('moved on while the clock was paused'); this.resumeClock(true); }
+    this.enter(s.steps, s.i + 1);
+  }
   setSub(patch) { this.setState({ sub: Object.assign({}, this.state.sub, patch) }); }
   renderVals() {
     const D = this.data(), s = this.state, sub = s.sub, fmt = (x) => this.fmt(x);
@@ -176,7 +202,7 @@
       v.brCount = sub.progress && !sub.finished ? String(Math.ceil(phase[1] - pos)) : '';
       v.brClock = fmt(sub.progress) + ' / ' + fmt(st.seconds);
       v.brToggleLabel = sub.running ? 'Pause' : 'Start';
-      v.brToggle = () => { if (!sub.finished) this.setSub({ running: !sub.running }); };
+      v.brToggle = () => { if (sub.finished) return; if (s.paused) this.resumeClock(true); this.setSub({ running: !sub.running }); };
       v.brSlower = () => this.setSub({ pace: Math.max(0.6, (sub.pace || 1) - 0.1) });
       v.brFaster = () => this.setSub({ pace: Math.min(1.5, (sub.pace || 1) + 0.1) });
       v.brFinished = !!sub.finished;
@@ -258,6 +284,8 @@
     }
     // Media use, for timing: ended, or scrubbed forward past what was watched.
     v.mediaEnded = () => { this.mediaDone = true; };
+    v.setMedia = (el) => { this.media = el; };
+    v.mediaPlay = () => { if (this.state.paused) this.resumeClock(true); };
     v.mediaTime = (e) => { const el = e && e.target; if (el && !el.seeking) this.mediaLast = el.currentTime; };
     v.mediaSeeking = (e) => { const el = e && e.target; if (el && el.currentTime > (this.mediaLast || 0) + 2) this.accelerate('scrubbed media'); };
     // Timing panel
@@ -285,7 +313,7 @@
       : r.reasons.length ? 'Partial preview · ' + r.reasons.join(', ')
       : 'Measuring visible time through the session.';
     v.tPauseLabel = s.paused ? 'Resume clock' : 'Pause clock';
-    v.tPause = () => { if (!live) return; if (s.paused) { this.run.since = Date.now(); this.setState({ paused: false }); } else { this.bank(true); this.setState({ paused: true }); } };
+    v.tPause = () => { if (!live) return; if (s.paused) this.resumeClock(false); else this.pauseClock(); };
     v.tSteps = r ? r.steps.map((x, k) => ({ label: x.label, time: fmt(x.ms / 1000 + (x === r.current && r.since ? (Date.now() - r.since) / 1000 : 0)), current: x === r.current && !r.done, done: !(x === r.current && !r.done) })) : [];
     v.tHasSteps = v.tSteps.length > 0;
     v.runSummary = 'Time in this session: ' + fmt((r ? r.ms : 0) / 1000);

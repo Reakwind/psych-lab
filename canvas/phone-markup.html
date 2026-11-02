@@ -75,7 +75,7 @@
   <p class="lab muted" style="margin: 0; font-size: 14px">{{vidKind}}</p>
   <sc-if value="{{hasActTitle}}" hint-placeholder-val="{{ true }}"><h1 class="t-title he" dir="rtl" lang="he">{{actTitle}}</h1></sc-if>
   <sc-if value="{{vidHas}}" hint-placeholder-val="{{ true }}">
-    <video controls="controls" playsinline="playsinline" preload="metadata" src="{{vidSrc}}" onEnded="{{mediaEnded}}" onTimeUpdate="{{mediaTime}}" onSeeking="{{mediaSeeking}}" style="width: 342px; height: 400px; object-fit: contain; border-radius: 20px; background: #E9EFEC; display: block"></video>
+    <video controls="controls" playsinline="playsinline" preload="metadata" src="{{vidSrc}}" ref="{{setMedia}}" onPlay="{{mediaPlay}}" onEnded="{{mediaEnded}}" onTimeUpdate="{{mediaTime}}" onSeeking="{{mediaSeeking}}" style="width: 342px; height: 400px; object-fit: contain; border-radius: 20px; background: #E9EFEC; display: block"></video>
     <p class="lab muted" style="margin: 0; font-size: 14px">{{vidMeta}}</p>
   </sc-if>
   <sc-if value="{{vidMissing}}" hint-placeholder-val="{{ false }}">
@@ -124,7 +124,7 @@
   <p class="lab muted" style="margin: 0; font-size: 14px">Guided audio</p>
   <h1 class="t-headline he" dir="rtl" lang="he">{{actTitle}}</h1>
   <sc-if value="{{auHas}}" hint-placeholder-val="{{ true }}">
-    <audio controls="controls" preload="metadata" src="{{auSrc}}" onEnded="{{mediaEnded}}" onTimeUpdate="{{mediaTime}}" onSeeking="{{mediaSeeking}}" style="width: 100%"></audio>
+    <audio controls="controls" preload="metadata" src="{{auSrc}}" ref="{{setMedia}}" onPlay="{{mediaPlay}}" onEnded="{{mediaEnded}}" onTimeUpdate="{{mediaTime}}" onSeeking="{{mediaSeeking}}" style="width: 100%"></audio>
     <p class="lab muted" style="margin: 0; font-size: 14px">{{auMeta}}</p>
   </sc-if>
   <sc-if value="{{auMissing}}" hint-placeholder-val="{{ false }}">
