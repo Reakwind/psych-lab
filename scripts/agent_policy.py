@@ -7,7 +7,7 @@ import re
 import subprocess
 import sys
 
-from agent_safety import REPOSITORY, check_scope, overlap, validate_contract
+from agent_safety import REPOSITORY, check_scope, json_pages, overlap, validate_contract
 
 MARKER = re.compile(r'<!-- agent-contract\s*\n(.*?)\n-->', re.S)
 
@@ -32,8 +32,9 @@ def check_claims(c, pages, current):
 
 
 def api(path, pages=False):
-    args = ['gh', 'api'] + (['--paginate', '--slurp'] if pages else []) + [path]
-    return json.loads(subprocess.check_output(args, text=True))
+    args = ['gh', 'api'] + (['--paginate'] if pages else []) + [path]
+    data = subprocess.check_output(args, text=True)
+    return json_pages(data) if pages else json.loads(data)
 
 
 def main():

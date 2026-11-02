@@ -10,7 +10,7 @@ import sys
 import tempfile
 import uuid
 
-from agent_safety import ROOT, REPOSITORY, check_scope, context, git, validate_contract
+from agent_safety import ROOT, REPOSITORY, check_scope, context, git, json_pages, validate_contract
 
 MARKER = re.compile(r'<!-- agent-contract\s*\n(.*?)\n-->', re.S)
 
@@ -20,7 +20,8 @@ def run(*args, cwd=ROOT):
 
 
 def gh_json(*args):
-    return json.loads(subprocess.check_output(['gh', *args], cwd=ROOT, text=True))
+    data = subprocess.check_output(['gh', *args], cwd=ROOT, text=True)
+    return json_pages(data) if '--paginate' in args else json.loads(data)
 
 
 def task_path(c):
@@ -86,7 +87,7 @@ def claim(args):
         raise ValueError('This checkout or task ID is already assigned. Use a fresh isolated checkout and unique task ID.')
     # Query live claims before editing. The server policy repeats this check for races.
     from agent_policy import check_claims
-    check_claims(c, gh_json('api', '--paginate', '--slurp', f'repos/{REPOSITORY}/pulls?state=open&per_page=100'), current=None)
+    check_claims(c, gh_json('api', '--paginate', f'repos/{REPOSITORY}/pulls?state=open&per_page=100'), current=None)
     (ROOT / '.agent-context.json').write_text(json.dumps(c, indent=2) + '\n')
     task_path(c).parent.mkdir(parents=True, exist_ok=True)
     task_path(c).write_text(json.dumps(c, indent=2) + '\n')

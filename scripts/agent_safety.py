@@ -8,6 +8,7 @@ import re
 import shlex
 import subprocess
 import sys
+from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 ZERO = '0' * 40
@@ -16,6 +17,32 @@ REPOSITORY = 'Reakwind/psych-lab'
 
 def git(*args, cwd=None):
     return subprocess.check_output(['git', *args], cwd=cwd or ROOT, text=True).strip()
+
+
+def json_pages(text):
+    """Decode gh api --paginate without depending on newer gh --slurp support."""
+    decoder, pages = json.JSONDecoder(), []
+    while text.strip():
+        page, end = decoder.raw_decode(text.lstrip())
+        if not isinstance(page, list):
+            raise ValueError('Expected paginated JSON arrays.')
+        pages.append(page)
+        text = text.lstrip()[end:]
+    return pages
+
+
+def origin_allowed(url):
+    canonical = re.fullmatch(r'(?:https://github\.com/|git@github\.com:)' + re.escape(REPOSITORY) + r'(?:\.git)?/?', url)
+    if canonical:
+        return True
+    parsed = urlsplit(url)
+    path = unquote(parsed.path).rstrip('/').removesuffix('.git')
+    # Hosted agents may authenticate through a repository-specific local proxy.
+    proxy_host = parsed.hostname in {'localhost', '127.0.0.1', '::1'}
+    trusted_proxy = os.environ.get('AGENT_GIT_PROXY_ORIGIN') == url
+    return (parsed.scheme in {'http', 'https'} and (proxy_host or trusted_proxy)
+            and path.endswith('/' + REPOSITORY) and not parsed.password
+            and not parsed.query and not parsed.fragment)
 
 
 def scope_valid(scope):
@@ -175,7 +202,7 @@ def pre_commit():
 
 def pre_push(remote, url, lines):
     c = context()
-    if remote != 'origin' or not re.fullmatch(r'(?:https://github\.com/|git@github\.com:)' + re.escape(REPOSITORY) + r'(?:\.git)?/?', url):
+    if remote != 'origin' or not origin_allowed(url):
         raise ValueError('Push only to this project’s origin remote.')
     ref = 'refs/heads/' + c['branch']
     for line in lines.splitlines():

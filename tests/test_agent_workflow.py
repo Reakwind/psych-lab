@@ -49,6 +49,18 @@ class Commands(unittest.TestCase):
 
 
 class Ownership(unittest.TestCase):
+    def test_older_github_cli_pagination(self):
+        self.assertEqual(safety.json_pages(' [1, 2]\n [3] \n'), [[1, 2], [3]])
+        self.assertEqual(safety.json_pages('[]'), [[]])
+        with self.assertRaises(ValueError):
+            safety.json_pages('{}')
+
+    def test_repository_proxy_does_not_allow_other_destinations(self):
+        self.assertTrue(safety.origin_allowed('http://local_proxy@127.0.0.1:8765/git/Reakwind/psych-lab'))
+        self.assertFalse(safety.origin_allowed('http://127.0.0.1:8765/git/someone/other'))
+        self.assertFalse(safety.origin_allowed('https://untrusted.example/git/Reakwind/psych-lab'))
+        self.assertFalse(safety.origin_allowed('https://github.com/Reakwind/psych-lab?token=anything'))
+
     def test_exact_files_do_not_conflict_with_siblings(self):
         self.assertFalse(safety.overlap(['a/file.mjs'], ['a/other.mjs']))
         self.assertFalse(safety.overlap(['a/film1/'], ['a/film10/']))

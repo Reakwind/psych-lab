@@ -24,6 +24,8 @@ If the environment blocks package/LFS downloads, allow the specific GitHub, Git 
 
 Claude's cloud authentication, branch behavior, and environment controls depend on the selected provider/account. See [official Claude cloud documentation](https://code.claude.com/docs/en/claude-code-on-the-web) and [hook documentation](https://code.claude.com/docs/en/hooks).
 
+Hosted Claude sessions can authenticate Git through a proxy outside the sandbox. The push guard accepts a loopback HTTP(S) proxy whose repository path ends in `/Reakwind/psych-lab`, while still checking the owned destination branch and fast-forward ancestry. For a provider-managed proxy on another host, set `AGENT_GIT_PROXY_ORIGIN` to its exact original origin URL in the trusted environment setup; the repository path must still match. Never put a token or password in this setting or change it to bypass ownership rules. GitHub API/PR access through `gh` is required in addition to Git proxy access; if unavailable, the environment must supply selected-repository credentials before autonomous task reservation can work.
+
 ## Media and content
 
 All finished media and binary source documents are versioned using Git LFS. Disposable raw render frames and synthesis cache are reproducible and excluded. The source recordings, completed films, animation source, original artifact mirror, documents, and review evidence are included. Run `git lfs pull` after a clone that skipped smudging. Run `npm run media:check` before making playback or duration claims.
