@@ -1,0 +1,16 @@
+{
+  "task": "program-map",
+  "agent": "claude-bold-ptolemy",
+  "scope": [
+    "psych-lab/intervention/explorer.html",
+    "psych-lab/intervention/explorer.mjs",
+    "psych-lab/intervention/explorer.css",
+    "psych-lab/intervention/explorer_data.py",
+    "psych-lab/intervention/explorer.json",
+    "psych-lab/intervention/index.html",
+    "scripts/verbatim.py",
+    "tests/test_verbatim.py",
+    "package.json"
+  ],
+  "branch": "claude/bold-ptolemy-dt1ah7--program-map"
+}
