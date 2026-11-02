@@ -240,7 +240,7 @@ body{margin:0}
   </sc-if>
 </div>
 <div style="padding: 0 24px 24px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px">
-  <sc-if value="{{rfHasHold}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled btn-l btn-block he" dir="rtl" lang="he" onClick="{{rfGo}}">{{rfHold}}</button><button class="btn btn-text lab" onClick="{{rfGo}}">Continue</button></sc-if>
+  <sc-if value="{{rfHasHold}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled btn-l btn-block he" dir="rtl" lang="he" aria-label="Hold to reflect, or use Continue" style="{{rfHoldStyle}}" onPointerDown="{{rfHoldStart}}" onPointerUp="{{rfHoldStop}}" onPointerCancel="{{rfHoldStop}}" onPointerLeave="{{rfHoldStop}}" onKeyDown="{{rfHoldKey}}" onKeyUp="{{rfHoldStop}}">{{rfHold}}</button><button class="btn btn-text lab" onClick="{{rfGo}}">Continue</button></sc-if>
   <sc-if value="{{rfHasNext}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled btn-l btn-block he" dir="rtl" lang="he" onClick="{{rfGo}}">{{rfNext}}</button></sc-if>
   <sc-if value="{{rfLabNext}}" hint-placeholder-val="{{ true }}"><button class="btn btn-filled btn-l btn-block lab" onClick="{{rfGo}}">Continue</button></sc-if>
 </div>
@@ -296,7 +296,19 @@ class Component extends DCLogic {
     this.state = { view: 'list', s: 0, i: 0, steps: [], sub: {} };
   }
   componentDidMount() { this.timer = setInterval(() => this.tick(), 200); }
-  componentWillUnmount() { clearInterval(this.timer); }
+  componentWillUnmount() { clearInterval(this.timer); this.holdStop(); }
+  // Reflection hold button: as in the retired preview, holding it for 3.5 s moves on; letting go early
+  // cancels. Continue beside it is the explicit bypass.
+  holdStart() {
+    if (this.holdTimer) return;
+    const t0 = Date.now();
+    this.holdTimer = setInterval(() => {
+      const f = Math.min(1, (Date.now() - t0) / 3500);
+      if (f >= 1) { this.holdStop(); this.setSub({ part: this.state.sub.part + 1, ideas: false }); }
+      else this.setState({ hold: f });
+    }, 50);
+  }
+  holdStop() { if (this.holdTimer) { clearInterval(this.holdTimer); this.holdTimer = null; } if (this.state.hold) this.setState({ hold: 0 }); }
   // Breathing practice clock; phase names and timings are Lab assumptions, not program text.
   tick() {
     const st = this.state.steps[this.state.i], sub = this.state.sub;
@@ -316,7 +328,8 @@ class Component extends DCLogic {
     if (st && st.kind === 'cards') { sub.topic = null; sub.card = 0; sub.offset = 0; sub.solo = true; sub.ideas = {}; sub.follow = false; }
     if (st && st.kind === 'reflection') { sub.part = 0; sub.ideas = false; }
     if (st && st.kind === 'breathing') { sub.running = false; sub.progress = 0; sub.phaseAt = 0; sub.pace = 1; sub.finished = false; }
-    this.setState({ steps, i, sub, view: 'flow' });
+    this.holdStop();
+    this.setState({ steps, i, sub, view: 'flow', hold: 0 });
   }
   next() { const s = this.state; if (s.i < s.steps.length - 1) this.enter(s.steps, s.i + 1); }
   setSub(patch) { this.setState({ sub: Object.assign({}, this.state.sub, patch) }); }
@@ -455,7 +468,12 @@ class Component extends DCLogic {
         v.rfIdeas = part.ideas.map((t) => ({ t }));
         v.rfHold = part.hold; v.rfHasHold = !!part.hold;
         v.rfNext = part.next; v.rfHasNext = !part.hold && !!part.next; v.rfLabNext = !part.hold && !part.next;
-        v.rfGo = () => this.setSub({ part: sub.part + 1, ideas: false });
+        v.rfGo = () => { this.holdStop(); this.setSub({ part: sub.part + 1, ideas: false }); };
+        const held = Math.round((s.hold || 0) * 100);
+        v.rfHoldStyle = 'background: linear-gradient(to left, #1C4A44 ' + held + '%, var(--primary) ' + held + '%); touch-action: none';
+        v.rfHoldStart = (e) => { if (e && e.preventDefault) e.preventDefault(); this.holdStart(); };
+        v.rfHoldStop = () => this.holdStop();
+        v.rfHoldKey = (e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); this.holdStart(); } };
       } else {
         v.rfSumTitle = R.title; v.rfHasSumTitle = !!R.title; v.rfNoSumTitle = !R.title;
         v.rfSumSub = R.subtitle; v.rfHasSumSub = !!(R.title && R.subtitle);

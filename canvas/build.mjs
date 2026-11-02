@@ -25,6 +25,10 @@ const URL = Object.fromEntries(Object.entries(REG.canvases).map(([k, v]) => [k, 
 const TITLE = Object.fromEntries(Object.entries(REG.canvases).map(([k, v]) => [k, v.title]));
 // Fixed so a rebuild produces the same files; it records when the canvases were created.
 const CREATED = '2026-11-02T13:45:00Z';
+// The Lab's UI kit, copied unchanged from the preserved original design (a protected source), so every
+// generated canvas carries its own stylesheet and a rebuild needs nothing that lives only on a canvas.
+const UI_CSS_SOURCE = 'animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/ui.css';
+const UI_CSS = fs.readFileSync(path.join(ROOT, UI_CSS_SOURCE), 'utf8');
 
 // ---------- helpers ----------
 const esc = s => {
@@ -604,7 +608,7 @@ function emitOriginalNav(check) {
 // ---------- write ----------
 function emit(name, title, built, check) {
   const dir = path.join(HERE, name, 'project');
-  const files = {'canvas.json': JSON.stringify(canvasIndex(title, built.boards, built.notes), null, 1) + '\n'};
+  const files = {'canvas.json': JSON.stringify(canvasIndex(title, built.boards, built.notes), null, 1) + '\n', 'ui.css': UI_CSS};
   for (const b of built.boards) files[b.path] = b.html;
   const problems = [];
   for (const [rel, content] of Object.entries(files)) {

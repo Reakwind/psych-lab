@@ -39,6 +39,14 @@ class CanvasBoards(unittest.TestCase):
             self.assertEqual(index['order'][0], 'Main.dc.html')
             self.assertEqual(sorted(index['boards']), sorted(str(p.relative_to(CANVAS / name / 'project')) for p in boards(name)))
 
+    def test_every_generated_canvas_ships_the_lab_stylesheet(self):
+        original = (ROOT / 'animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/ui.css').read_bytes()
+        for name in ('home', 'activities', 'films', 'phone'):
+            self.assertEqual((CANVAS / name / 'project/ui.css').read_bytes(), original, name)
+            for board in boards(name):
+                for href in re.findall(r'<link rel="stylesheet" href="([^"]+)">', board.read_text()):
+                    self.assertTrue((board.parent / href).resolve().is_file(), f'{board.relative_to(ROOT)} links missing {href}')
+
     def test_coverage(self):
         film_scripts = json.loads((ROOT / 'psych-lab/film-scripts.json').read_text())
         self.assertEqual(sorted(p.stem.removesuffix('.dc') for p in (CANVAS / 'films/project/f').glob('*.dc.html')), sorted(film_scripts['films']))

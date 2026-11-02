@@ -217,7 +217,7 @@
   </sc-if>
 </div>
 <div style="padding: 0 24px 24px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px">
-  <sc-if value="{{rfHasHold}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled btn-l btn-block he" dir="rtl" lang="he" onClick="{{rfGo}}">{{rfHold}}</button><button class="btn btn-text lab" onClick="{{rfGo}}">Continue</button></sc-if>
+  <sc-if value="{{rfHasHold}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled btn-l btn-block he" dir="rtl" lang="he" aria-label="Hold to reflect, or use Continue" style="{{rfHoldStyle}}" onPointerDown="{{rfHoldStart}}" onPointerUp="{{rfHoldStop}}" onPointerCancel="{{rfHoldStop}}" onPointerLeave="{{rfHoldStop}}" onKeyDown="{{rfHoldKey}}" onKeyUp="{{rfHoldStop}}">{{rfHold}}</button><button class="btn btn-text lab" onClick="{{rfGo}}">Continue</button></sc-if>
   <sc-if value="{{rfHasNext}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled btn-l btn-block he" dir="rtl" lang="he" onClick="{{rfGo}}">{{rfNext}}</button></sc-if>
   <sc-if value="{{rfLabNext}}" hint-placeholder-val="{{ true }}"><button class="btn btn-filled btn-l btn-block lab" onClick="{{rfGo}}">Continue</button></sc-if>
 </div>
