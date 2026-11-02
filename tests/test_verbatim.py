@@ -59,6 +59,15 @@ class Prototypes(unittest.TestCase):
             with self.subTest(page=page):
                 self.assertEqual(len(verbatim.html_problems(page, CORPUS)), 1)
 
+    def test_regex_or_comment_quotes_cannot_hide_script_text(self):
+        for script in ['const quote = /"/g; document.body.textContent = "טקסט מומצא לחלוטין";',
+                       "// it's a comment\nel.textContent = 'טקסט מומצא לחלוטין';",
+                       'el.textContent = `טקסט מומצא לחלוטין`;']:
+            with self.subTest(script=script):
+                problems = verbatim.html_problems('<script>%s</script>' % script, CORPUS)
+                self.assertEqual(len(problems), 1, problems)
+                self.assertIn('טקסט מומצא לחלוטין', problems[0])
+
     def test_escaped_script_strings_are_decoded(self):
         escaped = ''.join('\\u%04x' % ord(c) for c in 'טקסט מומצא')
         problems = verbatim.html_problems('<script>document.body.textContent = "%s";</script>' % escaped, CORPUS)

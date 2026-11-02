@@ -134,7 +134,9 @@ def quote_problems(data, corpus, where=''):
     return problems
 
 
-JS_STRING = re.compile(r'"((?:[^"\\\n]|\\.)*)"|\'((?:[^\'\\\n]|\\.)*)\'|`([^`]*)`')
+# A run of Hebrew text: Hebrew letters joined by spaces, digits and prose punctuation, stopping at
+# code characters (ASCII quotes, backticks, brackets, operators) that cannot be part of displayed prose.
+HEBREW_RUN = re.compile(r"[\u0590-\u05FF][\u0590-\u05FF0-9 \t.,:;!?\u05F3\u05F4()\u2013\u2014\u2026%\-]*")
 
 
 JS_ESCAPE = re.compile(r'\\(u\{[0-9a-fA-F]+\}|u[0-9a-fA-F]{4}|x[0-9a-fA-F]{2}|.)', re.S)
@@ -173,7 +175,9 @@ class TextRuns(HTMLParser):
 
     def handle_data(self, data):
         if self.raw == 'script':
-            self.runs += [js_unescape(next(g for g in m.groups() if g is not None)) for m in JS_STRING.finditer(data)]
+            # No JavaScript parsing: every Hebrew run in the decoded script is checked wherever it
+            # appears (strings, comments, template literals), so quote tricks cannot hide text.
+            self.runs += HEBREW_RUN.findall(js_unescape(data))
         elif self.raw is None:
             self.runs.append(data)
 
