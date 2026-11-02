@@ -1,0 +1,40 @@
+{
+  "summary": {
+    "scripts": 51,
+    "session_boards": 51,
+    "audio": 51,
+    "authored_storyboards": 51,
+    "placeholder_storyboards": 0,
+    "animations_rendered": 51,
+    "animations_exported": 51,
+    "trios_integrated": 51,
+    "rendered_not_integrated": [],
+    "storyboard_only": [],
+    "not_started": [],
+    "container_issues": [],
+    "duration_issues_over_0_25s": []
+  },
+  "results": [
+    {
+      "sid": "S01",
+      "duration": 123.9,
+      "width": 1080,
+      "height": 1080,
+      "advanced": true,
+      "src": "http://127.0.0.1:63684/_blob/398555ee4620895943a6e83bbdad4673"
+    },
+    {
+      "sid": "S99",
+      "duration": 138.2,
+      "width": 1080,
+      "height": 1080,
+      "advanced": true,
+      "src": "http://127.0.0.1:63684/media/voice-over/mp4/S99-animated.mp4"
+    }
+  ],
+  "mobile": {
+    "viewport": 390,
+    "body": 390
+  },
+  "errors": []
+}
