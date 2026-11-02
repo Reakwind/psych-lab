@@ -1,10 +1,10 @@
 # Project and source map
 
-`psych-lab/serve.py` serves the saved original artifact boards and the full intervention. It restores blob references from local media, supports HTTP Range requests, and exposes a source/media audit. The default bind is localhost; `--host 0.0.0.0` enables forwarded cloud previews.
+The Lab is viewed in connected Claude Design canvases (Home, Original design, Activities, Films & scripts, Phone preview), registered in `canvas/canvases.json`. `canvas/build.mjs` generates every board on the generated canvases from `psych-lab/intervention/program.json`, `psych-lab/film-scripts.json` and the films' narration record (`voice-over/elevenlabs/prepped-all.json`), using `core.mjs` for sequencing; the committed boards in `canvas/<canvas>/project/` are what is published. Media plays from assets uploaded to each canvas. `psych-lab/audit.py` still builds the source/media audit (`status.json`) used by the production tools.
 
 The original artifact mirror lives under `animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/`. Its runtime, canvas, source boards, Hebrew scripts and 51 completed narrated films are preserved. Generated film sources and storyboards live in `animation-kit/film*/`, `boards_meta/`, and `sb_*.py`. The portable renderer streams frames to FFmpeg, retains the original narration, and uses isolated browser instances. Never render different agents' films into the same output files.
 
-The full intervention lives in `psych-lab/intervention/`. `program.json` is the checked-in runtime manifest; `build.py` derives it from source snapshots, the Lab audit, and real media durations. `core.mjs` handles sourced session/choice sequencing and duration ranges; `app.mjs` handles the Hebrew patient flow and review tools. `core.test.mjs` checks the 87 sessions, choices, deduplication, source conflicts, and explicit media gaps. Review runs, notes, and favorites are browser-local; export JSON when sharing measurements.
+The full intervention lives in `psych-lab/intervention/`. `program.json` is the checked-in runtime manifest; `build.py` derives it from source snapshots, the Lab audit, and real media durations. `core.mjs` handles sourced session/choice sequencing and duration ranges; the Phone preview canvas walks the sessions it sequences. `core.test.mjs` checks the 87 sessions, choices, deduplication, source conflicts, and explicit media gaps. Review notes are canvas comments.
 
 ## Source precedence
 

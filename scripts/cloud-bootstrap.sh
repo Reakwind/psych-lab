@@ -19,4 +19,4 @@ if [[ "$mode" != "--code-only" ]]; then
 fi
 npm test
 python3 scripts/agents.py doctor || true
-echo 'Ready. Run npm run start:cloud and forward port 63684; claim a task before editing.'
+echo 'Ready. Claim a task before editing; output goes to the Psych Lab canvases (canvas/canvases.json).'

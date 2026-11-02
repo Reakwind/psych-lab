@@ -31,7 +31,7 @@ For a local coordinator, create an isolated worktree and reserve it:
 ```bash
 python3 scripts/agents.py start --task video-controls --agent claude-controls \
   --summary 'Restore accessible playback controls on phone screens' \
-  --scope psych-lab/intervention/app.mjs psych-lab/intervention/style.css
+  --scope canvas/phone-logic.js canvas/phone-markup.html
 ```
 
 Continue **only inside the worktree path printed by that command**. Do not open two agents in the same checkout. Each worktree has its own ignored `.agent-context.json`. Its committed `docs/agent-tasks/<task>.json` and draft PR preserve the claim. Never pass all of `psych-lab/` to one task if you intend other agents to work on files within it.
@@ -41,7 +41,7 @@ If a cloud service already created a `claude/...`, `codex/...`, or `agent/...` b
 ```bash
 python3 scripts/agents.py claim --task video-controls --agent claude-controls \
   --summary 'Restore accessible playback controls on phone screens' \
-  --scope psych-lab/intervention/app.mjs psych-lab/intervention/style.css
+  --scope canvas/phone-logic.js canvas/phone-markup.html
 ```
 
 The claim command commits only its own manifest, pushes only its assigned branch, and opens a draft PR. Wait for `agent-policy` to pass before implementing. If two claims race, the oldest open PR reserves that scope and the newer PR is blocked. Different exact files can be worked on concurrently; directory claims reserve their descendants. A malformed open claim blocks new reservations until its agent fixes it or the owner closes it. Avoid a single shared task board file that all agents must edit.
@@ -54,7 +54,7 @@ Implement, inspect your diff, and commit explicit paths:
 python3 scripts/agents.py commit \
   --message 'fix(preview): keep playback controls reachable on phones' \
   --why 'The review footer covered the player controls at narrow widths.' \
-  psych-lab/intervention/app.mjs psych-lab/intervention/style.css
+  canvas/phone-logic.js canvas/phone-markup.html
 ```
 
 Keep commits focused. State why behavior changes and preserve `Task:` and `Agent:` trailers; `--footer` adds further trailers (for example `Co-Authored-By:`) after them. Hooks reject unrelated staged files and possible credentials. New files require an explicit scope reservation before implementation. Do not expand the PR contract silently to win a conflict; coordinate a new claim or a scope transfer first.

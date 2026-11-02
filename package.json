@@ -2,20 +2,19 @@
   "name": "remepy-psych-lab",
   "version": "1.0.0",
   "private": true,
-  "description": "Source-based Parkinson's psychological intervention preview and animation workshop",
+  "description": "Source-based Parkinson's psychological intervention lab, published as connected Claude Design canvases",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "start": "python3 psych-lab/serve.py --port 63684",
-    "start:cloud": "python3 psych-lab/serve.py --host 0.0.0.0 --port 63684",
     "test": "node --test psych-lab/intervention/core.test.mjs && python3 -m unittest discover -s tests -v",
     "check": "python3 scripts/check_project.py",
     "agent:setup": "python3 scripts/agents.py setup",
     "doctor": "python3 scripts/agents.py doctor",
     "media:check": "python3 scripts/check_project.py --media",
     "verbatim": "python3 scripts/verbatim.py",
-    "film-scripts": "python3 scripts/film_scripts.py"
+    "film-scripts": "python3 scripts/film_scripts.py",
+    "canvas": "node canvas/build.mjs"
   },
   "devDependencies": {
     "acorn": "8.14.0",

@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """Prove that program text shown by the Lab is quoted verbatim from protected source material.
 
-Usage: python3 scripts/verbatim.py FILE...   (JSON data, HTML prototypes, or JavaScript modules)
+Usage: python3 scripts/verbatim.py [--narration] FILE...   (JSON data, HTML prototypes, or JavaScript modules)
 
 A JSON quote is an object {"text": ..., "source": "<protected path>"}; its text must occur exactly
 in that source. Any other Hebrew string in JSON, and every Hebrew text run in HTML, must occur
 exactly somewhere in the source material. LFS sources that are not downloaded are skipped, and
 the command says so, because text that cannot be read cannot be verified.
+
+--narration also accepts text found in the films' narration record (NARRATION below). Use it only for
+boards that show what a film says beside its script: the record is evidence of the narration, never
+authority for program text, so it is not a registered source and vouches for nothing else.
 """
 import csv
 import html
@@ -102,13 +106,18 @@ def docx_paragraph(xml):
                    for m in DOCX_RUN.finditer(xml))
 
 
+# What the animated films narrate, as sent for voicing. Shown only where a film is compared with its script.
+NARRATION = 'voice-over/elevenlabs/prepped-all.json'
+
 # Preserved earlier design prototype: protected from edits, but it is evidence of what the design
 # showed, never authority for program text. Copying its wording elsewhere must not verify it.
 PROTOTYPE = 'animation-kit/artifact-files/'
 
 
 class Corpus:
-    def __init__(self, exclude=()):
+    narration_flat = ''
+
+    def __init__(self, exclude=(), narration=False):
         """Program sources vouch for text; prototype boards only explain where unsourced text came from."""
         self.texts, self.prototype, self.unreadable = {}, {}, []
         files = source_guard.load()[1]
@@ -123,6 +132,8 @@ class Corpus:
                 (self.prototype if path.startswith(PROTOTYPE) else self.texts)[path] = text
         self.blob = SEP.join(self.texts.values())
         self.prototype_blob = SEP.join(self.prototype.values())
+        if narration:
+            self.narration_flat = collapse(source_text(NARRATION) or '')
         self.index()
 
     def index(self):
@@ -137,7 +148,8 @@ class Corpus:
         return path in self.flat_texts and bool(collapse(text)) and collapse(text) in self.flat_texts[path]
 
     def anywhere(self, text):
-        return collapse(text) in self.flat
+        flat = collapse(text)
+        return flat in self.flat or bool(self.narration_flat and flat and flat in self.narration_flat)
 
     def why_missing(self, text):
         return ('found only in the original design prototype, not in a program source'
@@ -305,6 +317,8 @@ def html_problems(text, corpus):
         problems += html_problems(document, corpus)
     for run in parser.runs:  # already decoded once by the parser; never decode twice
         text = collapse(run)  # one whole run, as displayed
+        if text in corpus.paths:
+            continue  # a registered source file's exact path names the file; it is not program text
         if HEBREW.search(text) and not corpus.anywhere(text):
             problems.append(f'{corpus.why_missing(text)}: {text[:60]!r}')
     return problems
@@ -319,13 +333,16 @@ def js_problems(text, corpus):
     problems = []
     for value in strings:
         value = collapse(value)
+        if value in corpus.paths:
+            continue  # a registered source file's exact path names the file; it is not program text
         if HEBREW.search(value) and not corpus.anywhere(value):
             problems.append(f'{corpus.why_missing(value)}: {value[:60]!r}')
     return problems
 
 
-def check(paths, corpus=None):
-    corpus = corpus or Corpus(exclude={str(Path(p).resolve().relative_to(ROOT)) for p in paths if Path(p).resolve().is_relative_to(ROOT)})
+def check(paths, corpus=None, narration=False):
+    corpus = corpus or Corpus(exclude={str(Path(p).resolve().relative_to(ROOT)) for p in paths if Path(p).resolve().is_relative_to(ROOT)},
+                              narration=narration)
     problems = []
     for path in paths:
         text = Path(path).read_text(encoding='utf-8')
@@ -340,16 +357,20 @@ def check(paths, corpus=None):
 
 
 def main():
-    if len(sys.argv) < 2:
+    args = sys.argv[1:]
+    narration = '--narration' in args
+    paths = [a for a in args if a != '--narration']
+    if not paths:
         sys.exit(__doc__)
-    problems, corpus = check(sys.argv[1:])
+    problems, corpus = check(paths, narration=narration)
     if corpus.unreadable:
         print(f'Note: {len(corpus.unreadable)} source file(s) not downloaded (Git LFS) and not searched: '
               + ', '.join(sorted(corpus.unreadable)[:5]) + (' …' if len(corpus.unreadable) > 5 else ''))
     if problems:
         print('Not verbatim:\n- ' + '\n- '.join(problems), file=sys.stderr)
         sys.exit(1)
-    print(f'Verbatim: all program text in {len(sys.argv) - 1} file(s) is quoted from source material.')
+    print(f'Verbatim: all program text in {len(paths)} file(s) is quoted from source material'
+          + (' (film narration checked against its record).' if narration else '.'))
 
 
 if __name__ == '__main__':

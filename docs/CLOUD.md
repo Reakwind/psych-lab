@@ -2,9 +2,9 @@
 
 ## GitHub Codespaces / dev containers
 
-Open this repository in a Codespace or any Dev Containers implementation. `.devcontainer/` builds Node.js 22 on Debian with Python, FFmpeg, Chromium, Git LFS and GitHub CLI. The setup hydrates media, installs pinned npm dependencies, installs guards, and runs tests. Forward port 63684, then run `npm run start:cloud`. Keep the forwarded port private unless explicitly sharing the preview.
+Open this repository in a Codespace or any Dev Containers implementation. `.devcontainer/` builds Node.js 22 on Debian with Python, FFmpeg, Chromium, Git LFS and GitHub CLI. The setup hydrates media, installs pinned npm dependencies, installs guards, and runs tests. There is no preview server: the Lab is viewed in its Claude Design canvases (AGENTS.md, "Where output goes").
 
-One cloud environment per concurrently active agent is the simplest isolation. For several agents on one host use `scripts/agents.py start`, which creates separate Git worktrees and branches. Allocate different preview ports when sharing a host; e.g. `python3 psych-lab/serve.py --port 63685` and set `PSYCH_LAB_URL=http://127.0.0.1:63685` for playback checks. The capture tool already allocates its own Chrome debugging port and profile.
+One cloud environment per concurrently active agent is the simplest isolation. For several agents on one host use `scripts/agents.py start`, which creates separate Git worktrees and branches. The capture tool allocates its own Chrome debugging port and profile, so renders on one host do not collide.
 
 ## Claude Code in the cloud
 
@@ -36,4 +36,4 @@ All finished media and binary source documents are versioned using Git LFS. Disp
 
 LFS storage and downloads are subject to the repository owner's GitHub plan/billing. PR checks avoid downloading the archive on every push. The manually dispatched Full media verification workflow hydrates the archive and verifies referenced media and LFS object integrity. See [GitHub's LFS documentation](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage).
 
-No cloud keys or APIs are required to run the saved Lab, inspect source snapshots, or render existing narration. Optional voice synthesis tools have their own requirements and need user-provided credentials stored outside Git. Original legacy capture scripts are retained for provenance; use `psych-lab/production/render.mjs` or `animation-kit/capture.mjs` for the portable supported pipeline.
+No cloud keys or APIs are required to build the canvas boards, inspect source snapshots, or render existing narration. Optional voice synthesis tools have their own requirements and need user-provided credentials stored outside Git. Original legacy capture scripts are retained for provenance; use `psych-lab/production/render.mjs` or `animation-kit/capture.mjs` for the portable supported pipeline.

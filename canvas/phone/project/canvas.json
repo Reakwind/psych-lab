@@ -1,0 +1,43 @@
+{
+ "v": 3,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-02T13:45:00Z"
+ },
+ "title": "Psych Lab — Phone preview",
+ "launch": {
+  "view": "canvas"
+ },
+ "pages": [],
+ "boards": {
+  "Main.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 760,
+   "h": 844,
+   "title": "Phone preview · about"
+  },
+  "Phone.dc.html": {
+   "x": 840,
+   "y": 0,
+   "w": 880,
+   "h": 844,
+   "title": "Phone · all 87 sessions, timed",
+   "is_interactive": true
+  },
+  "HeldOut-047.dc.html": {
+   "x": 1800,
+   "y": 0,
+   "w": 520,
+   "h": 820,
+   "title": "PS-CONT-047 · held out of the flow"
+  }
+ },
+ "order": [
+  "Main.dc.html",
+  "Phone.dc.html",
+  "HeldOut-047.dc.html"
+ ],
+ "notes": {},
+ "designSystems": []
+}

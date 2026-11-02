@@ -203,14 +203,29 @@ class Repository(unittest.TestCase):
         self.assertFalse(any(p.startswith(verbatim.PROTOTYPE) for p in corpus.texts))
         self.assertFalse(corpus.anywhere('מה גרם לכם לחייך השבוע?'))
 
-    def test_intervention_preview_shows_no_unsourced_hebrew(self):
-        # The phone preview's own wording is English Lab labels and 'No source text' markers.
+    def test_sequencing_code_shows_no_unsourced_hebrew(self):
+        # core.mjs sequences sessions for the canvases; it holds no program wording of its own.
         corpus = verbatim.Corpus()
         if [p for p in corpus.unreadable if p.endswith(('.xlsx', '.docx'))]:
             self.skipTest('Text sources not downloaded (git lfs pull)')
-        files = [str(ROOT / 'psych-lab/intervention' / f) for f in ('app.mjs', 'core.mjs', 'index.html', 'activities.mjs', 'activities.html')]
+        files = [str(ROOT / 'psych-lab/intervention/core.mjs'), str(ROOT / 'canvas/build.mjs'), str(ROOT / 'canvas/phone-logic.js'), str(ROOT / 'canvas/phone-markup.html')]
         problems, _ = verbatim.check(files, corpus)
         self.assertEqual(problems, [])
+
+    def test_narration_record_vouches_only_when_asked(self):
+        corpus = FakeCorpus({'sources/script.json': 'היי, אני נירה'})
+        corpus.narration_flat = verbatim.collapse('ושאיפה, שתיים, שלוש.')
+        page = '<p>ושאיפה, שתיים, שלוש.</p>'
+        self.assertEqual(verbatim.html_problems(page, corpus), [])
+        self.assertEqual(len(verbatim.html_problems(page, CORPUS)), 1)
+        self.assertEqual(len(verbatim.html_problems('<p>מילים שלא נאמרו</p>', corpus)), 1)
+
+    def test_a_registered_source_path_is_a_name_not_program_text(self):
+        corpus = FakeCorpus({'sources/תסריטים/נשימה.docx': 'נשימה בטנית'})
+        self.assertEqual(verbatim.html_problems('<p><code>sources/תסריטים/נשימה.docx</code></p>', corpus), [])
+        self.assertEqual(verbatim.js_problems('const p = "sources/תסריטים/נשימה.docx";', corpus), [])
+        # Only the exact path: wording around it is still checked.
+        self.assertEqual(len(verbatim.html_problems('<p>קובץ sources/תסריטים/נשימה.docx</p>', corpus)), 1)
 
     def test_program_manifest_is_verbatim(self):
         corpus = verbatim.Corpus()
