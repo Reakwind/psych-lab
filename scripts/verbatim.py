@@ -83,8 +83,17 @@ def source_text(path):
     if suffix == '.docx':
         with zipfile.ZipFile(file) as z:
             xml = z.read('word/document.xml').decode('utf-8')
-        return SEP.join(''.join(xml_runs(p, 'w:t')) for p in re.findall(r'<w:p[ >].*?</w:p>', xml, re.S))
+        return SEP.join(docx_paragraph(p) for p in re.findall(r'<w:p[ >].*?</w:p>', xml, re.S))
     return ''
+
+
+DOCX_RUN = re.compile(r'<w:t(?:\s[^>]*)?>([^<]*)</w:t>|<w:(?:br|cr)\b[^>]*/>|<w:tab\b[^>]*/>')
+
+
+def docx_paragraph(xml):
+    """A paragraph's text as Word shows it: soft line breaks and tabs are whitespace, never glue."""
+    return ''.join(html.unescape(m[1]) if m[1] is not None else ('\t' if m[0].startswith('<w:tab') else '\n')
+                   for m in DOCX_RUN.finditer(xml))
 
 
 # Preserved earlier design prototype: protected from edits, but it is evidence of what the design
@@ -96,7 +105,9 @@ class Corpus:
     def __init__(self, exclude=()):
         """Program sources vouch for text; prototype boards only explain where unsourced text came from."""
         self.texts, self.prototype, self.unreadable = {}, {}, []
-        for path in source_guard.load()[1]:
+        files = source_guard.load()[1]
+        self.paths = set(files)
+        for path in files:
             if path in exclude:
                 continue
             text = source_text(path)
@@ -113,9 +124,11 @@ class Corpus:
         # so a whole run is matched at once and line breaks cannot split it into sourced fragments.
         self.flat = collapse(self.blob)
         self.prototype_flat = collapse(self.prototype_blob)
+        self.flat_texts = {path: collapse(text) for path, text in self.texts.items()}
 
     def in_source(self, text, path):
-        return path in self.texts and text in self.texts[path]
+        # Same display rule as everywhere else: whitespace collapsed, separators still boundaries.
+        return path in self.flat_texts and bool(collapse(text)) and collapse(text) in self.flat_texts[path]
 
     def anywhere(self, text):
         return collapse(text) in self.flat
@@ -140,6 +153,9 @@ def quote_problems(data, corpus, where=''):
                 problems.append(f"{where}: not verbatim in {data['source']}: {data['text'][:60]!r}")
             # A sourced quote must not shelter other content: check its remaining fields too.
             data = {k: v for k, v in data.items() if k not in ('text', 'source')}
+        elif isinstance(data.get('source'), str) and data['source'] in corpus.paths:
+            # A bare "source" naming a registered source file is a path, not program text.
+            data = {k: v for k, v in data.items() if k != 'source'}
         for k, v in data.items():
             problems += quote_problems(v, corpus, f'{where}.{k}')
     elif isinstance(data, list):

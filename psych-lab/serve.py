@@ -32,6 +32,9 @@ class Handler(BaseHTTPRequestHandler):
         if path == '/api/canvas':
             self.send_file(PROJECT / 'canvas.json', head)
             return
+        if path == '/api/film-scripts':
+            self.send_file(HERE / 'film-scripts.json', head)
+            return
         if path in {'/', '/index.html'}:
             self.send_file(HERE / 'index.html', head)
             return

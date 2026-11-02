@@ -1,0 +1,19 @@
+{
+  "task": "film-scripts",
+  "agent": "claude-bold-ptolemy",
+  "scope": [
+    "sources/film-scripts/",
+    "source-material.json",
+    "scripts/verbatim.py",
+    "tests/test_verbatim.py",
+    "scripts/film_scripts.py",
+    "tests/test_film_scripts.py",
+    "psych-lab/film-scripts.json",
+    "psych-lab/index.html",
+    "psych-lab/serve.py",
+    "package.json",
+    "scripts/agent_safety.py",
+    "tests/test_agent_workflow.py"
+  ],
+  "branch": "claude/bold-ptolemy-dt1ah7--film-scripts"
+}
