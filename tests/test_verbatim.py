@@ -116,6 +116,16 @@ class Prototypes(unittest.TestCase):
         self.assertEqual(verbatim.html_problems('<div>נשימה בטנית</div><div>שוברי קרח</div>', CORPUS), [])
         self.assertEqual(verbatim.html_problems('<p>נשימה בטנית<br>שוברי קרח</p>', CORPUS), [])
 
+    def test_event_handlers_and_javascript_urls_are_code(self):
+        escaped = ''.join('\\u%04x' % ord(c) for c in 'טקסט מומצא')
+        for page in ['<button onclick="this.textContent=\'%s\'">x</button>' % escaped,
+                     '<a href="javascript:alert(\'%s\')">x</a>' % escaped]:
+            with self.subTest(page=page):
+                problems = verbatim.html_problems(page, CORPUS)
+                self.assertEqual(len(problems), 1, problems)
+                self.assertIn('טקסט מומצא', problems[0])
+        self.assertEqual(verbatim.html_problems('<button onclick="go(\'שוברי קרח\')">x</button>', CORPUS), [])
+
     def test_escaped_script_strings_are_decoded(self):
         escaped = ''.join('\\u%04x' % ord(c) for c in 'טקסט מומצא')
         problems = verbatim.html_problems('<script>document.body.textContent = "%s";</script>' % escaped, CORPUS)

@@ -223,7 +223,19 @@ class TextRuns(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         self.boundary(tag)
-        self.runs += [value for _, value in attrs if value]
+        for name, value in attrs:
+            if not value:
+                continue
+            code = value[len('javascript:'):] if value.lower().startswith('javascript:') else \
+                value if name.lower().startswith('on') else None
+            if code is None:
+                self.runs.append(value)
+                continue
+            # Event handlers and javascript: URLs are code: check their evaluated string values.
+            try:
+                self.runs += js_strings(code)
+            except ScriptError as e:
+                self.errors.append(str(e))
         if tag in ('script', 'style'):
             self.raw = tag
 
