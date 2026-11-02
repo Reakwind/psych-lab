@@ -1,0 +1,1123 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-29T12:00:00Z"
+  },
+  "title": "Parkinson's Psych Lab",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Persona.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1024,
+      "title": "Persona: Ruth, 67"
+    },
+    "Journey.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 1024,
+      "title": "Ruth's 12-week journey"
+    },
+    "UIKit.dc.html": {
+      "x": 0,
+      "y": 1444,
+      "w": 1440,
+      "h": 1500,
+      "title": "Steady UI: tokens and components"
+    },
+    "Main.dc.html": {
+      "x": 0,
+      "y": 3364,
+      "w": 390,
+      "h": 844,
+      "title": "A day in the program",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "Motivation.dc.html": {
+      "x": 470,
+      "y": 3364,
+      "w": 390,
+      "h": 844,
+      "title": "Select motivation",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/Choice.dc.html": {
+      "x": 940,
+      "y": 3364,
+      "w": 390,
+      "h": 844,
+      "title": "Choice activity",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/InnerVoice.dc.html": {
+      "x": 0,
+      "y": 4628,
+      "w": 390,
+      "h": 844,
+      "title": "Inner Voice workout",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/Breathing.dc.html": {
+      "x": 470,
+      "y": 4628,
+      "w": 390,
+      "h": 844,
+      "title": "Breathing practice",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "Compass.dc.html": {
+      "x": 940,
+      "y": 4628,
+      "w": 390,
+      "h": 844,
+      "title": "The compass: activation",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/Cards.dc.html": {
+      "x": 1410,
+      "y": 4628,
+      "w": 390,
+      "h": 844,
+      "title": "Connection card game",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "ProgramMap.dc.html": {
+      "x": 0,
+      "y": 5892,
+      "w": 1280,
+      "h": 1240,
+      "title": "Program map: 87 sessions",
+      "is_interactive": true,
+      "expand": "fill"
+    },
+    "scripts/Scene.dc.html": {
+      "x": 0,
+      "y": 8816,
+      "w": 342,
+      "h": 360,
+      "title": "Scene library (shared)"
+    },
+    "scripts/Ruth.dc.html": {
+      "x": 0,
+      "y": 7552,
+      "w": 390,
+      "h": 844,
+      "title": "Ruth's journey (start here)",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S01.dc.html": {
+      "x": 470,
+      "y": 8816,
+      "w": 390,
+      "h": 844,
+      "title": "1 · ברוכים הבאים",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S02.dc.html": {
+      "x": 940,
+      "y": 8816,
+      "w": 390,
+      "h": 844,
+      "title": "2 · אפתיה – כשקשה להתחיל",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S03a.dc.html": {
+      "x": 1410,
+      "y": 8816,
+      "w": 390,
+      "h": 844,
+      "title": "3 · תרגול עם פרקינסון",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S03b.dc.html": {
+      "x": 1880,
+      "y": 8816,
+      "w": 390,
+      "h": 844,
+      "title": "3 · נשימה בטנית",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S04.dc.html": {
+      "x": 2350,
+      "y": 8816,
+      "w": 390,
+      "h": 844,
+      "title": "4 · הקול הפנימי",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S05.dc.html": {
+      "x": 2820,
+      "y": 8816,
+      "w": 390,
+      "h": 844,
+      "title": "5 · ניהול אנרגיה ואנלוגיית הבטריה",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S06.dc.html": {
+      "x": 3290,
+      "y": 8816,
+      "w": 390,
+      "h": 844,
+      "title": "6 · מבוא לקרקוע",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S07.dc.html": {
+      "x": 3760,
+      "y": 8816,
+      "w": 390,
+      "h": 844,
+      "title": "7 · מחשבות הן לא עובדות",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S08.dc.html": {
+      "x": 470,
+      "y": 9780,
+      "w": 390,
+      "h": 844,
+      "title": "8 · איזון מחשבות",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S09.dc.html": {
+      "x": 940,
+      "y": 9780,
+      "w": 390,
+      "h": 844,
+      "title": "9 · מטאפורת נהג האוטובוס",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S10.dc.html": {
+      "x": 1410,
+      "y": 9780,
+      "w": 390,
+      "h": 844,
+      "title": "10 · התבוננות במחשבות",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S11.dc.html": {
+      "x": 1880,
+      "y": 9780,
+      "w": 390,
+      "h": 844,
+      "title": "11 · קלפי שיחה",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S12.dc.html": {
+      "x": 2350,
+      "y": 9780,
+      "w": 390,
+      "h": 844,
+      "title": "12 · לשתף מישהו קרוב בדרך",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S14.dc.html": {
+      "x": 2820,
+      "y": 9780,
+      "w": 390,
+      "h": 844,
+      "title": "14 · מתח, חרדה והרגעת הגוף",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S15.dc.html": {
+      "x": 3290,
+      "y": 9780,
+      "w": 390,
+      "h": 844,
+      "title": "15 · נשימת קופסה",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S16.dc.html": {
+      "x": 3760,
+      "y": 9780,
+      "w": 390,
+      "h": 844,
+      "title": "16 · מתג המאבק",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S17.dc.html": {
+      "x": 470,
+      "y": 10744,
+      "w": 390,
+      "h": 844,
+      "title": "17 · הרפיה ודמיון מודרך",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S19.dc.html": {
+      "x": 940,
+      "y": 10744,
+      "w": 390,
+      "h": 844,
+      "title": "19 · הרפיה לקראת השינה",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S23.dc.html": {
+      "x": 1410,
+      "y": 10744,
+      "w": 390,
+      "h": 844,
+      "title": "23 · כלים לרגע",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S25.dc.html": {
+      "x": 1880,
+      "y": 10744,
+      "w": 390,
+      "h": 844,
+      "title": "25 · איך להפיק יותר מהתרגול",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S27.dc.html": {
+      "x": 2350,
+      "y": 10744,
+      "w": 390,
+      "h": 844,
+      "title": "27 · שגרת ערב לקראת השינה",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S28.dc.html": {
+      "x": 2820,
+      "y": 10744,
+      "w": 390,
+      "h": 844,
+      "title": "28 · מבוא לתשומת לב לנשימה ולסריקת גוף",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S29.dc.html": {
+      "x": 3290,
+      "y": 10744,
+      "w": 390,
+      "h": 844,
+      "title": "29 · תשומת לב לנשימה וסריקת גוף",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S30.dc.html": {
+      "x": 3760,
+      "y": 10744,
+      "w": 390,
+      "h": 844,
+      "title": "30 · מיינדפולנס ונוירופלסטיות",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S32.dc.html": {
+      "x": 470,
+      "y": 11708,
+      "w": 390,
+      "h": 844,
+      "title": "32 · איך לתקשר עם אחרים על פרקינסון",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S33a.dc.html": {
+      "x": 940,
+      "y": 11708,
+      "w": 390,
+      "h": 844,
+      "title": "33 · אנחה פיזיולוגית/ אנחת רווחה",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S33b.dc.html": {
+      "x": 1410,
+      "y": 11708,
+      "w": 390,
+      "h": 844,
+      "title": "33 · נשימה קוהרנטית",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S34.dc.html": {
+      "x": 1880,
+      "y": 11708,
+      "w": 390,
+      "h": 844,
+      "title": "34 · הדב הלבן",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S35.dc.html": {
+      "x": 2350,
+      "y": 11708,
+      "w": 390,
+      "h": 844,
+      "title": "35 · מיינדפולנס בחיי היום יום",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S37.dc.html": {
+      "x": 2820,
+      "y": 11708,
+      "w": 390,
+      "h": 844,
+      "title": "37 · מטאפורת השחמט",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S42.dc.html": {
+      "x": 3290,
+      "y": 11708,
+      "w": 390,
+      "h": 844,
+      "title": "42 · מבוא ללדאוג לעצמי",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S43.dc.html": {
+      "x": 3760,
+      "y": 11708,
+      "w": 390,
+      "h": 844,
+      "title": "43 · להתבונן בחוויה נעימה",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S44.dc.html": {
+      "x": 470,
+      "y": 12672,
+      "w": 390,
+      "h": 844,
+      "title": "44 · לעשות דברים שעושים לנו טוב",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S45.dc.html": {
+      "x": 940,
+      "y": 12672,
+      "w": 390,
+      "h": 844,
+      "title": "45 · רגע של חמלה עצמית",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S46.dc.html": {
+      "x": 1410,
+      "y": 12672,
+      "w": 390,
+      "h": 844,
+      "title": "46 · רגע של הכרת תודה",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S48.dc.html": {
+      "x": 1880,
+      "y": 12672,
+      "w": 390,
+      "h": 844,
+      "title": "48 · תיקוף עצמי",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S49.dc.html": {
+      "x": 2350,
+      "y": 12672,
+      "w": 390,
+      "h": 844,
+      "title": "49 · כמו שאני, זה טוב מספיק",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S53.dc.html": {
+      "x": 2820,
+      "y": 12672,
+      "w": 390,
+      "h": 844,
+      "title": "53 · למצוא את הדרך שלכם להישאר מחוברים",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S54.dc.html": {
+      "x": 3290,
+      "y": 12672,
+      "w": 390,
+      "h": 844,
+      "title": "54 · כמו שאני, זה טוב מספיק – הכנה לתרגול",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S56.dc.html": {
+      "x": 3760,
+      "y": 12672,
+      "w": 390,
+      "h": 844,
+      "title": "56 · ערכים ופעולה משמעותית",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S57.dc.html": {
+      "x": 470,
+      "y": 13636,
+      "w": 390,
+      "h": 844,
+      "title": "57 · מטאפורת המצפן",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S58.dc.html": {
+      "x": 940,
+      "y": 13636,
+      "w": 390,
+      "h": 844,
+      "title": "58 · רגע, זה חשוב לי",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S60.dc.html": {
+      "x": 1410,
+      "y": 13636,
+      "w": 390,
+      "h": 844,
+      "title": "60 · שינויים בתפקידים שלנו",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S63.dc.html": {
+      "x": 1880,
+      "y": 13636,
+      "w": 390,
+      "h": 844,
+      "title": "63 · להבין את מעגל ההתמודדות עם קושי",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S64.dc.html": {
+      "x": 2350,
+      "y": 13636,
+      "w": 390,
+      "h": 844,
+      "title": "64 · טיפוח חשיבה גמישה",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S65.dc.html": {
+      "x": 2820,
+      "y": 13636,
+      "w": 390,
+      "h": 844,
+      "title": "65 · מטאפורת האורח הלא מוזמן",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S66.dc.html": {
+      "x": 3290,
+      "y": 13636,
+      "w": 390,
+      "h": 844,
+      "title": "66 · מבוא לחיזוק הקשב והאיזון הרגשי",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S70.dc.html": {
+      "x": 3760,
+      "y": 13636,
+      "w": 390,
+      "h": 844,
+      "title": "70 · להרגיע את הגוף",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S73.dc.html": {
+      "x": 470,
+      "y": 14600,
+      "w": 390,
+      "h": 844,
+      "title": "73 · מבוא לפעולה משמעותית",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S76.dc.html": {
+      "x": 940,
+      "y": 14600,
+      "w": 390,
+      "h": 844,
+      "title": "76 · לשים לב → להתייצב → לבחור → לעשות צעד → לפרגן לעצמנו",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/S99.dc.html": {
+      "x": 1410,
+      "y": 14600,
+      "w": 390,
+      "h": 844,
+      "title": "חזרה · עזבו אותי ממיינדסט",
+      "is_interactive": true,
+      "radius": 36
+    },
+    "scripts/Gallery.dc.html": {
+      "x": 0,
+      "y": 15864,
+      "w": 2984,
+      "h": 3460,
+      "title": "Scene gallery: every visual in the library"
+    },
+    "scripts/S02Story.dc.html": {
+      "x": 4310,
+      "y": 8816,
+      "w": 2600,
+      "h": 4560,
+      "title": "Session 2 storyboard (proposed)"
+    },
+    "scripts/S01Story.dc.html": {
+      "x": 4310,
+      "y": 13496,
+      "w": 2600,
+      "h": 4700,
+      "title": "Session 1 storyboard (proposed)"
+    },
+    "scripts/S03aStory.dc.html": {
+      "x": 4310,
+      "y": 18316,
+      "w": 2600,
+      "h": 7240,
+      "title": "Session 3a storyboard (proposed)"
+    },
+    "scripts/S03bStory.dc.html": {
+      "x": 4310,
+      "y": 25676,
+      "w": 2600,
+      "h": 6950,
+      "title": "Session 3b storyboard (proposed)"
+    },
+    "scripts/S04Story.dc.html": {
+      "x": 4310,
+      "y": 32746,
+      "w": 2600,
+      "h": 4960,
+      "title": "Session 4 storyboard (proposed)"
+    },
+    "scripts/S05Story.dc.html": {
+      "x": 4310,
+      "y": 37826,
+      "w": 2600,
+      "h": 5780,
+      "title": "Session 5 storyboard (proposed)"
+    },
+    "scripts/S06Story.dc.html": {
+      "x": 4310,
+      "y": 43726,
+      "w": 2600,
+      "h": 4960,
+      "title": "Session 6 storyboard (proposed)"
+    },
+    "scripts/S07Story.dc.html": {
+      "x": 4310,
+      "y": 48806,
+      "w": 2600,
+      "h": 6940,
+      "title": "Session 7 storyboard (proposed)"
+    },
+    "scripts/S08Story.dc.html": {
+      "x": 7030,
+      "y": 8816,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 8 storyboard"
+    },
+    "scripts/S09Story.dc.html": {
+      "x": 9750,
+      "y": 8816,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 9 storyboard"
+    },
+    "scripts/S10Story.dc.html": {
+      "x": 12470,
+      "y": 8816,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 10 storyboard"
+    },
+    "scripts/S11Story.dc.html": {
+      "x": 15190,
+      "y": 8816,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 11 storyboard"
+    },
+    "scripts/S12Story.dc.html": {
+      "x": 17910,
+      "y": 8816,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 12 storyboard"
+    },
+    "scripts/S14Story.dc.html": {
+      "x": 7030,
+      "y": 17216,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 14 storyboard"
+    },
+    "scripts/S15Story.dc.html": {
+      "x": 9750,
+      "y": 17216,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 15 storyboard"
+    },
+    "scripts/S16Story.dc.html": {
+      "x": 12470,
+      "y": 17216,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 16 storyboard"
+    },
+    "scripts/S17Story.dc.html": {
+      "x": 15190,
+      "y": 17216,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 17 storyboard"
+    },
+    "scripts/S19Story.dc.html": {
+      "x": 17910,
+      "y": 17216,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 19 storyboard"
+    },
+    "scripts/S23Story.dc.html": {
+      "x": 7030,
+      "y": 25616,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 23 storyboard"
+    },
+    "scripts/S25Story.dc.html": {
+      "x": 9750,
+      "y": 25616,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 25 storyboard"
+    },
+    "scripts/S27Story.dc.html": {
+      "x": 12470,
+      "y": 25616,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 27 storyboard"
+    },
+    "scripts/S28Story.dc.html": {
+      "x": 15190,
+      "y": 25616,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 28 storyboard"
+    },
+    "scripts/S29Story.dc.html": {
+      "x": 17910,
+      "y": 25616,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 29 storyboard"
+    },
+    "scripts/S30Story.dc.html": {
+      "x": 7030,
+      "y": 34016,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 30 storyboard"
+    },
+    "scripts/S32Story.dc.html": {
+      "x": 9750,
+      "y": 34016,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 32 storyboard"
+    },
+    "scripts/S33aStory.dc.html": {
+      "x": 12470,
+      "y": 34016,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 33a storyboard"
+    },
+    "scripts/S33bStory.dc.html": {
+      "x": 15190,
+      "y": 34016,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 33b storyboard"
+    },
+    "scripts/S34Story.dc.html": {
+      "x": 17910,
+      "y": 34016,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 34 storyboard"
+    },
+    "scripts/S35Story.dc.html": {
+      "x": 7030,
+      "y": 42416,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 35 storyboard"
+    },
+    "scripts/S37Story.dc.html": {
+      "x": 9750,
+      "y": 42416,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 37 storyboard"
+    },
+    "scripts/S42Story.dc.html": {
+      "x": 12470,
+      "y": 42416,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 42 storyboard"
+    },
+    "scripts/S43Story.dc.html": {
+      "x": 15190,
+      "y": 42416,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 43 storyboard"
+    },
+    "scripts/S44Story.dc.html": {
+      "x": 17910,
+      "y": 42416,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 44 storyboard"
+    },
+    "scripts/S45Story.dc.html": {
+      "x": 7030,
+      "y": 50816,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 45 storyboard"
+    },
+    "scripts/S46Story.dc.html": {
+      "x": 9750,
+      "y": 50816,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 46 storyboard"
+    },
+    "scripts/S48Story.dc.html": {
+      "x": 12470,
+      "y": 50816,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 48 storyboard"
+    },
+    "scripts/S49Story.dc.html": {
+      "x": 15190,
+      "y": 50816,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 49 storyboard"
+    },
+    "scripts/S53Story.dc.html": {
+      "x": 17910,
+      "y": 50816,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 53 storyboard"
+    },
+    "scripts/S54Story.dc.html": {
+      "x": 7030,
+      "y": 59216,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 54 storyboard"
+    },
+    "scripts/S56Story.dc.html": {
+      "x": 9750,
+      "y": 59216,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 56 storyboard"
+    },
+    "scripts/S57Story.dc.html": {
+      "x": 12470,
+      "y": 59216,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 57 storyboard"
+    },
+    "scripts/S58Story.dc.html": {
+      "x": 15190,
+      "y": 59216,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 58 storyboard"
+    },
+    "scripts/S60Story.dc.html": {
+      "x": 17910,
+      "y": 59216,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 60 storyboard"
+    },
+    "scripts/S63Story.dc.html": {
+      "x": 7030,
+      "y": 67616,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 63 storyboard"
+    },
+    "scripts/S64Story.dc.html": {
+      "x": 9750,
+      "y": 67616,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 64 storyboard"
+    },
+    "scripts/S65Story.dc.html": {
+      "x": 12470,
+      "y": 67616,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 65 storyboard"
+    },
+    "scripts/S66Story.dc.html": {
+      "x": 15190,
+      "y": 67616,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 66 storyboard"
+    },
+    "scripts/S70Story.dc.html": {
+      "x": 17910,
+      "y": 67616,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 70 storyboard"
+    },
+    "scripts/S73Story.dc.html": {
+      "x": 7030,
+      "y": 76016,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 73 storyboard"
+    },
+    "scripts/S76Story.dc.html": {
+      "x": 9750,
+      "y": 76016,
+      "w": 2600,
+      "h": 8200,
+      "title": "Session 76 storyboard"
+    },
+    "scripts/S99Story.dc.html": {
+      "x": 12470,
+      "y": 76016,
+      "w": 2600,
+      "h": 8200,
+      "title": "חזרה storyboard"
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "scripts/Ruth.dc.html",
+    "Persona.dc.html",
+    "Journey.dc.html",
+    "UIKit.dc.html",
+    "Motivation.dc.html",
+    "scripts/Choice.dc.html",
+    "scripts/InnerVoice.dc.html",
+    "scripts/Breathing.dc.html",
+    "Compass.dc.html",
+    "scripts/Cards.dc.html",
+    "ProgramMap.dc.html",
+    "scripts/Scene.dc.html",
+    "scripts/S01.dc.html",
+    "scripts/S01Story.dc.html",
+    "scripts/S02.dc.html",
+    "scripts/S02Story.dc.html",
+    "scripts/S03a.dc.html",
+    "scripts/S03aStory.dc.html",
+    "scripts/S03b.dc.html",
+    "scripts/S03bStory.dc.html",
+    "scripts/S04.dc.html",
+    "scripts/S04Story.dc.html",
+    "scripts/S05.dc.html",
+    "scripts/S05Story.dc.html",
+    "scripts/S06.dc.html",
+    "scripts/S06Story.dc.html",
+    "scripts/S07.dc.html",
+    "scripts/S07Story.dc.html",
+    "scripts/S08.dc.html",
+    "scripts/S08Story.dc.html",
+    "scripts/S09.dc.html",
+    "scripts/S09Story.dc.html",
+    "scripts/S10.dc.html",
+    "scripts/S10Story.dc.html",
+    "scripts/S11.dc.html",
+    "scripts/S11Story.dc.html",
+    "scripts/S12.dc.html",
+    "scripts/S12Story.dc.html",
+    "scripts/S14.dc.html",
+    "scripts/S14Story.dc.html",
+    "scripts/S15.dc.html",
+    "scripts/S15Story.dc.html",
+    "scripts/S16.dc.html",
+    "scripts/S16Story.dc.html",
+    "scripts/S17.dc.html",
+    "scripts/S17Story.dc.html",
+    "scripts/S19.dc.html",
+    "scripts/S19Story.dc.html",
+    "scripts/S23.dc.html",
+    "scripts/S23Story.dc.html",
+    "scripts/S25.dc.html",
+    "scripts/S25Story.dc.html",
+    "scripts/S27.dc.html",
+    "scripts/S27Story.dc.html",
+    "scripts/S28.dc.html",
+    "scripts/S28Story.dc.html",
+    "scripts/S29.dc.html",
+    "scripts/S29Story.dc.html",
+    "scripts/S30.dc.html",
+    "scripts/S30Story.dc.html",
+    "scripts/S32.dc.html",
+    "scripts/S32Story.dc.html",
+    "scripts/S33a.dc.html",
+    "scripts/S33aStory.dc.html",
+    "scripts/S33b.dc.html",
+    "scripts/S33bStory.dc.html",
+    "scripts/S34.dc.html",
+    "scripts/S34Story.dc.html",
+    "scripts/S35.dc.html",
+    "scripts/S35Story.dc.html",
+    "scripts/S37.dc.html",
+    "scripts/S37Story.dc.html",
+    "scripts/S42.dc.html",
+    "scripts/S42Story.dc.html",
+    "scripts/S43.dc.html",
+    "scripts/S43Story.dc.html",
+    "scripts/S44.dc.html",
+    "scripts/S44Story.dc.html",
+    "scripts/S45.dc.html",
+    "scripts/S45Story.dc.html",
+    "scripts/S46.dc.html",
+    "scripts/S46Story.dc.html",
+    "scripts/S48.dc.html",
+    "scripts/S48Story.dc.html",
+    "scripts/S49.dc.html",
+    "scripts/S49Story.dc.html",
+    "scripts/S53.dc.html",
+    "scripts/S53Story.dc.html",
+    "scripts/S54.dc.html",
+    "scripts/S54Story.dc.html",
+    "scripts/S56.dc.html",
+    "scripts/S56Story.dc.html",
+    "scripts/S57.dc.html",
+    "scripts/S57Story.dc.html",
+    "scripts/S58.dc.html",
+    "scripts/S58Story.dc.html",
+    "scripts/S60.dc.html",
+    "scripts/S60Story.dc.html",
+    "scripts/S63.dc.html",
+    "scripts/S63Story.dc.html",
+    "scripts/S64.dc.html",
+    "scripts/S64Story.dc.html",
+    "scripts/S65.dc.html",
+    "scripts/S65Story.dc.html",
+    "scripts/S66.dc.html",
+    "scripts/S66Story.dc.html",
+    "scripts/S70.dc.html",
+    "scripts/S70Story.dc.html",
+    "scripts/S73.dc.html",
+    "scripts/S73Story.dc.html",
+    "scripts/S76.dc.html",
+    "scripts/S76Story.dc.html",
+    "scripts/S99.dc.html",
+    "scripts/S99Story.dc.html",
+    "scripts/Gallery.dc.html"
+  ],
+  "notes": {
+    "rowP": {
+      "x": 0,
+      "y": -300,
+      "kind": "title1",
+      "maxW": 2960,
+      "text": "Who we design for"
+    },
+    "rowS": {
+      "x": 0,
+      "y": 1144,
+      "kind": "title1",
+      "maxW": 1440,
+      "text": "Design system"
+    },
+    "row1": {
+      "x": 0,
+      "y": 3064,
+      "kind": "title1",
+      "maxW": 1330,
+      "text": "Daily experience"
+    },
+    "row2": {
+      "x": 0,
+      "y": 4328,
+      "kind": "title1",
+      "maxW": 1800,
+      "text": "Practices & games"
+    },
+    "row3": {
+      "x": 0,
+      "y": 5592,
+      "kind": "title1",
+      "maxW": 1280,
+      "text": "Program rhythm"
+    },
+    "rowScripts": {
+      "x": 0,
+      "y": 8516,
+      "kind": "title1",
+      "maxW": 3840,
+      "text": "Scripts, animated"
+    },
+    "rowR": {
+      "x": 0,
+      "y": 7252,
+      "kind": "title1",
+      "maxW": 1800,
+      "text": "Ruth's journey through the program"
+    },
+    "rowGallery": {
+      "x": 0,
+      "y": 15564,
+      "kind": "title1",
+      "maxW": 2984,
+      "text": "Scene library"
+    }
+  },
+  "designSystems": []
+}

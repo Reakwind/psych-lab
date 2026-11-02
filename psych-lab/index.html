@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Parkinson's Psych Lab · local preview</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f1ea;color:#202a25;font:14px/1.5 system-ui,-apple-system,sans-serif}button,select{font:inherit;color:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #987523;outline-offset:3px}button,select{background:#fffdf8;border:1px solid #d7d9cd;border-radius:10px;padding:8px 12px}button:hover{background:#ebece1}button[aria-pressed=true],button[aria-selected=true]{background:#dce8c9;border-color:#71805d}button:disabled{opacity:.5;cursor:default}a{color:#435635}header{height:65px;padding:10px 22px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #d7d9cd;background:#fffdf8}h1{font-size:19px;letter-spacing:-.4px;margin:0;font-weight:600}.local{font-size:12px;color:#596354;white-space:nowrap}.spacer{flex:1}.layout{display:grid;grid-template-columns:280px minmax(0,1fr);height:calc(100vh - 65px)}aside{border-right:1px solid #d7d9cd;display:flex;flex-direction:column;min-height:0;background:#faf8f2}.counts{padding:17px 18px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;font-size:12px;color:#586052}.counts strong{display:block;font-size:23px;font-weight:500;line-height:1.25;color:#28382b;font-variant-numeric:tabular-nums}.filters{padding:0 12px 12px}.filters select{width:100%;font-size:13px}.sessions{overflow:auto;padding:0 8px 14px;flex:1}.session{width:100%;display:grid;grid-template-columns:47px 1fr 9px;gap:8px;align-items:center;text-align:left;background:transparent;border:1px solid transparent;border-radius:8px;padding:9px 8px;margin:2px 0}.session .sid{font-size:12px;color:#60685a;font-variant-numeric:tabular-nums}.session .name{font-size:13px;line-height:1.45;text-align:right}.dot{width:7px;height:7px;border-radius:50%;background:#b5b9b0}.dot.integrated{background:#5b7946}.dot.rendered{background:#ba8b35}.dot.storyboard{background:#7d77a2}.footer{padding:12px 18px;border-top:1px solid #d7d9cd;color:#63705d;font-size:11px}.footer span{display:block}main{min-width:0;display:flex;flex-direction:column;min-height:0}.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 22px;border-bottom:1px solid #d7d9cd;background:#f4f1ea}.toolbar h2{font-size:16px;font-weight:500;margin:0;flex:1;min-width:160px}.tabs{display:flex;gap:5px;flex-wrap:wrap}.tabs button{padding:6px 10px;font-size:12px}.content{overflow:auto;flex:1;padding:22px;min-height:0;position:relative}.board-wrap{margin:auto;position:relative}.board-frame{display:block;border:0;background:#f4f1ea;transform-origin:0 0}.board-wrap.phone{overflow:hidden;box-shadow:0 12px 45px #26321e15;border:1px solid #d5d8cd}.media-view{max-width:680px;margin:auto}.media-view video{width:100%;display:block;background:#f3eee4;border-radius:16px}.media-status{margin:12px 0;color:#626858;font-size:13px}.empty{max-width:520px;margin:70px auto;color:#586052;text-align:center}.empty strong{display:block;font-size:20px;font-weight:500;color:#26342a;margin-bottom:10px}.script-view{max-width:680px;margin:auto}.script-view audio{width:100%;margin-bottom:20px}.script-view p{font-size:18px;line-height:1.9}.script-view h3{font-size:20px;font-weight:500}.other-select{max-width:380px;min-width:0;flex:1}.canvas-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.canvas-pane{position:absolute;inset:0;overflow:hidden;background-color:#e8e9e0;background-image:radial-gradient(#bcc1b4 .7px,transparent .7px);background-size:16px 16px;touch-action:none;cursor:grab}.canvas-pane.dragging{cursor:grabbing}.world{position:absolute;transform-origin:0 0}.canvas-board{position:absolute;background:#f4f1ea;box-shadow:0 5px 20px #26321e20}.canvas-board .board-label{position:absolute;left:0;bottom:calc(100% + 5px);font-size:16px;white-space:nowrap;color:#33412c}.canvas-board iframe{height:100%;width:100%;border:0;display:block;background:#f4f1ea}.canvas-board .loading-label{position:absolute;top:30px;left:20px;color:#6a735f;font-size:24px}.legend{font-size:11px;display:flex;gap:12px;padding:0 17px 12px;color:#616959}.legend i{display:inline-block;vertical-align:middle;margin-right:4px}.error{padding:30px;color:#912d1e}.mobile-toggle{display:none}.help{font-size:12px;color:#69705f}.canvas-select{width:200px;font-size:12px}.notice{font-size:12px;color:#66725e}.external{font-size:12px;text-decoration:none}@media(max-width:850px){.layout{grid-template-columns:230px minmax(0,1fr)}header{padding:10px 14px;gap:9px}h1{font-size:16px}.toolbar,.content{padding:14px}.toolbar{align-items:flex-start}.toolbar h2{flex-basis:100%}.external{display:none}}@media(max-width:600px){header{height:auto;min-height:65px;flex-wrap:wrap}.layout{display:flex;height:calc(100vh - 85px)}aside{display:none;width:100%;flex-shrink:0}.layout.show-sidebar aside{display:flex}.layout.show-sidebar main{display:none}main{width:100%}.mobile-toggle{display:block;padding:5px 8px}.local{font-size:11px}.header-actions{display:flex;gap:5px}.header-actions button{font-size:11px;padding:6px 8px}.toolbar h2{font-size:15px}.counts{grid-template-columns:repeat(4,1fr)}.counts strong{font-size:21px}.board-wrap{max-width:100%}}
+</style>
+</head>
+<body>
+<header>
+  <button class="mobile-toggle" id="toggle-sidebar" aria-label="Choose a session">☰</button>
+  <h1>Parkinson’s Psych Lab</h1><span class="local">Local copy</span><span class="spacer"></span>
+  <div class="header-actions"><button id="full-intervention">Full intervention</button> <button id="journey">Original journey</button> <button id="all-boards">All boards</button> <button id="canvas">Canvas</button></div>
+  <a class="external" href="https://claude.ai/artifact/FxjXM8gBnVYfkijShdBQcb" target="_blank" rel="noopener">Original ↗</a>
+</header>
+<div class="layout" id="layout">
+<aside aria-label="Sessions">
+  <div class="counts" id="counts"></div>
+  <div class="filters"><select id="status-filter" aria-label="Session progress"><option value="all">All sessions</option><option value="integrated">Integrated in saved Lab</option><option value="rendered">Rendered · not integrated</option><option value="storyboard">Storyboard · animation in progress</option><option value="not_started">Storyboard not started</option></select></div>
+  <nav class="sessions" id="sessions"></nav>
+  <div class="legend"><span><i class="dot integrated"></i>In Lab</span><span><i class="dot rendered"></i>Rendered</span><span><i class="dot storyboard"></i>Storyboard</span></div>
+  <div class="footer"><span>Original boards, layout, and local recordings.</span><span>No live sync with Claude.</span><span id="checked-at"></span></div>
+</aside>
+<main>
+  <div class="toolbar" id="toolbar"><h2>Opening Psych Lab…</h2></div>
+  <div class="content" id="content" aria-live="polite"></div>
+</main>
+</div>
+<script>
+const el = id => document.getElementById(id);
+const content = el('content'), toolbar = el('toolbar');
+let audit, canvas, selected, tab = 'session', screen = 'session', currentResize, currentCleanup;
+const statusNames = {integrated:'Integrated in saved Lab',rendered:'Rendered locally · not yet integrated',storyboard:'Storyboard ready · animation in progress',not_started:'Storyboard not started'};
+function node(tag, text, cls) {const n=document.createElement(tag);if(text)n.textContent=text;if(cls)n.className=cls;return n;}
+function button(text, action) {const n=node('button',text);n.type='button';n.addEventListener('click',action);return n;}
+function clearContent() {if(currentResize)currentResize.disconnect();if(currentCleanup)currentCleanup();currentResize=null;currentCleanup=null;content.replaceChildren();content.style.padding='';}
+function renderList() {
+ const list=el('sessions');list.replaceChildren();
+ const filter=el('status-filter').value;
+ for(const row of audit.sessions) {
+  if(filter!=='all'&&row.status!==filter)continue;
+  const b=button('',()=>{selected=row.id;screen='session';render();el('layout').classList.remove('show-sidebar');});
+  b.className='session';b.setAttribute('aria-pressed',String(screen==='session'&&row.id===selected));b.setAttribute('aria-label',row.id+' '+row.title+' · '+statusNames[row.status]);
+  const title=node('span',row.title.replace(/^מפגש\s*[^:]+:\s*/,''),'name');title.dir='rtl';
+  b.append(node('span',row.id,'sid'),title,node('span','','dot '+row.status));list.append(b);
+ }
+}
+function showBoard(path) {
+ const b=canvas.boards[path];
+ if(!b){content.append(node('div','This board is not present in the saved copy.','empty'));return;}
+ const wrap=node('div','','board-wrap'+(b.w<600?' phone':''));
+ const frame=node('iframe','','board-frame');frame.title=b.title||path;frame.src='/project/'+path;frame.width=b.w;frame.height=b.h;frame.setAttribute('allow','autoplay');
+ if(b.radius)wrap.style.borderRadius=b.radius+'px';
+ wrap.append(frame);content.append(wrap);
+ const resize=()=>{const width=content.clientWidth-2*parseFloat(getComputedStyle(content).paddingLeft);const scale=Math.min(1,width/b.w);wrap.style.width=b.w*scale+'px';wrap.style.height=b.h*scale+'px';frame.style.width=b.w+'px';frame.style.height=b.h+'px';frame.style.transform='scale('+scale+')';};
+ currentResize=new ResizeObserver(resize);currentResize.observe(content);resize();
+}
+function render() {
+ clearContent();toolbar.replaceChildren();renderList();
+ el('canvas').setAttribute('aria-pressed',String(screen==='canvas'));
+ el('all-boards').setAttribute('aria-pressed',String(screen==='boards'));
+ el('journey').setAttribute('aria-pressed',String(screen==='journey'));
+ el('full-intervention').setAttribute('aria-pressed',String(screen==='intervention'));
+ document.querySelector('.layout').style.gridTemplateColumns=screen==='intervention'?'minmax(0,1fr)':'';
+ document.querySelector('.layout>aside').style.display=screen==='intervention'?'none':'';
+ toolbar.style.display=screen==='intervention'?'none':'';
+ el('toggle-sidebar').style.display=screen==='intervention'?'none':'';
+ if(screen==='intervention')el('layout').classList.remove('show-sidebar');
+ if(screen!=='session') {const url=new URL(location.href);url.searchParams.set('view',screen);history.replaceState(null,'',url);}
+ if(screen==='intervention'){
+  content.style.padding='0';content.style.overflow='hidden';
+  const frame=node('iframe');frame.title='Full psychological intervention';frame.src='/intervention/?s='+(new URLSearchParams(location.search).get('day')||1)+(new URLSearchParams(location.search).get('test')==='1'?'&test=1':'');frame.style.cssText='width:100%;height:100%;border:0;display:block';frame.allow='autoplay';content.append(frame);
+  const url=new URL(location.href);url.searchParams.set('view','intervention');url.searchParams.delete('session');url.searchParams.delete('tab');history.replaceState(null,'',url);return;
+ }
+ content.style.overflow='';
+ if(screen==='canvas'){renderCanvas();return;}
+ if(screen==='journey'){toolbar.append(node('h2','Ruth’s journey'));showBoard('scripts/Ruth.dc.html');return;}
+ if(screen==='boards'){
+  toolbar.append(node('h2','All original boards'));
+  const select=node('select','','other-select');select.setAttribute('aria-label','Original board');
+  for(const key of canvas.order){const b=canvas.boards[key];if(!b)continue;const opt=node('option',b.title||key);opt.value=key;select.append(opt);}
+  select.value=selectedBoard;select.addEventListener('change',()=>{selectedBoard=select.value;render();});toolbar.append(select);showBoard(selectedBoard);return;
+ }
+ const row=audit.sessions.find(r=>r.id===selected);
+ const title=node('h2',row.id+' · '+row.title.replace(/^מפגש\s*[^:]+:\s*/,''));title.dir='auto';toolbar.append(title);
+ const tabs=node('div','','tabs');tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Session materials');
+ for(const [key,label] of [['session','Session board'],['story','Storyboard'],['animation','Animation'],['script','Script & audio']]){
+  const b=button(label,()=>{tab=key;render();});b.setAttribute('role','tab');b.setAttribute('aria-selected',String(tab===key));tabs.append(b);
+ }
+ toolbar.append(tabs);
+ if(tab==='session')showBoard(row.board_path);
+ if(tab==='story')showBoard(row.storyboard_path);
+ if(tab==='animation'){
+  if(!row.animation_path){const empty=node('div','','empty');empty.append(node('strong','Animation not rendered yet'),node('span',statusNames[row.status]));content.append(empty);return;}
+  const view=node('div','','media-view');const video=node('video');video.controls=true;video.playsInline=true;video.preload='metadata';video.src='/media/'+row.animation_path;video.setAttribute('aria-label',row.id+' animated film');
+  view.append(video,node('div',statusNames[row.status]+' · '+Math.round(row.media.duration)+' seconds','media-status'));content.append(view);
+ }
+ if(tab==='script'){
+  const view=node('div','','script-view');const audio=node('audio');audio.controls=true;audio.preload='metadata';audio.src='/media/'+row.audio_path;view.append(audio);
+  const script=node('div');script.dir='rtl';script.lang='he';script.append(node('h3',row.title));for(const line of row.narration)script.append(node('p',line));view.append(script);content.append(view);
+ }
+ const url=new URL(location.href);url.searchParams.set('session',selected);url.searchParams.set('tab',tab);url.searchParams.delete('view');history.replaceState(null,'',url);
+}
+let selectedBoard='scripts/Ruth.dc.html';
+function renderCanvas(){
+ toolbar.append(node('h2','Psych Lab canvas'));
+ const controls=node('div','','canvas-controls');
+ const label=node('span','75%','notice');
+ let zoom=.75, x=30,y=30-7552*zoom;
+ const pane=node('div','','canvas-pane'),world=node('div','','world');pane.setAttribute('aria-label','Original Psych Lab board layout');pane.append(world);content.style.padding='0';content.append(pane);
+ const observed=[];
+ const mountVisible=()=>{
+  const width=pane.clientWidth,height=pane.clientHeight;
+  for(const {path,b,box} of observed){const left=x+b.x*zoom,top=y+b.y*zoom;const visible=zoom>=.14&&left<width+100&&top<height+100&&left+b.w*zoom>-100&&top+b.h*zoom>-100;
+   if(visible&&!box.querySelector('iframe')){const f=node('iframe');f.src='/project/'+path;f.title=b.title||path;f.loading='lazy';box.append(f);}
+   else if(!visible){const f=box.querySelector('iframe');if(f)f.remove();}
+   const f=box.querySelector('iframe');if(f)f.style.pointerEvents=zoom<.5?'none':'auto';
+  }
+ };
+ const draw=()=>{world.style.transform=`translate(${x}px,${y}px) scale(${zoom})`;label.textContent=Math.round(zoom*100)+'%';mountVisible();};
+ const setZoom=(z,cx=pane.clientWidth/2,cy=pane.clientHeight/2)=>{const old=zoom;zoom=Math.max(.02,Math.min(1.5,z));x=cx-(cx-x)*zoom/old;y=cy-(cy-y)*zoom/old;draw();};
+ const focus=path=>{const b=canvas.boards[path];if(!b)return;zoom=Math.min(.85,(pane.clientWidth-70)/b.w);zoom=Math.max(.1,zoom);x=30-b.x*zoom;y=40-b.y*zoom;draw();};
+ controls.append(button('−',()=>setZoom(zoom/1.25)),label,button('+',()=>setZoom(zoom*1.25)));
+ const select=node('select','','canvas-select');select.setAttribute('aria-label','Focus canvas on board');
+ for(const path of canvas.order){const b=canvas.boards[path];if(!b)continue;const option=node('option',b.title||path);option.value=path;select.append(option);}
+ select.value='scripts/Ruth.dc.html';select.addEventListener('change',()=>focus(select.value));controls.append(select);toolbar.append(controls);
+ for(const path of canvas.order){const b=canvas.boards[path];if(!b)continue;const box=node('div','','canvas-board');Object.assign(box.style,{left:b.x+'px',top:b.y+'px',width:b.w+'px',height:b.h+'px',borderRadius:(b.radius||0)+'px'});box.append(node('div',b.title||path,'board-label'),node('span',b.title||path,'loading-label'));world.append(box);observed.push({path,b,box});box.addEventListener('dblclick',()=>{selectedBoard=path;screen='boards';render();});}
+ let drag;
+ pane.addEventListener('pointerdown',e=>{if(e.button!==0)return;drag={x:e.clientX,y:e.clientY,startX:x,startY:y};pane.setPointerCapture(e.pointerId);pane.classList.add('dragging');});
+ pane.addEventListener('pointermove',e=>{if(!drag)return;x=drag.startX+e.clientX-drag.x;y=drag.startY+e.clientY-drag.y;draw();});
+ pane.addEventListener('pointerup',()=>{drag=null;pane.classList.remove('dragging');});
+ pane.addEventListener('pointercancel',()=>{drag=null;pane.classList.remove('dragging');});
+ pane.addEventListener('wheel',e=>{e.preventDefault();if(e.ctrlKey||e.metaKey){const r=pane.getBoundingClientRect();setZoom(zoom*Math.exp(-e.deltaY*.005),e.clientX-r.left,e.clientY-r.top);}else{x-=e.deltaX;y-=e.deltaY;draw();}},{passive:false});
+ currentResize=new ResizeObserver(draw);currentResize.observe(pane);draw();
+}
+el('status-filter').addEventListener('change',renderList);
+el('journey').addEventListener('click',()=>{screen='journey';render();});
+el('full-intervention').addEventListener('click',()=>{screen='intervention';render();});
+window.addEventListener('message',e=>{if(e.origin!==location.origin||e.data?.type!=='psych-intervention-session')return;const day=Number(e.data.session);if(!Number.isInteger(day)||day<1||day>87)return;const url=new URL(location.href);url.searchParams.set('view','intervention');url.searchParams.set('day',day);history.replaceState(null,'',url);});
+el('all-boards').addEventListener('click',()=>{screen='boards';render();});
+el('canvas').addEventListener('click',()=>{screen='canvas';render();});
+el('toggle-sidebar').addEventListener('click',()=>el('layout').classList.toggle('show-sidebar'));
+Promise.all([fetch('/api/audit').then(r=>{if(!r.ok)throw Error('Unable to read session audit');return r.json();}),fetch('/api/canvas').then(r=>{if(!r.ok)throw Error('Unable to read saved canvas');return r.json();})]).then(([a,c])=>{
+ audit=a;canvas=c;selected=a.sessions[0].id;const query=new URLSearchParams(location.search);if(a.sessions.some(r=>r.id===query.get('session')))selected=query.get('session');if(['session','story','animation','script'].includes(query.get('tab')))tab=query.get('tab');if(['journey','canvas','boards','intervention'].includes(query.get('view')))screen=query.get('view');
+ for(const [key,label] of [['scripts','Scripts + audio'],['authored_storyboards','Storyboards'],['animations_rendered','Rendered films'],['trios_integrated','Trios in Lab']]){const stat=node('div',label);const value=node('strong',a.summary[key]);value.dataset.count=key;stat.prepend(value);el('counts').append(stat);}
+ el('checked-at').textContent='Checked '+new Date(a.checked_at).toLocaleString('en-GB',{timeZone:'Asia/Jerusalem',dateStyle:'medium',timeStyle:'short'});
+ render();
+ const refreshProgress=async()=>{if(document.visibilityState==='hidden')return;try{const response=await fetch('/api/audit');if(!response.ok)return;const fresh=await response.json();audit=fresh;for(const value of el('counts').querySelectorAll('[data-count]'))value.textContent=fresh.summary[value.dataset.count];renderList();el('checked-at').textContent='Checked '+new Date(fresh.checked_at).toLocaleString('en-GB',{timeZone:'Asia/Jerusalem',dateStyle:'medium',timeStyle:'short'});}catch{}};
+ setInterval(refreshProgress,20000);window.addEventListener('focus',refreshProgress);
+}).catch(error=>{toolbar.replaceChildren(node('h2','Psych Lab could not open'));content.append(node('div',error.message,'error'));});
+</script>
+</body>
+</html>

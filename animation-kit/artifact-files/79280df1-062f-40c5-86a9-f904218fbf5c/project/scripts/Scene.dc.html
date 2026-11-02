@@ -1,0 +1,1378 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Scene library</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+<link rel="stylesheet" href="scene.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scene {{rootCls}}" style="--top: {{w.top}}; --bot: {{w.bot}}; --glow: {{w.glow}}; --mote: {{w.mote}}">
+
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="sg-w"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".9"></stop><stop offset=".4" stop-color="#FFFFFF" stop-opacity=".3"></stop><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop></radialGradient>
+    <radialGradient id="sg-a"><stop offset="0" stop-color="#FFE3A1" stop-opacity=".95"></stop><stop offset=".4" stop-color="#FFC861" stop-opacity=".35"></stop><stop offset="1" stop-color="#FFC861" stop-opacity="0"></stop></radialGradient>
+    <radialGradient id="sg-p"><stop offset="0" stop-color="#FFC2D6" stop-opacity=".9"></stop><stop offset=".45" stop-color="#FF7FA6" stop-opacity=".3"></stop><stop offset="1" stop-color="#FF7FA6" stop-opacity="0"></stop></radialGradient>
+    <radialGradient id="sg-t"><stop offset="0" stop-color="#C4FFF2" stop-opacity=".9"></stop><stop offset=".45" stop-color="#5FE0C6" stop-opacity=".3"></stop><stop offset="1" stop-color="#5FE0C6" stop-opacity="0"></stop></radialGradient>
+    <radialGradient id="sg-b"><stop offset="0" stop-color="#DDE6FF" stop-opacity=".9"></stop><stop offset=".45" stop-color="#8FA8FF" stop-opacity=".3"></stop><stop offset="1" stop-color="#8FA8FF" stop-opacity="0"></stop></radialGradient>
+    <linearGradient id="sg-water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7CCBEB"></stop><stop offset="1" stop-color="#3A86C2"></stop></linearGradient>
+    <linearGradient id="sg-band" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B8FFF0" stop-opacity="0"></stop><stop offset=".5" stop-color="#B8FFF0" stop-opacity=".95"></stop><stop offset="1" stop-color="#B8FFF0" stop-opacity="0"></stop></linearGradient>
+    <linearGradient id="sg-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7CC8FF" stop-opacity=".45"></stop><stop offset="1" stop-color="#7CC8FF" stop-opacity="0"></stop></linearGradient>
+    <clipPath id="sg-buswin"><rect x="34" y="166" width="62" height="58" rx="12"></rect></clipPath>
+    <clipPath id="sg-bubble"><ellipse cx="232" cy="122" rx="94" ry="84"></ellipse></clipPath>
+    <clipPath id="sg-body"><circle cx="171" cy="66" r="28"></circle><path d="M128 104 Q171 92 214 104 Q226 108 228 122 L236 206 Q237 218 226 218 L214 218 L208 150 L206 214 L200 330 Q199 338 190 338 L182 338 Q175 338 175 330 L171 236 L167 330 Q167 338 160 338 L152 338 Q143 338 142 330 L136 214 L134 150 L128 218 L116 218 Q105 218 106 206 L114 122 Q116 108 128 104 Z"></path></clipPath>
+
+    <symbol id="spark" viewBox="-10 -10 20 20"><path d="M0 -10 C1.4 -2.4 2.4 -1.4 10 0 C2.4 1.4 1.4 2.4 0 10 C-1.4 2.4 -2.4 1.4 -10 0 C-2.4 -1.4 -1.4 -2.4 0 -10 Z"></path></symbol>
+    <symbol id="cloud" viewBox="0 0 120 64"><path d="M22 62 Q2 62 3 46 Q4 30 22 31 Q23 11 46 11 Q61 1 78 13 Q101 7 105 30 Q120 32 118 47 Q116 62 98 62 Z"></path></symbol>
+    <symbol id="heart" viewBox="0 0 100 92"><path d="M50 90 C50 80 4 60 4 30 C4 12 17 3 30 3 C40 3 47 9 50 17 C53 9 60 3 70 3 C83 3 96 12 96 30 C96 60 50 80 50 90 Z"></path></symbol>
+    <symbol id="flower" viewBox="-30 -30 60 60"><g><circle cx="0" cy="-15" r="11"></circle><circle cx="14.3" cy="-4.6" r="11"></circle><circle cx="8.8" cy="12.1" r="11"></circle><circle cx="-8.8" cy="12.1" r="11"></circle><circle cx="-14.3" cy="-4.6" r="11"></circle></g><circle r="8" fill="#FFD36E"></circle><circle cx="-2.5" cy="-2.5" r="3" fill="#FFF1C4"></circle></symbol>
+
+    <symbol id="ruth-body" viewBox="0 0 160 200">
+      <rect x="69" y="100" width="22" height="34" rx="9" fill="#DFA07B"></rect>
+      <path d="M12 200 C12 152 40 127 80 127 C120 127 148 152 148 200 Z" fill="#2E8A7F"></path>
+      <path d="M80 127 C120 127 148 152 148 200 L110 200 C115 168 106 140 80 127 Z" fill="#23716A"></path>
+      <path d="M24 178 C29 151 49 134 74 129 C57 140 44 157 38 184 Z" fill="#4AAB9D"></path>
+      <path d="M62 129 L80 154 L98 129 C92 126.5 86 125.5 80 125.5 C74 125.5 68 126.5 62 129 Z" fill="#F3E7D4"></path>
+      <circle cx="80" cy="170" r="3.2" fill="#1C5751"></circle><circle cx="80" cy="186" r="3.2" fill="#1C5751"></circle>
+    </symbol>
+    <symbol id="ruth-head" viewBox="0 0 160 200">
+      <circle cx="80" cy="23" r="16" fill="#ECE7DE"></circle>
+      <path d="M80 7 A16 16 0 0 1 90 35.5 C95 25 92 13 80 7 Z" fill="#D2CBBF"></path>
+      <circle cx="80" cy="72" r="40" fill="#F7D0AD"></circle>
+      <path d="M94 34.5 A40 40 0 0 1 102 105 C117 88 117 55 94 34.5 Z" fill="#EBB892"></path>
+      <path d="M39 78 C34 43 55 29 80 29 C105 29 126 43 121 78 C118 62 110 52 100 47 C88 56 66 58 52 52 C45 58 41 66 39 78 Z" fill="#ECE7DE"></path>
+      <path d="M100 47 C110 52 118 62 121 78 C124 57 116 41 101 34 Z" fill="#D2CBBF"></path>
+      <path d="M50 40 C58 33 68 31 76 31" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"></path>
+      <circle cx="53" cy="91" r="7.5" fill="#F0907F" opacity=".38"></circle><circle cx="107" cy="91" r="7.5" fill="#F0907F" opacity=".38"></circle>
+    </symbol>
+    <symbol id="ruth-glasses" viewBox="0 0 160 200"><g fill="none" stroke="#2B3040" stroke-width="2.8"><circle cx="64" cy="77" r="11.5"></circle><circle cx="96" cy="77" r="11.5"></circle><path d="M75.5 76 Q80 72.5 84.5 76 M52.5 75 L42 71 M107.5 75 L118 71"></path></g><path d="M57 71 Q60 68 64 68 M89 71 Q92 68 96 68" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" opacity=".55"></path></symbol>
+    <symbol id="guide-body" viewBox="0 0 160 200">
+      <rect x="69" y="100" width="22" height="34" rx="9" fill="#B97C5B"></rect>
+      <path d="M12 200 C12 152 40 127 80 127 C120 127 148 152 148 200 Z" fill="#35538F"></path>
+      <path d="M80 127 C120 127 148 152 148 200 L110 200 C115 168 106 140 80 127 Z" fill="#283F73"></path>
+      <path d="M24 178 C29 151 49 134 74 129 C57 140 44 157 38 184 Z" fill="#4C6CAD"></path>
+      <path d="M64 128 L80 147 L96 128 C91 126.5 86 125.5 80 125.5 C74 125.5 69 126.5 64 128 Z" fill="#DCE5FF"></path>
+    </symbol>
+    <symbol id="guide-head" viewBox="0 0 160 200">
+      <path d="M34 96 C24 44 50 22 82 22 C114 22 138 44 126 96 C120 104 108 104 104 98 L56 98 C50 104 40 104 34 96 Z" fill="#3B2A25"></path>
+      <circle cx="80" cy="72" r="40" fill="#E0A784"></circle>
+      <path d="M94 34.5 A40 40 0 0 1 102 105 C117 88 117 55 94 34.5 Z" fill="#CE9170"></path>
+      <path d="M38 82 C32 44 56 28 82 28 C108 28 128 44 122 82 C118 60 104 48 86 46 C72 56 54 60 42 62 C40 68 39 75 38 82 Z" fill="#4A352D"></path>
+      <path d="M52 44 C60 36 70 33 80 33" stroke="#7A5A4C" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"></path>
+      <circle cx="53" cy="91" r="7.5" fill="#E07F6E" opacity=".35"></circle><circle cx="107" cy="91" r="7.5" fill="#E07F6E" opacity=".35"></circle>
+    </symbol>
+    <symbol id="friend-body" viewBox="0 0 160 200">
+      <rect x="69" y="100" width="22" height="34" rx="9" fill="#C48D6C"></rect>
+      <path d="M12 200 C12 152 40 127 80 127 C120 127 148 152 148 200 Z" fill="#8C4D80"></path>
+      <path d="M80 127 C120 127 148 152 148 200 L110 200 C115 168 106 140 80 127 Z" fill="#723D68"></path>
+      <path d="M24 178 C29 151 49 134 74 129 C57 140 44 157 38 184 Z" fill="#A6679A"></path>
+    </symbol>
+    <symbol id="friend-head" viewBox="0 0 160 200">
+      <g fill="#2B2430"><circle cx="46" cy="52" r="18"></circle><circle cx="62" cy="34" r="19"></circle><circle cx="84" cy="28" r="20"></circle><circle cx="106" cy="36" r="19"></circle><circle cx="118" cy="56" r="17"></circle><circle cx="40" cy="74" r="13"></circle><circle cx="122" cy="76" r="12"></circle></g>
+      <circle cx="80" cy="74" r="38" fill="#EDB993"></circle>
+      <path d="M94 38 A38 38 0 0 1 100 106 C114 90 114 58 94 38 Z" fill="#DCA27C"></path>
+      <g fill="#2B2430"><circle cx="58" cy="44" r="12"></circle><circle cx="78" cy="38" r="13"></circle><circle cx="98" cy="42" r="12"></circle></g>
+      <circle cx="53" cy="91" r="7.5" fill="#E07F6E" opacity=".38"></circle><circle cx="107" cy="91" r="7.5" fill="#E07F6E" opacity=".38"></circle>
+    </symbol>
+    <symbol id="eyes" viewBox="0 0 160 200"><ellipse cx="64" cy="78" rx="3.8" ry="4.8" fill="#1E2430"></ellipse><ellipse cx="96" cy="78" rx="3.8" ry="4.8" fill="#1E2430"></ellipse><circle cx="65.3" cy="76.2" r="1.3" fill="#FFFFFF"></circle><circle cx="97.3" cy="76.2" r="1.3" fill="#FFFFFF"></circle></symbol>
+    <symbol id="eyes-up" viewBox="0 0 160 200"><ellipse cx="61.5" cy="74.5" rx="3.8" ry="4.8" fill="#1E2430"></ellipse><ellipse cx="93.5" cy="74.5" rx="3.8" ry="4.8" fill="#1E2430"></ellipse><circle cx="62.6" cy="72.8" r="1.3" fill="#FFFFFF"></circle><circle cx="94.6" cy="72.8" r="1.3" fill="#FFFFFF"></circle></symbol>
+    <symbol id="eyes-joy" viewBox="0 0 160 200"><path d="M58 80 Q64 72 70 80 M90 80 Q96 72 102 80" stroke="#1E2430" stroke-width="3" fill="none" stroke-linecap="round"></path></symbol>
+    <symbol id="eyes-shut" viewBox="0 0 160 200"><path d="M58 77 Q64 82 70 77 M90 77 Q96 82 102 77" stroke="#1E2430" stroke-width="3" fill="none" stroke-linecap="round"></path></symbol>
+    <symbol id="mouth-smile" viewBox="0 0 160 200"><path d="M70 97 Q80 106 90 97" stroke="#7A3B33" stroke-width="3" fill="none" stroke-linecap="round"></path></symbol>
+    <symbol id="mouth-soft" viewBox="0 0 160 200"><path d="M72 98 Q80 102.5 88 98" stroke="#7A3B33" stroke-width="3" fill="none" stroke-linecap="round"></path></symbol>
+    <symbol id="mouth-sad" viewBox="0 0 160 200"><path d="M72 101 Q80 96 88 101" stroke="#7A3B33" stroke-width="3" fill="none" stroke-linecap="round"></path></symbol>
+    <symbol id="mouth-open" viewBox="0 0 160 200"><path d="M70 96 Q80 97 90 96 Q88 108 80 108 Q72 108 70 96 Z" fill="#7A3B33"></path><path d="M74 104 Q80 101 86 104 Q83 108 80 108 Q77 108 74 104 Z" fill="#E77F7F"></path></symbol>
+  </defs>
+</svg>
+
+<sc-for list="{{motes}}" as="m" hint-placeholder-count="10"><i class="mote" style="left: {{m.x}}; top: {{m.y}}; --s: {{m.s}}; --dur: {{m.dur}}; --dl: {{m.dl}}; --dx: {{m.dx}}"></i></sc-for>
+
+<div class="cam">
+
+<!-- hello: the guide greets you -->
+<sc-if value="{{is.hello}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="236" r="160" fill="url(#sg-t)" opacity=".55" class="i-glow"></circle>
+    <g class="i-ripple" style="--t: 6s"><circle cx="171" cy="240" r="112" fill="none" stroke="#A8F5E6" stroke-width="2"></circle></g>
+    <g class="i-ripple" style="--t: 6s; --dl: -3s"><circle cx="171" cy="240" r="112" fill="none" stroke="#A8F5E6" stroke-width="2"></circle></g>
+    <g class="in-rise" style="--d: .1s">
+      <g style="transform-box: view-box; transform-origin: 244px 318px">
+        <g class="i-wave" style="transform-box: view-box; transform-origin: 244px 318px; --dl: .9s">
+          <path d="M240 320 C252 292 262 262 272 232" stroke="#35538F" stroke-width="22" stroke-linecap="round" fill="none"></path>
+          <circle cx="274" cy="222" r="15" fill="#E0A784"></circle><path d="M266 210 Q270 202 276 206" stroke="#CE9170" stroke-width="3" fill="none" stroke-linecap="round"></path>
+        </g>
+      </g>
+      <g class="i-breath">
+        <use href="#guide-body" x="71" y="128" width="200" height="250"></use>
+        <g class="i-sway" style="--t: 5s"><use href="#guide-head" x="71" y="128" width="200" height="250"></use><use href="#eyes" class="i-blink" x="71" y="128" width="200" height="250"></use><use href="#mouth-smile" x="71" y="128" width="200" height="250"></use></g>
+      </g>
+    </g>
+    <g fill="#FFF3C4"><use href="#spark" x="44" y="128" width="20" height="20" class="in-pop i-twinkle" style="--d: 1s; --t: 2.6s"></use><use href="#spark" x="288" y="150" width="14" height="14" class="in-pop i-twinkle" style="--d: 1.2s; --t: 3.1s; --dl: -1s"></use><use href="#spark" x="70" y="250" width="12" height="12" class="in-pop i-twinkle" style="--d: 1.4s; --t: 2.2s; --dl: -.6s"></use></g>
+  </svg>
+  <div class="lbl lbl-l tail in-pop" style="--d: .55s; top: 46px; left: 50%; translate: -50% 0; --tx: 60%; transform-origin: 50% 120%">{{a}}</div>
+</sc-if>
+
+<!-- person: Ruth, and how she feels -->
+<sc-if value="{{is.person}}" hint-placeholder-val="{{ false }}">
+  <sc-if value="{{mood.happy}}" hint-placeholder-val="{{ false }}"><div class="rays i-spin" style="left: -109px; top: -59px; width: 560px; height: 560px; --t: 90s"></div></sc-if>
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="226" r="150" fill="{{personGlow}}" opacity=".5" class="i-glow" style="--t: 5s"></circle>
+    <sc-if value="{{mood.calm}}" hint-placeholder-val="{{ false }}">
+      <g class="i-ripple" style="--t: 7s"><circle cx="171" cy="232" r="118" fill="none" stroke="#A8F5E6" stroke-width="1.6"></circle></g>
+      <g class="i-ripple" style="--t: 7s; --dl: -2.3s"><circle cx="171" cy="232" r="118" fill="none" stroke="#A8F5E6" stroke-width="1.6"></circle></g>
+      <g class="i-ripple" style="--t: 7s; --dl: -4.6s"><circle cx="171" cy="232" r="118" fill="none" stroke="#A8F5E6" stroke-width="1.6"></circle></g>
+    </sc-if>
+    <g class="in-rise" style="--d: .05s">
+      <g class="{{personBodyCls}}" style="--ang: 0deg; --dy: 6px">
+        <g class="i-breath"><use href="#ruth-body" x="66" y="122" width="210" height="262"></use></g>
+      </g>
+      <g class="{{personHeadCls}}" style="--ang: 7deg; --dy: 8px; transform-box: view-box; transform-origin: 171px 279px">
+        <g class="{{personHopCls}}">
+          <g class="i-sway" style="--t: 6s">
+            <use href="#ruth-head" x="66" y="122" width="210" height="262"></use>
+            <use href="{{eyesRef}}" class="i-blink" x="66" y="122" width="210" height="262"></use>
+            <use href="#ruth-glasses" x="66" y="122" width="210" height="262"></use>
+            <use href="{{mouthRef}}" x="66" y="122" width="210" height="262"></use>
+          </g>
+        </g>
+      </g>
+    </g>
+    <sc-if value="{{mood.heavy}}" hint-placeholder-val="{{ false }}">
+      <g class="in-pops" style="--d: .5s">
+        <g class="i-float" style="--t: 5s">
+          <use href="#cloud" x="92" y="30" width="158" height="84" fill="#5E6B78"></use>
+          <use href="#cloud" x="104" y="26" width="134" height="72" fill="#7D8A97"></use>
+          <g stroke="#A9C2D8" stroke-width="3" stroke-linecap="round">
+            <path d="M126 110 l-4 12" class="i-rain" style="--dl: 0s"></path><path d="M150 114 l-4 12" class="i-rain" style="--dl: -.35s"></path><path d="M174 110 l-4 12" class="i-rain" style="--dl: -.7s"></path><path d="M198 114 l-4 12" class="i-rain" style="--dl: -.2s"></path><path d="M220 110 l-4 12" class="i-rain" style="--dl: -.55s"></path><path d="M138 116 l-4 12" class="i-rain" style="--dl: -.85s"></path><path d="M210 118 l-4 12" class="i-rain" style="--dl: -.95s"></path>
+          </g>
+        </g>
+      </g>
+    </sc-if>
+    <sc-if value="{{mood.think}}" hint-placeholder-val="{{ false }}">
+      <g fill="#FFFFFF"><circle cx="234" cy="158" r="5" class="in-pop" style="--d: .5s"></circle><circle cx="250" cy="138" r="8" class="in-pop" style="--d: .7s"></circle><circle cx="266" cy="114" r="11" class="in-pop" style="--d: .9s"></circle></g>
+      <g fill="#C9C2FF"><use href="#spark" x="40" y="160" width="14" height="14" class="i-twinkle" style="--t: 3s"></use><use href="#spark" x="296" y="196" width="10" height="10" class="i-twinkle" style="--t: 2.4s; --dl: -1s"></use><use href="#spark" x="64" y="268" width="10" height="10" class="i-twinkle" style="--t: 2.8s; --dl: -2s"></use></g>
+    </sc-if>
+    <sc-if value="{{mood.happy}}" hint-placeholder-val="{{ false }}">
+      <g fill="#FFE7A8"><use href="#spark" x="70" y="150" width="24" height="24" class="in-pop i-twinkle" style="--d: .9s; --t: 2.4s"></use><use href="#spark" x="254" y="132" width="20" height="20" class="in-pop i-twinkle" style="--d: 1.1s; --t: 2.9s; --dl: -.8s"></use><use href="#spark" x="276" y="226" width="14" height="14" class="in-pop i-twinkle" style="--d: 1.3s; --t: 2.2s; --dl: -1.4s"></use><use href="#spark" x="50" y="236" width="14" height="14" class="in-pop i-twinkle" style="--d: 1.5s; --t: 2.6s; --dl: -.4s"></use></g>
+    </sc-if>
+  </svg>
+  <sc-if value="{{thinkBubble}}" hint-placeholder-val="{{ false }}">
+    <div class="in-pop" style="--d: 1.05s; position: absolute; top: 24px; left: 20px; right: 20px; transform-origin: 80% 100%">
+      <div class="lbl lbl-l i-float" style="position: relative; border-radius: 28px; --t: 5s">{{b}}</div>
+    </div>
+  </sc-if>
+</sc-if>
+
+<!-- belly: breathing low and slow -->
+<sc-if value="{{is.belly}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="200" r="160" fill="url(#sg-b)" opacity=".35"></circle>
+    <g class="in-rise" style="--d: .05s">
+      <g class="i-breath" style="--t: 4s"><use href="#ruth-body" x="61" y="70" width="220" height="275"></use></g>
+      <g class="i-sway" style="--t: 7s"><use href="#ruth-head" x="61" y="70" width="220" height="275"></use><use href="#eyes-shut" x="61" y="70" width="220" height="275"></use><use href="#ruth-glasses" x="61" y="70" width="220" height="275"></use><use href="#mouth-soft" x="61" y="70" width="220" height="275"></use></g>
+    </g>
+    <g class="{{bellyCls}}" style="--t: 8s; transform-box: view-box; transform-origin: 171px 306px">
+      <circle cx="171" cy="306" r="62" fill="url(#sg-t)"></circle>
+      <circle cx="171" cy="306" r="26" fill="#C4FFF2" opacity=".85"></circle>
+    </g>
+    <g class="in-rise" style="--d: .4s">
+      <path d="M214 300 C236 294 260 300 272 320 L262 346 C244 330 228 322 210 324 Z" fill="#2E8A7F"></path>
+      <path d="M146 298 C158 284 204 284 216 298 C224 308 216 324 202 324 L160 324 C146 324 138 310 146 298 Z" fill="#F2C29E"></path>
+      <path d="M160 300 L200 300 M158 310 L202 310" stroke="#DFA07B" stroke-width="2.5" stroke-linecap="round"></path>
+    </g>
+  </svg>
+  <sc-if value="{{bellyFlow}}" hint-placeholder-val="{{ false }}">
+    <sc-for list="{{flowDots}}" as="f" hint-placeholder-count="4"><i class="orb" style="width: 10px; height: 10px; offset-path: path('{{bellyPath}}'); --idle: flow 2.6s var(--io) {{f}} infinite; --c: #C4FFF2; --cg: rgba(150, 255, 230, .5); opacity: 0"></i></sc-for>
+  </sc-if>
+  <div class="lbl center-x in-blur" style="--d: .3s; top: 20px; white-space: nowrap">{{a}}</div>
+</sc-if>
+
+<!-- box: square breathing, four even sides -->
+<sc-if value="{{is.box}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="179" r="140" fill="url(#sg-b)" opacity=".4"></circle>
+    <path d="M96 254 L96 104 L246 104 L246 254 Z" pathLength="1" fill="none" stroke="#B9C2FF" stroke-opacity=".45" stroke-width="5" stroke-linejoin="round" class="in-draw" style="--d: .2s; --dd: 1.2s"></path>
+    <g class="in-pop" style="--d: .6s"><g style="--idle: box-core 16s var(--io) 1.4s infinite; transform: scale(.66)"><rect x="116" y="124" width="110" height="110" rx="28" fill="#8E9BFF" opacity=".35"></rect><rect x="136" y="144" width="70" height="70" rx="20" fill="#C9D0FF" opacity=".75"></rect></g></g>
+  </svg>
+  <i class="orb" style="width: 26px; height: 26px; offset-path: path('M96 254 L96 104 L246 104 L246 254 Z'); offset-rotate: 0deg; --idle: box-dot 16s linear 1.4s infinite; --c: #FFE3A1"></i>
+  <div class="lbl lbl-s" style="left: 4px; top: 162px; width: 84px; opacity: .42; --idle: box-side 16s linear 1.4s infinite">{{boxL}}</div>
+  <div class="lbl lbl-s center-x" style="top: 58px; opacity: .42; --idle: box-side 16s linear 5.4s infinite; white-space: nowrap">{{boxT}}</div>
+  <div class="lbl lbl-s" style="right: 4px; top: 162px; width: 84px; opacity: .42; --idle: box-side 16s linear 9.4s infinite">{{boxR}}</div>
+  <div class="lbl lbl-s center-x" style="top: 270px; opacity: .42; --idle: box-side 16s linear 13.4s infinite; white-space: nowrap">{{boxB}}</div>
+</sc-if>
+
+<!-- wave: a feeling rises, peaks and passes; or the even wave of breath -->
+<sc-if value="{{is.wave}}" hint-placeholder-val="{{ false }}">
+  <sc-if value="{{waveAnxiety}}" hint-placeholder-val="{{ false }}">
+    <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+      <path d="M20 300 L322 300" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="2" stroke-dasharray="4 8"></path>
+      <path d="M20 290 C90 290 110 90 171 90 C232 90 252 290 322 290 L322 300 L20 300 Z" fill="url(#sg-area)" class="in-fade" style="--d: 2.4s"></path>
+      <path d="M20 290 C90 290 110 90 171 90 C232 90 252 290 322 290" pathLength="1" fill="none" stroke="#9FD4FF" stroke-width="7" stroke-linecap="round" class="in-draw" style="--d: .3s; --dd: 6s"></path>
+    </svg>
+    <i class="orb b-ride" style="width: 26px; height: 26px; offset-path: path('M20 290 C90 290 110 90 171 90 C232 90 252 290 322 290'); --d: .3s; --dd: 6s; --idle: flow 6s var(--io) 8s infinite; --c: #FFD27A"></i>
+    <sc-if value="{{hasItemC}}" hint-placeholder-val="{{ false }}"><div class="lbl lbl-s in-blur" style="--d: .4s; left: 12px; top: 312px">{{itemC}}</div></sc-if>
+    <sc-if value="{{hasItemA}}" hint-placeholder-val="{{ false }}"><div class="lbl in-pop center-x" style="--d: 3.1s; top: 34px; white-space: nowrap">{{itemA}}</div></sc-if>
+    <sc-if value="{{hasItemB}}" hint-placeholder-val="{{ false }}"><div class="lbl lbl-s in-blur" style="--d: 5.6s; right: 12px; top: 312px">{{itemB}}</div></sc-if>
+  </sc-if>
+  <sc-if value="{{waveBreath}}" hint-placeholder-val="{{ false }}">
+    <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+      <g class="i-scroll" style="--t: 13s"><path d="M0 214 Q42.75 184 85.5 214 T171 214 T256.5 214 T342 214 T427.5 214 T513 214 T598.5 214" fill="none" stroke="#8FF0DA" stroke-opacity=".3" stroke-width="5" stroke-linecap="round"></path></g>
+      <g class="i-scroll" style="--t: 8s"><path d="M0 200 Q42.75 150 85.5 200 T171 200 T256.5 200 T342 200 T427.5 200 T513 200 T598.5 200 L598.5 360 L0 360 Z" fill="#5FE0C6" fill-opacity=".12"></path><path d="M0 200 Q42.75 150 85.5 200 T171 200 T256.5 200 T342 200 T427.5 200 T513 200 T598.5 200" fill="none" stroke="#B8FFF0" stroke-width="8" stroke-linecap="round"></path></g>
+    </svg>
+    <div style="position: absolute; left: 156px; top: 185px; width: 30px; height: 30px; --idle: buoy 8s linear infinite"><i class="orb" style="width: 30px; height: 30px; --c: #FFD27A"></i></div>
+  </sc-if>
+</sc-if>
+
+<!-- scale: what it costs, against what it brings -->
+<sc-if value="{{is.scale}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <ellipse cx="171" cy="322" rx="104" ry="13" fill="#000000" opacity=".25"></ellipse>
+    <path d="M171 112 L171 306" stroke="#B9873E" stroke-width="13" stroke-linecap="round"></path>
+    <path d="M168 120 L168 300" stroke="#F1CF8A" stroke-width="3" stroke-linecap="round" opacity=".8"></path>
+    <path d="M120 322 Q171 284 222 322 Z" fill="#B9873E"></path><path d="M130 318 Q171 290 200 304" stroke="#F1CF8A" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"></path>
+    <g class="{{beamCls}}" style="transform-box: view-box; transform-origin: 171px 112px; --ang: 10deg">
+      <rect x="50" y="104" width="242" height="15" rx="7.5" fill="#B9873E"></rect><rect x="50" y="104" width="242" height="7" rx="3.5" fill="#F1CF8A"></rect>
+      <g class="{{beamCls}}" style="transform-box: view-box; transform-origin: 280px 112px; --ang: -10deg">
+        <path d="M280 112 L240 196 M280 112 L320 196" stroke="#F1CF8A" stroke-width="2.5" stroke-linecap="round"></path>
+        <sc-for list="{{stones}}" as="s" hint-placeholder-count="3"><g class="in-drop" style="--d: {{s.d}}"><rect x="{{s.x}}" y="{{s.y}}" width="{{s.w}}" height="{{s.h}}" rx="9" fill="#5D6873"></rect><rect x="{{s.x}}" y="{{s.y}}" width="{{s.w}}" height="9" rx="4.5" fill="#8A97A3"></rect></g></sc-for>
+        <path d="M230 194 L330 194 Q324 226 280 228 Q236 226 230 194 Z" fill="#9C6A2C"></path><rect x="230" y="190" width="100" height="8" rx="4" fill="#F1CF8A"></rect>
+      </g>
+      <g class="{{beamCls}}" style="transform-box: view-box; transform-origin: 62px 112px; --ang: -10deg">
+        <path d="M62 112 L22 196 M62 112 L102 196" stroke="#F1CF8A" stroke-width="2.5" stroke-linecap="round"></path>
+        <g class="in-pop" style="--d: 1s"><circle cx="62" cy="172" r="32" fill="url(#sg-a)" class="i-glow" style="--t: 2.5s"></circle><circle cx="62" cy="176" r="15" fill="#FFC948"></circle><circle cx="62" cy="176" r="10" fill="#FFE08A"></circle><use href="#spark" x="55" y="169" width="14" height="14" fill="#C98A1E"></use></g>
+        <path d="M12 194 L112 194 Q106 226 62 228 Q18 226 12 194 Z" fill="#9C6A2C"></path><rect x="12" y="190" width="100" height="8" rx="4" fill="#F1CF8A"></rect>
+      </g>
+    </g>
+    <circle cx="171" cy="112" r="13" fill="#F1CF8A"></circle><circle cx="171" cy="112" r="5" fill="#B9873E"></circle>
+  </svg>
+  <div class="lbl lbl-s in-blur" style="--d: .2s; top: 22px; right: 14px; max-width: 152px; display: flex; align-items: center; gap: 8px"><i style="width: 10px; height: 10px; border-radius: 50%; background: #5D6873; flex-shrink: 0"></i>{{itemA}}</div>
+  <div class="lbl lbl-s in-blur" style="--d: .45s; top: 22px; left: 14px; max-width: 152px; display: flex; align-items: center; gap: 8px"><i style="width: 10px; height: 10px; border-radius: 50%; background: #FFC948; flex-shrink: 0"></i>{{itemB}}</div>
+</sc-if>
+
+<!-- steps: small steps, climbed one at a time -->
+<sc-if value="{{is.steps}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="120" cy="120" r="150" fill="url(#sg-a)" opacity=".25"></circle>
+    <sc-for list="{{slabs}}" as="s" hint-placeholder-count="4">
+      <g class="in-rise" style="--d: {{s.d}}">
+        <rect x="{{s.x}}" y="{{s.y}}" width="{{s.w}}" height="{{s.h}}" rx="10" fill="{{s.front}}"></rect>
+        <rect x="{{s.x}}" y="{{s.y}}" width="{{s.w}}" height="9" rx="4.5" fill="{{s.top}}"></rect>
+        <rect x="{{s.sx}}" y="{{s.y}}" width="14" height="{{s.h}}" rx="7" fill="{{s.side}}"></rect>
+      </g>
+    </sc-for>
+    <sc-for list="{{walkers}}" as="k" hint-placeholder-count="3">
+      <g class="b-hop b-show b-hide" style="--d: {{k.d}}; --h: {{k.h}}; --ox: {{k.fx}}; --oy: {{k.fy}}; opacity: 0">
+        <use href="#ruth-body" x="{{k.x}}" y="{{k.y}}" width="34" height="42"></use><use href="#ruth-head" x="{{k.x}}" y="{{k.y}}" width="34" height="42"></use><use href="#eyes" x="{{k.x}}" y="{{k.y}}" width="34" height="42"></use><use href="#ruth-glasses" x="{{k.x}}" y="{{k.y}}" width="34" height="42"></use><use href="#mouth-smile" x="{{k.x}}" y="{{k.y}}" width="34" height="42"></use>
+      </g>
+    </sc-for>
+  </svg>
+  <sc-for list="{{slabs}}" as="s" hint-placeholder-count="4">
+    <div class="in-blur" style="--d: {{s.ld}}; position: absolute; left: {{s.lx}}; top: {{s.ly}}; width: {{s.lw}}; height: {{s.lh}}; display: flex; align-items: center; gap: 8px; padding: 0 12px; box-sizing: border-box; color: {{s.ink}}; font-size: {{s.fs}}; line-height: 1.15; font-weight: 600"><span style="flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; background: rgba(255, 255, 255, .35)">{{s.n}}</span><span>{{s.label}}</span></div>
+  </sc-for>
+</sc-if>
+
+<!-- cycle: one thing feeds the next, around again -->
+<sc-if value="{{is.cycle}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="176" r="130" fill="url(#sg-b)" opacity=".35"></circle>
+    <path d="M171 76 A100 100 0 1 1 170.9 76" pathLength="1" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="4" class="in-draw" style="--d: .1s; --dd: 1.4s"></path>
+    <sc-for list="{{cycArrows}}" as="r" hint-placeholder-count="3"><g transform="rotate({{r}} 171 176)"><path d="M267 168 L275 178 L283 168" fill="none" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" class="in-fade" style="--d: 1.2s"></path></g></sc-for>
+  </svg>
+  <i class="orb" style="width: 24px; height: 24px; offset-path: path('M171 76 A100 100 0 1 1 170.9 76'); offset-rotate: 0deg; --idle: cyc-comet 8s linear 1.2s infinite; --c: #FFE3A1"></i>
+  <sc-for list="{{cycleNodes}}" as="n" hint-placeholder-count="3">
+    <div class="in-pop" style="--d: {{n.d}}; position: absolute; left: {{n.x}}; top: {{n.y}}; width: 0; height: 0">
+      <div style="position: absolute; left: -54px; top: -27px; width: 108px; display: flex; flex-direction: column; align-items: center; gap: 6px">
+        <span class="badge" style="width: 54px; height: 54px; --c: {{n.c}}; --fx: cyc-flash 8s linear {{n.flash}} infinite"><span class="icon">{{n.icon}}</span></span>
+        <span class="lbl lbl-s" style="position: relative; padding: 4px 9px; font-size: 14px; line-height: 1.2; max-width: 108px">{{n.label}}</span>
+      </div>
+    </div>
+  </sc-for>
+</sc-if>
+
+<!-- battery: energy running down, or filling up -->
+<sc-if value="{{is.battery}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="176" r="140" fill="{{batteryGlow}}" opacity=".35" class="i-glow"></circle>
+    <g class="in-pop i-float" style="--d: .1s; --t: 6s">
+      <ellipse cx="171" cy="312" rx="64" ry="9" fill="#000000" opacity=".25"></ellipse>
+      <rect x="144" y="50" width="54" height="22" rx="7" fill="#C9D4DD"></rect>
+      <rect x="114" y="64" width="114" height="236" rx="30" fill="#1B262E"></rect>
+      <rect x="114" y="64" width="114" height="236" rx="30" fill="none" stroke="#C9D4DD" stroke-width="6"></rect>
+      <path d="M128 80 Q128 72 140 72" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round" opacity=".5"></path>
+      <sc-for list="{{cells}}" as="c" hint-placeholder-count="5">
+        <g class="{{c.cls}}" style="--d: {{c.d}}; opacity: {{c.op}}; --idle: {{c.idle}}"><rect x="128" y="{{c.y}}" width="86" height="34" rx="9" fill="{{c.fill}}"></rect><rect x="128" y="{{c.y}}" width="86" height="9" rx="4.5" fill="#FFFFFF" opacity=".28"></rect></g>
+      </sc-for>
+      <sc-if value="{{batteryCharge}}" hint-placeholder-val="{{ false }}"><g class="in-pop" style="--d: .5s"><path d="M182 118 L150 190 L174 190 L160 252 L198 172 L172 172 Z" fill="#FFE07A" class="i-pulse" style="--t: 1.6s"></path></g></sc-if>
+    </g>
+  </svg>
+  <sc-if value="{{hasBatteryLabel}}" hint-placeholder-val="{{ false }}"><div class="lbl center-x in-blur" style="--d: .4s; bottom: 16px; white-space: nowrap">{{batteryLabel}}</div></sc-if>
+</sc-if>
+
+<!-- clouds: thoughts drifting across the sky while Ruth watches -->
+<sc-if value="{{is.clouds}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="70" cy="70" r="90" fill="url(#sg-a)" opacity=".7"></circle>
+    <g class="i-par" style="--t: 16s; --px: 10px" fill="#FFFFFF" opacity=".45"><use href="#cloud" x="250" y="40" width="70" height="37"></use><use href="#cloud" x="20" y="200" width="54" height="29"></use></g>
+    <path d="M-10 312 Q120 270 352 300 L352 370 L-10 370 Z" fill="#8FD18A"></path>
+    <path d="M-10 312 Q120 270 352 300 L352 312 Q140 286 -10 324 Z" fill="#B5E6A6"></path>
+    <path d="M-10 336 Q171 314 352 334 L352 370 L-10 370 Z" fill="#6BB86D"></path>
+    <g fill="#5DA35F"><path d="M40 330 l3 -12 l3 12 Z" class="i-sway" style="transform-origin: 50% 100%"></path><path d="M130 318 l3 -12 l3 12 Z" class="i-sway" style="transform-origin: 50% 100%; --dl: -2s"></path><path d="M310 328 l3 -12 l3 12 Z" class="i-sway" style="transform-origin: 50% 100%; --dl: -4s"></path></g>
+    <g class="in-rise" style="--d: .1s"><g class="i-breath"><use href="#ruth-body" x="226" y="246" width="96" height="120"></use></g><use href="#ruth-head" x="226" y="246" width="96" height="120"></use><use href="#eyes-up" class="i-blink" x="226" y="246" width="96" height="120"></use><use href="#ruth-glasses" x="226" y="246" width="96" height="120"></use><use href="#mouth-soft" x="226" y="246" width="96" height="120"></use></g>
+  </svg>
+  <sc-for list="{{cloudRows}}" as="c" hint-placeholder-count="3">
+    <div class="in-right" style="--d: {{c.d}}; position: absolute; top: {{c.y}}; right: {{c.x}}">
+      <div class="cloud i-drift" style="position: relative; --t: {{c.dur}}">{{c.label}}</div>
+    </div>
+  </sc-for>
+</sc-if>
+
+<!-- bus: Ruth drives; thoughts and feelings ride along -->
+<sc-if value="{{is.bus}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <g class="i-scroll" style="--t: 30s; --w: 342px" fill="#9CCBE6" opacity=".7"><path d="M-342 290 L-342 230 L-300 230 L-300 200 L-262 200 L-262 244 L-220 244 L-220 186 L-176 186 L-176 230 L-130 230 L-130 210 L-90 210 L-90 250 L-40 250 L-40 222 L0 222 L0 290 Z"></path><path d="M0 290 L0 230 L42 230 L42 200 L80 200 L80 244 L122 244 L122 186 L166 186 L166 230 L212 230 L212 210 L252 210 L252 250 L302 250 L302 222 L342 222 L342 290 Z"></path></g>
+    <rect x="0" y="292" width="342" height="70" fill="#3C4752"></rect><rect x="0" y="292" width="342" height="6" fill="#56636F"></rect>
+    <g class="i-scroll" style="--t: 1.1s; --w: 56px"><path d="M-56 330 L398 330" stroke="#E7EDF2" stroke-width="5" stroke-dasharray="30 26"></path></g>
+    <ellipse cx="171" cy="292" rx="150" ry="8" fill="#000000" opacity=".25"></ellipse>
+    <g class="in-left" style="--d: .1s">
+      <g class="i-bob" style="--t: .55s">
+        <rect x="20" y="144" width="304" height="140" rx="30" fill="#FFC24A"></rect>
+        <rect x="20" y="144" width="304" height="20" rx="10" fill="#FFDB8A"></rect>
+        <rect x="20" y="244" width="304" height="40" rx="18" fill="#E7A231"></rect>
+        <rect x="34" y="166" width="62" height="58" rx="12" fill="#D6ECFF"></rect>
+        <g clip-path="url(#sg-buswin)"><use href="#ruth-body" x="30" y="166" width="72" height="90"></use><use href="#ruth-head" x="30" y="166" width="72" height="90"></use><use href="#eyes" class="i-blink" x="30" y="166" width="72" height="90"></use><use href="#ruth-glasses" x="30" y="166" width="72" height="90"></use><use href="#mouth-smile" x="30" y="166" width="72" height="90"></use></g>
+        <path d="M36 226 Q60 216 84 224" stroke="#3C4752" stroke-width="5" fill="none" stroke-linecap="round"></path>
+        <rect x="110" y="166" width="62" height="58" rx="12" fill="#D6ECFF"></rect><rect x="182" y="166" width="62" height="58" rx="12" fill="#D6ECFF"></rect><rect x="254" y="166" width="58" height="58" rx="12" fill="#D6ECFF"></rect>
+        <g class="i-bob" style="--t: 1.4s; --dl: -.3s"><path d="M120 224 Q120 194 141 194 Q162 194 162 224 Z" fill="#8C5CC9"></path><circle cx="134" cy="208" r="3.5" fill="#FFFFFF"></circle><circle cx="148" cy="208" r="3.5" fill="#FFFFFF"></circle><circle cx="134" cy="209" r="1.8" fill="#1E2430"></circle><circle cx="148" cy="209" r="1.8" fill="#1E2430"></circle></g>
+        <g class="i-bob" style="--t: 1.2s; --dl: -.7s"><path d="M190 224 Q192 190 213 192 Q236 194 236 224 Z" fill="#4C7FD6"></path><path d="M204 208 l6 0 M218 208 l6 0" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path></g>
+        <g class="i-bob" style="--t: 1.6s; --dl: -.1s"><path d="M262 224 Q262 196 283 196 Q304 196 304 224 Z" fill="#E0644F"></path><path d="M273 206 l7 4 M300 206 l-7 4" stroke="#1E2430" stroke-width="2.5" stroke-linecap="round"></path><circle cx="277" cy="213" r="2" fill="#1E2430"></circle><circle cx="296" cy="213" r="2" fill="#1E2430"></circle></g>
+        <rect x="12" y="232" width="20" height="14" rx="5" fill="#FFF3C4"></rect>
+      </g>
+      <g style="--idle: i-spin 1s linear infinite"><circle cx="82" cy="286" r="24" fill="#2B333B"></circle><circle cx="82" cy="286" r="10" fill="#C9D4DD"></circle><path d="M82 270 L82 302 M66 286 L98 286" stroke="#56636F" stroke-width="3"></path></g>
+      <g style="--idle: i-spin 1s linear infinite"><circle cx="262" cy="286" r="24" fill="#2B333B"></circle><circle cx="262" cy="286" r="10" fill="#C9D4DD"></circle><path d="M262 270 L262 302 M246 286 L278 286" stroke="#56636F" stroke-width="3"></path></g>
+    </g>
+  </svg>
+  <sc-for list="{{busTags}}" as="p" hint-placeholder-count="3">
+    <div class="lbl lbl-s tail in-pop" style="--d: {{p.d}}; left: {{p.x}}; top: {{p.y}}; translate: -50% 0; --tx: calc(50% - 7px); white-space: nowrap; transform-origin: 50% 120%">{{p.label}}</div>
+  </sc-for>
+  <sc-if value="{{hasA}}" hint-placeholder-val="{{ false }}"><div class="lbl in-blur" style="--d: .5s; top: 22px; left: 16px; display: flex; align-items: center; gap: 6px; background: #2E8A7F; color: #FFFFFF"><span class="icon" style="font-size: 22px">swap_driving_apps_wheel</span>{{a}}</div></sc-if>
+</sc-if>
+
+<!-- cards: a question card turns over -->
+<sc-if value="{{is.cards}}" hint-placeholder-val="{{ false }}">
+  <div style="position: absolute; inset: 0; perspective: 900px">
+    <div class="card3d in-pop" style="--d: .1s; left: 70px; top: 52px; width: 202px; height: 262px; background: #9C5BC4; rotate: -11deg"></div>
+    <div class="card3d in-pop" style="--d: .25s; left: 70px; top: 52px; width: 202px; height: 262px; background: #4C7FD6; rotate: 8deg"></div>
+    <div class="b-flip" style="--d: .55s; position: absolute; left: 70px; top: 46px; width: 202px; height: 268px">
+      <div class="card3d i-float" style="inset: 0; --t: 5s; padding: 24px 20px; display: flex; flex-direction: column; justify-content: space-between; background: radial-gradient(circle at 30% 20%, #FFF0C9, #FFD27A 70%); box-shadow: 0 24px 40px -18px rgba(0, 0, 0, .55); color: #3A2400; overflow: hidden">
+        <span style="position: absolute; left: -6px; bottom: -40px; font-size: 220px; line-height: 1; font-weight: 700; color: #3A2400; opacity: .07">?</span>
+        <span class="icon icon-l" style="color: #9A6A00">forum</span>
+        <span class="in-blur" style="--d: 1.4s; position: relative; font-size: 22px; line-height: 1.3; font-weight: 600">{{a}}</span>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- together: two people, a warm exchange -->
+<sc-if value="{{is.together}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <ellipse cx="171" cy="340" rx="190" ry="60" fill="url(#sg-a)" opacity=".55"></ellipse>
+    <path d="M110 196 Q171 116 232 196" pathLength="1" fill="none" stroke="#FFD2A8" stroke-opacity=".7" stroke-width="3" stroke-dasharray="1 1" class="in-draw" style="--d: 1.1s; --dd: 1.2s"></path>
+    <g class="in-right" style="--d: .05s"><g class="i-breath" style="--t: 4.6s"><use href="#ruth-body" x="178" y="150" width="150" height="188"></use></g><g style="rotate: -4deg"><g class="i-sway" style="--t: 6s"><use href="#ruth-head" x="178" y="150" width="150" height="188"></use><use href="#eyes" class="i-blink" x="178" y="150" width="150" height="188"></use><use href="#ruth-glasses" x="178" y="150" width="150" height="188"></use><use href="#mouth-smile" x="178" y="150" width="150" height="188"></use></g></g></g>
+    <g class="in-left" style="--d: .2s"><g class="i-breath" style="--t: 5.2s"><use href="{{otherBody}}" x="14" y="150" width="150" height="188"></use></g><g style="rotate: 4deg"><g class="i-sway" style="--t: 7s; --dl: -3s"><use href="{{otherHead}}" x="14" y="150" width="150" height="188"></use><use href="#eyes" class="i-blink" style="--dl: -2s" x="14" y="150" width="150" height="188"></use><use href="#mouth-smile" x="14" y="150" width="150" height="188"></use></g></g></g>
+  </svg>
+  <div style="position: absolute; left: 0; top: 0; width: 0; height: 0; offset-path: path('M110 190 Q171 110 232 190'); offset-rotate: 0deg; --idle: flow 4s var(--io) 2.2s infinite; opacity: 0">
+    <svg viewBox="0 0 100 92" width="24" height="22" style="position: absolute; left: -12px; top: -11px" aria-hidden="true"><use href="#heart" fill="#FF7FA6"></use></svg>
+  </div>
+  <sc-for list="{{bubbles}}" as="bb" hint-placeholder-count="2">
+    <div class="lbl tail in-pop" style="--d: {{bb.d}}; top: {{bb.y}}; {{bb.side}}: 12px; max-width: 176px; --tx: {{bb.tx}}; transform-origin: {{bb.origin}}">{{bb.label}}</div>
+  </sc-for>
+</sc-if>
+
+<!-- switch: the struggle switch -->
+<sc-if value="{{is.switch}}" hint-placeholder-val="{{ false }}">
+  <sc-if value="{{switchEmber}}" hint-placeholder-val="{{ false }}"><div class="layer" style="background: radial-gradient(120% 80% at 50% 30%, rgba(255, 120, 90, .35), transparent 55%), linear-gradient(#2E1212, #7A2E26); --in: {{emberIn}}"></div></sc-if>
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <sc-if value="{{switchCalm}}" hint-placeholder-val="{{ false }}">
+      <g style="--in: {{calmIn}}">
+        <g class="i-ripple" style="--t: 5s"><circle cx="110" cy="180" r="70" fill="none" stroke="#A8F5E6" stroke-width="2"></circle></g>
+        <g class="i-ripple" style="--t: 5s; --dl: -2.5s"><circle cx="110" cy="180" r="70" fill="none" stroke="#A8F5E6" stroke-width="2"></circle></g>
+      </g>
+    </sc-if>
+    <sc-if value="{{switchTense}}" hint-placeholder-val="{{ false }}">
+      <g style="--in: {{tenseOut}}">
+        <g class="i-shake" stroke="#FFB199" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M56 104 l14 -14 l-4 18 l14 -14"></path><path d="M270 92 l14 14 l-18 -4 l14 14"></path><path d="M48 262 l18 4 l-14 8 l18 4"></path><path d="M280 262 l-18 6 l14 6 l-18 6"></path></g>
+      </g>
+    </sc-if>
+    <ellipse cx="171" cy="238" rx="110" ry="10" fill="#000000" opacity=".22"></ellipse>
+    <rect x="66" y="136" width="210" height="88" rx="44" fill="#5FD3BD"></rect>
+    <sc-if value="{{switchEmber}}" hint-placeholder-val="{{ false }}"><rect x="66" y="136" width="210" height="88" rx="44" fill="#FF8A6B" style="--in: {{emberIn}}"></rect></sc-if>
+    <rect x="66" y="136" width="210" height="88" rx="44" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="3"></rect>
+    <g class="{{knobCls}}" style="--d: 1.8s; --ox: 122px; translate: {{knobX}} 0">
+      <g class="{{knobShake}}"><circle cx="110" cy="180" r="38" fill="#FFFFFF"></circle><circle cx="110" cy="180" r="38" fill="none" stroke="#000000" stroke-opacity=".08" stroke-width="6"></circle><circle cx="100" cy="170" r="12" fill="#FFFFFF" opacity=".8"></circle></g>
+    </g>
+  </svg>
+  <div class="lbl" style="top: 252px; left: 232px; translate: -50% 0; white-space: nowrap; opacity: {{switchAop}}; --in: {{switchAin}}">{{itemA}}</div>
+  <div class="lbl" style="top: 252px; left: 110px; translate: -50% 0; white-space: nowrap; opacity: {{switchBop}}; --in: {{switchBin}}">{{itemB}}</div>
+</sc-if>
+
+<!-- landscape: a calm place to picture -->
+<sc-if value="{{is.landscape}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="246" cy="114" r="110" fill="url(#sg-a)" class="i-glow" style="--t: 5s"></circle>
+    <circle cx="246" cy="114" r="34" fill="#FFE08A" class="in-pop" style="--d: .2s"></circle><circle cx="238" cy="106" r="20" fill="#FFF1C4" opacity=".7"></circle>
+    <g class="i-drift" style="--t: 60s" fill="#FFFFFF" opacity=".9"><use href="#cloud" x="200" y="56" width="92" height="49"></use><use href="#cloud" x="40" y="96" width="64" height="34"></use><use href="#cloud" x="380" y="70" width="80" height="42"></use></g>
+    <g class="i-par" style="--t: 14s; --px: 3px"><path d="M-20 236 Q60 180 150 222 T362 196 L362 370 L-20 370 Z" fill="#A9D9B6"></path></g>
+    <g class="i-par" style="--t: 14s; --px: 6px"><path d="M-20 262 Q90 218 200 252 T362 236 L362 370 L-20 370 Z" fill="#73BF8A"></path><path d="M-20 262 Q90 218 200 252 T362 236 L362 244 Q290 238 200 260 Q90 228 -20 272 Z" fill="#94D7A2"></path>
+      <sc-if value="{{landHome}}" hint-placeholder-val="{{ false }}"><g class="in-rise" style="--d: .5s"><g transform="translate(60 196)"><rect x="0" y="30" width="72" height="54" rx="6" fill="#FFF4DE"></rect><rect x="48" y="30" width="24" height="54" fill="#EADBC0"></rect><path d="M-9 36 L36 0 L81 36 Z" fill="#D9604A"></path><path d="M36 0 L81 36 L60 36 L36 10 Z" fill="#B84A38"></path><rect x="26" y="54" width="18" height="30" rx="3" fill="#8A5A2C"></rect><rect x="52" y="46" width="13" height="13" rx="2" fill="#FFD36E" class="i-glow" style="--t: 2.4s"></rect><rect x="54" y="2" width="10" height="20" fill="#B84A38"></rect><circle cx="59" cy="-4" r="7" fill="#FFFFFF" class="i-puff" style="--t: 4s"></circle><circle cx="59" cy="-4" r="7" fill="#FFFFFF" class="i-puff" style="--t: 4s; --dl: -2s"></circle></g></g></sc-if>
+      <g class="i-sway" style="transform-origin: 50% 100%; --t: 6s"><rect x="268" y="196" width="8" height="40" rx="3" fill="#7A5A3A"></rect><circle cx="272" cy="188" r="22" fill="#4E9E64"></circle><circle cx="264" cy="182" r="10" fill="#6BBF7E"></circle></g>
+    </g>
+    <sc-if value="{{landWater}}" hint-placeholder-val="{{ false }}"><path d="M-10 296 Q171 280 352 296 L352 370 L-10 370 Z" fill="url(#sg-water)"></path><g stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="none"><path d="M40 318 q16 -6 32 0" class="i-glow" style="--t: 2s"></path><path d="M160 314 q16 -6 32 0" class="i-glow" style="--t: 2.6s; --dl: -1s"></path><path d="M262 324 q16 -6 32 0" class="i-glow" style="--t: 2.2s; --dl: -.4s"></path><path d="M220 340 q12 -5 24 0" class="i-glow" style="--t: 3s"></path></g></sc-if>
+    <sc-if value="{{landMeadow}}" hint-placeholder-val="{{ false }}"><g class="i-par" style="--t: 14s; --px: 9px"><path d="M-20 300 Q120 272 362 296 L362 370 L-20 370 Z" fill="#4F9E67"></path><use href="#flower" x="60" y="300" width="22" height="22" fill="#FF9EC4" class="in-pop" style="--d: .8s"></use><use href="#flower" x="150" y="306" width="18" height="18" fill="#FFFFFF" class="in-pop" style="--d: 1s"></use><use href="#flower" x="250" y="300" width="22" height="22" fill="#B9A8FF" class="in-pop" style="--d: 1.2s"></use></g></sc-if>
+    <g transform="translate(0 70)"><g style="--idle: car 22s linear -6s infinite"><path d="M0 0 q7 -7 14 0 q7 -7 14 0" stroke="#3F4A55" stroke-width="2.5" fill="none" stroke-linecap="round" class="i-flap" style="--t: .5s"></path></g></g>
+  </svg>
+  <sc-if value="{{hasLandLabel}}" hint-placeholder-val="{{ false }}"><div class="lbl in-blur" style="--d: .5s; top: 18px; right: 16px">{{a}}</div></sc-if>
+</sc-if>
+
+<!-- night: winding down to sleep -->
+<sc-if value="{{is.night}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="258" cy="84" r="90" fill="url(#sg-b)" opacity=".7" class="i-glow" style="--t: 5s"></circle>
+    <circle cx="258" cy="84" r="32" fill="#FFF4C9"></circle><circle cx="272" cy="74" r="28" fill="#141A3C"></circle>
+    <g fill="#FFFFFF"><use href="#spark" x="40" y="40" width="12" height="12" class="i-twinkle" style="--t: 3s"></use><use href="#spark" x="110" y="80" width="8" height="8" class="i-twinkle" style="--t: 2.3s; --dl: -1s"></use><use href="#spark" x="170" y="36" width="10" height="10" class="i-twinkle" style="--t: 3.6s; --dl: -2s"></use><use href="#spark" x="80" y="140" width="7" height="7" class="i-twinkle" style="--t: 2.7s; --dl: -.5s"></use><use href="#spark" x="300" y="160" width="8" height="8" class="i-twinkle" style="--t: 3.2s; --dl: -1.5s"></use><use href="#spark" x="200" y="120" width="6" height="6" class="i-twinkle" style="--t: 2.1s; --dl: -.2s"></use></g>
+    <rect x="18" y="224" width="40" height="96" rx="12" fill="#5B6AA8"></rect>
+    <rect x="18" y="276" width="306" height="44" rx="14" fill="#7686C4"></rect>
+    <rect x="18" y="306" width="306" height="16" rx="8" fill="#4D5A92"></rect>
+    <rect x="44" y="240" width="86" height="40" rx="18" fill="#E7ECFF"></rect>
+    <g class="in-fade" style="--d: .2s"><g transform="rotate(-14 104 258)"><use href="#ruth-head" x="54" y="200" width="100" height="125"></use><use href="#eyes-shut" x="54" y="200" width="100" height="125"></use><use href="#ruth-glasses" x="54" y="200" width="100" height="125"></use><use href="#mouth-soft" x="54" y="200" width="100" height="125"></use></g></g>
+    <g style="--idle: i-breath 5s var(--io) infinite alternate; transform-origin: 50% 100%"><path d="M118 296 Q122 250 180 248 L310 250 Q326 252 326 268 L326 300 L118 300 Z" fill="#9AA8E6"></path><path d="M130 272 Q200 258 320 262" stroke="#B9C4F2" stroke-width="3" fill="none" stroke-linecap="round"></path></g>
+    <g fill="#D8E0FF" font-family="Rubik, sans-serif" font-weight="700"><text x="148" y="214" font-size="22" class="i-zz">z</text><text x="160" y="200" font-size="16" class="i-zz" style="--dl: -1.5s">z</text><text x="152" y="206" font-size="12" class="i-zz" style="--dl: -3s">z</text></g>
+  </svg>
+</sc-if>
+
+<!-- tools: a few things to keep at hand -->
+<sc-if value="{{is.tools}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true"><circle cx="300" cy="60" r="150" fill="url(#sg-t)" opacity=".35"></circle></svg>
+  <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 20px 18px">
+    <sc-for list="{{tiles}}" as="t" hint-placeholder-count="3">
+      <div class="glass in-right" style="--d: {{t.d}}">
+        <span class="in-pop" style="--d: {{t.d2}}; display: flex"><span class="badge i-float" style="--c: {{t.c}}; --t: {{t.ft}}; --dl: {{t.fl}}"><span class="icon">{{t.icon}}</span></span></span>
+        <span>{{t.label}}</span>
+      </div>
+    </sc-for>
+  </div>
+</sc-if>
+
+<!-- list: a short path of ideas, one after another -->
+<sc-if value="{{is.list}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="290" cy="80" r="150" fill="url(#sg-b)" opacity=".3"></circle>
+    <line x1="292" y1="{{listY1}}" x2="292" y2="{{listY2}}" pathLength="1" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="3" stroke-linecap="round" class="in-draw" style="--d: .35s; --dd: {{listDraw}}; --io: linear"></line>
+  </svg>
+  <sc-for list="{{listRows}}" as="t" hint-placeholder-count="3">
+    <div style="position: absolute; left: 0; right: 0; top: {{t.y}}; height: 0">
+      <span class="in-pop" style="--d: {{t.d}}; position: absolute; right: 25px; top: -25px; display: flex"><span class="badge" style="--c: {{t.c}}"><span class="icon">{{t.icon}}</span></span></span>
+      <span class="in-pop" style="--d: {{t.d}}; position: absolute; right: 25px; top: -25px; width: 50px; height: 50px; border-radius: 50%; box-shadow: 0 0 0 2px rgba(255, 255, 255, .5); --idle: i-ripple 1.6s var(--out) {{t.d}} 1 both; opacity: 0"></span>
+      <span class="in-blur" style="--d: {{t.d2}}; position: absolute; right: 90px; left: 16px; top: -15px; color: #FFFFFF; font-size: 20px; line-height: 1.25; font-weight: 600; text-shadow: 0 2px 10px rgba(0, 0, 0, .3)">{{t.label}}</span>
+    </div>
+  </sc-for>
+</sc-if>
+
+<!-- brain: practice builds new pathways -->
+<sc-if value="{{is.brain}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="170" r="150" fill="url(#sg-p)" opacity=".35" class="i-glow"></circle>
+    <g class="in-pops i-pulse" style="--d: .05s; --t: 7s">
+      <ellipse cx="171" cy="292" rx="100" ry="10" fill="#000000" opacity=".25"></ellipse>
+      <path d="M168 76 C140 60 104 66 92 92 C64 96 54 126 64 148 C48 170 56 200 80 210 C82 240 108 258 134 252 C148 266 166 266 168 254 Z" fill="#F4A9CF"></path>
+      <path d="M174 76 C202 60 238 66 250 92 C278 96 288 126 278 148 C294 170 286 200 262 210 C260 240 234 258 208 252 C194 266 176 266 174 254 Z" fill="#F4A9CF"></path>
+      <path d="M174 254 C176 266 194 266 208 252 C234 258 260 240 262 210 C286 200 294 170 278 148 C288 126 278 96 250 92 C262 120 268 150 252 174 C256 214 230 238 196 236 C188 246 180 250 174 248 Z" fill="#DC86B6"></path>
+      <path d="M168 254 C166 266 148 266 134 252 C108 258 82 240 80 210 C64 204 56 190 56 176 C70 196 88 204 104 204 C110 228 134 244 160 238 C164 246 166 250 168 248 Z" fill="#DC86B6"></path>
+      <path d="M96 100 C110 80 134 74 152 82 M70 140 C80 120 100 112 116 116" stroke="#FFD3E8" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"></path>
+      <g stroke="#C76AA3" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".55"><path d="M120 110 C134 120 132 136 146 142"></path><path d="M88 170 C104 164 118 176 132 168"></path><path d="M112 222 C120 206 138 210 146 198"></path><path d="M222 110 C208 120 210 136 196 142"></path><path d="M254 170 C238 164 224 176 210 168"></path><path d="M230 222 C222 206 204 210 196 198"></path></g>
+    </g>
+    <g stroke="#FFE3A1" stroke-width="3.5" fill="none" stroke-linecap="round">
+      <path d="M106 128 L150 160 L120 206" pathLength="1" class="in-draw" style="--d: .9s; --dd: 1.2s"></path>
+      <path d="M236 128 L192 160 L222 206" pathLength="1" class="in-draw" style="--d: 1.3s; --dd: 1.2s"></path>
+      <path d="M150 160 C164 150 178 150 192 160" pathLength="1" class="in-draw" style="--d: 2s; --dd: .9s"></path>
+      <path d="M120 206 C146 226 196 226 222 206" pathLength="1" class="in-draw" style="--d: 2.5s; --dd: 1.1s"></path>
+    </g>
+    <g fill="#FFD27A">
+      <circle cx="106" cy="128" r="8" class="in-pop" style="--d: .7s"></circle><circle cx="150" cy="160" r="9" class="in-pop" style="--d: 1.1s"></circle><circle cx="120" cy="206" r="8" class="in-pop" style="--d: 1.5s"></circle>
+      <circle cx="236" cy="128" r="8" class="in-pop" style="--d: 1.1s"></circle><circle cx="192" cy="160" r="9" class="in-pop" style="--d: 1.5s"></circle><circle cx="222" cy="206" r="8" class="in-pop" style="--d: 1.9s"></circle>
+    </g>
+  </svg>
+  <i class="orb" style="width: 14px; height: 14px; offset-path: path('M106 128 L150 160 C164 150 178 150 192 160 L222 206'); --idle: flow 2.8s var(--io) 3.4s infinite; opacity: 0"></i>
+  <i class="orb" style="width: 14px; height: 14px; offset-path: path('M236 128 L192 160 C178 150 164 150 150 160 L120 206 C146 226 196 226 222 206'); --idle: flow 3.6s var(--io) 4.6s infinite; opacity: 0"></i>
+</sc-if>
+
+<!-- bear: try not to think of a white bear -->
+<sc-if value="{{is.bear}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <g class="in-rise" style="--d: .05s"><g class="i-breath"><use href="#ruth-body" x="8" y="200" width="134" height="168"></use></g><use href="#ruth-head" x="8" y="200" width="134" height="168"></use><use href="#eyes-up" class="i-blink" x="8" y="200" width="134" height="168"></use><use href="#ruth-glasses" x="8" y="200" width="134" height="168"></use><use href="#mouth-sad" x="8" y="200" width="134" height="168"></use></g>
+    <g fill="#FFFFFF"><circle cx="134" cy="218" r="6" class="in-pop" style="--d: .4s"></circle><circle cx="150" cy="196" r="10" class="in-pop" style="--d: .55s"></circle></g>
+    <g class="in-pops" style="--d: .7s">
+      <ellipse cx="232" cy="122" rx="98" ry="88" fill="#FFFFFF"></ellipse>
+      <g clip-path="url(#sg-bubble)">
+        <ellipse cx="232" cy="200" rx="120" ry="40" fill="#DCE8FF"></ellipse>
+        <g style="--in: bear-peek 7s var(--io) 1.4s infinite; translate: 0 80px">
+          <circle cx="206" cy="102" r="15" fill="#F4F7FB"></circle><circle cx="258" cy="102" r="15" fill="#F4F7FB"></circle><circle cx="206" cy="102" r="7" fill="#DCC9D2"></circle><circle cx="258" cy="102" r="7" fill="#DCC9D2"></circle>
+          <circle cx="232" cy="136" r="42" fill="#F4F7FB"></circle><path d="M252 100 A42 42 0 0 1 252 172 C268 150 266 118 252 100 Z" fill="#DDE5EE"></path>
+          <ellipse cx="232" cy="150" rx="17" ry="13" fill="#E6ECF3"></ellipse><ellipse cx="232" cy="144" rx="7" ry="5" fill="#2B3240"></ellipse>
+          <circle cx="217" cy="128" r="4" fill="#2B3240"></circle><circle cx="247" cy="128" r="4" fill="#2B3240"></circle>
+        </g>
+      </g>
+    </g>
+  </svg>
+  <div class="lbl lbl-s in-blur" style="--d: .3s; top: 236px; right: 16px; max-width: 170px">{{a}}</div>
+</sc-if>
+
+<!-- chess: you are the board, not the pieces -->
+<sc-if value="{{is.chess}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="210" r="150" fill="url(#sg-b)" opacity=".35" class="i-glow"></circle>
+    <g class="in-pops" style="--d: .1s">
+      <ellipse cx="171" cy="328" rx="130" ry="12" fill="#000000" opacity=".3"></ellipse>
+      <g style="--idle: wobble 9s var(--io) infinite alternate; transform-box: view-box; transform-origin: 171px 210px">
+        <rect x="49" y="88" width="244" height="244" rx="18" fill="#8E5E2C"></rect><rect x="49" y="88" width="244" height="12" rx="6" fill="#C58C4C"></rect>
+        <sc-for list="{{chessCells}}" as="c" hint-placeholder-count="16"><rect x="{{c.x}}" y="{{c.y}}" width="53" height="53" fill="{{c.fill}}"></rect></sc-for>
+        <rect x="61" y="100" width="220" height="220" fill="none" stroke="#FFE7B8" stroke-opacity=".5" stroke-width="2"></rect>
+        <g style="--idle: pawn-a 8s var(--io) 1.6s infinite"><g transform="translate(140 260)"><ellipse cx="0" cy="18" rx="16" ry="5" fill="#000000" opacity=".25"></ellipse><path d="M-13 18 L-8 -2 L8 -2 L13 18 Z" fill="#2E3540"></path><circle cx="0" cy="-10" r="11" fill="#2E3540"></circle><circle cx="-4" cy="-14" r="3.5" fill="#5A6472"></circle></g></g>
+        <g style="--idle: pawn-b 8s var(--io) 1.6s infinite"><g transform="translate(246 154)"><ellipse cx="0" cy="18" rx="16" ry="5" fill="#000000" opacity=".25"></ellipse><path d="M-13 18 L-8 -2 L8 -2 L13 18 Z" fill="#FFFFFF"></path><circle cx="0" cy="-10" r="11" fill="#FFFFFF"></circle><circle cx="-4" cy="-14" r="3.5" fill="#E8EDF3"></circle></g></g>
+        <g transform="translate(88 154)"><path d="M-13 18 L-8 -2 L8 -2 L13 18 Z" fill="#2E3540"></path><circle cx="0" cy="-10" r="11" fill="#2E3540"></circle></g>
+        <g transform="translate(200 260)"><path d="M-13 18 L-8 -2 L8 -2 L13 18 Z" fill="#FFFFFF"></path><circle cx="0" cy="-10" r="11" fill="#FFFFFF"></circle></g>
+      </g>
+    </g>
+  </svg>
+  <div class="lbl center-x in-blur" style="--d: .5s; top: 26px; white-space: nowrap">{{a}}</div>
+</sc-if>
+
+<!-- compass: finding the direction that matters -->
+<sc-if value="{{is.compass}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="66" cy="74" r="60" fill="url(#sg-a)" class="in-pop i-glow" style="--d: 2.6s; --t: 2.4s"></circle>
+    <use href="#spark" x="50" y="58" width="32" height="32" fill="#FFE7A8" class="in-pop i-twinkle" style="--d: 2.8s; --t: 3s"></use>
+    <path d="M150 178 Q110 120 80 90" pathLength="1" fill="none" stroke="#FFE7A8" stroke-opacity=".7" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 1" class="in-draw" style="--d: 3.2s; --dd: 1.4s"></path>
+    <g class="in-pops" style="--d: .1s">
+      <ellipse cx="171" cy="324" rx="100" ry="11" fill="#000000" opacity=".28"></ellipse>
+      <circle cx="171" cy="204" r="114" fill="#C99A4B"></circle><circle cx="171" cy="204" r="114" fill="none" stroke="#F1CF8A" stroke-width="5" stroke-dasharray="180 540" stroke-linecap="round" transform="rotate(200 171 204)"></circle>
+      <circle cx="171" cy="204" r="98" fill="#F8F3E6"></circle><circle cx="171" cy="204" r="98" fill="none" stroke="#E6DCC4" stroke-width="10"></circle>
+      <g stroke="#7A8691" stroke-width="3.5" stroke-linecap="round"><path d="M171 114 L171 128 M171 280 L171 294 M81 204 L95 204 M247 204 L261 204"></path></g>
+      <text x="171" y="146" text-anchor="middle" font-family="Rubik, sans-serif" font-size="16" font-weight="700" fill="#C0563A">N</text>
+      <g class="b-seek" style="transform-box: view-box; transform-origin: 171px 204px">
+        <g style="--idle: wobble 4s var(--io) 3.8s infinite alternate; transform-box: view-box; transform-origin: 171px 204px">
+          <path d="M171 112 L188 204 L154 204 Z" fill="#E0644F"></path><path d="M171 112 L171 204 L154 204 Z" fill="#F08A72"></path>
+          <path d="M171 296 L188 204 L154 204 Z" fill="#B9C3CC"></path><path d="M171 296 L171 204 L154 204 Z" fill="#D5DCE2"></path>
+        </g>
+      </g>
+      <circle cx="171" cy="204" r="12" fill="#2E3540"></circle><circle cx="168" cy="201" r="4" fill="#7A8691"></circle>
+    </g>
+  </svg>
+  <div class="lbl in-blur" style="--d: 3.4s; top: 22px; right: 16px; max-width: 190px">{{a}}</div>
+</sc-if>
+
+<!-- garden: small things, given care, grow -->
+<sc-if value="{{is.garden}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="80" cy="60" r="110" fill="url(#sg-a)" opacity=".8"></circle>
+    <sc-if value="{{gardenWater}}" hint-placeholder-val="{{ false }}">
+      <g class="in-left" style="--d: .1s">
+        <g class="b-pour" style="--d: .8s; transform-box: view-box; transform-origin: 262px 92px">
+          <path d="M226 70 L298 70 L306 122 Q306 130 298 130 L226 130 Q218 130 218 122 Z" fill="#3E7CC4"></path><path d="M226 70 L298 70 L300 82 L224 82 Z" fill="#6FA4E0"></path>
+          <path d="M226 86 L178 56 L172 64 L222 98 Z" fill="#3E7CC4"></path><path d="M298 82 Q322 90 314 116" stroke="#2E5F9A" stroke-width="8" fill="none" stroke-linecap="round"></path>
+        </g>
+      </g>
+      <g fill="#8FD1F5"><circle cx="170" cy="110" r="4.5" class="i-rain" style="--t: .9s; --dl: 1.6s"></circle><circle cx="160" cy="118" r="4" class="i-rain" style="--t: .9s; --dl: 1.9s"></circle><circle cx="178" cy="122" r="4" class="i-rain" style="--t: .9s; --dl: 2.2s"></circle><circle cx="166" cy="132" r="3.5" class="i-rain" style="--t: .9s; --dl: 2.4s"></circle></g>
+    </sc-if>
+    <path d="M-10 290 Q171 262 352 290 L352 370 L-10 370 Z" fill="#8A5A3B"></path>
+    <path d="M-10 290 Q171 262 352 290 L352 298 Q171 272 -10 300 Z" fill="#A9744D"></path>
+    <g fill="#6E452D"><ellipse cx="60" cy="320" rx="8" ry="4"></ellipse><ellipse cx="250" cy="330" rx="10" ry="4"></ellipse><ellipse cx="160" cy="340" rx="6" ry="3"></ellipse></g>
+    <sc-for list="{{flowers}}" as="f" hint-placeholder-count="3">
+      <g>
+        <path d="{{f.stem}}" pathLength="1" fill="none" stroke="#4E9E64" stroke-width="7" stroke-linecap="round" class="in-draw" style="--d: {{f.d}}; --dd: 1.3s"></path>
+        <g class="in-pop" style="--d: {{f.dl}}"><path d="{{f.leaf}}" fill="#6BBF7E"></path></g>
+        <g class="in-pop" style="--d: {{f.df}}"><g class="i-sway" style="--t: {{f.t}}"><use href="#flower" x="{{f.fx}}" y="{{f.fy}}" width="56" height="56" fill="{{f.color}}"></use></g></g>
+      </g>
+    </sc-for>
+  </svg>
+  <div class="lbl in-blur" style="--d: .4s; top: 18px; right: 16px; max-width: 180px">{{a}}</div>
+</sc-if>
+
+<!-- heart: kindness toward yourself -->
+<sc-if value="{{is.heart}}" hint-placeholder-val="{{ false }}">
+  <div class="rays i-spin" style="left: -109px; top: -110px; width: 560px; height: 560px; --t: 120s; --ray: rgba(255, 190, 215, .12)"></div>
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="172" r="120" fill="url(#sg-p)" class="i-glow" style="--t: 3s"></circle>
+    <g class="in-pop" style="--d: .55s"><g class="i-beat" style="--t: 2.6s; --dl: 1.4s">
+      <use href="#heart" x="111" y="118" width="120" height="110" fill="#FF6B8E"></use>
+      <path d="M128 140 C134 128 148 124 158 132" stroke="#FFB3C6" stroke-width="7" fill="none" stroke-linecap="round"></path>
+      <path d="M171 226 C171 214 214 196 226 162 C224 188 196 208 171 226 Z" fill="#E04B72"></path>
+    </g></g>
+    <g class="in-rise" style="--d: .1s">
+      <path d="M4 362 L18 296 L96 316 L86 362 Z" fill="#2E8A7F"></path><path d="M338 362 L324 296 L246 316 L256 362 Z" fill="#2E8A7F"></path><path d="M18 296 L96 316 L92 330 L14 312 Z" fill="#46A698"></path>
+      <ellipse cx="114" cy="290" rx="72" ry="36" transform="rotate(-22 114 290)" fill="#F2C29E"></ellipse>
+      <ellipse cx="228" cy="290" rx="72" ry="36" transform="rotate(22 228 290)" fill="#F2C29E"></ellipse>
+      <ellipse cx="232" cy="300" rx="60" ry="22" transform="rotate(22 232 300)" fill="#DFA07B" opacity=".55"></ellipse>
+      <ellipse cx="152" cy="250" rx="11" ry="21" transform="rotate(32 152 250)" fill="#F2C29E"></ellipse><ellipse cx="190" cy="250" rx="11" ry="21" transform="rotate(-32 190 250)" fill="#EBB892"></ellipse>
+      <path d="M86 290 Q112 300 136 290 M206 290 Q230 300 256 290" stroke="#DFA07B" stroke-width="3" fill="none" stroke-linecap="round"></path>
+    </g>
+  </svg>
+  <sc-for list="{{floatHearts}}" as="h" hint-placeholder-count="4">
+    <svg viewBox="0 0 100 92" width="{{h.s}}" height="{{h.s}}" style="position: absolute; left: {{h.x}}; top: 170px; --idle: rise-heart {{h.t}} var(--out) {{h.dl}} infinite; --dx: {{h.dx}}; opacity: 0" aria-hidden="true"><use href="#heart" fill="#FFB3C6"></use></svg>
+  </sc-for>
+  <div class="lbl center-x in-blur" style="--d: .3s; top: 20px; white-space: nowrap">{{a}}</div>
+</sc-if>
+
+<!-- door: the uninvited guest is let in -->
+<sc-if value="{{is.door}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <rect x="0" y="292" width="342" height="70" fill="#5A3A28"></rect><rect x="0" y="292" width="342" height="6" fill="#7A5038"></rect>
+    <g class="i-float" style="--t: 5s"><path d="M54 44 Q46 74 56 98" stroke="#E7D3C0" stroke-width="2" fill="none"></path><ellipse cx="54" cy="36" rx="18" ry="22" fill="#FF7FA6"></ellipse><ellipse cx="48" cy="28" rx="5" ry="7" fill="#FFFFFF" opacity=".5"></ellipse><path d="M100 36 Q94 66 102 88" stroke="#E7D3C0" stroke-width="2" fill="none"></path><ellipse cx="100" cy="28" rx="17" ry="21" fill="#FFD36E"></ellipse><ellipse cx="94" cy="20" rx="5" ry="7" fill="#FFFFFF" opacity=".5"></ellipse></g>
+    <rect x="216" y="70" width="104" height="224" rx="6" fill="#2A1A14"></rect>
+    <rect x="222" y="76" width="92" height="218" fill="#14100E"></rect>
+    <g><g style="--d: 2s" class="in-right"><g class="i-bob" style="--t: 1.6s"><path d="M240 294 Q240 196 274 196 Q308 196 308 294 Z" fill="#8F9AA6"></path><circle cx="262" cy="232" r="4.5" fill="#1E2430"></circle><circle cx="284" cy="232" r="4.5" fill="#1E2430"></circle><path d="M264 250 Q273 246 282 250" stroke="#1E2430" stroke-width="3" fill="none" stroke-linecap="round"></path><path d="M246 220 Q252 204 270 200" stroke="#B3BDC7" stroke-width="5" fill="none" stroke-linecap="round"></path></g></g></g>
+    <g class="b-open" style="--d: 1.2s; transform-box: view-box; transform-origin: 314px 180px"><rect x="222" y="76" width="92" height="218" fill="#B07A44"></rect><rect x="232" y="90" width="72" height="80" rx="6" fill="#C48C52"></rect><rect x="232" y="186" width="72" height="92" rx="6" fill="#C48C52"></rect><circle cx="234" cy="190" r="6" fill="#FFD36E"></circle></g>
+    <rect x="18" y="232" width="176" height="62" rx="20" fill="#C2566A"></rect><rect x="10" y="214" width="40" height="80" rx="16" fill="#A84458"></rect><rect x="162" y="214" width="40" height="80" rx="16" fill="#A84458"></rect>
+    <g class="in-rise" style="--d: .1s"><g class="i-breath"><use href="#ruth-body" x="56" y="140" width="104" height="130"></use></g><g class="i-sway" style="--t: 6s"><use href="#ruth-head" x="56" y="140" width="104" height="130"></use><use href="#eyes" class="i-blink" x="56" y="140" width="104" height="130"></use><use href="#ruth-glasses" x="56" y="140" width="104" height="130"></use><use href="#mouth-soft" x="56" y="140" width="104" height="130"></use></g></g>
+    <rect x="34" y="262" width="144" height="34" rx="14" fill="#D9687C"></rect>
+  </svg>
+</sc-if>
+
+<!-- scan: attention moves slowly through the body -->
+<sc-if value="{{is.scan}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="180" r="150" fill="url(#sg-t)" opacity=".3"></circle>
+    <g class="in-fade" style="--d: .1s"><g clip-path="url(#sg-body)"><rect x="80" y="20" width="182" height="330" fill="#1F5E58"></rect><rect x="80" y="20" width="182" height="330" fill="#2E7C74" opacity=".6"></rect><g style="--idle: scan-band 7s var(--io) .6s infinite"><rect x="80" y="-20" width="182" height="90" fill="url(#sg-band)"></rect></g></g></g>
+    <g style="--idle: scan-band 7s var(--io) .6s infinite"><path d="M70 25 L272 25" stroke="#B8FFF0" stroke-width="2" stroke-opacity=".6" stroke-dasharray="3 6"></path></g>
+  </svg>
+</sc-if>
+
+<!-- ground: feet on the floor, roots going down -->
+<sc-if value="{{is.ground}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <rect x="0" y="230" width="342" height="132" fill="#3A2A1E"></rect><rect x="0" y="230" width="342" height="8" fill="#6B4E36"></rect>
+    <g fill="#4C3828"><ellipse cx="40" cy="300" rx="12" ry="5"></ellipse><ellipse cx="300" cy="280" rx="14" ry="5"></ellipse><ellipse cx="190" cy="340" rx="10" ry="4"></ellipse></g>
+    <g class="i-ripple" style="--t: 5s; --dl: 1.6s"><ellipse cx="171" cy="234" rx="120" ry="16" fill="none" stroke="#FFE3A1" stroke-width="2"></ellipse></g>
+    <g stroke="#FFC861" stroke-width="3.5" fill="none" stroke-linecap="round">
+      <path d="M126 240 C122 270 104 288 84 300 M112 278 C118 300 112 320 102 340" pathLength="1" class="in-draw" style="--d: 1s; --dd: 1.8s"></path>
+      <path d="M140 240 C146 280 136 310 144 350" pathLength="1" class="in-draw" style="--d: 1.2s; --dd: 1.8s"></path>
+      <path d="M216 240 C220 270 238 288 258 300 M230 278 C224 300 230 320 240 340" pathLength="1" class="in-draw" style="--d: 1.1s; --dd: 1.8s"></path>
+      <path d="M202 240 C196 280 206 310 198 350" pathLength="1" class="in-draw" style="--d: 1.3s; --dd: 1.8s"></path>
+    </g>
+    <g class="in-drop" style="--d: .1s">
+      <path d="M140 -10 L140 210 L152 210 L156 -10 Z" fill="#35538F"></path><path d="M120 -10 L118 206 L152 210 L140 -10 Z" fill="#4C6CAD"></path>
+      <path d="M202 -10 L202 210 L190 210 L186 -10 Z" fill="#35538F"></path><path d="M222 -10 L224 206 L190 210 L202 -10 Z" fill="#283F73"></path>
+      <path d="M96 238 Q90 210 120 206 L154 206 L156 238 Z" fill="#2B333B"></path><path d="M246 238 Q252 210 222 206 L188 206 L186 238 Z" fill="#2B333B"></path>
+      <path d="M100 222 Q104 212 120 210" stroke="#56636F" stroke-width="3" fill="none" stroke-linecap="round"></path><path d="M242 222 Q238 212 222 210" stroke="#56636F" stroke-width="3" fill="none" stroke-linecap="round"></path>
+    </g>
+  </svg>
+  <div class="lbl center-x in-blur" style="--d: .4s; top: 22px; white-space: nowrap">{{a}}</div>
+</sc-if>
+
+<!-- quote: one line, said on screen -->
+<sc-if value="{{is.quote}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <g class="i-spin" style="--t: 90s"><circle cx="171" cy="180" r="150" fill="none" stroke="#FFFFFF" stroke-opacity=".1" stroke-width="2" stroke-dasharray="2 12"></circle></g>
+    <circle cx="70" cy="70" r="120" fill="#FFFFFF" opacity=".05" class="i-float" style="--t: 9s"></circle>
+    <circle cx="290" cy="300" r="140" fill="#FFFFFF" opacity=".05" class="i-float" style="--t: 11s; --dl: -4s"></circle>
+    <text x="280" y="96" font-family="Rubik, sans-serif" font-size="110" font-weight="700" fill="#FFFFFF" opacity=".14" class="in-pop" style="--d: .1s">״</text>
+  </svg>
+  <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 36px 30px">
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; column-gap: 9px; row-gap: 2px; color: #FFFFFF; font-size: {{quoteSize}}; line-height: 1.3; font-weight: 600; text-align: center; text-shadow: 0 2px 14px rgba(0, 0, 0, .25)">
+      <sc-for list="{{quoteWords}}" as="q" hint-placeholder-count="4"><span class="word in-blur" style="--d: {{q.d}}">{{q.w}}</span></sc-for>
+    </div>
+    <span class="in-growx" style="--d: {{quoteLine}}; width: 64px; height: 4px; border-radius: 2px; background: {{quoteAccent}}"></span>
+  </div>
+</sc-if>
+
+<!-- phone: the Inner Voice game, a thought let go -->
+<sc-if value="{{is.phone}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true"><circle cx="171" cy="180" r="150" fill="url(#sg-b)" opacity=".35"></circle></svg>
+  <div class="in-rise" style="--d: .05s; position: absolute; left: 83px; top: 18px; width: 176px; height: 326px">
+    <div class="i-float" style="--t: 6s; position: absolute; inset: 0; box-sizing: border-box; padding: 10px; border-radius: 34px; background: #1E2430; box-shadow: 0 24px 40px -18px rgba(0, 0, 0, .7), inset 0 0 0 2px #3A4250">
+      <div style="position: relative; width: 100%; height: 100%; border-radius: 25px; overflow: hidden; background: linear-gradient(#F5FBF8, #DDEFEA)">
+        <div style="--in: phone-card 6s var(--io) .8s infinite; opacity: 0; position: absolute; left: 10px; right: 10px; top: 78px; padding: 16px 10px; border-radius: 18px; background: #FFFFFF; box-shadow: 0 8px 18px -8px rgba(0, 0, 0, .3); font-size: 15px; line-height: 1.3; font-weight: 600; text-align: center; color: #14201E">״{{a}}״</div>
+        <div style="position: absolute; left: 10px; right: 10px; bottom: 14px; display: flex; gap: 6px">
+          <span style="flex: 1 1 0; padding: 9px 2px; border-radius: 13px; background: #2B6A62; color: #FFFFFF; font-size: 12px; font-weight: 600; text-align: center">{{phoneKeep}}</span>
+          <span style="position: relative; flex: 1 1 0; padding: 9px 2px; border-radius: 13px; box-shadow: inset 0 0 0 1.5px #9AAAA6; color: #3F4946; font-size: 12px; font-weight: 600; text-align: center">{{phonePass}}<i style="position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -20px; border-radius: 50%; background: rgba(43, 106, 98, .35); --idle: phone-ring 6s var(--out) .8s infinite; opacity: 0"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="position: absolute; left: 196px; top: 296px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255, 255, 255, .85); box-shadow: 0 4px 12px rgba(0, 0, 0, .3); --idle: phone-tap 6s var(--io) .8s infinite; opacity: 0"></div>
+</sc-if>
+
+<!-- birds: birds crossing the sky over a tree -->
+<sc-if value="{{is.birds}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="80" cy="90" r="110" fill="url(#sg-a)" opacity=".7"></circle>
+    <g class="i-drift" style="--t: 70s" fill="#FFFFFF" opacity=".85"><use href="#cloud" x="150" y="50" width="80" height="43"></use><use href="#cloud" x="330" y="100" width="64" height="34"></use></g>
+    <path d="M-10 300 Q171 270 352 296 L352 370 L-10 370 Z" fill="#8FD18A"></path><path d="M-10 326 Q171 304 352 324 L352 370 L-10 370 Z" fill="#6BB86D"></path>
+    <g class="i-sway" style="transform-origin: 50% 100%; --t: 7s"><rect x="248" y="196" width="16" height="110" rx="6" fill="#7A5A3A"></rect><circle cx="256" cy="180" r="48" fill="#4E9E64"></circle><circle cx="222" cy="208" r="32" fill="#4E9E64"></circle><circle cx="290" cy="206" r="32" fill="#3E8A55"></circle><circle cx="244" cy="166" r="20" fill="#6BBF7E"></circle></g>
+    <g transform="translate(0 90)"><g style="--idle: car 14s linear -2s infinite"><g><path d="M0 0 q10 -12 20 0 q10 -12 20 0" stroke="#2E3540" stroke-width="3.5" fill="none" stroke-linecap="round" class="i-flap" style="--t: .45s"></path></g></g></g>
+    <g transform="translate(0 130)"><g style="--idle: car 18s linear -9s infinite"><g><path d="M0 0 q8 -10 16 0 q8 -10 16 0" stroke="#2E3540" stroke-width="3" fill="none" stroke-linecap="round" class="i-flap" style="--t: .5s; --dl: -.2s"></path></g></g></g>
+    <g transform="translate(0 60)"><g style="--idle: car 22s linear -15s infinite"><g><path d="M0 0 q6 -8 12 0 q6 -8 12 0" stroke="#2E3540" stroke-width="2.5" fill="none" stroke-linecap="round" class="i-flap" style="--t: .55s; --dl: -.4s"></path></g></g></g>
+  </svg>
+  <sc-if value="{{hasA}}" hint-placeholder-val="{{ false }}"><div class="lbl in-blur" style="--d: .4s; top: 18px; right: 16px">{{a}}</div></sc-if>
+</sc-if>
+
+<!-- hand: attention resting in an open palm -->
+<sc-if value="{{is.hand}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="190" r="140" fill="url(#sg-t)" opacity=".55" class="i-glow"></circle>
+    <g class="in-rise" style="--d: .05s"><g class="i-float" style="--t: 7s">
+      <rect x="111" y="64" width="26" height="112" rx="13" fill="#F2C29E"></rect><rect x="143" y="44" width="28" height="128" rx="14" fill="#F2C29E"></rect><rect x="177" y="52" width="27" height="120" rx="13.5" fill="#F2C29E"></rect><rect x="209" y="78" width="24" height="100" rx="12" fill="#F2C29E"></rect>
+      <path d="M116 236 C98 220 82 200 72 174" stroke="#F2C29E" stroke-width="28" stroke-linecap="round" fill="none"></path>
+      <path d="M104 160 Q104 292 172 302 Q240 292 238 160 Z" fill="#F2C29E"></path><path d="M206 170 Q240 170 238 160 Q240 260 196 296 Q226 240 206 170 Z" fill="#DFA07B"></path>
+      <path d="M140 232 Q172 248 206 228" stroke="#DFA07B" stroke-width="3" fill="none" stroke-linecap="round"></path>
+      <path d="M150 300 L150 362 L196 362 L196 300 Z" fill="#2E8A7F"></path>
+    </g></g>
+    <g fill="#FFE3A1">
+      <circle cx="68" cy="160" r="7" class="in-pop i-twinkle" style="--d: .9s; --t: 2.4s"></circle><circle cx="124" cy="72" r="7" class="in-pop i-twinkle" style="--d: 1.3s; --t: 2.4s"></circle><circle cx="157" cy="52" r="7" class="in-pop i-twinkle" style="--d: 1.7s; --t: 2.4s"></circle><circle cx="190" cy="60" r="7" class="in-pop i-twinkle" style="--d: 2.1s; --t: 2.4s"></circle><circle cx="221" cy="86" r="7" class="in-pop i-twinkle" style="--d: 2.5s; --t: 2.4s"></circle>
+    </g>
+  </svg>
+  <sc-if value="{{hasA}}" hint-placeholder-val="{{ false }}"><div class="lbl center-x in-blur" style="--d: .4s; bottom: 16px; white-space: nowrap">{{a}}</div></sc-if>
+</sc-if>
+
+<!-- clock: time moving toward evening -->
+<sc-if value="{{is.clock}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="176" r="150" fill="url(#sg-a)" opacity=".35" class="i-glow"></circle>
+    <g fill="#FFFFFF"><use href="#spark" x="40" y="50" width="10" height="10" class="i-twinkle" style="--t: 3s"></use><use href="#spark" x="290" y="70" width="8" height="8" class="i-twinkle" style="--t: 2.4s; --dl: -1s"></use><use href="#spark" x="300" y="290" width="8" height="8" class="i-twinkle" style="--t: 2.8s; --dl: -.5s"></use></g>
+    <g class="in-pops" style="--d: .1s">
+      <ellipse cx="171" cy="316" rx="96" ry="10" fill="#000000" opacity=".28"></ellipse>
+      <circle cx="171" cy="176" r="122" fill="#C99A4B"></circle><circle cx="171" cy="176" r="108" fill="#F8F3E6"></circle>
+      <g stroke="#7A8691" stroke-width="5" stroke-linecap="round"><path d="M171 80 L171 94 M171 258 L171 272 M75 176 L89 176 M253 176 L267 176"></path></g>
+      <g style="--idle: i-spin 160s linear infinite; transform-box: view-box; transform-origin: 171px 176px"><path d="M171 176 L120 150" stroke="#2E3540" stroke-width="9" stroke-linecap="round"></path></g>
+      <g style="--idle: i-spin 12s linear infinite; transform-box: view-box; transform-origin: 171px 176px"><path d="M171 176 L171 90" stroke="#E0644F" stroke-width="5" stroke-linecap="round"></path></g>
+      <circle cx="171" cy="176" r="10" fill="#2E3540"></circle>
+    </g>
+  </svg>
+  <sc-if value="{{hasA}}" hint-placeholder-val="{{ false }}"><div class="lbl center-x in-blur" style="--d: .4s; bottom: 16px; white-space: nowrap">{{a}}</div></sc-if>
+</sc-if>
+
+<!-- road: merging gently into the traffic -->
+<sc-if value="{{is.road}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <rect x="0" y="0" width="342" height="360" fill="#BFE3B4"></rect>
+    <rect x="0" y="112" width="342" height="118" fill="#56636F"></rect><rect x="0" y="112" width="342" height="5" fill="#7A8691"></rect><rect x="0" y="225" width="342" height="5" fill="#7A8691"></rect>
+    <g class="i-scroll" style="--t: 1.2s; --w: 48px"><path d="M-48 171 L390 171" stroke="#FFFFFF" stroke-width="5" stroke-dasharray="26 22"></path></g>
+    <path d="M150 228 L342 330 L342 362 L206 362 L110 238 Z" fill="#56636F"></path>
+    <g style="--in: car 5s linear .2s infinite"><rect x="0" y="126" width="66" height="32" rx="11" fill="#4C7FD6"></rect><rect x="10" y="130" width="22" height="12" rx="4" fill="#D6ECFF"></rect><circle cx="16" cy="160" r="7" fill="#1E2430"></circle><circle cx="52" cy="160" r="7" fill="#1E2430"></circle></g>
+    <g style="--in: car 5s linear 2.7s infinite"><rect x="0" y="126" width="66" height="32" rx="11" fill="#8C5CC9"></rect><rect x="10" y="130" width="22" height="12" rx="4" fill="#E9DCFF"></rect><circle cx="16" cy="160" r="7" fill="#1E2430"></circle><circle cx="52" cy="160" r="7" fill="#1E2430"></circle></g>
+        <g class="b-merge" style="--d: 1.4s"><g class="i-bob" style="--t: .5s"><rect x="262" y="276" width="66" height="32" rx="11" fill="#FFC24A"></rect><rect x="272" y="280" width="22" height="12" rx="4" fill="#D6ECFF"></rect><circle cx="278" cy="310" r="7" fill="#1E2430"></circle><circle cx="314" cy="310" r="7" fill="#1E2430"></circle></g></g>
+  </svg>
+  <sc-if value="{{hasA}}" hint-placeholder-val="{{ false }}"><div class="lbl center-x in-blur" style="--d: .4s; top: 22px; white-space: nowrap">{{a}}</div></sc-if>
+</sc-if>
+
+<!-- party: friends together -->
+<sc-if value="{{is.party}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <path d="M-10 40 Q171 96 352 40" stroke="#3A2A44" stroke-width="2" fill="none"></path>
+    <sc-for list="{{bulbs}}" as="l" hint-placeholder-count="8"><circle cx="{{l.x}}" cy="{{l.y}}" r="6" fill="{{l.c}}" class="i-twinkle" style="--t: 2.4s; --dl: {{l.dl}}"></circle></sc-for>
+    <ellipse cx="171" cy="350" rx="200" ry="60" fill="url(#sg-a)" opacity=".5"></ellipse>
+    <g class="in-rise" style="--d: .3s"><g class="i-sway" style="transform-origin: 50% 100%; --t: 3s; --dl: -1s"><use href="#guide-body" x="6" y="184" width="120" height="150"></use><use href="#guide-head" x="6" y="184" width="120" height="150"></use><use href="#eyes-joy" x="6" y="184" width="120" height="150"></use><use href="#mouth-open" x="6" y="184" width="120" height="150"></use></g></g>
+    <g class="in-rise" style="--d: .1s"><g class="i-sway" style="transform-origin: 50% 100%; --t: 3s"><use href="#ruth-body" x="111" y="166" width="120" height="150"></use><use href="#ruth-head" x="111" y="166" width="120" height="150"></use><use href="#eyes-joy" x="111" y="166" width="120" height="150"></use><use href="#ruth-glasses" x="111" y="166" width="120" height="150"></use><use href="#mouth-open" x="111" y="166" width="120" height="150"></use></g></g>
+    <g class="in-rise" style="--d: .5s"><g class="i-sway" style="transform-origin: 50% 100%; --t: 3s; --dl: -2s"><use href="#friend-body" x="216" y="184" width="120" height="150"></use><use href="#friend-head" x="216" y="184" width="120" height="150"></use><use href="#eyes-joy" x="216" y="184" width="120" height="150"></use><use href="#mouth-smile" x="216" y="184" width="120" height="150"></use></g></g>
+    <rect x="0" y="330" width="342" height="32" fill="#4A2E3A"></rect>
+  </svg>
+  <sc-for list="{{confetti}}" as="c" hint-placeholder-count="10"><i style="position: absolute; left: {{c.x}}; top: 0; width: 7px; height: 11px; border-radius: 2px; background: {{c.c}}; --idle: confetti {{c.t}} linear {{c.dl}} infinite; --dx: {{c.dx}}; opacity: 0"></i></sc-for>
+  <sc-for list="{{bubbles}}" as="bb" hint-placeholder-count="1">
+    <div class="lbl tail in-pop" style="--d: {{bb.d}}; top: 72px; left: 50%; translate: -50% 0; --tx: calc(50% - 7px); white-space: nowrap; transform-origin: 50% 120%">{{bb.label}}</div>
+  </sc-for>
+</sc-if>
+
+<!-- dials: how strong it feels, and how willing we are to feel it -->
+<sc-if value="{{is.dials}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <g class="in-pops" style="--d: .1s">
+      <ellipse cx="171" cy="306" rx="150" ry="12" fill="#000000" opacity=".3"></ellipse>
+      <rect x="18" y="92" width="306" height="204" rx="38" fill="#7A4E1E"></rect><rect x="18" y="92" width="306" height="16" rx="8" fill="#A06A30"></rect>
+      <rect x="40" y="114" width="262" height="40" rx="12" fill="#FFE3A1"></rect><path d="M60 134 L282 134" stroke="#B88B3E" stroke-width="2" stroke-dasharray="4 8"></path>
+      <sc-for list="{{dials}}" as="dd" hint-placeholder-count="2">
+        <g transform="translate({{dd.x}} 222)">
+          <path d="M-44 22 A48 48 0 1 1 44 22" fill="none" stroke="#5A3814" stroke-width="7" stroke-linecap="round"></path>
+          <path d="M-44 22 A48 48 0 1 1 44 22" pathLength="1" fill="none" stroke="#FFD27A" stroke-width="7" stroke-linecap="round" stroke-dasharray="{{dd.dash}}"></path>
+          <circle r="34" fill="#FFF4DE"></circle><circle r="31" fill="none" stroke="#E2CDA6" stroke-width="6" stroke-dasharray="3 4"></circle><circle r="22" fill="#F6E7C8"></circle><path d="M-14 -10 A18 18 0 0 1 4 -18" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"></path>
+          <g style="rotate: {{dd.angle}}; --in: {{dd.turn}}"><circle cx="0" cy="-25" r="5.5" fill="#E0644F"></circle></g>
+        </g>
+      </sc-for>
+    </g>
+  </svg>
+  <sc-for list="{{dials}}" as="dd" hint-placeholder-count="2">
+    <div class="lbl lbl-s in-blur" style="--d: .5s; top: 304px; left: {{dd.lx}}; width: 140px">{{dd.label}}</div>
+  </sc-for>
+</sc-if>
+
+<!-- trail: a path that forms by walking it again and again -->
+<sc-if value="{{is.trail}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <g stroke="#7FC27A" stroke-width="3" stroke-linecap="round"><path d="M30 40 l4 -14 M60 90 l-3 -14 M110 50 l4 -14 M250 40 l-3 -14 M300 90 l4 -14 M40 200 l-3 -14 M290 230 l4 -14 M70 300 l3 -14 M300 320 l-3 -14 M200 120 l4 -14 M140 250 l-3 -14 M230 300 l3 -14"></path></g>
+    <path d="M300 370 C260 270 100 290 140 190 S240 100 60 -10" pathLength="1" fill="none" stroke="#E2CC98" stroke-opacity=".35" stroke-width="40" stroke-linecap="round" class="in-draw" style="--d: .1s; --dd: 2s"></path>
+    <path d="M300 370 C260 270 100 290 140 190 S240 100 60 -10" pathLength="1" fill="none" stroke="#E2CC98" stroke-opacity=".55" stroke-width="30" stroke-linecap="round" class="in-draw" style="--d: 1.4s; --dd: 2s"></path>
+    <path d="M300 370 C260 270 100 290 140 190 S240 100 60 -10" pathLength="1" fill="none" stroke="#EBD9A9" stroke-width="22" stroke-linecap="round" class="in-draw" style="--d: 2.8s; --dd: 2s"></path>
+  </svg>
+  <sc-for list="{{prints}}" as="p" hint-placeholder-count="6"><i style="position: absolute; left: 0; top: 0; width: 8px; height: 12px; margin: -6px -4px; border-radius: 50%; background: #8A6A44; offset-path: path('M300 370 C260 270 100 290 140 190 S240 100 60 -10'); offset-distance: {{p.at}}; offset-rotate: auto 90deg; --in: k-fade .4s var(--out) {{p.d}} both; --idle: trail-step 3s var(--io) {{p.d}} infinite"></i></sc-for>
+  <sc-if value="{{hasA}}" hint-placeholder-val="{{ false }}"><div class="lbl in-blur" style="--d: .4s; top: 18px; right: 16px">{{a}}</div></sc-if>
+</sc-if>
+
+<!-- comfort: a kind word to a sad child -->
+<sc-if value="{{is.comfort}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <ellipse cx="171" cy="350" rx="200" ry="70" fill="url(#sg-p)" opacity=".6"></ellipse>
+    <g class="in-rise" style="--d: .1s"><g class="i-breath"><use href="#ruth-body" x="150" y="146" width="170" height="212"></use></g><g style="rotate: -6deg"><g class="i-sway" style="--t: 6s"><use href="#ruth-head" x="150" y="146" width="170" height="212"></use><use href="#eyes" class="i-blink" x="150" y="146" width="170" height="212"></use><use href="#ruth-glasses" x="150" y="146" width="170" height="212"></use><use href="#mouth-soft" x="150" y="146" width="170" height="212"></use></g></g></g>
+    <g class="in-rise" style="--d: .3s"><g class="i-breath" style="--t: 3s">
+      <path d="M58 360 Q58 266 98 256 Q138 266 138 360 Z" fill="#E0644F"></path>
+      <circle cx="98" cy="222" r="32" fill="#F2C29E"></circle><path d="M66 216 Q68 182 98 182 Q128 182 130 216 Q116 200 98 200 Q80 200 66 216 Z" fill="#8A5A3C"></path>
+      <path d="M86 224 Q90 228 94 224 M102 224 Q106 228 110 224" stroke="#1E2430" stroke-width="2.5" fill="none" stroke-linecap="round"></path><path d="M90 240 Q98 235 106 240" stroke="#7A3B33" stroke-width="2.5" fill="none" stroke-linecap="round"></path>
+      <path d="M85 230 q-2 8 0 11" stroke="#8FD1F5" stroke-width="4" stroke-linecap="round" fill="none" class="i-glow" style="--t: 1.6s"></path>
+    </g></g>
+    <g style="transform-box: view-box; transform-origin: 196px 286px; --idle: hand-pat 1.8s var(--io) 1.2s 4"><path d="M196 286 Q160 262 132 262" stroke="#2E8A7F" stroke-width="20" stroke-linecap="round" fill="none"></path><circle cx="126" cy="262" r="12" fill="#F2C29E"></circle></g>
+    <g transform="translate(36 316)"><rect x="0" y="0" width="34" height="22" rx="5" fill="#4C7FD6" transform="rotate(-18)"></rect><rect x="40" y="6" width="30" height="22" rx="5" fill="#4C7FD6" transform="rotate(14 55 17)"></rect><circle cx="10" cy="28" r="6" fill="#1E2430"></circle><circle cx="62" cy="34" r="6" fill="#1E2430"></circle></g>
+  </svg>
+  <svg viewBox="0 0 100 92" width="28" height="26" style="position: absolute; left: 140px; top: 190px; --idle: rise-heart 3.4s var(--out) 1.6s infinite; opacity: 0" aria-hidden="true"><use href="#heart" fill="#FF7FA6"></use></svg>
+  <sc-for list="{{bubbles}}" as="bb" hint-placeholder-count="1">
+    <div class="lbl tail in-pop" style="--d: .7s; top: 32px; right: 18px; max-width: 220px; --tx: 70%; transform-origin: 70% 120%">{{bb.label}}</div>
+  </sc-for>
+</sc-if>
+
+<!-- questions: questions to sit with, one at a time -->
+<sc-if value="{{is.questions}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true"><circle cx="290" cy="80" r="150" fill="url(#sg-b)" opacity=".35"></circle></svg>
+  <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 22px 18px">
+    <sc-for list="{{qRows}}" as="q" hint-placeholder-count="3">
+      <div class="glass in-right" style="--d: {{q.d}}">
+        <span class="badge i-pulse" style="--c: #C98A1E; --t: 3s; --dl: {{q.d}}; font-size: 24px; font-weight: 700">?</span>
+        <span>{{q.label}}</span>
+      </div>
+    </sc-for>
+  </div>
+</sc-if>
+
+<!-- stack: a new habit lands on a routine that is already there -->
+<sc-if value="{{is.stack}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true"><circle cx="171" cy="200" r="150" fill="url(#sg-t)" opacity=".35"></circle><rect x="40" y="318" width="262" height="12" rx="6" fill="#0E2E2C"></rect></svg>
+  <div style="position: absolute; left: 50px; right: 50px; bottom: 42px; display: flex; flex-direction: column; gap: 8px">
+    <sc-for list="{{stackBlocks}}" as="k" hint-placeholder-count="3">
+      <div class="in-drop" style="--d: {{k.d}}">
+        <div style="padding: 16px 14px; border-radius: 18px; background: {{k.bg}}; color: {{k.fg}}; font-size: 18px; font-weight: 600; text-align: center; box-shadow: inset 0 6px 0 rgba(255, 255, 255, .25), 0 10px 18px -10px rgba(0, 0, 0, .5); transform-origin: 50% 100%; --in: {{k.squash}}">{{k.label}}</div>
+      </div>
+    </sc-for>
+  </div>
+</sc-if>
+
+<!-- posture: sit, lean back or lie down, whatever is comfortable -->
+<sc-if value="{{is.posture}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <rect x="0" y="232" width="342" height="130" fill="#000000" opacity=".14"></rect>
+    <sc-for list="{{poses}}" as="p" hint-placeholder-count="3">
+      <g class="in-rise" style="--d: {{p.d}}">
+        <circle cx="{{p.cx}}" cy="190" r="56" fill="url(#sg-a)" opacity="{{p.glow}}" class="i-glow" style="--t: 2.4s"></circle>
+        <g transform="translate({{p.cx}} 0)">
+          <sc-if value="{{p.chair}}" hint-placeholder-val="{{ false }}">
+            <rect x="12" y="140" width="14" height="80" rx="7" fill="#B07A44"></rect><rect x="-30" y="196" width="56" height="14" rx="7" fill="#C48C52"></rect><rect x="-26" y="208" width="6" height="26" rx="3" fill="#8A5A2C"></rect><rect x="16" y="208" width="6" height="26" rx="3" fill="#8A5A2C"></rect>
+            <g class="i-breath"><use href="#ruth-body" x="-36" y="126" width="64" height="80"></use><use href="#ruth-head" x="-36" y="126" width="64" height="80"></use><use href="#eyes" class="i-blink" x="-36" y="126" width="64" height="80"></use><use href="#ruth-glasses" x="-36" y="126" width="64" height="80"></use><use href="#mouth-soft" x="-36" y="126" width="64" height="80"></use></g>
+          </sc-if>
+          <sc-if value="{{p.lean}}" hint-placeholder-val="{{ false }}">
+            <path d="M6 132 Q30 128 36 150 L30 214 L-36 214 Q-40 196 -24 192 L4 190 Z" fill="#7C5CC9"></path><rect x="-40" y="196" width="80" height="22" rx="11" fill="#9C7BE0"></rect><rect x="-34" y="216" width="6" height="18" rx="3" fill="#4C3488"></rect><rect x="26" y="216" width="6" height="18" rx="3" fill="#4C3488"></rect>
+            <g transform="rotate(14 0 200)"><g class="i-breath"><use href="#ruth-body" x="-34" y="122" width="64" height="80"></use><use href="#ruth-head" x="-34" y="122" width="64" height="80"></use><use href="#eyes-shut" x="-34" y="122" width="64" height="80"></use><use href="#ruth-glasses" x="-34" y="122" width="64" height="80"></use><use href="#mouth-smile" x="-34" y="122" width="64" height="80"></use></g></g>
+          </sc-if>
+          <sc-if value="{{p.lie}}" hint-placeholder-val="{{ false }}">
+            <rect x="-50" y="196" width="100" height="22" rx="10" fill="#7686C4"></rect><rect x="-50" y="214" width="100" height="10" rx="5" fill="#4D5A92"></rect><rect x="-46" y="182" width="34" height="18" rx="9" fill="#E7ECFF"></rect>
+            <g transform="rotate(-72 -28 180)"><use href="#ruth-head" x="-56" y="155" width="56" height="70"></use><use href="#eyes-shut" x="-56" y="155" width="56" height="70"></use><use href="#ruth-glasses" x="-56" y="155" width="56" height="70"></use></g>
+            <g style="--idle: i-breath 4s var(--io) infinite alternate; transform-origin: 50% 100%"><path d="M-14 200 Q-8 182 12 182 L44 184 Q50 186 50 196 L50 202 L-14 202 Z" fill="#9AA8E6"></path></g>
+          </sc-if>
+        </g>
+      </g>
+    </sc-for>
+  </svg>
+  <sc-for list="{{poses}}" as="p" hint-placeholder-count="3">
+    <div class="lbl lbl-s in-blur" style="--d: {{p.ld}}; top: 248px; left: {{p.lx}}; width: 104px; opacity: {{p.lop}}">{{p.label}}</div>
+  </sc-for>
+  <sc-if value="{{hasA}}" hint-placeholder-val="{{ false }}"><div class="lbl center-x in-pop" style="--d: 1.6s; top: 302px; display: flex; align-items: center; gap: 6px; background: #2E8A7F; color: #FFFFFF; white-space: nowrap"><span class="icon" style="font-size: 22px">check_circle</span>{{a}}</div></sc-if>
+</sc-if>
+
+<!-- tremor: shaking or stiffness can come along into the practice -->
+<sc-if value="{{is.tremor}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="230" r="150" fill="url(#sg-t)" opacity=".5" class="i-glow" style="--t: 5s"></circle>
+    <g class="i-ripple" style="--t: 6s"><circle cx="171" cy="236" r="118" fill="none" stroke="#A8F5E6" stroke-width="1.6"></circle></g>
+    <g class="i-ripple" style="--t: 6s; --dl: -3s"><circle cx="171" cy="236" r="118" fill="none" stroke="#A8F5E6" stroke-width="1.6"></circle></g>
+    <path d="M58 360 L58 236 Q58 196 98 196 L244 196 Q284 196 284 236 L284 360 Z" fill="#7C4F73"></path><path d="M244 196 Q284 196 284 236 L284 360 L256 360 L256 232 Q256 210 236 206 Z" fill="#663F5E"></path>
+    <g class="in-rise" style="--d: .05s">
+      <g class="i-breath"><use href="#ruth-body" x="76" y="128" width="190" height="238"></use></g>
+      <g class="i-sway" style="--t: 6s"><use href="#ruth-head" x="76" y="128" width="190" height="238"></use><use href="#eyes-shut" x="76" y="128" width="190" height="238"></use><use href="#ruth-glasses" x="76" y="128" width="190" height="238"></use><use href="#mouth-soft" x="76" y="128" width="190" height="238"></use></g>
+    </g>
+    <rect x="40" y="268" width="50" height="92" rx="22" fill="#8C5C82"></rect><rect x="252" y="268" width="50" height="92" rx="22" fill="#8C5C82"></rect>
+    <g class="i-shake" style="--t: .38s"><circle cx="134" cy="322" r="15" fill="#F2C29E"></circle><path d="M110 306 q-6 8 0 16 M104 300 q-9 14 0 28" stroke="#FFE3A1" stroke-width="2.5" fill="none" stroke-linecap="round" class="i-glow" style="--t: .8s"></path></g>
+    <g class="i-shake" style="--t: .44s; --dl: -.2s"><circle cx="208" cy="322" r="15" fill="#F2C29E"></circle><path d="M232 306 q6 8 0 16 M238 300 q9 14 0 28" stroke="#FFE3A1" stroke-width="2.5" fill="none" stroke-linecap="round" class="i-glow" style="--t: .8s; --dl: -.4s"></path></g>
+  </svg>
+  <div class="lbl in-pop" style="--d: 1.4s; top: 26px; right: 18px; max-width: 220px; display: flex; align-items: center; gap: 8px"><span class="icon" style="font-size: 24px; color: #2E8A7F; font-variation-settings: 'FILL' 1">check_circle</span>{{tremorLabel}}</div>
+</sc-if>
+
+<!-- day: small moments spread across the day -->
+<sc-if value="{{is.day}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <path d="M-10 300 L352 300 L352 370 L-10 370 Z" fill="#3E7C5A"></path><path d="M-10 300 L352 300 L352 306 L-10 306 Z" fill="#62A77C"></path>
+    <path d="M311 300 A140 140 0 0 0 31 300" pathLength="1" fill="none" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="3" stroke-dasharray="1 1" class="in-draw" style="--d: .2s; --dd: 1.4s"></path>
+    <circle cx="300" cy="300" r="60" fill="url(#sg-a)" opacity=".8"></circle>
+    <g class="in-fade" style="--d: 5.6s"><circle cx="40" cy="296" r="50" fill="url(#sg-b)"></circle><circle cx="40" cy="290" r="13" fill="#FFF4C9"></circle><circle cx="46" cy="285" r="11" fill="#5B6AA8"></circle></g>
+  </svg>
+  <i class="orb b-ride" style="width: 34px; height: 34px; offset-path: path('M311 300 A140 140 0 0 0 31 300'); --d: .6s; --dd: 5.4s; --c: #FFD27A; --cg: rgba(255, 200, 90, .7)"></i>
+  <sc-for list="{{dayStops}}" as="s" hint-placeholder-count="4">
+    <div class="in-pop" style="--d: {{s.d}}; position: absolute; left: {{s.x}}; top: {{s.y}}; width: 0; height: 0">
+      <div style="position: absolute; left: -50px; top: -24px; width: 100px; display: flex; flex-direction: column; align-items: center; gap: 5px">
+        <span class="badge" style="width: 46px; height: 46px; --c: {{s.c}}"><span class="icon" style="font-size: 23px">{{s.icon}}</span></span>
+        <span class="lbl lbl-s" style="position: relative; padding: 4px 8px; font-size: 14px; line-height: 1.15; max-width: {{s.lw}}">{{s.label}}</span>
+      </div>
+    </div>
+  </sc-for>
+  <sc-if value="{{hasA}}" hint-placeholder-val="{{ false }}"><div class="lbl center-x in-blur" style="--d: .3s; top: 18px; white-space: nowrap">{{a}}</div></sc-if>
+</sc-if>
+
+<!-- split: one big task breaks into small, doable pieces -->
+<sc-if value="{{is.split}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="190" r="150" fill="url(#sg-a)" opacity=".3"></circle>
+    <ellipse cx="171" cy="298" rx="140" ry="12" fill="#000000" opacity=".25"></ellipse>
+  </svg>
+  <div class="in-drop" style="--d: .1s; position: absolute; left: 66px; top: 96px; width: 210px; height: 196px">
+    <div class="block" style="width: 100%; height: 100%; background: #5D6873; color: #FFFFFF; font-size: 20px; --in: soften .7s var(--out) 2s both">{{splitBig}}</div>
+  </div>
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true" style="--in: b-gone .3s linear 2s both">
+    <path d="M171 100 L160 150 L182 186 L164 232 L176 290" pathLength="1" fill="none" stroke="#FFE3A1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="in-draw" style="--d: 1.1s; --dd: .8s"></path>
+    <path d="M70 190 L120 182 L160 150" pathLength="1" fill="none" stroke="#FFE3A1" stroke-width="3" stroke-linecap="round" class="in-draw" style="--d: 1.4s; --dd: .5s"></path>
+  </svg>
+  <div style="position: absolute; left: 18px; right: 18px; top: 186px; height: 110px; display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 10px">
+    <sc-for list="{{splitPieces}}" as="k" hint-placeholder-count="3">
+      <div class="in-pop" style="--d: {{k.d}}; flex: 1 1 0; max-width: 104px; transform-origin: 50% 100%">
+        <div class="block i-bob" style="height: {{k.h}}; background: {{k.bg}}; color: {{k.fg}}; font-size: 15px; --t: 2.2s; --dl: {{k.dl}}">{{k.label}}</div>
+      </div>
+    </sc-for>
+  </div>
+  <sc-if value="{{hasB}}" hint-placeholder-val="{{ false }}"><div class="lbl center-x in-blur" style="--d: 3.4s; top: 22px; white-space: nowrap">{{b}}</div></sc-if>
+</sc-if>
+
+<!-- orbit: the things around us, lit one at a time -->
+<sc-if value="{{is.orbit}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="250" r="140" fill="url(#sg-t)" opacity=".45" class="i-glow"></circle>
+    <sc-for list="{{orbitNodes}}" as="n" hint-placeholder-count="4"><path d="M171 236 L{{n.px}} {{n.py}}" pathLength="1" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="2" stroke-dasharray="1 1" class="in-draw" style="--d: {{n.d}}; --dd: .6s"></path></sc-for>
+    <g class="in-rise" style="--d: .05s"><g class="i-breath"><use href="#ruth-body" x="96" y="186" width="150" height="188"></use></g><g class="i-sway" style="--t: 6s"><use href="#ruth-head" x="96" y="186" width="150" height="188"></use><use href="{{orbitEyes}}" class="i-blink" x="96" y="186" width="150" height="188"></use><use href="#ruth-glasses" x="96" y="186" width="150" height="188"></use><use href="#mouth-soft" x="96" y="186" width="150" height="188"></use></g></g>
+  </svg>
+  <sc-for list="{{orbitNodes}}" as="n" hint-placeholder-count="4">
+    <div class="in-pop" style="--d: {{n.d}}; position: absolute; left: {{n.x}}; top: {{n.y}}; width: 0; height: 0">
+      <div style="position: absolute; left: -52px; top: -25px; width: 104px; display: flex; flex-direction: column; align-items: center; gap: 5px">
+        <span class="badge" style="--c: {{n.c}}; --fx: cyc-flash {{n.loop}} linear {{n.flash}} infinite"><span class="icon">{{n.icon}}</span></span>
+        <span class="lbl lbl-s" style="position: relative; padding: 4px 8px; font-size: 14px; line-height: 1.15; max-width: {{n.lw}}">{{n.label}}</span>
+      </div>
+    </div>
+  </sc-for>
+</sc-if>
+
+<!-- wander: attention drifts off to a thought, and is brought back -->
+<sc-if value="{{is.wander}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="250" r="150" fill="url(#sg-b)" opacity=".4"></circle>
+    <path d="M171 296 C150 220 110 170 92 110" pathLength="1" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="2" stroke-dasharray="2 8" class="in-fade" style="--d: .8s"></path>
+    <g class="in-rise" style="--d: .05s"><g class="i-breath" style="--t: 4s"><use href="#ruth-body" x="106" y="196" width="150" height="188"></use></g><g class="i-sway" style="--t: 7s"><use href="#ruth-head" x="106" y="196" width="150" height="188"></use><use href="#eyes-shut" x="106" y="196" width="150" height="188"></use><use href="#ruth-glasses" x="106" y="196" width="150" height="188"></use><use href="#mouth-soft" x="106" y="196" width="150" height="188"></use></g></g>
+    <g style="transform-box: view-box; transform-origin: 181px 318px; --idle: home-ring 8s linear 1s infinite; opacity: 0"><circle cx="181" cy="318" r="22" fill="none" stroke="#B8FFF0" stroke-width="3"></circle></g>
+  </svg>
+  <div class="cloud in-pop" style="--d: .5s; top: 46px; left: 18px; max-width: 170px; white-space: normal; text-align: center">{{a}}</div>
+  <i class="orb" style="width: 24px; height: 24px; offset-path: path('M181 318 C160 230 120 170 100 112'); --idle: wander 8s var(--io) 1s infinite; --c: #B8FFF0; --cg: rgba(150, 255, 230, .6)"></i>
+  <sc-if value="{{hasB}}" hint-placeholder-val="{{ false }}"><div class="lbl in-blur" style="--d: 3.6s; top: 24px; right: 16px; max-width: 150px">{{b}}</div></sc-if>
+</sc-if>
+
+<!-- item rail: the script's own labels for kinds whose picture has no slot for them (clock, trail, tremor, wander) -->
+<sc-if value="{{hasRail}}" hint-placeholder-val="{{ false }}">
+  <div style="position: absolute; top: {{railPos.top}}; bottom: {{railPos.bottom}}; left: {{railPos.left}}; right: {{railPos.right}}; max-width: 170px; display: flex; flex-direction: column; align-items: {{railPos.align}}; gap: 6px">
+    <sc-for list="{{railRows}}" as="r" hint-placeholder-count="3">
+      <div class="lbl lbl-s in-blur" style="--d: {{r.d}}; position: static; display: flex; align-items: center; gap: 6px; text-align: start"><span class="icon" style="font-size: 18px; color: {{r.c}}">{{r.icon}}</span>{{r.label}}</div>
+    </sc-for>
+  </div>
+</sc-if>
+
+<!-- fork: the path divides, and there is more than one way on -->
+<sc-if value="{{is.fork}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <path d="M-10 230 Q171 190 352 230 L352 370 L-10 370 Z" fill="#2E6B4A"></path>
+    <path d="M150 370 L192 370 L180 236 L162 236 Z" fill="#E2CC98"></path>
+    <sc-for list="{{forkPaths}}" as="f" hint-placeholder-count="3"><path d="{{f.d}}" pathLength="1" fill="none" stroke="#E2CC98" stroke-width="16" stroke-linecap="round" class="in-draw" style="--d: {{f.dd}}; --dd: 1s"></path></sc-for>
+    <circle cx="171" cy="236" r="16" fill="#E2CC98"></circle>
+    <g style="--in: walk-in 1.6s var(--out) .2s both"><g class="i-bob" style="--t: .5s"><use href="#ruth-body" x="150" y="190" width="44" height="55"></use><use href="#ruth-head" x="150" y="190" width="44" height="55"></use><use href="#eyes-up" x="150" y="190" width="44" height="55"></use><use href="#ruth-glasses" x="150" y="190" width="44" height="55"></use><use href="#mouth-soft" x="150" y="190" width="44" height="55"></use></g></g>
+  </svg>
+  <sc-for list="{{forkSigns}}" as="s" hint-placeholder-count="3">
+    <div class="lbl lbl-s in-pop" style="--d: {{s.d}}; left: {{s.x}}; top: {{s.y}}; width: 106px; transform-origin: 50% 100%">{{s.label}}</div>
+  </sc-for>
+  <sc-if value="{{hasA}}" hint-placeholder-val="{{ false }}"><div class="ttl center-x in-blur" style="--d: .3s; top: 20px; font-size: 19px; white-space: nowrap">{{a}}</div></sc-if>
+</sc-if>
+
+<!-- spotlight: at first only the hard part is lit, then the rest of the picture appears -->
+<sc-if value="{{is.spotlight}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="166" r="160" fill="url(#sg-a)" opacity=".35"></circle>
+  </svg>
+  <sc-for list="{{spotItems}}" as="s" hint-placeholder-count="4">
+    <div class="lbl" style="left: {{s.x}}; top: {{s.y}}; width: 134px; display: flex; align-items: center; gap: 6px; padding: 7px 10px; font-size: 15px; text-align: start"><span class="icon" style="font-size: 22px; color: {{s.c}}; font-variation-settings: 'FILL' 1">{{s.icon}}</span><span>{{s.label}}</span></div>
+  </sc-for>
+  <div class="dark-stage" style="--d: 1.8s"></div>
+  <div class="lbl lbl-l center-x in-pop" style="--d: .3s; top: 146px; background: #5D6873; color: #FFFFFF; white-space: nowrap">{{a}}</div>
+</sc-if>
+
+<!-- selftalk: a harsh inner voice, answered more kindly -->
+<sc-if value="{{is.selftalk}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="230" cy="250" r="150" fill="{{talkGlow}}" opacity=".45" class="i-glow"></circle>
+    <g class="in-rise" style="--d: .05s">
+      <g class="i-breath"><use href="#ruth-body" x="140" y="150" width="180" height="225"></use></g>
+      <g class="i-sway" style="--t: 6s"><use href="#ruth-head" x="140" y="150" width="180" height="225"></use><use href="#eyes" class="i-blink" x="140" y="150" width="180" height="225"></use><use href="#ruth-glasses" x="140" y="150" width="180" height="225"></use>
+        <use href="#mouth-sad" x="140" y="150" width="180" height="225" style="--in: {{talkSadOut}}"></use>
+        <sc-if value="{{hasB}}" hint-placeholder-val="{{ false }}"><use href="#mouth-smile" x="140" y="150" width="180" height="225" style="opacity: 0; --in: k-fade .6s var(--out) 2.9s both"></use></sc-if>
+      </g>
+    </g>
+    <g fill="#FFFFFF" opacity=".9"><circle cx="152" cy="190" r="5" class="in-pop" style="--d: .4s"></circle><circle cx="138" cy="170" r="8" class="in-pop" style="--d: .55s"></circle></g>
+  </svg>
+  <div style="position: absolute; top: 44px; left: 16px; max-width: 200px; --in: {{talkHarshOut}}">
+    <div class="lbl harsh in-pop i-shake" style="position: relative; --d: .7s; --t: .5s; font-size: 18px">{{a}}</div>
+  </div>
+  <sc-if value="{{hasB}}" hint-placeholder-val="{{ false }}">
+    <div class="lbl lbl-l in-pop" style="--d: 2.7s; top: 40px; left: 16px; max-width: 210px; border-radius: 26px; background: #FFF0F5; color: #5A1E36; box-shadow: 0 0 0 2px #FF9EC4, 0 10px 24px -10px rgba(0, 0, 0, .45); font-size: 18px; transform-origin: 30% 100%"><span class="icon" style="font-size: 20px; color: #FF6B8E; font-variation-settings: 'FILL' 1; vertical-align: -4px; margin-inline-end: 6px">favorite</span>{{b}}</div>
+  </sc-if>
+</sc-if>
+
+<!-- practices: the practices in the app, ready when needed -->
+<sc-if value="{{is.practices}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true"><circle cx="171" cy="180" r="150" fill="url(#sg-t)" opacity=".4" class="i-glow"></circle></svg>
+  <div class="in-rise" style="--d: .05s; position: absolute; left: 71px; top: 16px; width: 200px; height: 330px">
+    <div class="i-float" style="--t: 7s; position: absolute; inset: 0; box-sizing: border-box; padding: 10px; border-radius: 36px; background: #1E2430; box-shadow: 0 24px 40px -18px rgba(0, 0, 0, .7), inset 0 0 0 2px #3A4250">
+      <div style="position: relative; width: 100%; height: 100%; box-sizing: border-box; padding: 34px 12px 12px; border-radius: 27px; overflow: hidden; background: linear-gradient(#F5FBF8, #DDEFEA); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 104px; gap: 10px; align-content: start">
+        <sc-for list="{{appTiles}}" as="t" hint-placeholder-count="4">
+          <div class="tile in-pop" style="--d: {{t.d}}; --c: {{t.c}}"><span class="badge" style="width: 40px; height: 40px; --c: {{t.c}}"><span class="icon" style="font-size: 21px; color: #FFFFFF">{{t.icon}}</span></span>{{t.label}}</div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  <div style="position: absolute; left: 196px; top: 120px; width: 34px; height: 34px; border-radius: 50%; background: rgba(255, 255, 255, .85); box-shadow: 0 4px 12px rgba(0, 0, 0, .3); --idle: phone-tap 6s var(--io) 2.4s infinite; opacity: 0"></div>
+</sc-if>
+
+<!-- evidence: what the research found -->
+<sc-if value="{{is.evidence}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="180" r="150" fill="url(#sg-b)" opacity=".35"></circle>
+    <path d="M30 262 L312 262" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"></path>
+    <sc-for list="{{bars}}" as="r" hint-placeholder-count="4">
+      <g class="in-grow" style="--d: {{r.d}}"><rect x="{{r.x}}" y="{{r.y}}" width="{{r.w}}" height="{{r.h}}" rx="10" fill="{{r.c}}"></rect><rect x="{{r.x}}" y="{{r.y}}" width="{{r.w}}" height="10" rx="5" fill="#FFFFFF" opacity=".3"></rect></g>
+      <use href="#spark" x="{{r.sx}}" y="{{r.sy}}" width="18" height="18" fill="#FFE7A8" class="in-pop i-twinkle" style="--d: {{r.d2}}; --t: 2.6s"></use>
+    </sc-for>
+    <g style="--idle: i-par 5s var(--io) 2s infinite alternate; --px: 80px"><g class="in-pop" style="--d: 2.2s"><circle cx="171" cy="104" r="24" fill="#FFFFFF" fill-opacity=".15" stroke="#FFFFFF" stroke-width="6"></circle><path d="M188 121 L206 139" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"></path></g></g>
+  </svg>
+  <sc-for list="{{bars}}" as="r" hint-placeholder-count="4">
+    <div class="in-blur" style="--d: {{r.d2}}; position: absolute; left: {{r.lx}}; top: 270px; width: {{r.lw}}; color: #FFFFFF; font-size: 14px; line-height: 1.2; font-weight: 600; text-align: center; text-shadow: 0 2px 8px rgba(0, 0, 0, .35)">{{r.label}}</div>
+  </sc-for>
+  <sc-if value="{{hasA}}" hint-placeholder-val="{{ false }}"><div class="lbl center-x in-blur" style="--d: .3s; top: 20px; display: flex; align-items: center; gap: 6px; white-space: nowrap"><span class="icon" style="font-size: 22px; color: #2E8A7F">science</span>{{a}}</div></sc-if>
+</sc-if>
+
+<!-- load: the day's demands pile up -->
+<sc-if value="{{is.load}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="110" cy="250" r="140" fill="url(#sg-b)" opacity=".3"></circle>
+    <g class="in-rise" style="--d: .05s">
+      <g class="b-droop" style="--d: 2.4s; --ang: 0deg; --dy: 6px"><g class="i-breath"><use href="#ruth-body" x="6" y="170" width="150" height="188"></use></g></g>
+      <g class="b-droop" style="--d: 2.4s; --ang: 8deg; --dy: 8px; transform-box: view-box; transform-origin: 81px 290px"><use href="#ruth-head" x="6" y="170" width="150" height="188"></use><use href="#eyes" class="i-blink" x="6" y="170" width="150" height="188"></use><use href="#ruth-glasses" x="6" y="170" width="150" height="188"></use><use href="#mouth-sad" x="6" y="170" width="150" height="188"></use></g>
+    </g>
+    <ellipse cx="250" cy="336" rx="80" ry="10" fill="#000000" opacity=".25"></ellipse>
+  </svg>
+  <div style="position: absolute; right: 22px; bottom: 26px; width: 150px; display: flex; flex-direction: column-reverse; align-items: center; gap: 6px; --idle: wobble 3s var(--io) 3s infinite alternate; transform-origin: 50% 100%">
+    <sc-for list="{{loadCards}}" as="k" hint-placeholder-count="5">
+      <div class="in-drop" style="--d: {{k.d}}; width: {{k.w}}; rotate: {{k.r}}">
+        <div class="block" style="justify-content: flex-start; gap: 8px; padding: 7px 10px; background: {{k.bg}}; color: #14201E; font-size: 14px"><span class="icon" style="font-size: 20px; color: {{k.ic}}; font-variation-settings: 'FILL' 1">{{k.icon}}</span>{{k.label}}</div>
+      </div>
+    </sc-for>
+  </div>
+</sc-if>
+
+<!-- pocket: small skills, carried everywhere -->
+<sc-if value="{{is.pocket}}" hint-placeholder-val="{{ false }}">
+  <svg class="layer" viewBox="0 0 342 360" width="342" height="360" aria-hidden="true">
+    <circle cx="171" cy="200" r="150" fill="url(#sg-a)" opacity=".35" class="i-glow"></circle>
+    <path d="M-10 250 L352 250 L352 370 L-10 370 Z" fill="#2E8A7F"></path><path d="M-10 250 L352 250 L352 262 L-10 262 Z" fill="#46A698"></path>
+    <path d="M86 236 L256 236 L250 330 Q171 352 92 330 Z" fill="#23716A"></path>
+    <path d="M86 236 L256 236 L254 252 L88 252 Z" fill="#1C5751"></path>
+    <path d="M100 262 L242 262 M104 282 L238 282" stroke="#46A698" stroke-width="2" stroke-dasharray="5 5"></path>
+  </svg>
+  <sc-for list="{{pocketItems}}" as="p" hint-placeholder-count="3">
+    <div style="position: absolute; left: {{p.x}}; top: {{p.y}}; width: 0; height: 0; --ox: {{p.ox}}; --in: pocket-out 1.1s var(--soft) {{p.d}} both">
+      <div class="i-float" style="position: absolute; left: -54px; top: -26px; width: 108px; display: flex; flex-direction: column; align-items: center; gap: 6px; --t: {{p.t}}">
+        <span class="badge" style="width: 54px; height: 54px; --c: {{p.c}}"><span class="icon">{{p.icon}}</span></span>
+        <span class="lbl lbl-s" style="position: relative; padding: 4px 9px; font-size: 14px; line-height: 1.15; max-width: 110px">{{p.label}}</span>
+      </div>
+    </div>
+  </sc-for>
+  <sc-if value="{{hasA}}" hint-placeholder-val="{{ false }}"><div class="lbl center-x in-blur" style="--d: .3s; top: 18px; white-space: nowrap">{{a}}</div></sc-if>
+</sc-if>
+
+</div>
+<div class="vignette"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"kind":{"editor":"enum","options":["hello","person","belly","box","wave","scale","steps","cycle","battery","clouds","bus","cards","together","switch","landscape","night","tools","brain","bear","chess","compass","garden","heart","door","scan","ground","quote","list","phone","birds","hand","clock","road","party","dials","trail","comfort","questions","stack","posture","tremor","day","split","orbit","wander","fork","spotlight","selftalk","practices","evidence","load","pocket"],"default":"person"},"a":{"editor":"text","default":""},"b":{"editor":"text","default":""},"items":{"editor":null,"default":[]},"paused":{"editor":"boolean","default":false},"$preview":{"width":342,"height":360}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const kind = this.props.kind || 'person';
+    const a = this.props.a || '';
+    const b = this.props.b || '';
+    const items = Array.isArray(this.props.items) ? this.props.items : [];
+    const kinds = ['hello','person','belly','box','wave','scale','steps','cycle','battery','clouds','bus','cards','together','switch','landscape','night','tools','brain','bear','chess','compass','garden','heart','door','scan','ground','quote','list','phone','birds','hand','clock','road','party','dials','trail','comfort','questions','stack','posture','tremor','day','split','orbit','wander','fork','spotlight','selftalk','practices','evidence','load','pocket'];
+    const is = {};
+    kinds.forEach((k) => { is[k] = k === kind; });
+
+    // worlds: sky top, sky bottom, the pool of light, the dust
+    const worlds = {
+      teal: ['#0B3D40', '#1D6B63', 'rgba(111,227,207,.34)', 'rgba(200,255,240,.9)'],
+      ocean: ['#0B2A4A', '#1D5D8A', 'rgba(124,200,255,.3)', 'rgba(205,235,255,.9)'],
+      indigo: ['#16123A', '#382C78', 'rgba(165,145,255,.3)', 'rgba(225,215,255,.9)'],
+      plum: ['#2E1638', '#75345E', 'rgba(255,150,190,.3)', 'rgba(255,215,230,.9)'],
+      dusk: ['#2D1A44', '#B0566A', 'rgba(255,180,140,.36)', 'rgba(255,228,205,.9)'],
+      amber: ['#3A230E', '#8E5A1F', 'rgba(255,200,110,.3)', 'rgba(255,236,195,.9)'],
+      slate: ['#1E252C', '#46525C', 'rgba(170,190,210,.2)', 'rgba(220,230,240,.6)'],
+      sky: ['#4AA6DD', '#CBEBF6', 'rgba(255,246,214,.55)', 'rgba(255,255,255,.95)'],
+      dawn: ['#69B5E0', '#FBE0B8', 'rgba(255,240,200,.55)', 'rgba(255,255,255,.9)'],
+      night: ['#0B1028', '#262B5E', 'rgba(120,130,230,.24)', 'rgba(215,222,255,.9)'],
+      forest: ['#0F2F24', '#2A6B47', 'rgba(180,245,160,.26)', 'rgba(228,255,212,.9)'],
+      earth: ['#1C2A33', '#2F4A52', 'rgba(255,200,110,.2)', 'rgba(255,236,195,.8)']
+    };
+    const mood = a || 'calm';
+    const worldOf = { hello: 'teal', belly: 'ocean', box: 'indigo', scale: 'amber', steps: 'forest', cycle: 'indigo', clouds: 'sky', bus: 'sky', cards: 'plum', together: 'dusk', landscape: 'dawn', night: 'night', tools: 'teal', list: 'ocean', brain: 'indigo', bear: 'indigo', chess: 'ocean', compass: 'ocean', garden: 'dawn', heart: 'plum', door: 'amber', scan: 'teal', ground: 'earth', phone: 'indigo', birds: 'sky', hand: 'teal', road: 'sky', party: 'dusk', dials: 'slate', trail: 'forest', comfort: 'dusk', questions: 'indigo', stack: 'teal', posture: 'plum', tremor: 'teal', day: 'dawn', split: 'amber', orbit: 'ocean', wander: 'indigo', fork: 'forest', spotlight: 'slate', selftalk: 'plum', practices: 'teal', evidence: 'ocean', load: 'slate', pocket: 'amber' };
+    let wk = worldOf[kind] || 'teal';
+    if (kind === 'person') wk = { calm: 'teal', heavy: 'slate', think: 'indigo', happy: 'dusk' }[mood] || 'teal';
+    if (kind === 'wave') wk = a === 'breath' ? 'teal' : 'ocean';
+    if (kind === 'battery') wk = a === 'drain' ? 'slate' : a === 'charge' ? 'teal' : 'amber';
+    if (kind === 'switch') wk = 'teal';
+    if (kind === 'quote') wk = { amber: 'amber', blue: 'ocean', pink: 'plum' }[b] || 'teal';
+    if (kind === 'clock') wk = b === 'night' ? 'night' : 'dusk';
+    const W = worlds[wk];
+
+    // a few motes, placed the same way every time for a given scene
+    let seed = 7;
+    for (const ch of kind + a + b) seed = (seed * 31 + ch.charCodeAt(0)) % 100003;
+    const rnd = (i) => { const x = Math.sin(seed * 0.013 + i * 12.9898) * 43758.5453; return x - Math.floor(x); };
+    const motes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => ({
+      x: Math.round(rnd(i) * 320 + 10) + 'px', y: Math.round(rnd(i + 20) * 280 + 50) + 'px', s: (2 + rnd(i + 40) * 3).toFixed(1) + 'px',
+      dur: (7 + rnd(i + 60) * 6).toFixed(1) + 's', dl: (-rnd(i + 80) * 12).toFixed(1) + 's', dx: Math.round((rnd(i + 90) - 0.5) * 30) + 'px'
+    }));
+
+    const split = (s) => { const p = String(s).split('|'); return p.length > 1 ? { icon: p[0], label: p[1] } : { icon: '', label: p[0] }; };
+    const hues = ['#E0954A', '#2E9C8C', '#C2577E', '#4C7FD6', '#7C8A2E', '#8C5CC9'];
+    const hl = parseInt(b, 10);
+    const sec = (x) => x.toFixed(2) + 's';
+
+    // person
+    const personGlow = { calm: 'url(#sg-t)', heavy: 'url(#sg-b)', think: 'url(#sg-b)', happy: 'url(#sg-a)' }[mood] || 'url(#sg-t)';
+
+    // belly: breathe in, breathe out, or just keep breathing
+    const inBreath = /שאיפ|פנימה|שואפ|נכנס/.test(a);
+    const outBreath = /נשיפ|החוצה|נושפ|לצאת|יוצא/.test(a);
+    const bellyMode = inBreath ? 'in' : outBreath ? 'out' : 'loop';
+
+    // steps: Ruth climbs to the highlighted step, or to the top
+    const stepItems = items.slice(0, 5);
+    const sn = Math.max(stepItems.length, 1);
+    const target = isNaN(hl) ? sn - 1 : Math.max(0, Math.min(sn - 1, hl));
+    const ss = Math.min(58, 236 / sn), ind = sn > 1 ? Math.min(52, 146 / (sn - 1)) : 0, sw = 176;
+    const base = 286 - Math.round((236 - sn * ss) / 2);
+    const slabs = stepItems.map((label, i) => {
+      const R = 322 - i * ind, T = base - i * ss, h = ss - 10;
+      const done = i < target, cur = i === target;
+      return { label, n: String(i + 1), x: R - sw, y: T, w: sw, h, sx: R - 14, d: sec(0.1 + i * 0.22), ld: sec(0.35 + i * 0.22),
+        front: cur ? '#FFC56E' : done ? '#4FB6A3' : '#2C5A52', top: cur ? '#FFE2A8' : done ? '#86DCCB' : '#3D7068', side: cur ? '#E2A54A' : done ? '#3A9384' : '#244A44',
+        ink: cur ? '#3A2400' : done ? '#06201C' : '#D3ECE6',
+        lx: (R - sw) + 'px', ly: T + 'px', lw: (sw - 16) + 'px', lh: h + 'px', fs: sn > 4 ? '15px' : '17px' };
+    });
+    const walkers = [];
+    for (let i = 0; i <= target && i < slabs.length; i++) {
+      const R = 322 - i * ind, T = base - i * ss, start = 1.3 + i * 1.1;
+      walkers.push({ x: R - 36, y: T - 42, d: sec(start), h: i < target ? sec(start + 1.1) : '999s', fx: (i === 0 ? 60 : ind) + 'px', fy: (i === 0 ? 0 : ss) + 'px' });
+    }
+
+    // cycle
+    const cyc = items.slice(0, 6);
+    const cycleIcons = ['bolt', 'favorite', 'directions_walk', 'psychology', 'visibility', 'spa'];
+    const cycleNodes = cyc.map((raw, i) => {
+      const sp = split(raw), ang = -Math.PI / 2 + i * 2 * Math.PI / cyc.length, on = i === hl;
+      return { label: sp.label, icon: sp.icon || cycleIcons[i % cycleIcons.length], x: Math.round(171 + 100 * Math.cos(ang)) + 'px', y: Math.round(176 + 100 * Math.sin(ang)) + 'px',
+        c: on ? '#E0954A' : hues[(i + 1) % hues.length], d: sec(0.4 + i * 0.3), flash: sec(1.2 + 8 * i / Math.max(1, cyc.length)) };
+    });
+    const cycArrows = cyc.map((_, i) => Math.round((i + 0.5) * 360 / Math.max(1, cyc.length)));
+
+    // battery
+    const bMode = a === 'drain' ? 'drain' : a === 'charge' ? 'charge' : 'level';
+    const cells = [0, 1, 2, 3, 4].map((k) => {
+      const y = 252 - k * 42;
+      if (bMode === 'drain') return { y, fill: k === 0 ? '#FF8A6B' : '#6BE3B8', cls: k === 0 ? '' : 'b-off', d: sec(1 + (4 - k) * 0.8), op: 1, idle: k === 0 ? 'cell-flick 1.6s linear 4.4s infinite' : 'none' };
+      if (bMode === 'charge') return { y, fill: '#6BE3B8', cls: 'b-on', d: sec(0.9 + k * 0.7), op: 0.14, idle: 'none' };
+      return { y, fill: '#FFC56E', cls: '', d: '0s', op: k < 3 ? 1 : 0.14, idle: k === 2 ? 'cell-flick 6s var(--io) 1s infinite' : 'none' };
+    });
+    const batteryLabel = b || items[0] || (bMode === 'level' ? a : '');
+
+    // switch
+    const sw0 = a === 'off' ? 'off' : a === 'toggle' ? 'toggle' : 'on';
+
+    // landscape
+    const landWater = a === 'beach' || a === 'lake';
+    const landHome = a === 'safe';
+
+    // garden
+    const flowerColors = ['#FF7FA6', '#B9A8FF', '#FFFFFF'];
+    const gardenWater = b === 'water';
+    const g0 = gardenWater ? 1.6 : 0.3;
+    const flowers = [0, 1, 2].map((i) => {
+      const x = 92 + i * 79, top = [190, 150, 196][i], bend = [14, -10, 12][i];
+      return { stem: `M${x} 286 C${x + bend} ${top + 70} ${x - bend} ${top + 40} ${x} ${top}`, leaf: `M${x} ${top + 66} C${x + 22} ${top + 46} ${x + 38} ${top + 56} ${x + 34} ${top + 64} C${x + 24} ${top + 74} ${x + 8} ${top + 72} ${x} ${top + 66} Z`,
+        fx: x - 28, fy: top - 28, color: flowerColors[i], d: sec(g0 + i * 0.45), dl: sec(g0 + 0.7 + i * 0.45), df: sec(g0 + 1.1 + i * 0.45), t: (5 + i) + 's' };
+    });
+
+    // quote: the line arrives word by word
+    const words = a.split(/\s+/).filter(Boolean);
+    const quoteWords = words.map((w, i) => ({ w, d: sec(0.35 + i * 0.16) }));
+    const quoteSize = a.length > 34 ? '25px' : a.length > 22 ? '28px' : '32px';
+    const quoteAccent = { amber: '#FFD27A', blue: '#9FD4FF', pink: '#FFB3C6' }[b] || '#8FF0DA';
+
+    // list and tools
+    const listItems = items.slice(0, 5);
+    const ln = Math.max(listItems.length, 1);
+    const lstep = ln > 1 ? Math.min(72, 250 / (ln - 1)) : 0;
+    const ly0 = 180 - lstep * (ln - 1) / 2;
+    const listRows = listItems.map((s, i) => { const sp = split(s); return { label: sp.label, icon: sp.icon || 'circle', y: Math.round(ly0 + i * lstep) + 'px', c: hues[i % hues.length], d: sec(0.35 + i * 0.6), d2: sec(0.5 + i * 0.6) }; });
+
+    // party lights and confetti
+    const bulbColors = ['#FFD36E', '#FF7FA6', '#8FF0DA', '#B9A8FF'];
+    const bulbs = [0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => { const x = 10 + i * 40; const t = x / 342; return { x, y: Math.round(40 + 4 * 56 * t * (1 - t)), c: bulbColors[i % 4], dl: sec(-i * 0.37) }; });
+    const confetti = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => ({ x: Math.round(rnd(i + 3) * 320 + 10) + 'px', c: bulbColors[i % 4], t: sec(4 + rnd(i + 5) * 3), dl: sec(-rnd(i + 7) * 6), dx: Math.round((rnd(i + 9) - 0.5) * 80) + 'px' }));
+
+    const chessCells = [];
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) chessCells.push({ x: 61 + c * 55, y: 100 + r * 55, fill: (r + c) % 2 ? '#E9C58C' : '#FFF1D6' });
+
+
+    // second set
+    const hasB = !!b;
+    const poseX = [283, 171, 59];
+    const poseLabels = [items[0] || 'יושבים', items[1] || 'נשענים', items[2] || 'שוכבים'];
+    const poses = [0, 1, 2].map((i) => ({ cx: poseX[i], chair: i === 0, lean: i === 1, lie: i === 2, label: poseLabels[i], d: sec(0.1 + i * 0.35), ld: sec(0.45 + i * 0.35), lx: (poseX[i] - 52) + 'px',
+      glow: isNaN(hl) ? '.3' : i === hl ? '.95' : '0', lop: isNaN(hl) || i === hl ? '1' : '.6' }));
+    const dayIcons = ['wb_twilight', 'coffee', 'light_mode', 'wb_sunny', 'bedtime'];
+    const dItems = items.slice(0, 5);
+    const dayStops = dItems.map((raw, i) => {
+      const sp = split(raw), f = (i + 1) / (dItems.length + 1), th = Math.PI * f;
+      return { label: sp.label, lw: dItems.length >= 4 ? '84px' : '104px', icon: sp.icon || dayIcons[i % dayIcons.length], x: Math.round(171 + 140 * Math.cos(th)) + 'px', y: Math.round(300 - 140 * Math.sin(th)) + 'px', c: hues[i % hues.length], d: sec(0.5 + 5.4 * f) };
+    });
+    const splitPieces = items.slice(0, 4).map((s, i) => ({ label: split(s).label, h: ['74px', '96px', '84px', '78px'][i], bg: ['#86DCCB', '#FFC56E', '#A9C4FF', '#D6B3FF'][i], fg: '#14201E', d: sec(2.1 + i * 0.25), dl: sec(-i * 0.6) }));
+    const oItems = items.slice(0, 5);
+    const orbitNodes = oItems.map((raw, i) => {
+      const sp = split(raw), th = Math.PI * (i + 0.5) / oItems.length, rr = oItems.length === 4 && i % 2 ? 0.66 : 1, five = [[292, 180], [248, 92], [171, 44], [94, 92], [50, 180]];
+      const x = oItems.length === 5 ? five[i][0] : Math.round(171 + 132 * rr * Math.cos(th)), y = oItems.length === 5 ? five[i][1] : Math.round(200 - 128 * rr * Math.sin(th));
+      return { label: sp.label, lw: oItems.length >= 4 ? '92px' : '108px', icon: sp.icon || cycleIcons[i % cycleIcons.length], x: x + 'px', y: y + 'px', px: x, py: y, c: hues[i % hues.length], d: sec(0.5 + i * 0.35), loop: sec(oItems.length * 1.6), flash: sec(2 + i * 1.6) };
+    });
+    const fItems = items.slice(0, 3);
+    const fEnds = fItems.length === 3 ? [[280, 128], [171, 84], [62, 128]] : [[262, 112], [80, 112]];
+    const forkPaths = fItems.map((_, i) => ({ d: `M171 236 C171 196 ${fEnds[i][0]} ${fEnds[i][1] + 90} ${fEnds[i][0]} ${fEnds[i][1] + 26}`, dd: sec(1.5 + i * 0.3) }));
+    const forkSigns = fItems.map((label, i) => ({ label: split(label).label, x: (fEnds[i][0] - 53) + 'px', y: (fEnds[i][1] - 32) + 'px', d: sec(2.3 + i * 0.3) }));
+    const spotPos = [[196, 60], [12, 60], [196, 246], [12, 246]];
+    const spotItems = items.slice(0, 4).map((raw, i) => { const sp = split(raw); return { label: sp.label, icon: sp.icon || 'add_circle', c: hues[(i + 1) % hues.length], x: spotPos[i][0] + 'px', y: spotPos[i][1] + 'px' }; });
+    const appIcons = ['air', 'self_improvement', 'spa', 'landscape'];
+    const appTiles = items.slice(0, 4).map((raw, i) => { const sp = split(raw); return { label: sp.label, icon: sp.icon || appIcons[i % 4], c: hues[(i + 1) % hues.length], d: sec(0.6 + i * 0.3) }; });
+    const bItems = items.slice(0, 4), bn = Math.max(bItems.length, 1), bw = Math.min(58, 220 / bn), btot = bn * bw + (bn - 1) * 16, bx0 = 171 - btot / 2;
+    const bars = bItems.map((raw, i) => {
+      const x = Math.round(bx0 + (bn - 1 - i) * (bw + 16)), h = [118, 150, 134, 170][i], y = 262 - h, d = 0.6 + i * 0.35;
+      return { label: split(raw).label, x, y, w: Math.round(bw), h, c: ['#5FD3BD', '#FFC56E', '#9FB8FF', '#FF9EC4'][i], sx: Math.round(x + bw / 2 - 9), sy: y - 26, lx: Math.round(x - 7) + 'px', lw: Math.round(bw + 14) + 'px', d: sec(d), d2: sec(d + 0.6) };
+    });
+    const loadDefault = ['calendar_month|תורים', 'medication|תרופות', 'checklist|משימות', 'call|טלפונים', 'fitness_center|אימונים'];
+    const loadIcons = ['calendar_month', 'medication', 'checklist', 'call', 'fitness_center'];
+    const loadCards = (items.length ? items : loadDefault).slice(0, 5).map((raw, i) => { const sp = split(raw); return { label: sp.label, icon: sp.icon || loadIcons[i % 5], w: [150, 136, 146, 128, 140][i] + 'px', r: ['-3deg', '2deg', '-1.5deg', '3deg', '-2deg'][i], bg: ['#FFE3A1', '#D6ECFF', '#FFD6E2', '#D7F5EC', '#E8DCFF'][i], ic: ['#B07A1E', '#3E6FB0', '#C2577E', '#2E8A7F', '#7C5CC9'][i], d: sec(0.4 + i * 0.4) }; });
+    const pItems = items.slice(0, 3);
+    const pPos = pItems.length === 3 ? [[271, 150], [171, 100], [71, 150]] : pItems.length === 2 ? [[236, 130], [106, 130]] : [[171, 120]];
+    const pocketItems = pItems.map((raw, i) => { const sp = split(raw); return { label: sp.label, icon: sp.icon || ['air', 'spa', 'anchor'][i], x: pPos[i][0] + 'px', y: pPos[i][1] + 'px', ox: (171 - pPos[i][0]) + 'px', c: hues[i % hues.length], d: sec(0.6 + i * 0.45), t: (5 + i * 0.8).toFixed(1) + 's' }; });
+    return {
+      is, a, b, items,
+      hasRail: (is.clock || is.trail || is.tremor || is.wander) && items.length > 0,
+      railRows: items.slice(0, 5).map((raw, i) => { const sp = split(raw); return { label: sp.label, icon: sp.icon || 'circle', c: hues[i % hues.length], d: sec(0.8 + i * 0.5) }; }),
+      railPos: is.clock ? { top: '14px', bottom: 'auto', left: '14px', right: 'auto', align: 'flex-start' }
+        : is.trail ? { top: 'auto', bottom: '14px', left: '14px', right: 'auto', align: 'flex-start' }
+        : is.tremor ? { top: '80px', bottom: 'auto', left: 'auto', right: '18px', align: 'flex-end' }
+        : { top: 'auto', bottom: '14px', left: 'auto', right: '14px', align: 'flex-end' },
+      hasB, poses, tremorLabel: a || 'וזה בסדר', dayStops, splitBig: a || 'משימה גדולה', splitPieces, orbitNodes, orbitEyes: '#eyes-up',
+      forkPaths, forkSigns, spotItems, appTiles, bars, loadCards, pocketItems,
+      talkGlow: hasB ? 'url(#sg-p)' : 'url(#sg-b)', talkSadOut: hasB ? 'b-gone .5s var(--out) 2.8s both' : 'none', talkHarshOut: hasB ? 'soften .7s var(--out) 2.4s both' : 'none',
+      rootCls: this.props.paused ? 'is-paused' : '',
+      w: { top: W[0], bot: W[1], glow: W[2], mote: W[3] },
+      motes,
+      mood: { calm: mood === 'calm', heavy: mood === 'heavy', happy: mood === 'happy', think: mood === 'think' },
+      personGlow,
+      eyesRef: { heavy: '#eyes-shut', think: '#eyes-up', happy: '#eyes-joy' }[mood] || '#eyes',
+      mouthRef: { heavy: '#mouth-sad', happy: '#mouth-smile' }[mood] || '#mouth-soft',
+      personHeadCls: mood === 'heavy' ? 'b-droop' : '',
+      personBodyCls: mood === 'heavy' ? 'b-droop' : '',
+      personHopCls: mood === 'happy' ? 'b-jump' : '',
+      thinkBubble: mood === 'think' && !!b,
+      bellyCls: bellyMode === 'in' ? 'b-orb-in' : bellyMode === 'out' ? 'b-orb-out' : 'i-breathe',
+      bellyFlow: bellyMode !== 'loop',
+      bellyPath: bellyMode === 'out' ? 'M168 196 C130 170 90 150 30 150' : 'M30 150 C90 150 130 170 168 196',
+      flowDots: ['0s', '-.65s', '-1.3s', '-1.95s'],
+      boxL: items[0] || 'שאיפה', boxT: items[1] || 'עצירה', boxR: items[2] || 'נשיפה', boxB: items[3] || 'עצירה',
+      itemA: items[0] || '', itemB: items[1] || '', itemC: items[2] || '',
+      hasItemA: !!items[0], hasItemB: !!items[1], hasItemC: !!items[2],
+      waveBreath: a === 'breath', waveAnxiety: a !== 'breath',
+      beamCls: a === 'even' ? 'b-level' : 'b-tip',
+      stones: (a === 'even' ? [[260, 168, 40, 26]] : [[238, 166, 44, 28], [284, 172, 38, 22], [256, 140, 40, 26]]).map((s, i) => ({ x: s[0], y: s[1], w: s[2], h: s[3], d: sec(0.3 + i * 0.28) })),
+      slabs, walkers,
+      cycleNodes, cycArrows,
+      cells, batteryCharge: bMode === 'charge', batteryLabel, hasBatteryLabel: !!batteryLabel,
+      batteryGlow: bMode === 'drain' ? 'url(#sg-b)' : bMode === 'charge' ? 'url(#sg-t)' : 'url(#sg-a)',
+      cloudRows: items.slice(0, 4).map((label, i) => ({ label, y: (40 + i * 66) + 'px', x: [16, 56, 28, 70][i] + 'px', d: sec(0.2 + i * 0.7), dur: (34 + i * 6) + 's' })),
+      busTags: items.slice(0, 3).map((label, i) => ({ label, x: [141, 213, 283][i] + 'px', y: [116, 84, 116][i] + 'px', d: sec(0.7 + i * 0.45) })),
+      otherBody: '#guide-body', otherHead: '#guide-head',
+      bubbles: items.slice(0, 2).map((label, i) => ({ label, y: i === 0 ? '36px' : '104px', side: i === 0 ? 'right' : 'left', tx: i === 0 ? '62%' : '28%', origin: i === 0 ? '70% 120%' : '30% 120%', d: sec(0.6 + i * 1.6) })),
+      switchEmber: sw0 !== 'off', switchCalm: sw0 !== 'on', switchTense: sw0 !== 'off',
+      emberIn: sw0 === 'toggle' ? 'ember-out 1.4s var(--io) 1.8s both' : 'none',
+      calmIn: sw0 === 'toggle' ? 'calm-in 1.4s var(--io) 2.2s both' : 'none',
+      tenseOut: sw0 === 'toggle' ? 'b-gone .8s var(--out) 1.6s both' : 'none',
+      knobCls: sw0 === 'toggle' ? 'b-knob' : '',
+      knobX: sw0 === 'on' ? '122px' : '0px',
+      knobShake: sw0 === 'on' ? 'i-shake' : '',
+      switchAop: sw0 === 'off' ? '.5' : '1', switchBop: sw0 === 'on' ? '.5' : sw0 === 'toggle' ? '.5' : '1',
+      switchAin: sw0 === 'toggle' ? 'b-off .8s var(--out) 2s both' : 'none',
+      switchBin: sw0 === 'toggle' ? 'k-fade .8s var(--out) 2s forwards' : 'none',
+      landWater, landHome, landMeadow: !landWater && !landHome,
+      hasLandLabel: !!a && !['lake', 'beach', 'safe'].includes(a),
+      tiles: items.slice(0, 5).map((s, i) => Object.assign(split(s), { c: hues[i % hues.length], d: sec(0.15 + i * 0.4), d2: sec(0.4 + i * 0.4), ft: (5 + i * 0.7).toFixed(1) + 's', fl: sec(-i * 1.3) })),
+      listRows, listY1: listRows.length ? parseInt(listRows[0].y, 10) : 180, listY2: listRows.length ? parseInt(listRows[listRows.length - 1].y, 10) : 180, listDraw: sec(Math.max(0.3, (ln - 1) * 0.6)),
+      chessCells,
+      gardenWater, flowers,
+      floatHearts: [0, 1, 2, 3].map((i) => ({ x: [120, 200, 150, 230][i] + 'px', s: [14, 18, 12, 16][i], t: sec(4 + i * 0.6), dl: sec(1.5 + i * 1.1), dx: [-20, 16, -8, 24][i] + 'px' })),
+      quoteWords, quoteSize, quoteAccent, quoteLine: sec(0.5 + words.length * 0.16),
+      hasA: !!a,
+      phoneKeep: items[0] || 'לאמץ', phonePass: items[1] || 'לתת לחלוף',
+      bulbs, confetti,
+      dials: [0, 1].map((k) => {
+        const lowHigh = a === 'low-high', turning = lowHigh ? k === 1 : k === 0;
+        const x = k === 0 ? 246 : 96;
+        return { x, lx: (x - 70) + 'px', label: items[k] || '', angle: turning ? '70deg' : '-70deg', turn: turning ? 'knob-turn 2s var(--spring) 1.2s both' : 'none', dash: turning ? '1 0' : '0.12 1' };
+      }),
+      prints: [0.12, 0.2, 0.28, 0.36, 0.44, 0.52, 0.6, 0.68, 0.76, 0.84].map((t, i) => ({ at: (t * 100).toFixed(0) + '%', d: sec(3 + i * 0.25) })),
+      qRows: items.slice(0, 4).map((label, i) => ({ label, d: sec(0.3 + i * 1.2) })),
+      stackBlocks: items.slice(0, 4).map((label, i, arr) => {
+        const isNew = i === arr.length - 1;
+        return { label, bg: isNew ? '#FFC56E' : ['#86DCCB', '#A9C4FF', '#D6B3FF'][i % 3], fg: isNew ? '#3A2400' : '#14201E', d: sec(isNew ? 1.6 : 0.2 + i * 0.25), squash: isNew ? 'stack-squash .6s var(--out) 2.4s both' : 'none' };
+      }).reverse()
+    };
+  }
+}
+</script>
+</body>
+</html>

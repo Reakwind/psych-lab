@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>אימון הקול הפנימי</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="app" dir="rtl" lang="he" style="--font-display: 'Rubik', system-ui, sans-serif; --font-body: 'Rubik', system-ui, sans-serif">
+
+<sc-if value="{{isIntro}}" hint-placeholder-val="{{ true }}">
+<div class="topbar"><button class="icon-btn" onClick="{{handBack}}" aria-label="סגירה"><span class="icon">close</span></button><span class="topbar-title muted">הקול הפנימי · {{theme}}</span><span class="topbar-spacer"></span></div>
+<div class="screen center" style="justify-content: center; gap: 28px">
+  <div class="row" style="gap: 0; align-items: flex-end">
+    <div class="art" style="width: 150px; height: 150px; margin-inline-end: -20px">
+      <div class="layer shape shape-clover" style="width: 150px; height: 150px; background: var(--surface-highest)"></div>
+      <span class="glyph icon icon-xl" style="color: var(--outline)">cloud</span>
+    </div>
+    <div class="art" style="width: 190px; height: 190px">
+      <div class="layer shape shape-sunny spin-slow" style="width: 190px; height: 190px; background: var(--tertiary-container)"></div>
+      <span class="glyph icon icon-xxl icon-fill" style="color: var(--tertiary)">potted_plant</span>
+    </div>
+  </div>
+  <h1 class="t-headline">שומרים את הקול המיטיב. נותנים למבקר לחלוף.</h1>
+  <div class="row" style="gap: 8px">
+    <span class="pill"><span class="icon icon-s">timer</span>2 דקות</span>
+    <span class="pill"><span class="icon icon-s">touch_app</span>בוחרים בנגיעה</span>
+  </div>
+</div>
+<div style="padding: 0 24px 24px"><button class="btn btn-filled btn-l btn-block" onClick="{{start}}"><span class="icon icon-fill">play_arrow</span>מתחילים</button></div>
+</sc-if>
+
+<sc-if value="{{isPlay}}" hint-placeholder-val="{{ false }}">
+<div class="topbar">
+  <button class="icon-btn" onClick="{{toIntro}}" aria-label="סגירה"><span class="icon">close</span></button>
+  <div class="row" style="flex: 1 1 auto; justify-content: center; gap: 4px" aria-label="{{progressLabel}}">
+    <sc-for list="{{leaves}}" as="l" hint-placeholder-count="8">
+      <span class="icon icon-s {{l.cls}}" style="color: {{l.color}}">eco</span>
+    </sc-for>
+  </div>
+  <sc-if value="{{readAloud}}" hint-placeholder-val="{{ true }}"><button class="icon-btn" onClick="{{speak}}" aria-label="הקראה"><span class="icon">volume_up</span></button></sc-if>
+  <sc-if value="{{noRead}}" hint-placeholder-val="{{ false }}"><span class="topbar-spacer"></span></sc-if>
+</div>
+<div class="screen" style="padding-top: 12px; gap: 16px">
+  <div style="min-height: 44px; display: flex; justify-content: center">
+    <sc-if value="{{showEncourage}}" hint-placeholder-val="{{ false }}">
+      <span class="pill pill-primary" style="height: 44px; animation: enter .4s var(--ease-emph)"><span class="icon icon-s icon-fill">trending_up</span>הקול הפנימי שלכם מתחזק</span>
+    </sc-if>
+  </div>
+  <div class="grow" style="display: flex; align-items: center">
+    <div key="{{cardKey}}" onPointerDown="{{down}}" onPointerMove="{{move}}" onPointerUp="{{up}}" onPointerCancel="{{up}}" class="card" style="width: 100%; min-height: 340px; display: flex; flex-direction: column; gap: 20px; justify-content: center; touch-action: none; user-select: none; background: {{cardBg}}; transform: {{cardTransform}}; opacity: {{cardOpacity}}; transition: {{cardTransition}}; animation: pop .5s var(--ease-emph)">
+      <div class="row" style="gap: 12px">
+        <span class="art" style="width: 56px; height: 56px">
+          <span class="layer shape {{speakerShape}}" style="width: 56px; height: 56px; background: {{speakerBg}}"></span>
+          <span class="glyph icon icon-fill" style="color: {{speakerFg}}">{{speakerIcon}}</span>
+        </span>
+        <span class="t-label muted">{{speaker}}</span>
+      </div>
+      <p class="t-headline-s" style="font-size: 30px; line-height: 38px">"{{card.text}}"</p>
+    </div>
+  </div>
+  <div style="min-height: 168px; display: flex; flex-direction: column; justify-content: flex-end; gap: 12px">
+    <sc-if value="{{isMiss}}" hint-placeholder-val="{{ false }}">
+      <div class="note" style="animation: enter .35s var(--ease-emph)"><span class="icon c-primary">lightbulb</span><span>{{missText}}</span></div>
+      <button class="btn btn-filled btn-block" onClick="{{next}}">{{missCta}}</button>
+    </sc-if>
+    <sc-if value="{{isPassGood}}" hint-placeholder-val="{{ false }}">
+      <div class="note" style="justify-content: center; animation: enter .35s var(--ease-emph)"><span class="icon">cloud</span>שמנו לב. נותנים לזה לחלוף.</div>
+      <button class="btn btn-filled btn-block" onClick="{{next}}">הבא</button>
+    </sc-if>
+    <sc-if value="{{canAnswer}}" hint-placeholder-val="{{ true }}">
+      <div class="btn-group">
+        <button class="btn btn-outlined btn-l" onClick="{{letPass}}" style="flex-direction: column; gap: 2px; font-size: 18px"><span class="icon icon-l">cloud</span>לתת לחלוף</button>
+        <button class="btn btn-filled btn-l" onClick="{{keep}}" style="flex-direction: column; gap: 2px; font-size: 18px"><span class="icon icon-l icon-fill">potted_plant</span>לשמור</button>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{isGold}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; background: var(--tertiary-container); color: var(--on-tertiary-container); display: flex; flex-direction: column; padding: 0 24px 24px; box-sizing: border-box; animation: bloom .7s var(--ease-emph)">
+  <div class="grow" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; text-align: center">
+    <div class="art" style="width: 180px; height: 180px; animation: pop .8s var(--ease-emph)">
+      <div class="layer shape shape-sunny spin-slow" style="width: 180px; height: 180px; background: #FFC34D"></div>
+      <span class="glyph icon icon-xxl icon-fill" style="color: var(--tertiary)">potted_plant</span>
+    </div>
+    <p class="t-headline" style="font-size: 34px; line-height: 42px">"{{card.text}}"</p>
+    <span class="pill" style="background: rgba(255,255,255,.6); color: var(--on-tertiary-container)"><span class="icon icon-s icon-fill">check</span>נשמר</span>
+  </div>
+  <button class="btn btn-block" style="background: var(--on-tertiary-container); color: var(--tertiary-container)" onClick="{{next}}">הבא</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isEnd}}" hint-placeholder-val="{{ false }}">
+<div class="screen center" style="padding-top: 72px; gap: 24px">
+  <div class="art" style="width: 220px; height: 220px; animation: pop .7s var(--ease-emph)">
+    <div class="layer shape shape-flower spin-slow" style="width: 220px; height: 220px; background: var(--primary-container)"></div>
+    <span class="glyph icon icon-xxl icon-fill" style="color: var(--primary)">park</span>
+  </div>
+  <h2 class="t-headline">האימון הושלם</h2>
+  <div class="row" style="gap: 12px">
+    <div class="card card-tertiary stack center" style="padding: 16px 22px; gap: 2px"><span class="t-headline">{{keptCount}}</span><span class="t-label-s">נשמרו</span></div>
+    <div class="card card-filled stack center" style="padding: 16px 22px; gap: 2px"><span class="t-headline">{{passedCount}}</span><span class="t-label-s">חלפו</span></div>
+  </div>
+  <p class="t-body-l muted">המחשבה יכולה להיות שם. הצעד הבא עדיין יכול לקרות.</p>
+  <div class="grow"></div>
+  <sc-if value="{{embedded}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled btn-block" onClick="{{handBack}}">סיום</button></sc-if>
+  <button class="btn btn-tonal btn-block" onClick="{{start}}"><span class="icon">replay</span>לשחק שוב</button>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["Motivation (S4)","Balanced thoughts (S8)","Relaxation (S22)","Mindfulness (S39)","Compassion & validation (S47)","Labels (S62)","Sleep (Unit 11)","Mixed (Unit 12)"],"default":"Motivation (S4)"},"cardCount":{"editor":"int","min":4,"max":12,"default":8},"swipe":{"editor":"boolean","default":false},"criticPersona":{"editor":"boolean","default":true},"readAloud":{"editor":"boolean","default":true},"onDone":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { screen: 'intro', deck: [], i: 0, dx: 0, result: null, kept: 0, passed: 0 };
+    this.drag = null;
+  }
+  pools() {
+    const u = (text) => ({ text, kind: 'critic' });
+    const h = (text) => ({ text, kind: 'kind' });
+    return {
+      'Motivation (S4)': [u('אין טעם לנסות, שום דבר לא ישתנה'), u('עדיף לחכות עד שיהיה לי יותר טוב'), u('אם לא בא לי, אז לא צריך'), u('פספסתי יום, אז מה הטעם'), u('כמה דקות לא שוות את זה'), h('לא צריך שיתחשק לי כדי להתחיל'), h('גם כמה דקות נחשבות'), h('יום שפספסתי לא מוחק את ההתקדמות'), h('התחלה קטנה היא עדיין התחלה')],
+      'Balanced thoughts (S8)': [u('זה לא יעזור'), u('הכול אצלי כישלון'), u('אם אי אפשר לעשות את זה כמו שצריך, למה לטרוח'), u('כולם מתמודדים יותר טוב ממני'), h('עולה לי המחשבה שזה כישלון'), h('יש ימים קשים יותר, וזה בסדר להמשיך לנסות'), h('גם לא מושלם נחשב'), h('אי אפשר לדעת אם זה עוזר בלי לנסות')],
+      'Relaxation (S22)': [u('אף פעם אין לי רגע של רוגע'), u('זה לא נעשה נכון'), u('אם הגוף לא שקט לגמרי, זה לא עובד'), u('הרפיה היא בזבוז זמן'), h('גם קצת הרפיה היא הרפיה'), h('אין דרך אחת נכונה'), h('הגוף יכול להתרכך בדרך שלו'), h('כמה נשימות רגועות מספיקות כדי להתחיל')],
+      'Mindfulness (S39)': [u('הדעת שלי נדדה, אז זה כישלון'), u('צריך לרוקן את הראש ממחשבות'), u('רוגע זה פשוט לא בשבילי'), u('הרעד הורס הכול'), h('לשים לב שנדדתי – זה התרגול'), h('מחשבות יכולות לבוא וללכת'), h('לחזור – זו המיומנות'), h('שלום, רעד. גם לך יש כאן מקום')],
+      'Compassion & validation (S47)': [u('אסור שזה יהיה לי כל כך קשה'), u('לא מגיעה לי מנוחה'), u('זה לא אמור להיות כל כך קשה'), u('זו חולשה'), h('הגיוני שזה קשה'), h('מנוחה היא חלק מלדאוג לעצמי'), h('היום אני עושה את המיטב שלי'), h('כמו שמגיע לחבר טוב לב, מגיע גם לי')],
+      'Labels (S62)': [u('אין בי שום תועלת'), u('אני נטל'), u('זה כבר לא אני'), u('עכשיו אני רק חולה'), u('הכול אצלי איטי מדי בשביל שזה ישנה'), h('זה עדיין אני, פשוט עושה דברים אחרת'), h('יש לי עוד הרבה מה לתת'), h('לאט זה עדיין לנוע')],
+      'Sleep (Unit 11)': [u('אם אישן רע, מחר הלך'), u('חייבים להירדם עכשיו'), u('לעולם לא אישן טוב שוב'), u('שכיבה בלי שינה היא כישלון'), h('מנוחה יכולה להתחיל עוד לפני שהשינה מגיעה'), h('לא צריך לפתור את מחר הלילה'), h('לילה קשה אחד לא קובע את מחר'), h('הגוף יכול לשחרר את היום')]
+    };
+  }
+  pool() {
+    const p = this.pools();
+    const t = this.props.theme ?? 'Motivation (S4)';
+    return p[t] || Object.keys(p).reduce((all, k) => all.concat(p[k]), []);
+  }
+  start() {
+    const pool = this.pool().slice();
+    for (let k = pool.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); const x = pool[k]; pool[k] = pool[j]; pool[j] = x; }
+    this.setState({ screen: 'play', deck: pool.slice(0, Math.min(pool.length, this.props.cardCount ?? 8)), i: 0, dx: 0, result: null, kept: 0, passed: 0 });
+  }
+  answer(choice) {
+    const s = this.state;
+    const card = s.deck[s.i];
+    if (s.result || !card) return;
+    const right = (choice === 'keep') === (card.kind === 'kind');
+    if (right && choice === 'keep') this.setState({ result: 'gold', dx: 0, kept: s.kept + 1 });
+    else if (right) this.setState({ result: 'pass', dx: 0, passed: s.passed + 1 });
+    else this.setState({ result: choice === 'keep' ? 'missKeep' : 'missPass', dx: 0 });
+  }
+  next() {
+    const s = this.state;
+    const fix = s.result === 'missKeep' ? { passed: s.passed + 1 } : s.result === 'missPass' ? { kept: s.kept + 1 } : {};
+    if (s.i >= s.deck.length - 1) this.setState(Object.assign({ screen: 'end', result: null }, fix));
+    else this.setState(Object.assign({ i: s.i + 1, result: null, dx: 0 }, fix));
+  }
+  renderVals() {
+    const s = this.state;
+    const swipe = this.props.swipe ?? false;
+    const persona = this.props.criticPersona ?? true;
+    const readAloud = this.props.readAloud ?? true;
+    const card = s.deck[s.i] || { text: '', kind: 'kind' };
+    const critic = card.kind === 'critic';
+    const themeNames = { 'Motivation (S4)': 'מוטיבציה', 'Balanced thoughts (S8)': 'מחשבות מאוזנות', 'Relaxation (S22)': 'הרפיה', 'Mindfulness (S39)': 'מיינדפולנס', 'Compassion & validation (S47)': 'חמלה ותיקוף', 'Labels (S62)': 'תוויות', 'Sleep (Unit 11)': 'שינה', 'Mixed (Unit 12)': 'מעורב' };
+    const leaves = (s.deck.length ? s.deck : [0, 0, 0, 0, 0, 0, 0, 0]).map((_, k) => {
+      const done = k < s.i || (k === s.i && s.result);
+      return { cls: done ? 'icon-fill' : '', color: done ? '#2B6A62' : '#BEC9C5' };
+    });
+    let transform = 'translateX(' + s.dx + 'px) rotate(' + (s.dx / 22) + 'deg)';
+    let opacity = '1';
+    if (s.result === 'pass') { transform = 'translateY(-60px) scale(.9)'; opacity = '.25'; }
+    return {
+      embedded: !!this.props.onDone, standalone: !this.props.onDone, handBack: () => { if (this.props.onDone) this.props.onDone(); },
+      theme: themeNames[this.props.theme ?? 'Motivation (S4)'] || 'מעורב',
+      readAloud, noRead: !readAloud,
+      isIntro: s.screen === 'intro', isPlay: s.screen === 'play', isEnd: s.screen === 'end',
+      isGold: s.screen === 'play' && s.result === 'gold', isPassGood: s.result === 'pass',
+      isMiss: s.result === 'missKeep' || s.result === 'missPass',
+      canAnswer: !s.result,
+      start: () => this.start(),
+      toIntro: () => this.setState({ screen: 'intro' }),
+      card, leaves, cardKey: 'c' + s.i,
+      progressLabel: 'כרטיס ' + (s.i + 1) + ' מתוך ' + s.deck.length,
+      showEncourage: s.i > 0 && s.i % 4 === 0 && !s.result,
+      speaker: persona ? (critic ? 'המבקר הפנימי' : 'קול מיטיב') : 'מחשבה',
+      speakerIcon: persona ? (critic ? 'sentiment_dissatisfied' : 'sentiment_satisfied') : 'chat_bubble',
+      speakerShape: persona && !critic ? 'shape-sunny' : 'shape-clover',
+      speakerBg: persona ? (critic ? '#E3EAE7' : '#FFDEA3') : '#E3EAE7',
+      speakerFg: persona ? (critic ? '#3F4946' : '#7A5900') : '#3F4946',
+      cardBg: persona && critic ? 'var(--surface-high)' : 'var(--surface-lowest)',
+      cardTransform: transform, cardOpacity: opacity,
+      cardTransition: this.drag ? 'none' : 'transform .5s var(--ease-emph), opacity .6s var(--ease)',
+      missText: s.result === 'missKeep' ? 'זה המבקר שמדבר. מובן, ולא חייבים לשמור אותו.' : 'זה קול מיטיב. שווה לשמור אותו.',
+      missCta: s.result === 'missKeep' ? 'לתת לחלוף' : 'לשמור',
+      keep: () => this.answer('keep'),
+      letPass: () => this.answer('pass'),
+      next: () => this.next(),
+      speak: () => { try { const u = new SpeechSynthesisUtterance(card.text); u.lang = 'he-IL'; u.rate = 0.9; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); } catch (e) {} },
+      down: (e) => {
+        if (!swipe || s.result) return;
+        this.drag = { x: e.clientX };
+        try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) {}
+      },
+      move: (e) => { if (this.drag) this.setState({ dx: e.clientX - this.drag.x }); },
+      up: () => {
+        if (!this.drag) return;
+        this.drag = null;
+        const dx = this.state.dx;
+        if (dx > 90) this.answer('keep'); else if (dx < -90) this.answer('pass'); else this.setState({ dx: 0 });
+      },
+      keptCount: s.kept, passedCount: s.passed
+    };
+  }
+}
+</script>
+</body>
+</html>

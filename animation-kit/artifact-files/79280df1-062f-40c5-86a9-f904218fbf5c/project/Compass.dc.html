@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The compass: activation</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;family=Google+Sans+Flex:opsz,wght,ROND@6..144,400..700,0..100&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="app">
+
+<sc-if value="{{isIntro}}" hint-placeholder-val="{{ true }}">
+<div class="topbar"><button class="icon-btn" aria-label="Close"><span class="icon">close</span></button><span class="topbar-title muted">The compass</span><span class="topbar-spacer"></span></div>
+<div class="screen center" style="justify-content: center; gap: 32px">
+  <div class="art" style="width: 260px; height: 260px">
+    <div class="layer shape shape-cookie9 spin-slow" style="width: 260px; height: 260px; background: var(--primary-container)"></div>
+    <div class="layer shape shape-circle" style="width: 180px; height: 180px; background: #E3F7F2"></div>
+    <div class="layer shape shape-circle" style="width: 110px; height: 110px; background: #8FD6CA"></div>
+    <div class="layer shape shape-circle" style="width: 50px; height: 50px; background: var(--primary)"></div>
+    <span class="glyph icon icon-xxl" style="color: var(--tertiary); transform: translate(36px, -36px) rotate(-45deg)">north</span>
+  </div>
+  <div class="stack center" style="gap: 10px">
+    <h1 class="t-headline">Which direction matters today?</h1>
+    <p class="t-body-l muted">Big or tiny, every move counts.</p>
+  </div>
+</div>
+<div style="padding: 0 24px 24px"><button class="btn btn-filled btn-l btn-block" onClick="{{start}}">Find it</button></div>
+</sc-if>
+
+<sc-if value="{{isPair}}" hint-placeholder-val="{{ false }}">
+<div class="topbar"><button class="icon-btn" onClick="{{toIntro}}" aria-label="Back"><span class="icon">arrow_back</span></button><span class="topbar-title">{{roundLabel}}</span><span class="topbar-spacer"></span></div>
+<div class="steps"><sc-for list="{{steps}}" as="st" hint-placeholder-count="7"><span class="step {{st}}"></span></sc-for></div>
+<div class="screen" style="padding-top: 20px; gap: 0" key="{{pairKey}}">
+  <h2 class="t-headline-s" style="text-align: center; margin-bottom: 18px">Which matters more?</h2>
+  <button class="list-row" onClick="{{pickA}}" style="flex: 1 1 0; flex-direction: column; justify-content: center; gap: 10px; background: var(--primary-container); color: var(--on-primary-container)">
+    <span class="art" style="width: 96px; height: 96px"><span class="layer shape shape-sunny" style="width: 96px; height: 96px; background: rgba(255,255,255,.65)"></span><span class="glyph icon icon-xl">{{pairA.icon}}</span></span>
+    <span class="t-headline">{{pairA.name}}</span>
+  </button>
+  <div class="row" style="justify-content: center; height: 0; position: relative; z-index: 1">
+    <span class="t-label" style="width: 56px; height: 56px; border-radius: 50%; background: var(--tertiary-container); color: var(--on-tertiary-container); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 6px var(--surface)">or</span>
+  </div>
+  <button class="list-row" onClick="{{pickB}}" style="flex: 1 1 0; flex-direction: column; justify-content: center; gap: 10px; margin-top: 12px; background: var(--secondary-container); color: var(--on-secondary-container)">
+    <span class="art" style="width: 96px; height: 96px"><span class="layer shape shape-flower" style="width: 96px; height: 96px; background: rgba(255,255,255,.65)"></span><span class="glyph icon icon-xl">{{pairB.icon}}</span></span>
+    <span class="t-headline">{{pairB.name}}</span>
+  </button>
+</div>
+</sc-if>
+
+<sc-if value="{{isList}}" hint-placeholder-val="{{ false }}">
+<div class="topbar"><button class="icon-btn" onClick="{{toIntro}}" aria-label="Back"><span class="icon">arrow_back</span></button><span class="topbar-title">Choose one</span><span class="topbar-spacer"></span></div>
+<div class="screen" style="padding-top: 8px">
+  <div class="scroll grow" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; align-content: start; padding: 2px">
+    <sc-for list="{{listValues}}" as="v" hint-placeholder-count="9">
+      <button class="list-row" onClick="{{v.pick}}" style="flex-direction: column; min-height: 132px; justify-content: center; gap: 8px">
+        <span class="list-lead lead-audio"><span class="icon icon-l">{{v.icon}}</span></span>
+        <span class="list-title">{{v.name}}</span>
+      </button>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{isMove}}" hint-placeholder-val="{{ false }}">
+<div class="topbar"><button class="icon-btn" onClick="{{toIntro}}" aria-label="Back"><span class="icon">arrow_back</span></button><span class="topbar-title">{{winner.name}}</span><span class="topbar-spacer"></span></div>
+<div class="screen" style="padding-top: 16px; gap: 16px">
+  <div class="row" style="gap: 14px">
+    <span class="art" style="width: 72px; height: 72px"><span class="layer shape shape-cookie9" style="width: 72px; height: 72px; background: var(--primary)"></span><span class="glyph icon icon-l" style="color: #fff">{{winner.icon}}</span></span>
+    <h2 class="t-headline-s">A move toward it today?</h2>
+  </div>
+  <div class="stack" style="gap: 12px">
+    <sc-for list="{{moves}}" as="m" hint-placeholder-count="3">
+      <button class="list-row" onClick="{{m.pick}}" style="min-height: 104px">
+        <span class="list-lead" style="background: var(--surface-high); gap: 3px; align-items: flex-end; padding-bottom: 14px; box-sizing: border-box" aria-hidden="true">
+          <span style="width: 8px; height: 10px; border-radius: 3px; background: var(--primary)"></span>
+          <span style="width: 8px; height: 18px; border-radius: 3px; background: {{m.bar2}}"></span>
+          <span style="width: 8px; height: 26px; border-radius: 3px; background: {{m.bar3}}"></span>
+        </span>
+        <span class="list-text"><span class="list-sub">{{m.size}}</span><span class="list-title">{{m.text}}</span></span>
+      </button>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{isDone}}" hint-placeholder-val="{{ false }}">
+<div class="screen center" style="padding-top: 64px; gap: 24px">
+  <div class="art" style="width: 260px; height: 260px; animation: pop .7s var(--ease-emph)">
+    <div class="layer shape shape-circle" style="width: 260px; height: 260px; background: var(--surface-high)"></div>
+    <div class="layer shape shape-circle" style="width: 190px; height: 190px; background: var(--primary-container)"></div>
+    <div class="layer shape shape-circle" style="width: 120px; height: 120px; background: #8FD6CA"></div>
+    <div class="layer shape shape-cookie9" style="width: 76px; height: 76px; background: var(--primary)"></div>
+    <span class="glyph icon icon-l" style="color: #fff">{{winner.icon}}</span>
+  </div>
+  <span class="pill pill-amber" style="height: 40px; font-size: 16px"><span class="icon icon-s icon-fill">my_location</span>{{winner.name}} · {{chosenMove.size}}</span>
+  <h2 class="t-headline">{{chosenMove.text}}</h2>
+  <div class="grow"></div>
+  <button class="btn btn-filled btn-block" onClick="{{restart}}">I'll hold this in mind</button>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mode":{"editor":"enum","options":["tournament","single list"],"default":"tournament"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { screen: 'intro', round: [], next: [], step: 0, winner: null, move: null };
+  }
+  values() {
+    return [
+      { name: 'Family', icon: 'family_restroom', moves: ['Ask how their day was', 'A meal together, no screens', 'Plan a small outing'] },
+      { name: 'Self-care', icon: 'spa', moves: ['A glass of water, slowly', 'Rest before you’re exhausted', 'Book something you enjoy'] },
+      { name: 'Health', icon: 'favorite', moves: ['Put on walking shoes', 'Today’s physio session', 'A short walk outside'] },
+      { name: 'Independence', icon: 'home', moves: ['One task, your own pace', 'Make a snack yourself', 'Run a small errand'] },
+      { name: 'Connection', icon: 'diversity_3', moves: ['Send one text', 'Make a phone call', 'Meet a friend'] },
+      { name: 'Courage', icon: 'shield', moves: ['Say one thing you’d hold back', 'Use your voice exercises for real', 'Join a group activity'] },
+      { name: 'Growth', icon: 'potted_plant', moves: ['Read one new page', 'Today’s brain exercise', 'Start a small project'] },
+      { name: 'Calm', icon: 'water', moves: ['One intentional breath', 'A 5-minute relaxation', 'A wind-down routine tonight'] },
+      { name: 'Contribution', icon: 'volunteer_activism', moves: ['Thank someone', 'Help with something small', 'Volunteer for an hour'] }
+    ];
+  }
+  start() {
+    if ((this.props.mode ?? 'tournament') !== 'tournament') return this.setState({ screen: 'list', winner: null, move: null });
+    const v = this.values().slice(0, 8);
+    for (let k = v.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); const x = v[k]; v[k] = v[j]; v[j] = x; }
+    this.setState({ screen: 'pair', round: v, next: [], step: 0, winner: null, move: null });
+  }
+  pick(which) {
+    const s = this.state;
+    const chosen = s.round[which];
+    const next = s.next.concat([chosen]);
+    const rest = s.round.slice(2);
+    if (rest.length) return this.setState({ round: rest, next, step: s.step + 1 });
+    if (next.length === 1) return this.setState({ screen: 'move', winner: chosen, step: s.step + 1 });
+    this.setState({ round: next, next: [], step: s.step + 1 });
+  }
+  renderVals() {
+    const s = this.state;
+    const roundSize = s.round.length + s.next.length * 2;
+    const winner = s.winner || { name: '', icon: '', moves: ['', '', ''] };
+    const sizes = ['Tiny', 'Medium', 'Bigger'];
+    const moves = winner.moves.map((text, i) => ({
+      text, size: sizes[i], bar2: i >= 1 ? 'var(--primary)' : 'var(--outline-variant)', bar3: i >= 2 ? 'var(--primary)' : 'var(--outline-variant)',
+      pick: () => this.setState({ screen: 'done', move: i })
+    }));
+    return {
+      isIntro: s.screen === 'intro', isPair: s.screen === 'pair', isList: s.screen === 'list', isMove: s.screen === 'move', isDone: s.screen === 'done',
+      start: () => this.start(),
+      toIntro: () => this.setState({ screen: 'intro' }),
+      roundLabel: roundSize >= 8 ? 'Round 1' : roundSize >= 4 ? 'Semi-final' : 'Final',
+      steps: [0, 1, 2, 3, 4, 5, 6].map((k) => (k < s.step ? 'is-done' : k === s.step ? 'is-current' : '')),
+      pairKey: 'p' + s.step,
+      pairA: s.round[0] || { name: '', icon: '' }, pairB: s.round[1] || { name: '', icon: '' },
+      pickA: () => this.pick(0), pickB: () => this.pick(1),
+      listValues: this.values().map((v) => Object.assign({}, v, { pick: () => this.setState({ screen: 'move', winner: v }) })),
+      winner, moves,
+      chosenMove: s.move === null ? { text: '', size: '' } : moves[s.move],
+      restart: () => this.setState({ screen: 'intro', winner: null, move: null })
+    };
+  }
+}
+</script>
+</body>
+</html>

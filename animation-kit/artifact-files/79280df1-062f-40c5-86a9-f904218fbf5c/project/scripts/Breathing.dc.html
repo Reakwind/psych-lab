@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>תרגול נשימה</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="app" dir="rtl" lang="he" style="--font-display: 'Rubik', system-ui, sans-serif; --font-body: 'Rubik', system-ui, sans-serif">
+
+<sc-if value="{{isIntro}}" hint-placeholder-val="{{ true }}">
+<div class="topbar"><button class="icon-btn" onClick="{{handBack}}" aria-label="סגירה"><span class="icon">close</span></button><span class="topbar-title muted">בפעם הראשונה</span><span class="topbar-spacer"></span></div>
+<div class="steps"><span class="step is-current"></span><span class="step"></span><span class="step"></span></div>
+<div class="screen" style="padding-top: 24px">
+  <div class="card card-inverse" style="height: 250px; padding: 0; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center">
+    <div class="art" style="width: 210px; height: 210px">
+      <div class="layer shape shape-flower spin-slow" style="width: 210px; height: 210px; background: #5B5F1E"></div>
+      <div class="layer shape shape-circle" style="width: 110px; height: 110px; background: #E1E59A; animation: breathe 6s var(--ease) infinite"></div>
+      <span class="glyph icon icon-xl" style="color: #5B5F1E">air</span>
+    </div>
+    <span class="pill" style="position: absolute; inset-inline-start: 14px; bottom: 14px; background: rgba(0,0,0,.45); color: #fff"><span class="icon icon-s icon-fill">play_arrow</span>1:30</span>
+  </div>
+  <h1 class="t-headline">למה נשימה עוזרת</h1>
+  <p class="t-body-l muted">נשיפה איטית יותר מאותתת לגוף שאפשר להירגע.</p>
+  <div class="grow"></div>
+  <button class="btn btn-filled btn-block" onClick="{{toRemember}}">המשך</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isLibrary}}" hint-placeholder-val="{{ false }}">
+<div class="topbar"><button class="icon-btn" onClick="{{handBack}}" aria-label="סגירה"><span class="icon">close</span></button><span class="topbar-title muted">תרגול</span><span class="topbar-spacer"></span></div>
+<div class="screen center" style="justify-content: center; gap: 24px">
+  <div class="art" style="width: 240px; height: 240px">
+    <div class="layer shape shape-cookie9 spin-slow" style="width: 240px; height: 240px; background: var(--cat-breath-c)"></div>
+    <span class="glyph icon icon-xxl" style="color: var(--cat-breath)">{{t.icon}}</span>
+  </div>
+  <h1 class="t-headline">{{t.name}}</h1>
+  <div class="row" style="gap: 8px"><span class="pill"><span class="icon icon-s">timer</span>{{t.len}}</span><span class="pill pill-amber"><span class="icon icon-s icon-fill">thumb_up</span>עזר 3 פעמים</span></div>
+</div>
+<div class="stack" style="padding: 0 24px 24px; gap: 6px">
+  <button class="btn btn-filled btn-l btn-block" onClick="{{begin}}"><span class="icon icon-fill">play_arrow</span>מתחילים</button>
+  <button class="btn btn-text" onClick="{{toIntro}}">לצפות שוב במבוא</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isRemember}}" hint-placeholder-val="{{ false }}">
+<div class="topbar"><button class="icon-btn" onClick="{{toIntro}}" aria-label="חזרה"><span class="icon mirror-rtl">arrow_back</span></button><span class="topbar-title">{{t.name}}</span><span class="topbar-spacer"></span></div>
+<div class="steps"><span class="step is-done"></span><span class="step is-current"></span><span class="step"></span></div>
+<div class="screen" style="padding-top: 24px; gap: 14px">
+  <h2 class="t-headline-s" style="margin-bottom: 6px">טוב לדעת</h2>
+  <sc-for list="{{tips}}" as="r" hint-placeholder-count="4">
+    <div class="list-row" style="cursor: default; min-height: 80px">
+      <span class="list-lead {{r.lead}}"><span class="icon">{{r.icon}}</span></span>
+      <span class="list-text"><span class="t-body">{{r.text}}</span></span>
+    </div>
+  </sc-for>
+  <div class="grow"></div>
+  <button class="btn btn-filled btn-l btn-block" onClick="{{begin}}">אפשר להתחיל</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isPractice}}" hint-placeholder-val="{{ false }}">
+<div class="topbar">
+  <button class="icon-btn" onClick="{{finish}}" aria-label="סיום התרגול"><span class="icon">close</span></button>
+  <span class="topbar-title">{{t.name}}</span>
+  <button class="icon-btn {{voiceCls}}" onClick="{{toggleVoice}}" aria-pressed="{{voicePressed}}" aria-label="הנחיה קולית"><span class="icon">{{voiceIcon}}</span></button>
+</div>
+<div class="row" style="justify-content: center; gap: 8px">
+  <sc-for list="{{cycleDots}}" as="d" hint-placeholder-count="4"><span style="width: 12px; height: 12px; border-radius: 50%; background: {{d}}"></span></sc-for>
+</div>
+<div class="screen center" style="justify-content: center; gap: 24px">
+  <div style="width: 320px; height: 320px; display: flex; align-items: center; justify-content: center; position: relative">
+    <div class="shape shape-circle" style="position: absolute; width: 320px; height: 320px; background: var(--cat-breath-c)"></div>
+    <div class="shape {{phaseShape}}" style="position: relative; width: 300px; height: 300px; background: var(--cat-breath); transform: scale({{scale}}); transition: clip-path {{morph}} var(--ease), transform .1s linear; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #fff">
+      <span class="t-title" style="color: #fff">{{phaseLabel}}</span>
+      <span class="t-display" style="font-size: 64px; line-height: 70px; color: #fff">{{count}}</span>
+    </div>
+  </div>
+  <div class="row" style="justify-content: center; gap: 24px">
+    <button class="icon-btn icon-btn-tonal" onClick="{{slower}}" aria-label="לאט יותר"><span class="icon">remove</span></button>
+    <button class="play-btn {{playCls}}" onClick="{{togglePause}}" aria-label="{{pauseLabel}}"><span class="icon icon-xl icon-fill">{{pauseIcon}}</span></button>
+    <button class="icon-btn icon-btn-tonal" onClick="{{faster}}" aria-label="מהר יותר"><span class="icon">add</span></button>
+  </div>
+  <span class="pill"><span class="icon icon-s">speed</span>{{paceLabel}}</span>
+</div>
+</sc-if>
+
+<sc-if value="{{isPost}}" hint-placeholder-val="{{ false }}">
+<div class="screen center" style="padding-top: 72px; gap: 24px">
+  <div class="art" style="width: 220px; height: 220px; animation: pop .8s var(--ease-emph)">
+    <div class="layer shape shape-flower spin-slow" style="width: 220px; height: 220px; background: var(--cat-breath-c)"></div>
+    <span class="glyph icon icon-xxl icon-fill" style="color: var(--cat-breath)">spa</span>
+  </div>
+  <h2 class="t-headline-s">ייתכן שהכתפיים מרגישות קצת רכות יותר</h2>
+  <div class="grow"></div>
+  <div class="stack" style="width: 100%; gap: 10px">
+    <span class="t-title-s">רגועים יותר?</span>
+    <div class="seg">
+      <sc-for list="{{ratings}}" as="r" hint-placeholder-count="3">
+        <button class="{{r.cls}}" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}">{{r.label}}</button>
+      </sc-for>
+    </div>
+  </div>
+  <sc-if value="{{embedded}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled btn-block" onClick="{{handBack}}">סיום</button></sc-if>
+  <sc-if value="{{standalone}}" hint-placeholder-val="{{ true }}"><button class="btn btn-filled btn-block" onClick="{{restart}}">סיום</button></sc-if>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"technique":{"editor":"enum","options":["Belly breathing","Box breathing","Coherent breathing","Physiological sigh"],"default":"Belly breathing"},"firstTime":{"editor":"boolean","default":true},"cycles":{"editor":"int","min":2,"max":10,"default":4},"onDone":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { screen: null, el: 0, running: false, pace: 1, voice: true, rating: null };
+  }
+  componentDidMount() { this.timer = setInterval(() => this.tick(), 100); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  tech() {
+    const all = {
+      'Belly breathing': { name: 'נשימה בטנית', icon: 'air', len: '3 דקות', tip: ['back_hand', 'יד אחת על הבטן, אם נוח'], phases: [['in', 4, .6, 1], ['out', 6, 1, .6]] },
+      'Box breathing': { name: 'נשימת קופסה', icon: 'crop_square', len: '3 דקות', tip: ['crop_square', 'העצירות רכות, בלי מאמץ'], phases: [['in', 4, .6, 1], ['hold', 4, 1, 1], ['out', 4, 1, .6], ['hold', 4, .6, .6]] },
+      'Coherent breathing': { name: 'נשימה קוהרנטית', icon: 'waves', len: '4 דקות', tip: ['waves', 'נשימה חלקה חשובה יותר מנשימה עמוקה'], phases: [['in', 5.5, .6, 1], ['out', 5.5, 1, .6]] },
+      'Physiological sigh': { name: 'אנחה פיזיולוגית', icon: 'cloud', len: 'דקה', tip: ['cloud', 'השאיפה השנייה היא תוספת קטנה'], phases: [['in', 2, .6, .85], ['top', 1, .85, 1], ['out', 6, 1, .6]] }
+    };
+    return all[this.props.technique ?? 'Belly breathing'] || all['Belly breathing'];
+  }
+  tick() {
+    const s = this.state;
+    if (s.screen !== 'practice' || !s.running) return;
+    const t = this.tech();
+    const cycleLen = t.phases.reduce((a, p) => a + p[1], 0) / s.pace;
+    const el = s.el + 0.1;
+    if (el >= cycleLen * (this.props.cycles ?? 4)) this.setState({ screen: 'post', running: false, el: 0 });
+    else this.setState({ el });
+  }
+  renderVals() {
+    const s = this.state;
+    const t = this.tech();
+    const screen = s.screen || ((this.props.firstTime ?? true) ? 'intro' : 'library');
+    const cycles = this.props.cycles ?? 4;
+    const cycleLen = t.phases.reduce((a, p) => a + p[1], 0) / s.pace;
+    const inCycle = s.el % cycleLen;
+    let acc = 0, phase = t.phases[0], into = 0;
+    for (const p of t.phases) {
+      const d = p[1] / s.pace;
+      if (inCycle < acc + d) { phase = p; into = inCycle - acc; break; }
+      acc += d;
+    }
+    const dur = phase[1] / s.pace;
+    const frac = Math.min(1, into / dur);
+    const scale = phase[2] + (phase[3] - phase[2]) * frac;
+    const labels = { in: 'שואפים', hold: 'עוצרים', out: 'נושפים', top: 'עוד קצת' };
+    const shapes = { in: 'shape-flower', top: 'shape-flower', hold: 'shape-cookie4', out: 'shape-circle' };
+    const curCycle = Math.min(cycles, Math.floor(s.el / cycleLen) + 1);
+    const paceNames = { '0.75': 'הרבה יותר לאט', '0.875': 'לאט יותר', '1': 'קצב רגיל', '1.125': 'מהר יותר', '1.25': 'מהר יותר', '1.375': 'הרבה יותר מהר', '1.5': 'הרבה יותר מהר' };
+    return {
+      embedded: !!this.props.onDone, standalone: !this.props.onDone, handBack: () => { if (this.props.onDone) this.props.onDone(); },
+      t,
+      isIntro: screen === 'intro', isLibrary: screen === 'library', isRemember: screen === 'remember', isPractice: screen === 'practice', isPost: screen === 'post',
+      toRemember: () => this.setState({ screen: 'remember' }),
+      toIntro: () => this.setState({ screen: 'intro' }),
+      tips: [
+        { icon: t.tip[0], text: t.tip[1], lead: 'lead-breath' },
+        { icon: 'chair', text: 'בישיבה, בהישענות או בשכיבה', lead: 'lead-audio' },
+        { icon: 'replay', text: 'לא נוח? חוזרים לנשימה רגילה', lead: 'lead-audio' },
+        { icon: 'vibration', text: 'רעד יכול להצטרף. מרפים את מה שאפשר', lead: 'lead-audio' }
+      ],
+      begin: () => this.setState({ screen: 'practice', el: 0, running: true, rating: null }),
+      phaseShape: shapes[phase[0]],
+      morph: Math.max(0.4, dur) + 's',
+      scale: scale.toFixed(3),
+      phaseLabel: labels[phase[0]],
+      count: String(Math.max(1, Math.ceil(dur - into))),
+      cycleDots: Array.from({ length: cycles }, (_, i) => (i < curCycle - 1 ? '#5B5F1E' : i === curCycle - 1 ? '#A3A83E' : '#DDE4E1')),
+      paceLabel: paceNames[String(s.pace)] || 'קצב רגיל',
+      slower: () => { const p = Math.max(0.75, s.pace - 0.125); this.setState({ pace: p, el: s.el * s.pace / p }); },
+      faster: () => { const p = Math.min(1.5, s.pace + 0.125); this.setState({ pace: p, el: s.el * s.pace / p }); },
+      togglePause: () => this.setState({ running: !s.running }),
+      pauseLabel: s.running ? 'השהיה' : 'המשך', pauseIcon: s.running ? 'pause' : 'play_arrow', playCls: s.running ? 'is-playing' : '',
+      toggleVoice: () => this.setState({ voice: !s.voice }),
+      voiceIcon: s.voice ? 'record_voice_over' : 'voice_over_off', voiceCls: s.voice ? 'icon-btn-tonal' : '', voicePressed: s.voice ? 'true' : 'false',
+      finish: () => this.setState({ screen: 'post', running: false }),
+      ratings: ['כן', 'קצת', 'לא היום'].map((label, i) => ({ label, pressed: s.rating === i ? 'true' : 'false', cls: s.rating === i ? 'is-selected' : '', pick: () => this.setState({ rating: i }) })),
+      restart: () => this.setState({ screen: null, el: 0, running: false, rating: null })
+    };
+  }
+}
+</script>
+</body>
+</html>

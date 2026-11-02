@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ruth's 12-week journey</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;family=Google+Sans+Flex:opsz,wght,ROND@6..144,400..700,0..100&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 1440px; height: 1024px; box-sizing: border-box; padding: 56px; display: flex; flex-direction: column; gap: 20px; background: var(--surface); color: var(--on-surface); font-family: var(--font-body)">
+
+  <div class="row" style="justify-content: space-between">
+    <h1 class="t-display">Ruth's 12 weeks</h1>
+    <div class="row" style="gap: 16px">
+      <span class="row t-label-s muted" style="gap: 6px"><span class="icon icon-s" style="color: var(--tertiary)">warning</span>Drop-out risk</span>
+      <span class="row t-label-s muted" style="gap: 6px"><span class="icon icon-s c-primary">lightbulb</span>Design move</span>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 12px">
+    <sc-for list="{{phases}}" as="p" hint-placeholder-count="7">
+      <div class="card" style="padding: 16px; background: {{p.bg}}; color: {{p.fg}}; display: flex; flex-direction: column; gap: 8px; min-height: 132px">
+        <span class="t-label-s" style="opacity: .8">{{p.weeks}}</span>
+        <span class="icon icon-l">{{p.icon}}</span>
+        <span class="t-title-s">{{p.name}}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 12px">
+    <sc-for list="{{phases}}" as="p" hint-placeholder-count="7">
+      <div class="row" style="gap: 6px; flex-wrap: wrap">
+        <sc-for list="{{p.acts}}" as="a" hint-placeholder-count="3">
+          <span class="list-lead {{a.lead}}" style="width: 44px; height: 44px; border-radius: 14px"><span class="icon icon-s">{{a.icon}}</span></span>
+        </sc-for>
+      </div>
+    </sc-for>
+  </div>
+
+  <div class="card card-low" style="padding: 20px 0 8px; position: relative">
+    <span class="t-label-s muted" style="position: absolute; left: 20px; top: 14px">How she feels</span>
+    <svg width="1328" height="230" viewBox="0 0 1328 230" role="img" aria-label="Emotional curve: hopeful at start, dips in weeks 2 to 4 and week 8, recovers by week 12">
+      <line x1="0" y1="115" x2="1328" y2="115" stroke="#BEC9C5" stroke-width="1.5" stroke-dasharray="6 8"></line>
+      <path d="M40 70 C130 60 200 170 284 175 S400 90 474 95 S600 120 664 160 S780 140 854 120 S980 70 1043 72 S1180 55 1290 50" fill="none" stroke="#2B6A62" stroke-width="6" stroke-linecap="round"></path>
+      <path d="M40 70 C130 60 200 170 284 175 S400 90 474 95 S600 120 664 160 S780 140 854 120 S980 70 1043 72 S1180 55 1290 50 L1290 230 L40 230 Z" fill="#B3EFE4" opacity=".35"></path>
+    </svg>
+    <div style="position: absolute; inset: 20px 0 8px; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); pointer-events: none">
+      <sc-for list="{{phases}}" as="p" hint-placeholder-count="7">
+        <div style="position: relative">
+          <span style="position: absolute; left: 50%; top: {{p.faceY}}; transform: translate(-50%, -50%); width: 52px; height: 52px; border-radius: 50%; background: var(--surface-lowest); box-shadow: 0 2px 8px rgba(0,0,0,.12); display: flex; align-items: center; justify-content: center; color: {{p.faceColor}}"><span class="icon icon-l icon-fill">{{p.face}}</span></span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 12px; flex: 1 1 auto">
+    <sc-for list="{{phases}}" as="p" hint-placeholder-count="7">
+      <div class="stack" style="gap: 10px">
+        <sc-if value="{{p.hasRisk}}" hint-placeholder-val="{{ true }}">
+          <div class="card card-tertiary" style="padding: 14px; display: flex; flex-direction: column; gap: 6px">
+            <span class="icon">warning</span>
+            <span class="t-label">{{p.risk}}</span>
+          </div>
+        </sc-if>
+        <div class="card card-primary" style="padding: 14px; display: flex; flex-direction: column; gap: 6px">
+          <span class="icon">lightbulb</span>
+          <span class="t-label">{{p.move}}</span>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1024}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const v = { lead: 'lead-video', icon: 'play_circle' };
+    const au = { lead: 'lead-audio', icon: 'headphones' };
+    const g = { lead: 'lead-game', icon: 'sports_esports' };
+    const b = { lead: 'lead-breath', icon: 'air' };
+    const c = { lead: 'lead-choice', icon: 'touch_app' };
+    const good = { face: 'sentiment_satisfied', faceColor: '#2B6A62' };
+    const mid = { face: 'sentiment_neutral', faceColor: '#3F4946' };
+    const low = { face: 'sentiment_dissatisfied', faceColor: '#7A5900' };
+    return {
+      phases: [
+        Object.assign({ weeks: 'Week 1', name: 'Welcome', icon: 'waving_hand', bg: '#B3EFE4', fg: '#00201C', acts: [v, b], faceY: '62px', hasRisk: true, risk: 'Dan sets it up', move: 'Real-person video onboarding' }, good),
+        Object.assign({ weeks: 'Weeks 2–4', name: 'Getting going', icon: 'directions_walk', bg: '#E3EAE7', fg: '#171D1B', acts: [v, g, au], faceY: '166px', hasRisk: true, risk: 'Misses 3 days, feels guilty', move: 'Welcome back, anchor lesson first' }, low),
+        Object.assign({ weeks: 'Weeks 5–6', name: 'Thoughts and attention', icon: 'psychology', bg: '#E3EAE7', fg: '#171D1B', acts: [v, g, au], faceY: '94px', hasRisk: true, risk: '“Another video?”', move: 'Fewer videos, more doing' }, mid),
+        Object.assign({ weeks: 'Weeks 7–8', name: 'Self-care and “I am enough”', icon: 'favorite', bg: '#FFDEA3', fg: '#261900', acts: [g, au, c], faceY: '150px', hasRisk: true, risk: 'Stigma topic stings', move: 'Dan plays the card game' }, low),
+        Object.assign({ weeks: 'Weeks 9–10', name: 'Values and difficulty', icon: 'explore', bg: '#E3EAE7', fg: '#171D1B', acts: [v, c, c], faceY: '118px', hasRisk: true, risk: 'OFF afternoons', move: 'Schedule for her ON window' }, mid),
+        Object.assign({ weeks: 'Weeks 11–12', name: 'Sleep and restarting', icon: 'bedtime', bg: '#E3EAE7', fg: '#171D1B', acts: [c, au, g], faceY: '72px', hasRisk: false, risk: '', move: 'Save her best tools' }, good),
+        Object.assign({ weeks: 'Week 13+', name: 'Her own rhythm', icon: 'all_inclusive', bg: '#2B3230', fg: '#ECF2EF', acts: [c, b, g], faceY: '52px', hasRisk: true, risk: 'Repetition fatigue', move: '7-day choice loop' }, good)
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Steady UI kit</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;family=Google+Sans+Flex:opsz,wght,ROND@6..144,400..700,0..100&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 1440px; height: 1500px; box-sizing: border-box; padding: 56px; display: flex; flex-direction: column; gap: 28px; background: var(--surface); color: var(--on-surface); font-family: var(--font-body)">
+
+  <div class="row" style="justify-content: space-between; align-items: flex-end">
+    <div class="row" style="gap: 20px">
+      <div class="art" style="width: 96px; height: 96px">
+        <div class="layer shape shape-sunny spin-slow" style="width: 96px; height: 96px; background: var(--primary)"></div>
+        <span class="glyph icon icon-xl icon-fill" style="color: var(--on-primary)">spa</span>
+      </div>
+      <div class="stack" style="gap: 2px">
+        <h1 class="t-display">Steady UI</h1>
+        <span class="t-title muted">Material 3 Expressive, tuned for hands that shake and days that vary</span>
+      </div>
+    </div>
+    <div class="row" style="gap: 8px">
+      <span class="pill">M3 Expressive tokens</span>
+      <span class="pill">Material Symbols</span>
+      <span class="pill">Google Sans Flex</span>
+      <span class="pill">Atkinson Hyperlegible Next</span>
+      <span class="pill">NHS / GOV.UK flow</span>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px">
+    <div class="card card-low stack-l" style="gap: 16px">
+      <span class="t-title">Colour roles</span>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{swatches}}" as="s" hint-placeholder-count="12">
+          <div style="height: 76px; border-radius: 16px; padding: 10px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-end; background: {{s.bg}}; color: {{s.fg}}; box-shadow: inset 0 0 0 1px rgba(0,0,0,.06)">
+            <span class="t-label-s">{{s.name}}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div class="row" style="gap: 8px">
+        <span class="list-lead lead-video"><span class="icon">play_circle</span></span>
+        <span class="list-lead lead-audio"><span class="icon">headphones</span></span>
+        <span class="list-lead lead-game"><span class="icon">sports_esports</span></span>
+        <span class="list-lead lead-breath"><span class="icon">air</span></span>
+        <span class="list-lead lead-choice"><span class="icon">touch_app</span></span>
+      </div>
+    </div>
+
+    <div class="card card-low stack" style="gap: 10px">
+      <span class="t-title" style="margin-bottom: 6px">Type</span>
+      <span class="t-display">Display 44</span>
+      <span class="t-headline">Headline 32</span>
+      <span class="t-headline-s">Headline S 27</span>
+      <span class="t-title">Title 22</span>
+      <span class="t-body-l">Body L 21 · Atkinson Next</span>
+      <span class="t-body">Body 19 · never below 16</span>
+      <span class="t-label">Label 18 · buttons</span>
+    </div>
+
+    <div class="card card-low stack-l" style="gap: 16px">
+      <span class="t-title">Shapes that morph</span>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; justify-items: center">
+        <sc-for list="{{shapes}}" as="sh" hint-placeholder-count="6">
+          <div class="stack center" style="gap: 6px">
+            <div class="shape {{sh.cls}}" style="width: 92px; height: 92px; background: {{sh.bg}}"></div>
+            <span class="t-label-s muted">{{sh.name}}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div class="row" style="gap: 12px; align-items: flex-end">
+        <div style="width: 60px; height: 60px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--outline)"></div>
+        <div style="width: 72px; height: 72px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--secondary)"></div>
+        <div style="width: 88px; height: 88px; border-radius: 50%; background: var(--primary-container)"></div>
+        <span class="t-label-s muted">60 · 72 · 88 px targets</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; flex: 1 1 auto">
+    <div class="card card-low stack-l" style="gap: 14px">
+      <span class="t-title">Buttons</span>
+      <button class="btn btn-filled btn-l btn-block"><span class="icon icon-fill">play_arrow</span>Start today's 5 minutes</button>
+      <button class="btn btn-filled btn-block">Continue</button>
+      <div class="btn-group">
+        <button class="btn btn-tonal">Tonal</button>
+        <button class="btn btn-outlined">Outlined</button>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-amber">Reward</button>
+        <button class="btn btn-filled" disabled="{{yes}}">Disabled</button>
+      </div>
+      <div class="row" style="gap: 12px">
+        <button class="icon-btn icon-btn-tonal" aria-label="Back"><span class="icon">arrow_back</span></button>
+        <button class="icon-btn icon-btn-tonal" aria-label="Close"><span class="icon">close</span></button>
+        <button class="icon-btn icon-btn-tonal" aria-label="Read aloud"><span class="icon">volume_up</span></button>
+        <button class="play-btn" aria-label="Play"><span class="icon icon-xl icon-fill">play_arrow</span></button>
+      </div>
+      <button class="btn btn-text">Not now</button>
+    </div>
+
+    <div class="card card-low stack-l" style="gap: 12px">
+      <span class="t-title">One question per screen</span>
+      <div style="width: 100%; border-radius: 24px; background: var(--surface); padding-bottom: 12px">
+        <div class="topbar">
+          <button class="icon-btn" aria-label="Back"><span class="icon">arrow_back</span></button>
+          <span class="topbar-title">Reflect</span>
+          <span class="topbar-spacer"></span>
+        </div>
+        <div class="steps"><span class="step is-done"></span><span class="step is-current"></span><span class="step"></span></div>
+      </div>
+      <button class="choice"><span class="ind"></span>A few minutes doesn't count</button>
+      <button class="choice is-selected"><span class="ind"><span class="icon icon-s">check</span></span>Small steps still count</button>
+      <button class="choice"><span class="ind ind-box"></span>Checkbox, for “choose up to 3”</button>
+      <div class="feedback"><span class="icon icon-fill">auto_awesome</span>That's a kind, workable response.</div>
+      <div class="note"><span class="icon c-primary">info</span>Notes use a tonal surface, never a coloured stripe.</div>
+    </div>
+
+    <div class="card card-low stack-l" style="gap: 14px">
+      <span class="t-title">Lists, chips, progress, nav</span>
+      <button class="list-row"><span class="list-lead lead-video"><span class="icon">play_circle</span></span><span class="list-text"><span class="list-title">Balancing thoughts</span><span class="list-sub">Video · 3 minutes</span></span><span class="icon muted">chevron_right</span></button>
+      <button class="list-row"><span class="list-lead lead-game"><span class="icon">sports_esports</span></span><span class="list-text"><span class="list-title">Inner Voice</span><span class="list-sub">Game · 2 minutes</span></span><span class="icon icon-fill c-primary">check_circle</span></button>
+      <div class="row" style="gap: 8px; flex-wrap: wrap">
+        <button class="chip is-selected"><span class="icon icon-s">check</span>Breathing</button>
+        <button class="chip">Relaxation</button>
+        <button class="chip">Mindfulness</button>
+      </div>
+      <div class="seg"><button class="is-selected"><span class="icon icon-s">person</span>Solo</button><button><span class="icon icon-s">group</span>Together</button></div>
+      <div class="progress"><div style="width: 62%"></div></div>
+      <div class="navbar" style="border-radius: 24px">
+        <button class="nav-item is-active"><span class="nav-ind"><span class="icon">today</span></span>Today</button>
+        <button class="nav-item"><span class="nav-ind"><span class="icon">local_library</span></span>Library</button>
+        <button class="nav-item"><span class="nav-ind"><span class="icon">eco</span></span>Progress</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      yes: true,
+      swatches: [
+        { name: 'Primary', bg: '#2B6A62', fg: '#FFFFFF' },
+        { name: 'Primary container', bg: '#B3EFE4', fg: '#00201C' },
+        { name: 'Secondary container', bg: '#CCE8E2', fg: '#05201C' },
+        { name: 'Tertiary container', bg: '#FFDEA3', fg: '#261900' },
+        { name: 'Tertiary', bg: '#7A5900', fg: '#FFFFFF' },
+        { name: 'Inverse surface', bg: '#2B3230', fg: '#ECF2EF' },
+        { name: 'Surface', bg: '#F5FBF8', fg: '#171D1B' },
+        { name: 'Container low', bg: '#EFF5F2', fg: '#171D1B' },
+        { name: 'Container high', bg: '#E3EAE7', fg: '#171D1B' },
+        { name: 'On surface', bg: '#171D1B', fg: '#FFFFFF' },
+        { name: 'On surface variant', bg: '#3F4946', fg: '#FFFFFF' },
+        { name: 'Outline variant', bg: '#BEC9C5', fg: '#171D1B' }
+      ],
+      shapes: [
+        { name: 'Circle', cls: 'shape-circle', bg: '#2B6A62' },
+        { name: 'Cookie 9', cls: 'shape-cookie9', bg: '#B3EFE4' },
+        { name: 'Cookie 4', cls: 'shape-cookie4', bg: '#CCE8E2' },
+        { name: 'Sunny', cls: 'shape-sunny', bg: '#FFDEA3' },
+        { name: 'Flower', cls: 'shape-flower', bg: '#FFD7F3' },
+        { name: 'Clover', cls: 'shape-clover', bg: '#D8E2FF' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<title>Hebrew Voice-over Test</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Secular+One&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one calm reading column; each script is a listening station with a version switch that keeps your place. */
+:root {
+  --bg: #eef3f3;
+  --surface: #ffffff;
+  --ink: #16272b;
+  --muted: #5b6d71;
+  --line: #d4dfe0;
+  --accent: #23686c;
+  --accent-soft: #d6eaea;
+  --vA: #8a979a;
+  --vB: #23686c;
+  --vC: #4e4fa3;
+  --warn: #8a5a12;
+  --warn-soft: #f6ead3;
+  --display: "Secular One", "Assistant", system-ui, sans-serif;
+  --body: "Assistant", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1a1c; --surface: #172427; --ink: #e2ecec; --muted: #9ab0b3; --line: #2a3b3e;
+    --accent: #6cc0c2; --accent-soft: #1d3a3c; --vA: #8c9a9d; --vB: #6cc0c2; --vC: #a3a4f0;
+    --warn: #e8bd78; --warn-soft: #3a2d17; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1a1c; --surface: #172427; --ink: #e2ecec; --muted: #9ab0b3; --line: #2a3b3e;
+  --accent: #6cc0c2; --accent-soft: #1d3a3c; --vA: #8c9a9d; --vB: #6cc0c2; --vC: #a3a4f0;
+  --warn: #e8bd78; --warn-soft: #3a2d17; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55; }
+.wrap { max-width: 760px; margin: 0 auto; padding-block: 40px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 36px; }
+h1, h2 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: 2.1rem; }
+h2 { font-size: 1.35rem; }
+h3 { margin: 0; font-size: 1rem; font-weight: 700; }
+p { margin: 0; }
+.lede { color: var(--muted); max-width: 62ch; }
+header { display: flex; flex-direction: column; gap: 12px; }
+.eyebrow { font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+
+.legend { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.legend div { display: flex; flex-direction: column; gap: 4px; padding-top: 10px; border-top: 3px solid var(--c); min-width: 0; }
+.legend b { font-size: .95rem; }
+.legend span { color: var(--muted); font-size: .9rem; line-height: 1.4; }
+@media (max-width: 560px) { .legend { grid-template-columns: 1fr; } }
+
+.station { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+.station-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.station-head .meta { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+.he { direction: rtl; font-family: var(--body); }
+
+.switch { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 4px; background: var(--bg); border-radius: 10px; }
+.switch button { font: inherit; font-size: .95rem; font-weight: 600; color: var(--muted); background: transparent; border: 0; border-radius: 7px; padding: 10px 6px; cursor: pointer; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.switch button::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--c); flex-shrink: 0; }
+.switch button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgb(0 0 0 / .12); }
+.switch button:focus-visible, .chip:focus-visible, .play:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.player { display: flex; align-items: center; gap: 14px; }
+.play { width: 52px; height: 52px; flex-shrink: 0; border-radius: 50%; border: 0; background: var(--accent); color: var(--surface); cursor: pointer; display: grid; place-items: center; }
+.play svg { width: 22px; height: 22px; fill: currentColor; }
+.track { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.track input { width: 100%; accent-color: var(--accent); margin: 0; }
+.time { font-family: var(--mono); font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; display: flex; justify-content: space-between; }
+
+.now { direction: rtl; font-size: 1.15rem; line-height: 1.6; min-height: 3.2em; padding: 12px 16px; border-inline-start: 3px solid var(--line); color: var(--ink); }
+.now small { display: block; direction: ltr; text-align: left; font-family: var(--mono); font-size: .72rem; color: var(--muted); margin-bottom: 2px; }
+
+.listen { display: flex; flex-direction: column; gap: 8px; }
+.listen h3 { font-size: .8rem; font-family: var(--mono); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: inherit; font-size: .9rem; text-align: left; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 7px 14px; cursor: pointer; min-height: 40px; }
+.chip:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+section { display: flex; flex-direction: column; gap: 14px; }
+ul { margin: 0; padding-inline-start: 20px; display: flex; flex-direction: column; gap: 8px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { padding: 10px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+tr:last-child td { border-bottom: 0; }
+th { font-family: var(--mono); font-size: .72rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+td.he { text-align: right; font-size: 1.05rem; white-space: nowrap; }
+.note { background: var(--warn-soft); color: var(--ink); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.note b { color: var(--warn); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Voice-over test · 3 scripts</div>
+    <h1>Hebrew Voice-over Test</h1>
+    <p class="lede">The same Microsoft voices as now (Hila and Avri, free), prepared better. Pick a version, press play, and switch versions mid-sentence: the player keeps your place, so you hear the same line in each.</p>
+  </header>
+
+  <div class="legend">
+    <div style="--c: var(--vA)"><b>A · Current</b><span>The files in the app today, at the same volume as B and C.</span></div>
+    <div style="--c: var(--vB)"><b>B · New pacing and sound</b><span>Sentence pauses, slower practices, steady counts, text fixes, warmer sound.</span></div>
+    <div style="--c: var(--vC)"><b>C · B plus vowel marks</b><span>Everything in B, with vowel marks so the voice stops guessing.</span></div>
+  </div>
+
+  <div id="stations"></div>
+
+  <section>
+    <h2>What changed in B and C</h2>
+    <ul>
+      <li><b>Real pauses.</b> Each sentence is generated on its own with a set pause after it: longer after a question or “...”, and longest in the breathing practice.</li>
+      <li><b>Pace by type.</b> Explainer videos are 8% slower than normal speech; the breathing practice is 14% slower and slightly lower.</li>
+      <li><b>Counts on a beat.</b> In box breathing every count lands exactly 1.25 seconds apart, so each phase lasts 3.75 seconds.</li>
+      <li><b>Text fixes.</b> “ל3” is read as “לשלוש”, “ACT” as “אקט”, and quote marks are no longer read as pauses.</li>
+      <li><b>Sound.</b> Gentle EQ (a little more body, less harshness and hiss), light compression, and the same loudness across files.</li>
+    </ul>
+    <div class="note">
+      <b>Check with Nira and Ariel</b>
+      <p>The breathing phases are now 3.75 seconds each. In the current app they run about 6 seconds, because of the player’s waits. The clinicians should set the pace they want.</p>
+      <p>S15 says “עוצרים עם אוויר בבטן ל3 ספרות”. “ספרות” means digits; I read it as “ספירות”. The script itself still needs the fix.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Vowel-mark slips I corrected</h2>
+    <p class="lede">The automatic vowel marks (Dicta’s free model, run on this Mac) were right almost everywhere. I checked every sentence and fixed these by hand. Scaling to all 51 scripts would need the same read-through.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Word</th><th>Model said</th><th>Now</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td class="he">העצירות</td><td class="he">הָעֲצִירוּת</td><td class="he">הָעֲצִירוֹת</td><td>The model read “constipation” instead of “the pauses”.</td></tr>
+          <tr><td class="he">אפתיה</td><td class="he">אַפְּתְיָּה / אַפְתְיָה</td><td class="he">אַפַּתְיָה</td><td>Three different readings in one script.</td></tr>
+          <tr><td class="he">במקום:</td><td class="he">בַּמָּקוֹם</td><td class="he">בִּמְקוֹם</td><td>“In the place” instead of “instead of”.</td></tr>
+          <tr><td class="he">מהנים</td><td class="he">מְהֲנִים</td><td class="he">מְהַנִּים</td><td>Wrong vowel.</td></tr>
+          <tr><td class="he">כיוון</td><td class="he">כֵּיוָוּן</td><td class="he">כִּיוּוּן</td><td>Wrong vowels in one of three places.</td></tr>
+          <tr><td class="he">קושי, לחזור…</td><td class="he">קֹושִׁי</td><td class="he">קוֹשִׁי</td><td>“o” and “u” marks moved onto the ו, where the voice expects them.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+const DATA = {"S15": {"A": [[0, 6.62], [7.32, 21.1], [21.8, 27.97], [28.67, 41.48], [42.18, 50.34], [51.04, 65.88], [66.58, 78.0], [78.7, 89.24], [89.94, 99.78], [100.48, 108.78], [109.48, 115.77], [117.07, 123.26], [124.56, 130.85], [132.15, 138.34], [139.64, 142.54], [145.74, 148.53], [151.73, 154.66], [157.86, 160.64], [163.84, 167.58], [169.28, 183.64], [184.34, 196.29], [196.99, 207.16], [207.86, 218.45], [219.15, 229.85]], "B": [[0.0, 5.48], [7.08, 20.35], [21.95, 27.13], [28.73, 40.73], [42.33, 49.52], [51.12, 65.14], [66.74, 77.27], [78.87, 88.4], [90.0, 98.8], [100.4, 108.29], [108.29, 112.04], [112.04, 115.79], [115.79, 119.54], [119.54, 123.29], [123.29, 127.04], [127.04, 130.79], [130.79, 134.54], [134.54, 138.29], [139.89, 142.51], [144.11, 157.41], [159.01, 169.81], [171.41, 180.76], [182.36, 192.21], [193.81, 203.53]], "C": [[0.0, 5.77], [7.37, 20.46], [22.06, 27.32], [28.92, 40.93], [42.53, 49.85], [51.45, 65.6], [67.2, 77.98], [79.58, 89.46], [91.06, 99.98], [101.58, 109.52], [109.52, 113.27], [113.27, 117.02], [117.02, 120.77], [120.77, 124.52], [124.52, 128.27], [128.27, 132.02], [132.02, 135.77], [135.77, 139.52], [141.12, 143.73], [145.33, 158.95], [160.55, 171.55], [173.15, 183.08], [184.68, 194.89], [196.49, 206.38]], "text": ["הי. בתרגול הנשימה שלנו היום נתרגל נשימת קופסה.", "זו טכניקה שבה אנחנו שואפים פנימה בקצב אחיד ל3 ספירות, עוצרים עם אוויר בבטן ל3 ספרות, נושפים בקצב אחיד לשלוש ספירות ועוצרים שוב בלי אוויר בבטן ל3 ספירות.", "בכל מחזור נשימה ארבעה חלקים שווים, כמו ארבע צלעות של ריבוע.", "הטכניקה הזאת יכולה להיות מאוד יעילה בוויסות של מתח וחרדה. הרבה פעמים כשאנחנו דרוכים, הנשימה נעשית מהירה, שטחית או פחות סדירה.", "כשאנחנו מאטים אותה ונותנים לה קצב קבוע, אנחנו בעצם מאותתים לגוף שאפשר קצת להוריד הילוך.", "גם הספירה והחזרה שוב ושוב לתחושת הנשימה יכולות להפחית מעט את ההתרוצצות של המחשבות ולהחזיר אותנו לכאן ועכשיו. הן נותנות לתשומת הלב משהו פשוט וברור לחזור אליו.", "אם מתאים לכם, הצטרפו אליי לשני סבבים. מצאו תנוחה שנוחה לכם, ונסו לתת לנשימה לזרום בלי יותר מידי מאמץ.", "לא צריך לקחת נשימה גדולה במיוחד, וגם לא להחזיק אותה בכוח. הגוף נושם ואנחנו רק נותנים לו את הקצב.", "לרוב האנשים נעים לשאוף דרך האף ולנשוף דרך הפה, אבל זה ממש לא חובה. תעשו מה שנוח לכם.", "אז ניתן לאוויר לצאת החוצה ונתחיל בשאיפה בעוד שלוש, שתיים, אחת.", "ושאיפה, שתיים, שלוש.", "עצירה, שתיים, שלוש.", "נשיפה, שתיים, שלוש.", "עצירה, שתיים, שלוש.", "שאיפה.", "עצירה.", "נשיפה.", "עצירה.", "ואפשר לחזור לנשימה הטבעית.", "כמה דגשים אחרונים שיכולים ממש לעזור: בהתחלה, הקצב הזה יכול להרגיש קצת מוזר או מכני. זה בסדר. תנו לעצמכם זמן להתרגל אליו.", "הנשימה לא אמורה להרגיש מאומצת. אנחנו לא מנסים להכריח אותה להתאים בדיוק לקופסה ואף אחד לא יתן לנו פרס על הנשימה הכי מדויקת.", "תוך כדי התרגיל אפשר ורצוי לקצר את העצירות כשצריך, לחזור לנשימה הטבעית מידי פעם ולעשות התאמות לפי מה שמרגיש לכם נוח.", "אם אתם מרגישים סחרחורת או אי נוחות אפשר פשוט לעבור לנשימה הטבעית ולחזור למקצב כשתרגישו מוכנים, ותמיד אפשר לעצור את התרגול.", "המטרה היא להקדיש כמה רגעים לנשימה, להקשיב לגוף ולמצוא מקצב וזרם נשימה שנעים לכם. בואו ננשום."]}, "S02": {"A": [[0, 12.48], [13.18, 24.53], [25.23, 34.04], [34.74, 42.8], [43.5, 57.88], [58.58, 66.02], [66.72, 76.18], [76.88, 89.24], [89.94, 104.22], [104.92, 115.5], [116.2, 130.91], [131.61, 139.27], [139.97, 151.68], [152.38, 162.08], [162.78, 171.66], [172.36, 181.72], [182.42, 195.9]], "B": [[0.0, 10.54], [11.69, 21.14], [22.29, 29.74], [30.89, 37.07], [38.22, 50.16], [51.31, 57.44], [58.59, 66.61], [67.76, 78.26], [79.41, 91.78], [92.93, 102.09], [103.24, 115.51], [116.66, 122.24], [123.39, 134.12], [135.27, 143.12], [144.27, 151.28], [152.43, 159.93], [161.08, 172.78]], "C": [[0.0, 10.91], [12.06, 21.78], [22.93, 30.76], [31.91, 38.19], [39.34, 52.0], [53.15, 59.46], [60.61, 68.64], [69.79, 80.5], [81.65, 94.52], [95.67, 105.46], [106.61, 118.99], [120.14, 125.84], [126.99, 137.89], [139.04, 146.94], [148.09, 155.29], [156.44, 164.01], [165.16, 176.76]], "text": ["אנחנו רגילים לחשוב שקודם כל מתחשק לנו לעשות משהו, ואז אנחנו עושים אותו. אבל לפעמים, אם נחכה למוטיבציה, לא בטוח שהיא תגיע.", "אצל אנשים עם פרקינסון, קושי להתחיל משהו לא תמיד נובע מחוסר רצון. הוא יכול להיות קשור לאפתיה, שהיא סימפטום נפוץ של המחלה.", "אפתיה יכולה לבוא לידי ביטוי בקושי להתחיל פעולה, קושי להתמיד בה, או קושי ליהנות מדברים שפעם היו מהנים.", "לפעמים אנשים מתבלבלים וחושבים שאפתיה היא עצלנות, או שהיא דיכאון. אבל היא לא.", "אפתיה ודיכאון יכולים להופיע יחד, אבל הם לא אותו הדבר. בדיכאון יש בדרך כלל ירידה במצב הרוח. באפתיה, יכול להיות שלא מרגישים עצובים בכלל.", "יודעים שמשהו חשוב, אולי אפילו רוצים לעשות אותו, אבל הדחף להתחיל פשוט לא מגיע.", "כדי להבין למה, אפשר לדמיין שהמוח עושה כל הזמן חישוב קטן: כמה מאמץ זה ידרוש ממני, ומה אקבל בתמורה?", "בפרקינסון, חלק ממה שיכול לקרות במוח, זה שהחישוב הזה משתבש. המאמץ נראה גדול יותר, ובמקביל התמורה נראית קטנה יותר.", "נניח שתכננתם לפגוש חבר לקפה. בצד של המאמץ: צריך להתארגן, להתלבש, לצאת מהבית, להגיע לשם... זה מרגיש כמו הרבה.", "ובצד של ההנאה: השיחה, החברה, התחושה הטובה שאולי תגיע... האפתיה גורמת לזה להרגיש כמו מעט.", "אפשר לעזור למוח משני הכיוונים. מצד אחד, לעזור לו להבין שאולי המאמץ הוא לא גדול כמו שנדמה לו. למשל, אנחנו יכולים לנסות להקל על ההתחלה.", "במקום לחשוב: \"צריך לצאת להליכה\", להתחיל מ: \"עכשיו צריך רק לנעול נעליים.\"", "במקום: \"צריך לעבוד בגינה\", להתחיל מ: \"עכשיו צריך להשקות רק עציץ אחד.\" המטרה היא להפוך את הצעד הראשון לקל מספיק כדי שאפשר יהיה להתחיל.", "ומהצד השני, להזכיר לו מה ייצא לו מזה. למה הפעילות הזאת חשובה לנו, וכמה טוב היא תעשה לנו.", "כאן מתחיל להיווצר מעגל אחר. במקום לחכות למוטיבציה כדי לפעול, מתחילים בפעולה קטנה.", "הפעולה יכולה לגרום לתחושה טובה, הצלחה או סיפוק. ואלה יכולים לעזור למוטיבציה לצעד הבא.", "אז בפעם הבאה שמשהו חשוב לכם, אבל קשה להתחיל, נסו לשאול את עצמכם: איך אני יכול להפוך את הצעד הראשון לקל יותר? ומה חשוב לי במה שמחכה לי בצד השני?"]}, "S09": {"A": [[0, 13.85], [14.55, 24.87], [25.57, 34.81], [35.51, 46.88], [47.58, 61.24], [61.94, 70.05], [70.75, 84.26], [84.96, 95.12], [95.82, 111.56], [112.26, 127.36], [128.06, 141.28], [141.98, 154.94], [155.64, 165.31], [166.01, 181.97], [182.67, 197.17]], "B": [[0.0, 11.47], [12.62, 21.0], [22.15, 30.72], [31.87, 41.36], [42.51, 54.7], [55.85, 62.65], [63.8, 75.33], [76.48, 85.02], [86.17, 99.82], [100.97, 114.1], [115.25, 126.18], [127.33, 138.41], [139.56, 147.83], [148.98, 163.43], [164.58, 176.65]], "C": [[0.0, 12.11], [13.26, 21.6], [22.75, 31.74], [32.89, 42.57], [43.72, 56.09], [57.24, 64.11], [65.26, 76.95], [78.1, 86.77], [87.92, 101.92], [103.07, 116.54], [117.69, 128.68], [129.83, 141.12], [142.27, 150.9], [152.05, 167.05], [168.2, 180.58]], "text": ["דמיינו שאתם נוהגים באוטובוס. אתם יושבים בכיסא הנהג, הידיים על ההגה, ויש לכם כיוון שאליו אתם רוצים לנסוע. אבל אתם לא לבד באוטובוס.", "לאורך הדרך עולים ויורדים כל מיני נוסעים. חלקם נחמדים ומנומסים וחלקם קולניים, תובעניים ונודניקים.", "נוסע אחד אומר: \"אין מצב שאתה תצליח לעשות את זה..\" נוסע אחר אומר: \"תסתובב חזרה הביתה זה לא ייגמר טוב.\"", "האוטובוס הוא קצת כמו החיים שלנו. היעד ששמנו באפליקציית הניווט מייצג את הדברים שחשובים לנו והכיוון שבו אנחנו רוצים להתקדם.", "והנוסעים הם החוויות הפנימיות שמצטרפות אלינו בדרך: מחשבות אוטומטיות שהמוח זורק לנו, רגשות, זיכרונות, עייפות, תחושות לא נעימות בגוף או סימפטומים.", "בין הנוסעים הרועשים יותר אפשר למצוא חרדה, תסכול, מבוכה, בושה וביקורת עצמית.", "כשעולה נוסע שאנחנו ממש לא רוצים באוטובוס, טבעי שננסה להשתיק אותו, להתווכח איתו או לשכנע אותו לרדת. לפעמים אנחנו אפילו מתחילים לעשות איתו עסקאות.", "למשל אם רגש המבוכה שאומר לך: ״רוצה שאני ארד מהאוטובוס? סבבה, אז תפסיק ללכת לאירועים משפחתיים. ״", "אבל אז, בלי שהתכוונו, הנוסעים מתחילים לקבוע את המסלול. אנחנו משקיעים כל כך הרבה תשומת לב ואנרגיה בניסיון להיפטר מהם, שלא נשארת לנו אנרגיה לנווט את האוטובוס לכיוון שחשוב לנו.", "המטאפורה הזאת שבאה מגישה טיפולית ששמה ACT, מציעה לנו לנסות להמשיך לנהוג גם כשהנוסעים נמצאים על האוטובוס. הם אולי ימשיכו לדבר, וחלקם אפילו יישארו איתנו לאורך הדרך.", "אבל הם הנוסעים לא הנהגים. ההגה עדיין בידיים שלנו, ואפשר לשאול את עצמינו: לאן חשוב לי לנסוע עכשיו? וזה משהו שאפשר לתרגל.", "תרגול מיינדפולנס יכול לעזור לנו לשים לב איזה נוסע מדבר, בלי להיכנס איתו מיד לוויכוח. נשימה יכולה לעזור לנו להתייצב ולהישאר עם הידיים על ההגה.", "ותרגולים של חקירת רגעים נעימים והכרת תודה יכולים לעזור לנו לראות שלאורך הדרך יש לא רק נוסעים קשים, אלא גם נוסעים נעימים.", "גם שאר הפעילויות שאתם עושים: פעילות גופנית, ריפוי בעיסוק, תרגול דיבור או פעילות באפליקציה, יכולות להיות חלק מהדרך לדברים שחשובים לכם: עצמאות, קשר עם אנשים, או תחביבים.", "אנחנו לא יכולים לבחור כל נוסע שיעלה לאוטובוס. וגם לא לשלוט בכל מה שנפגוש בדרך. אבל אפשר לתרגל את היכולת להישאר בכיסא הנהג ולבחור את הפנייה הבאה."]}};
+const SCRIPTS = [
+  { id: 'S15', title: 'Box breathing', he: 'נשימת קופסה', who: 'Avri (male)', session: 'Session 15 · practice',
+    moments: [[1, 'Numbers: “ל3 ספירות”'], [9, 'The breathing rounds'], [21, '“לקצר את העצירות”'], [23, 'Closing line']] },
+  { id: 'S02', title: 'Apathy explained', he: 'אפתיה', who: 'Hila (female)', session: 'Session 2 · video',
+    moments: [[1, 'First “אפתיה”'], [8, 'The pause at “...”'], [11, '“במקום” and the quotes'], [16, 'Two questions']] },
+  { id: 'S09', title: 'The bus driver metaphor', he: 'מטאפורת הנהג', who: 'Hila (female)', session: 'Session 9 · video',
+    moments: [[1, '“נודניקים”'], [7, 'A quoted thought'], [9, '“ACT”'], [10, 'A question mid-part']] },
+];
+const FILES = { A: 'A-original', B: 'B-paced', C: 'C-paced-vowels' };
+const NAMES = { A: 'A · Current', B: 'B · Paced', C: 'C · + Vowels' };
+const PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>';
+const PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
+const fmt = s => { s = Math.max(0, s || 0); return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0'); };
+const players = [];
+
+function sceneAt(spans, t) {
+  let i = 0;
+  for (let k = 0; k < spans.length; k++) if (t >= spans[k][0] - 0.05) i = k;
+  return i;
+}
+
+function station(s) {
+  const d = DATA[s.id];
+  const el = document.createElement('article');
+  el.className = 'station';
+  el.innerHTML = `
+    <div class="station-head">
+      <h2>${s.title} <span class="he" style="color: var(--muted); font-size: 1rem">· ${s.he}</span></h2>
+      <span class="meta">${s.id} · ${s.session} · ${s.who}</span>
+    </div>
+    <div class="switch" role="group" aria-label="Version">
+      ${['A', 'B', 'C'].map(v => `<button type="button" id="${s.id}-v${v}" data-v="${v}" style="--c: var(--v${v})" aria-pressed="${v === 'A'}">${NAMES[v]}</button>`).join('')}
+    </div>
+    <div class="player">
+      <button class="play" type="button" id="${s.id}-play" aria-label="Play">${PLAY}</button>
+      <div class="track">
+        <input type="range" id="${s.id}-seek" min="0" max="100" step="0.1" value="0" aria-label="Position">
+        <div class="time"><span class="cur">0:00</span><span class="part"></span><span class="dur">0:00</span></div>
+      </div>
+    </div>
+    <p class="now"><small></small><span></span></p>
+    <div class="listen">
+      <h3>Listen for</h3>
+      <div class="chips">${s.moments.map(([i, label]) => `<button type="button" class="chip" data-i="${i}">${label}</button>`).join('')}</div>
+    </div>
+    <audio preload="metadata"></audio>`;
+  const audio = el.querySelector('audio');
+  const play = el.querySelector('.play');
+  const seek = el.querySelector('input');
+  const now = el.querySelector('.now span'), nowLabel = el.querySelector('.now small');
+  let v = 'A', scene = -1;
+  const load = (ver, at, resume) => {
+    v = ver;
+    audio.src = `audio/${s.id}-${FILES[ver]}.mp3`;
+    audio.addEventListener('loadedmetadata', () => { audio.currentTime = at; if (resume) audio.play(); }, { once: true });
+    el.querySelectorAll('.switch button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === ver)));
+  };
+  const show = () => {
+    const t = audio.currentTime, dur = audio.duration || 0;
+    el.querySelector('.cur').textContent = fmt(t);
+    el.querySelector('.dur').textContent = fmt(dur);
+    if (dur && document.activeElement !== seek) seek.value = (t / dur * 100).toFixed(1);
+    const i = sceneAt(d[v], t);
+    if (i !== scene) {
+      scene = i;
+      now.textContent = d.text[i];
+      nowLabel.textContent = `Part ${i + 1} of ${d.text.length}`;
+      el.querySelector('.part').textContent = NAMES[v];
+    }
+  };
+  const goTo = (i, resume) => {
+    players.forEach(p => p !== audio && p.pause());
+    audio.currentTime = d[v][i][0];
+    if (resume) audio.play();
+  };
+  el.querySelectorAll('.switch button').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.v === v) return;
+    // keep your place: same part, same distance into it
+    const i = sceneAt(d[v], audio.currentTime);
+    const into = Math.max(0, audio.currentTime - d[v][i][0]);
+    const next = d[b.dataset.v][i];
+    load(b.dataset.v, Math.min(next[0] + into, next[1] - 0.2), !audio.paused);
+  }));
+  play.addEventListener('click', () => {
+    if (audio.paused) { players.forEach(p => p !== audio && p.pause()); audio.play(); } else audio.pause();
+  });
+  seek.addEventListener('input', () => { if (audio.duration) audio.currentTime = seek.value / 100 * audio.duration; });
+  el.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => goTo(Number(c.dataset.i), true)));
+  audio.addEventListener('play', () => { play.innerHTML = PAUSE; play.setAttribute('aria-label', 'Pause'); });
+  audio.addEventListener('pause', () => { play.innerHTML = PLAY; play.setAttribute('aria-label', 'Play'); });
+  audio.addEventListener('timeupdate', show);
+  audio.addEventListener('loadedmetadata', show);
+  players.push(audio);
+  load('A', 0, false);
+  now.textContent = d.text[0];
+  nowLabel.textContent = `Part 1 of ${d.text.length}`;
+  return el;
+}
+
+const host = document.getElementById('stations');
+host.style.cssText = 'display: flex; flex-direction: column; gap: 20px';
+SCRIPTS.forEach(s => host.appendChild(station(s)));
+</script>

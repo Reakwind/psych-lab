@@ -1,0 +1,165 @@
+{
+  "objective": "Finish all 18 remaining session videos and integrate into the local Psych Lab. Preserve final narration and shared visual style. Storyboard before animation. Review every narration part in stills, verify encoded movie, then integrate. No live Claude sync available.",
+  "sessions": {
+    "S17": {
+      "status": "integrated",
+      "storyboard": true,
+      "verified": true,
+      "updated_at": "2026-11-01T16:41:16",
+      "frames_reviewed": true,
+      "video_url": "/media/voice-over/mp4/S17-animated.mp4"
+    },
+    "S19": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T17:05:25",
+      "storyboard_reviewed": true,
+      "verified": true,
+      "frames_reviewed": true,
+      "video_url": "/media/voice-over/mp4/S19-animated.mp4"
+    },
+    "S23": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T17:23:41",
+      "storyboard_reviewed": true,
+      "frames_reviewed": true,
+      "verified": true,
+      "video_url": "/media/voice-over/mp4/S23-animated.mp4"
+    },
+    "S30": {
+      "status": "integrated",
+      "storyboard": true,
+      "verified": true,
+      "updated_at": "2026-11-01T16:41:17",
+      "frames_reviewed": true,
+      "video_url": "/media/voice-over/mp4/S30-animated.mp4"
+    },
+    "S32": {
+      "status": "integrated",
+      "storyboard": true,
+      "verified": true,
+      "updated_at": "2026-11-01T16:45:51",
+      "frames_reviewed": true,
+      "video_url": "/media/voice-over/mp4/S32-animated.mp4"
+    },
+    "S33a": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T17:26:22",
+      "storyboard_reviewed": true,
+      "frames_reviewed": true,
+      "verified": true,
+      "video_url": "/media/voice-over/mp4/S33a-animated.mp4"
+    },
+    "S33b": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T17:26:23",
+      "storyboard_reviewed": true,
+      "frames_reviewed": true,
+      "verified": true,
+      "video_url": "/media/voice-over/mp4/S33b-animated.mp4"
+    },
+    "S34": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T17:28:44",
+      "storyboard_reviewed": true,
+      "frames_reviewed": true,
+      "verified": true,
+      "video_url": "/media/voice-over/mp4/S34-animated.mp4"
+    },
+    "S35": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T17:28:31",
+      "storyboard_reviewed": true,
+      "frames_reviewed": true,
+      "verified": true,
+      "video_url": "/media/voice-over/mp4/S35-animated.mp4"
+    },
+    "S37": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T19:05:05",
+      "storyboard_reviewed": true,
+      "frames_reviewed": true,
+      "verified": true,
+      "error": null,
+      "video_url": "/media/voice-over/mp4/S37-animated.mp4"
+    },
+    "S46": {
+      "status": "integrated",
+      "storyboard": true,
+      "verified": true,
+      "updated_at": "2026-11-01T16:25:28",
+      "frames_reviewed": true,
+      "video_url": "/media/voice-over/mp4/S46-animated.mp4"
+    },
+    "S48": {
+      "status": "integrated",
+      "storyboard": true,
+      "storyboard_reviewed": true,
+      "updated_at": "2026-11-01T17:05:24",
+      "verified": true,
+      "frames_reviewed": true,
+      "video_url": "/media/voice-over/mp4/S48-animated.mp4"
+    },
+    "S49": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T17:32:26",
+      "storyboard_reviewed": true,
+      "frames_reviewed": true,
+      "verified": true,
+      "video_url": "/media/voice-over/mp4/S49-animated.mp4"
+    },
+    "S53": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T19:00:35",
+      "storyboard_reviewed": true,
+      "frames_reviewed": true,
+      "verified": true,
+      "video_url": "/media/voice-over/mp4/S53-animated.mp4"
+    },
+    "S54": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T19:00:36",
+      "storyboard_reviewed": true,
+      "frames_reviewed": true,
+      "verified": true,
+      "video_url": "/media/voice-over/mp4/S54-animated.mp4"
+    },
+    "S56": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T19:00:36",
+      "storyboard_reviewed": true,
+      "frames_reviewed": true,
+      "verified": true,
+      "video_url": "/media/voice-over/mp4/S56-animated.mp4"
+    },
+    "S57": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T19:00:59",
+      "storyboard_reviewed": true,
+      "frames_reviewed": true,
+      "verified": true,
+      "video_url": "/media/voice-over/mp4/S57-animated.mp4"
+    },
+    "S99": {
+      "status": "integrated",
+      "storyboard": true,
+      "updated_at": "2026-11-01T19:03:40",
+      "storyboard_reviewed": true,
+      "frames_reviewed": true,
+      "verified": true,
+      "error": null,
+      "video_url": "/media/voice-over/mp4/S99-animated.mp4"
+    }
+  }
+}

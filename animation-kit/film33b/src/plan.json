@@ -1,0 +1,809 @@
+{
+  "id": "S33b",
+  "idea": "The slow, continuous rhythm of waves becomes a light, comfortable breathing rhythm, with no holding and no demand for perfectly equal breaths.",
+  "sound_off": "Waves and the circle share one flowing rhythm. Ruth settles, follows the recorded in-and-out practice without cuts, and then adjusts or returns to natural breathing whenever needed.",
+  "shots": [
+    {
+      "description": "Waves advance and retreat behind Ruth in a slow continuous rhythm.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 780,
+          "y": 430,
+          "s": 0.95
+        }
+      ],
+      "labels": [
+        {
+          "text": "בקצב של הגלים",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 1.531
+        }
+      ],
+      "world": "shore",
+      "start": 0.0,
+      "end": 10.79
+    },
+    {
+      "description": "The wave’s movement carries into a gentle in-and-out circle.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 780,
+          "y": 430,
+          "s": 0.95
+        }
+      ],
+      "labels": [
+        {
+          "text": "נשאף לאט, ננשוף לאט",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 5.887
+        },
+        {
+          "text": "בקצב נשימה איטי וקבוע",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 9.59
+        }
+      ],
+      "world": "shore",
+      "start": 10.79,
+      "end": 23.66
+    },
+    {
+      "description": "The technique name joins the same wave and circle.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 780,
+          "y": 430,
+          "s": 0.95
+        }
+      ],
+      "labels": [
+        {
+          "text": "נשימה קוהרנטית",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 2.02
+        }
+      ],
+      "world": "shore",
+      "start": 23.66,
+      "end": 28.26
+    },
+    {
+      "description": "Breath and heart cues share a visual rhythm without adding medical measurements.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 780,
+          "y": 430,
+          "s": 0.95
+        },
+        {
+          "kind": "heart",
+          "key": "heart",
+          "x": 800,
+          "y": 720,
+          "s": 0.65
+        }
+      ],
+      "labels": [
+        {
+          "text": "קצב הנשימה, קצב הלב ולחץ הדם",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 6.698
+        }
+      ],
+      "world": "shore",
+      "start": 28.26,
+      "end": 38.59
+    },
+    {
+      "description": "The continuous rhythm remains beside a calm, supported Ruth.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 780,
+          "y": 430,
+          "s": 0.95
+        }
+      ],
+      "labels": [
+        {
+          "text": "רוגע ותחושת יציבות",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 3.943
+        }
+      ],
+      "world": "shore",
+      "start": 38.59,
+      "end": 45.35
+    },
+    {
+      "description": "Inhale turns smoothly into exhale; no stop sign or held stage is inserted.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 780,
+          "y": 430,
+          "s": 0.95
+        }
+      ],
+      "labels": [
+        {
+          "text": "אין עצירות או החזקות של האוויר",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 1.642
+        }
+      ],
+      "world": "shore",
+      "start": 45.35,
+      "end": 56.24
+    },
+    {
+      "description": "The circle uses a modest amplitude, showing slow need not mean large.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 780,
+          "y": 430,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "לא בהכרח נשימה עמוקה או גדולה",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 2.913
+        }
+      ],
+      "world": "shore",
+      "start": 56.24,
+      "end": 62.84
+    },
+    {
+      "description": "Air enters and leaves gradually, illustrated in the familiar torso cutaway.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 900,
+          "y": 770,
+          "s": 0.55
+        }
+      ],
+      "labels": [
+        {
+          "text": "נשימה קלה ועדינה",
+          "x": 230,
+          "y": 50,
+          "kind": "cool",
+          "width": 400,
+          "at": 9.6
+        }
+      ],
+      "world": "torso",
+      "start": 62.84,
+      "end": 80.75
+    },
+    {
+      "description": "Slightly different comfortable breaths remain within one continuous rhythm.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 780,
+          "y": 430,
+          "s": 0.95
+        }
+      ],
+      "labels": [
+        {
+          "text": "פעם ייכנס קצת יותר אוויר, פעם קצת פחות",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 4.707
+        },
+        {
+          "text": "תתנו לבטן ולגוף להחליט",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 8.794
+        }
+      ],
+      "start": 80.75,
+      "end": 92.64
+    },
+    {
+      "description": "The circle becomes familiar through repetition; Ruth stays comfortable.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 780,
+          "y": 430,
+          "s": 0.95
+        }
+      ],
+      "labels": [
+        {
+          "text": "תנו לעצמכם זמן להתרגל אליו",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 6.787
+        },
+        {
+          "text": "בסקרנות",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 9.796
+        }
+      ],
+      "start": 92.64,
+      "end": 109.74
+    },
+    {
+      "description": "Ruth settles with support, one hand on her belly in the overhead view.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 850,
+          "y": 200,
+          "s": 0.65
+        }
+      ],
+      "labels": [
+        {
+          "text": "התמקמו בתנוחה שנוחה לכם",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 3.327
+        }
+      ],
+      "world": "mat",
+      "start": 109.74,
+      "end": 119.47
+    },
+    {
+      "description": "The model stays modest, while the narrator explains the demonstration may be stronger.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 850,
+          "y": 200,
+          "s": 0.65
+        }
+      ],
+      "labels": [
+        {
+          "text": "הנשימה שלכם יכולה להיות עדינה וקלה יותר",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 7.99
+        }
+      ],
+      "world": "mat",
+      "start": 119.47,
+      "end": 131.67
+    },
+    {
+      "description": "The recorded countdown prepares the first inhale; the practice shot remains uncut.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 850,
+          "y": 200,
+          "s": 0.65
+        }
+      ],
+      "labels": [],
+      "world": "mat",
+      "start": 131.67,
+      "end": 139.71
+    },
+    {
+      "description": "First inhale, with each spoken count appearing at its recorded onset.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 850,
+          "y": 200,
+          "s": 0.65
+        }
+      ],
+      "labels": [],
+      "world": "mat",
+      "start": 139.71,
+      "end": 144.71
+    },
+    {
+      "description": "First exhale, with the recorded counts continuing at the actual pace.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 850,
+          "y": 200,
+          "s": 0.65
+        }
+      ],
+      "labels": [],
+      "world": "mat",
+      "start": 144.71,
+      "end": 149.71
+    },
+    {
+      "description": "The next inhale grows from the same circle with no held transition.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 850,
+          "y": 200,
+          "s": 0.65
+        }
+      ],
+      "labels": [
+        {
+          "text": "פנימה",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.19
+        }
+      ],
+      "world": "mat",
+      "start": 149.71,
+      "end": 154.71
+    },
+    {
+      "description": "The next exhale flows directly from it.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 850,
+          "y": 200,
+          "s": 0.65
+        }
+      ],
+      "labels": [
+        {
+          "text": "החוצה",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.17
+        }
+      ],
+      "world": "mat",
+      "start": 154.71,
+      "end": 159.71
+    },
+    {
+      "description": "The final guided inhale uses the same supported posture.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 850,
+          "y": 200,
+          "s": 0.65
+        }
+      ],
+      "labels": [
+        {
+          "text": "פנימה",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.18
+        }
+      ],
+      "world": "mat",
+      "start": 159.71,
+      "end": 164.71
+    },
+    {
+      "description": "The final guided exhale recedes comfortably.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 850,
+          "y": 200,
+          "s": 0.65
+        }
+      ],
+      "labels": [
+        {
+          "text": "החוצה",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.17
+        }
+      ],
+      "world": "mat",
+      "start": 164.71,
+      "end": 171.01
+    },
+    {
+      "description": "The practice rhythm settles without a hard cut.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 850,
+          "y": 200,
+          "s": 0.65
+        }
+      ],
+      "labels": [
+        {
+          "text": "יופי.",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.33
+        }
+      ],
+      "world": "mat",
+      "start": 171.01,
+      "end": 173.15
+    },
+    {
+      "description": "Return to Ruth and the option to adapt; the body cue remains at the centre of the message.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 780,
+          "y": 430,
+          "s": 0.8
+        },
+        {
+          "kind": "body",
+          "key": "body",
+          "x": 800,
+          "y": 700,
+          "s": 0.65
+        }
+      ],
+      "labels": [
+        {
+          "text": "להקשיב לגוף ולעשות התאמות",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.33
+        },
+        {
+          "text": "אין צורך להכריח את הנשימה",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 3.609
+        }
+      ],
+      "start": 173.15,
+      "end": 181.11
+    },
+    {
+      "description": "The external pacer recedes, leaving room for natural breathing when needed.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 780,
+          "y": 430,
+          "s": 0.65
+        },
+        {
+          "kind": "body",
+          "key": "body",
+          "x": 800,
+          "y": 700,
+          "s": 0.65
+        }
+      ],
+      "labels": [
+        {
+          "text": "אם חסר לכם אוויר או שאתם מרגישים סחרחורת",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 1.703
+        },
+        {
+          "text": "עברו לנשימה הטבעית",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 8.34
+        }
+      ],
+      "start": 181.11,
+      "end": 194.87
+    },
+    {
+      "description": "The calm wave returns with Ruth; comfort, not a perfect score, closes the film.",
+      "objects": [
+        {
+          "kind": "breath",
+          "key": "breath",
+          "x": 780,
+          "y": 430,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "נשימה שמרגישה לכם נעימה",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 4.522
+        },
+        {
+          "text": "כמו קצב הגלים",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 6.423
+        }
+      ],
+      "world": "shore",
+      "start": 194.87,
+      "end": 205.21
+    }
+  ],
+  "acts": [
+    [
+      1,
+      6,
+      "A continuous wave"
+    ],
+    [
+      7,
+      10,
+      "Light and comfortable"
+    ],
+    [
+      11,
+      13,
+      "Settle and prepare"
+    ],
+    [
+      14,
+      20,
+      "The recorded breathing practice"
+    ],
+    [
+      21,
+      23,
+      "Listen and adapt"
+    ]
+  ],
+  "breath_parts": [
+    [
+      14,
+      0.15,
+      0.9
+    ],
+    [
+      15,
+      0.9,
+      0.15
+    ],
+    [
+      16,
+      0.15,
+      0.9
+    ],
+    [
+      17,
+      0.9,
+      0.15
+    ],
+    [
+      18,
+      0.15,
+      0.9
+    ],
+    [
+      19,
+      0.9,
+      0.15
+    ]
+  ],
+  "count_parts": [
+    [
+      13,
+      [
+        "שלוש",
+        "שתיים",
+        "אחד"
+      ]
+    ],
+    [
+      14,
+      [
+        "פנימה",
+        "שתיים",
+        "שלוש",
+        "ארבע"
+      ]
+    ],
+    [
+      15,
+      [
+        "החוצה",
+        "שתיים",
+        "שלוש",
+        "ארבע"
+      ]
+    ]
+  ],
+  "breathing": [
+    {
+      "start": 139.71,
+      "end": 144.71,
+      "from": 0.15,
+      "to": 0.9
+    },
+    {
+      "start": 144.71,
+      "end": 149.71,
+      "from": 0.9,
+      "to": 0.15
+    },
+    {
+      "start": 149.71,
+      "end": 154.71,
+      "from": 0.15,
+      "to": 0.9
+    },
+    {
+      "start": 154.71,
+      "end": 159.71,
+      "from": 0.9,
+      "to": 0.15
+    },
+    {
+      "start": 159.71,
+      "end": 164.71,
+      "from": 0.15,
+      "to": 0.9
+    },
+    {
+      "start": 164.71,
+      "end": 171.01,
+      "from": 0.9,
+      "to": 0.15
+    }
+  ],
+  "counts": [
+    {
+      "start": 131.67,
+      "end": 139.71,
+      "words": [
+        {
+          "at": 136.13,
+          "text": "שלוש"
+        },
+        {
+          "at": 137.23,
+          "text": "שתיים"
+        },
+        {
+          "at": 138.48,
+          "text": "אחד"
+        }
+      ]
+    },
+    {
+      "start": 139.71,
+      "end": 144.71,
+      "words": [
+        {
+          "at": 139.9,
+          "text": "פנימה"
+        },
+        {
+          "at": 140.98,
+          "text": "שתיים"
+        },
+        {
+          "at": 142.23,
+          "text": "שלוש"
+        },
+        {
+          "at": 143.49,
+          "text": "ארבע"
+        }
+      ]
+    },
+    {
+      "start": 144.71,
+      "end": 149.71,
+      "words": [
+        {
+          "at": 144.88,
+          "text": "החוצה"
+        },
+        {
+          "at": 145.98000000000002,
+          "text": "שתיים"
+        },
+        {
+          "at": 147.23,
+          "text": "שלוש"
+        },
+        {
+          "at": 148.49,
+          "text": "ארבע"
+        }
+      ]
+    }
+  ]
+}

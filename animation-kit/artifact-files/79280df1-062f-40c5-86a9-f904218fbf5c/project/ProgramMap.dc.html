@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Program map</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;family=Google+Sans+Flex:opsz,wght,ROND@6..144,400..700,0..100&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="min-height: 100vh; box-sizing: border-box; background: var(--surface); color: var(--on-surface); font-family: var(--font-body); font-size: 16px; line-height: 1.4; padding: 40px 20px 56px">
+<div style="max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px">
+
+  <div style="display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: flex-end; justify-content: space-between">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span class="t-label muted">Psychological program V0</span>
+      <h1 class="t-display">87 sessions, in order</h1>
+    </div>
+    <div style="display: flex; gap: 24px; flex-wrap: wrap">
+      <div class="card card-filled stack" style="padding: 14px 20px; gap: 0"><span class="t-headline">{{totalActs}}</span><span class="t-label-s muted">activities</span></div>
+      <div class="card card-filled stack" style="padding: 14px 20px; gap: 0"><span class="t-headline">{{uniqueActs}}</span><span class="t-label-s muted">distinct</span></div>
+      <div class="card card-filled stack" style="padding: 14px 20px; gap: 0"><span class="t-headline">{{doubleSessions}}</span><span class="t-label-s muted">double sessions</span></div>
+      <div class="card card-tertiary stack" style="padding: 14px 20px; gap: 0"><span class="t-headline">{{trailerCount}}</span><span class="t-label-s">need a trailer</span></div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+    <sc-for list="{{chips}}" as="c" hint-placeholder-count="6">
+      <button class="chip {{c.cls}}" onClick="{{c.pick}}" aria-pressed="{{c.pressed}}">
+        <span class="icon icon-s" style="color: {{c.ink}}">{{c.icon}}</span>
+        <span>{{c.label}}</span>
+        <span style="opacity: .7">{{c.count}}</span>
+      </button>
+    </sc-for>
+    <button class="chip {{newCls}}" onClick="{{toggleNew}}" aria-pressed="{{newPressed}}"><span class="icon icon-s">fiber_new</span>First appearances</button>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+    <div style="flex: 999 1 720px; min-width: 0">
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px">
+        <sc-for list="{{sessions}}" as="d" hint-placeholder-count="12">
+                <button onClick="{{d.pick}}" aria-pressed="{{d.pressed}}" aria-label="{{d.aria}}" style="min-height: 100px; padding: 10px; display: flex; flex-direction: column; gap: 6px; align-items: stretch; text-align: left; border-radius: var(--r-li); border: none; box-shadow: inset 0 0 0 {{d.ring}} var(--on-surface); background: var(--surface-low); color: var(--on-surface); cursor: pointer; opacity: {{d.opacity}}; transition: opacity .2s var(--ease)">
+                  <span class="t-label-s muted" style="font-size: 13px">Session {{d.s}}</span>
+                  <sc-for list="{{d.acts}}" as="a" hint-placeholder-count="1">
+                    <span style="display: flex; gap: 6px; align-items: flex-start; font-size: 13px; line-height: 1.25">
+                      <span class="list-lead {{a.lead}}" style="width: 26px; height: 26px; border-radius: 8px"><span class="icon" style="font-size: 16px">{{a.icon}}</span></span>
+                      <span style="display: flex; flex-direction: column; gap: 3px">
+                        <span>{{a.short}}</span>
+                        <sc-if value="{{a.showNew}}" hint-placeholder-val="{{ false }}">
+                          <span class="pill pill-amber" style="align-self: flex-start; height: 20px; padding: 0 6px; font-size: 11px">NEW</span>
+                        </sc-if>
+                      </span>
+                    </span>
+                  </sc-for>
+                </button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div class="card card-filled" style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 14px">
+      <span class="pill pill-primary" style="align-self: flex-start">Session {{sel.s}}</span>
+      <sc-for list="{{sel.acts}}" as="a" hint-placeholder-count="1">
+        <div class="card card-white" style="display: flex; flex-direction: column; gap: 12px; padding: 18px">
+          <div class="row" style="gap: 12px; align-items: flex-start">
+            <span class="list-lead {{a.lead}}"><span class="icon">{{a.icon}}</span></span>
+            <span class="stack" style="gap: 2px"><span class="t-title-s">{{a.name}}</span><span class="t-label-s muted">{{a.type}}</span></span>
+          </div>
+          <div style="display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 4px 10px; font-size: 14px">
+            <span class="muted">ID</span><span>{{a.id}}</span>
+            <span class="muted">Info page</span><span>{{a.infoLabel}}</span>
+            <span class="muted">Parameter</span><span>{{a.paramLabel}}</span>
+            <span class="muted">Trailer</span><span>{{a.trailerLabel}}</span>
+            <span class="muted">Appears</span><span>{{a.appearance}}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <h2 class="t-title">After the 12 weeks: the 7-day loop</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px">
+      <sc-for list="{{loop}}" as="l" hint-placeholder-count="7">
+        <div class="card" style="padding: 16px; background: {{l.tint}}; display: flex; flex-direction: column; gap: 8px">
+          <span class="row" style="justify-content: space-between"><span class="t-label-s" style="color: {{l.ink}}">Day {{l.d}}</span><span class="icon" style="color: {{l.ink}}">{{l.icon}}</span></span>
+          <span class="t-title-s">{{l.title}}</span>
+          <span style="font-size: 13px; color: var(--on-surface-variant)">{{l.items}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1240}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { filter: 'All', sel: 8, showNew: false };
+  }
+  rows() {
+    return [[1,"PS-CONT-001","Welcome","Video","","",""],[2,"PS-CONT-002","Apathy explained","Video","","",""],[3,"PS-CONT-003","Practicing with Parkinson's","Video","","",""],[3,"PS-ACT-001","Belly breathing","Breathing activity","","","Trailer-V"],[4,"PS-ACT-002","Inner Voice","Game","","motivation","Trailer-V"],[5,"PS-CONT-004","Pacing including battery analogy and planned rests","Video","","",""],[6,"PS-ACT-003","Grounding","Audio","","","Trailer-V"],[7,"PS-CONT-005","Thoughts are not facts","Video","","",""],[8,"PS-CONT-029","Balancing thoughts","Video","","",""],[8,"PS-ACT-002","Inner Voice","Game","Info-ivw-gme-01","Unbalanced and balanced thoughts",""],[9,"PS-CONT-006","The bus driver metaphor","Video","","",""],[10,"PS-CONT-060","Observing thoughts","Audio","","","Trailer-V"],[11,"PS-ACT-004","Cards game","Game","","","Trailer-V"],[12,"PS-CONT-007","Share the journey","Video","","",""],[13,"PS-ACT-001","Belly breathing","Breathing activity","Info-brt-01","",""],[14,"PS-CONT-008","Stress, Anxiety and calming the body","Video","","",""],[15,"PS-CONT-047","Breathing exercise intro","Video","","",""],[15,"PS-ACT-005","Box breathing","Breathing activity","","","Trailer-V"],[16,"PS-CONT-009","Struggle switch metaphor","Video","","",""],[17,"PS-CONT-065","Guided imagery for relaxation","Audio","","","Trailer-V"],[18,"PS-CONT-010","No One Right Way: Patient stories with self-regulation","Video","","",""],[19,"PS-CONT-048","Relaxation before sleep","Video","","",""],[20,"PS-ACT-003","Grounding","Audio","Info-grd-01","",""],[21,"PS-CONT-067","PMR","Audio","","","Trailer"],[22,"PS-ACT-002","Inner Voice","Game","Info-ivw-gme-02","Relaxation",""],[23,"PS-CONT-049","In the moment tools introduction","Video","","",""],[24,"PS-CONT-068","Guided imagery safe place","Audio","","","Trailer"],[25,"PS-CONT-011","Getting the most from practice","Video","","",""],[26,"PS-ACT-004","Cards game","Game","Info-crd-gme-01","",""],[27,"PS-CONT-012","Wind down routines","Video","","",""],[28,"PS-CONT-013","Mindfulness practice intro","Video","","",""],[29,"PS-CONT-070","Awareness of breath","Audio","","","Trailer-V"],[30,"PS-CONT-014","Neuroplasticity in the context of mindfulness","Video","","",""],[31,"PS-CONT-071","Body scan","Audio","","","Trailer-V"],[32,"PS-CONT-072","How to talk about my Parkinson's","Video","","",""],[33,"PS-ACT-006","Take a breather","Choice activity","","","Trailer"],[34,"PS-CONT-015","The white bear metaphor","Video","","",""],[35,"PS-CONT-016","Mindfulness in everyday life","Video","","",""],[36,"PS-ACT-004","Cards game","Game","Info-crd-gme-02","",""],[37,"PS-CONT-017","Chess board metaphor","Video","","",""],[38,"PS-ACT-007","Mindfulness","Choice activity","","","Trailer"],[39,"PS-ACT-002","Inner Voice","Game","Info-ivw-gme-03","Mindfulness",""],[40,"PS-ACT-006","Take a breather","Choice activity","Info-brt-grp-01","",""],[41,"PS-ACT-008","In the moment","Choice activity","","","Trailer"],[42,"PS-CONT-018","Self care overview","Video","","",""],[43,"PS-ACT-009","Mindful moment - Pleasant Experience","Game","","","Trailer-V"],[44,"PS-CONT-019","Self care as practice","Video","","",""],[45,"PS-CONT-074","Moment of self compassion","Audio","","","Trailer-V"],[46,"PS-ACT-010","Mindful moment - Gratitude","Game","","","Trailer"],[47,"PS-ACT-002","Inner Voice","Game","Info-ivw-gme-04","Compassion & validation",""],[48,"PS-CONT-020","Self validation","Video","","",""],[49,"PS-CONT-021","“I am enough”: Confidence, embarrassment, and social participation - combined with patient stories","Video","","",""],[50,"PS-ACT-004","Cards game","Game","Info-crd-gme-03","",""],[51,"PS-ACT-009","Mindful moment - Pleasant Experience","Game","Info-mm-gme-01","",""],[52,"PS-ACT-012","Relaxation","Choice activity","","","Trailer"],[53,"PS-CONT-022","Finding your way to stay connected","Video","","",""],[54,"PS-CONT-103","I am enough","Audio","","","Trailer-?"],[55,"PS-ACT-008","In the moment","Choice activity","Info-mmt-gme-01","",""],[56,"PS-CONT-023","Values and meaningful action","Video","","",""],[57,"PS-CONT-024","Compass metaphor","Video","","",""],[58,"PS-CONT-109","Mindful moment - This matters","Game","","","Trailer"],[59,"PS-ACT-007","Mindfulness","Choice activity","Info-mnd-grp-01","",""],[60,"PS-CONT-025","Role changes","Video","","",""],[61,"PS-ACT-013","Self-care","Choice activity","","","Trailer-?"],[62,"PS-ACT-002","Inner voice","Game","Info-ivw-gme-05","Labels",""],[63,"PS-CONT-026","Understanding the discomfort cycle","Video","","",""],[64,"PS-ACT-014","Flexible thinking","Choice activity","","","Trailer"],[65,"PS-CONT-027","Uninvited guest metaphor","Video","","",""],[66,"PS-ACT-015","Attention & emotional balance","Choice activity","","","Trailer"],[67,"PS-ACT-006","Take a breather","Choice activity","Info-brt-grp-02","",""],[68,"PS-ACT-012","Relaxation","Choice activity","Info-rlx-grp-01","",""],[69,"PS-ACT-008","In the moment","Choice activity","Info-mmt-gme-02","",""],[70,"PS-ACT-016","Cultivating calm","Choice activity","","","Trailer-V"],[71,"PS-ACT-010","Mindful moment - Gratitude","Game","Info-mm-gme-03","",""],[72,"PS-ACT-004","Cards game","Game","Info-crd-gme-04","",""],[73,"PS-ACT-017","Meaningful action","Choice activity","","","Trailer-V"],[74,"PS-ACT-002","Inner Voice","Game","Info-ivw-gme-06","Flexible thinking",""],[75,"PS-ACT-009","Mindful moment - Pleasant Experience","Game","Info-mm-gme-02","",""],[76,"PS-CONT-028","Putting it all together: notice, steady, choose, step, recognize","Video","","",""],[77,"PS-ACT-012","Relaxation","Choice activity","Info-rlx-grp-02","",""],[78,"PS-ACT-006","Take a breather","Choice activity","Info-brt-grp-03","",""],[79,"PS-ACT-013","Self-care","Choice activity","Info-sc-grp-01","",""],[80,"PS-ACT-007","Mindfulness","Choice activity","Info-mnd-grp-02","",""],[81,"PS-CONT-109","Mindful moment - This matters","Game","Info-mm-gme-04","",""],[82,"PS-ACT-008","In the moment","Choice activity","Info-mmt-gme-03","",""],[83,"PS-CONT-103","I am enough","Audio","","",""],[84,"PS-ACT-014","Flexible thinking","Choice activity","Info-flx-grp-01","",""],[85,"PS-ACT-015","Attention & emotional balance","Choice activity","Info-att-grp-01","",""],[86,"PS-ACT-016","Cultivating calm","Choice activity","Info-cc-grp-01","",""],[87,"PS-ACT-017","Meaningful action","Choice activity","Info-ma-grp-01","",""]];
+  }
+  renderVals() {
+    const st = this.state;
+    const types = {
+      'Video': { ink: '#3E5F90', lead: 'lead-video', icon: 'play_circle' },
+      'Audio': { ink: '#2B6A62', lead: 'lead-audio', icon: 'headphones' },
+      'Game': { ink: '#7A5900', lead: 'lead-game', icon: 'sports_esports' },
+      'Breathing activity': { ink: '#5B5F1E', lead: 'lead-breath', icon: 'air' },
+      'Choice activity': { ink: '#7C4F73', lead: 'lead-choice', icon: 'touch_app' }
+    };
+    const seen = {};
+    const acts = this.rows().map((r) => {
+      const first = seen[r[1]];
+      if (!first) seen[r[1]] = r[0];
+      const name = r[2];
+      return {
+        s: r[0], id: r[1], name, type: r[3], info: r[4], param: r[5], trailer: r[6],
+        short: name.length > 38 ? name.slice(0, 36).trim() + '…' : name,
+        isNew: !first, firstIn: first || r[0], ink: (types[r[3]] || types.Video).ink,
+        lead: (types[r[3]] || types.Video).lead, icon: (types[r[3]] || types.Video).icon
+      };
+    });
+    const bySession = {};
+    acts.forEach((a) => { (bySession[a.s] = bySession[a.s] || []).push(a); });
+    const counts = {};
+    acts.forEach((a) => { counts[a.type] = (counts[a.type] || 0) + 1; });
+    const match = (a) => st.filter === 'All' || a.type === st.filter;
+    // sessions in timeline order; the sources define no weeks, so none are drawn
+    const sessions = Object.keys(bySession).map(Number).sort((x, y) => x - y).map((s) => {
+      const list = bySession[s];
+      const hit = list.some(match);
+      return {
+        s,
+        acts: list.map((a) => Object.assign({}, a, { showNew: st.showNew && a.isNew })),
+        aria: 'Session ' + s + ': ' + list.map((a) => a.name + ', ' + a.type).join('; '),
+        opacity: hit ? '1' : '0.25',
+        pressed: st.sel === s ? 'true' : 'false',
+        ring: st.sel === s ? '3px' : '0px',
+        pick: () => this.setState({ sel: s })
+      };
+    });
+    const selActs = (bySession[st.sel] || []).map((a) => Object.assign({}, a, {
+      infoLabel: a.info || 'None', paramLabel: a.param || 'None',
+      trailerLabel: a.trailer || 'None',
+      appearance: a.isNew ? 'First appearance' : 'Repeat (first in session ' + a.firstIn + ')'
+    }));
+    const chipList = ['All'].concat(Object.keys(types));
+    return {
+      totalActs: acts.length,
+      uniqueActs: Object.keys(seen).length,
+      doubleSessions: Object.keys(bySession).filter((k) => bySession[k].length > 1).length,
+      trailerCount: acts.filter((a) => a.trailer).length,
+      chips: chipList.map((label) => ({
+        label, count: label === 'All' ? acts.length : counts[label] || 0,
+        ink: label === 'All' ? 'inherit' : types[label].ink,
+        icon: label === 'All' ? 'apps' : types[label].icon,
+        pressed: st.filter === label ? 'true' : 'false',
+        cls: st.filter === label ? 'is-selected' : '',
+        pick: () => this.setState({ filter: label })
+      })),
+      toggleNew: () => this.setState({ showNew: !st.showNew }),
+      newPressed: st.showNew ? 'true' : 'false',
+      newCls: st.showNew ? 'is-selected' : '',
+      sessions,
+      sel: { s: st.sel, acts: selActs },
+      loop: [
+        { d: 1, title: 'Relaxation', icon: 'self_improvement', items: 'PMR, imagery, safe place, grounding', tint: '#B3EFE4', ink: '#00201C' },
+        { d: 2, title: 'Breathing', icon: 'air', items: 'Belly, box, coherent, sigh', tint: '#E1E59A', ink: '#1B1D00' },
+        { d: 3, title: 'Self-care', icon: 'favorite', items: 'Gratitude, self-compassion, pleasant moment, I am enough audio', tint: '#FFD7F3', ink: '#31102C' },
+        { d: 4, title: 'Mindfulness', icon: 'spa', items: 'Awareness of breath, body scan, observing thoughts, mindful eating, mindful walking, hands and feet', tint: '#B3EFE4', ink: '#00201C' },
+        { d: 5, title: 'Card game', icon: 'style', items: 'Solo or together', tint: '#FFDEA3', ink: '#261900' },
+        { d: 6, title: 'Inner Voice', icon: 'sports_esports', items: 'All themes mixed', tint: '#FFDEA3', ink: '#261900' },
+        { d: 7, title: 'In the moment', icon: 'bolt', items: 'Reset, soften, three anchors', tint: '#FFD7F3', ink: '#31102C' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

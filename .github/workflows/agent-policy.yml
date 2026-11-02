@@ -1,0 +1,29 @@
+name: Agent policy
+# Only trusted main code runs with a token. Never checkout or execute PR code here.
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, reopened, synchronize, edited, ready_for_review]
+permissions:
+  contents: read
+  pull-requests: read
+concurrency:
+  group: agent-policy-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  agent-policy:
+    name: agent-policy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          lfs: false
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - run: python3 scripts/agent_policy.py
+        env:
+          GH_TOKEN: ${{ github.token }}

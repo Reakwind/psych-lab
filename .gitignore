@@ -1,0 +1,25 @@
+# Credentials and machine-specific settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.claude/settings.local.json
+.agent-context.json
+.tools/
+.venv/
+node_modules/
+.worktrees/
+__pycache__/
+*.pyc
+.DS_Store
+*.pid
+*.log
+*.part.mp4
+*.progress.json
+
+# Reproducible intermediate render and synthesis caches (keep finished media)
+**/frames/
+voice-over/elevenlabs/cache/
+test-results/
+playwright-report/

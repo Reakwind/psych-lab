@@ -1,0 +1,3 @@
+.pal-top { fill:#C9805A } .pal-top-dk { fill:#A9653F } .pal-hair { fill:#A3A7AE } .pal-pants { fill:color-mix(in srgb, var(--second) 82%, #C9805A) }
+.thought.warm { background:color-mix(in srgb, var(--accent) 30%, var(--ground)) }
+.thought.lg { width:820px; font-size:46px; padding:34px 44px }

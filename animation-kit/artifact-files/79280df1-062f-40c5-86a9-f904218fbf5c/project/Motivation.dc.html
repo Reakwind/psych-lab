@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Select motivation</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;family=Google+Sans+Flex:opsz,wght,ROND@6..144,400..700,0..100&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="app">
+
+<sc-if value="{{isIntro}}" hint-placeholder-val="{{ true }}">
+<div class="topbar"><span class="topbar-spacer"></span><span class="topbar-title muted">Welcome</span><span class="topbar-spacer"></span></div>
+<div class="screen center" style="justify-content: center; gap: 32px">
+  <div class="art" style="width: 240px; height: 240px">
+    <div class="layer shape shape-cookie9 spin-slow" style="width: 240px; height: 240px; background: var(--tertiary-container)"></div>
+    <div class="layer shape shape-circle" style="width: 160px; height: 160px; background: #FFF4DE"></div>
+    <div class="layer shape shape-circle" style="width: 96px; height: 96px; background: var(--tertiary)"></div>
+    <span class="glyph icon icon-xl icon-fill" style="color: #fff">favorite</span>
+  </div>
+  <div class="stack center" style="gap: 12px">
+    <h1 class="t-headline">What matters most to you?</h1>
+    <p class="t-body-l muted">No right answer. It can change.</p>
+  </div>
+</div>
+<div style="padding: 0 24px 24px"><button class="btn btn-filled btn-l btn-block" onClick="{{toChoose}}">Choose</button></div>
+</sc-if>
+
+<sc-if value="{{isChoose}}" hint-placeholder-val="{{ false }}">
+<div class="topbar">
+  <button class="icon-btn" onClick="{{toIntro}}" aria-label="Back"><span class="icon">arrow_back</span></button>
+  <span class="topbar-title">{{chooseTitle}}</span>
+  <span class="topbar-spacer"></span>
+</div>
+<div class="screen" style="padding-top: 8px; gap: 12px">
+  <div class="stack scroll grow" style="gap: 10px; padding: 2px">
+    <sc-for list="{{options}}" as="o" hint-placeholder-count="8">
+      <button class="choice {{o.cls}}" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" disabled="{{o.locked}}" style="flex-shrink: 0">
+        <span class="list-lead" style="width: 44px; height: 44px; border-radius: 14px; background: var(--surface-highest); color: var(--on-surface)"><span class="icon">{{o.icon}}</span></span>
+        <span style="flex: 1 1 auto">{{o.label}}</span>
+        <span class="ind {{o.indCls}}"><span class="badge-num">{{o.badge}}</span></span>
+      </button>
+    </sc-for>
+  </div>
+  <button class="btn btn-filled btn-block" onClick="{{toConfirm}}" disabled="{{nonePicked}}" style="flex-shrink: 0">Continue</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isConfirm}}" hint-placeholder-val="{{ false }}">
+<div class="topbar"><button class="icon-btn" onClick="{{toChoose}}" aria-label="Back"><span class="icon">arrow_back</span></button><span class="topbar-title"></span><span class="topbar-spacer"></span></div>
+<div class="screen center" style="justify-content: center; gap: 28px">
+  <div class="art" style="width: 200px; height: 200px; animation: pop .7s var(--ease-emph)">
+    <div class="layer shape shape-sunny spin-slow" style="width: 200px; height: 200px; background: var(--tertiary-container)"></div>
+    <div class="layer shape shape-cookie9" style="width: 120px; height: 120px; background: var(--primary)"></div>
+    <span class="glyph icon icon-xl icon-fill" style="color: #fff">{{primaryIcon}}</span>
+  </div>
+  <h2 class="t-headline">We'll keep this in mind</h2>
+  <div class="row" style="flex-wrap: wrap; justify-content: center; gap: 8px">
+    <sc-for list="{{chosen}}" as="c" hint-placeholder-count="1">
+      <span class="pill {{c.cls}}" style="height: 40px; font-size: 16px"><span class="icon icon-s">{{c.icon}}</span>{{c.label}}</span>
+    </sc-for>
+  </div>
+</div>
+<div style="padding: 0 24px 24px"><button class="btn btn-tonal btn-block" onClick="{{toLater}}"><span class="icon">fast_forward</span>Weeks later (lab)</button></div>
+</sc-if>
+
+<sc-if value="{{isLater}}" hint-placeholder-val="{{ false }}">
+<div class="topbar">
+  <button class="icon-btn" onClick="{{prevMoment}}" aria-label="Back"><span class="icon">arrow_back</span></button>
+  <span class="topbar-title">{{moment.when}}</span>
+  <span class="topbar-spacer"></span>
+</div>
+<div class="steps"><sc-for list="{{mSteps}}" as="st" hint-placeholder-count="3"><span class="step {{st}}"></span></sc-for></div>
+<div class="screen" style="padding-top: 24px; gap: 20px" key="{{momentKey}}">
+  <sc-if value="{{moment.notification}}" hint-placeholder-val="{{ false }}">
+    <div class="card card-inverse" style="padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start; margin-top: 40px">
+      <span class="art" style="width: 48px; height: 48px">
+        <span class="layer shape shape-sunny" style="width: 48px; height: 48px; background: var(--primary-container)"></span>
+        <span class="glyph icon icon-s icon-fill" style="color: var(--on-primary-container)">spa</span>
+      </span>
+      <span class="stack" style="gap: 4px">
+        <span class="t-label-s" style="opacity: .75">{{moment.source}}</span>
+        <span class="t-body">{{moment.message}}</span>
+      </span>
+    </div>
+    <div class="row" style="justify-content: center; margin-top: 32px">
+      <span class="art" style="width: 160px; height: 160px">
+        <span class="layer shape shape-clover spin-slow" style="width: 160px; height: 160px; background: var(--surface-high)"></span>
+        <span class="glyph icon icon-xxl" style="color: var(--primary)">{{moment.icon}}</span>
+      </span>
+    </div>
+  </sc-if>
+  <sc-if value="{{moment.ask}}" hint-placeholder-val="{{ false }}">
+    <span class="pill pill-amber" style="align-self: flex-start"><span class="icon icon-s icon-fill">favorite</span>{{p1Label}}</span>
+    <h2 class="t-headline-s">{{moment.message}}</h2>
+    <div class="stack">
+      <sc-for list="{{replies}}" as="r" hint-placeholder-count="3">
+        <button class="choice {{r.cls}}" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}"><span class="ind"><span class="icon icon-s">check</span></span>{{r.label}}</button>
+      </sc-for>
+    </div>
+    <sc-if value="{{hasReplyFb}}" hint-placeholder-val="{{ false }}">
+      <div class="feedback"><span class="icon icon-fill">auto_awesome</span><span>{{replyFb}}</span></div>
+    </sc-if>
+  </sc-if>
+  <div class="grow"></div>
+  <button class="btn btn-filled btn-block" onClick="{{nextMoment}}">{{nextLabel}}</button>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"maxPicks":{"editor":"enum","options":["1","up to 3"],"default":"1"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { screen: 'intro', picks: [], m: 0, reply: null, replyFb: '' };
+  }
+  renderVals() {
+    const s = this.state;
+    const max = (this.props.maxPicks ?? '1') === '1' ? 1 : 3;
+    const list = [
+      { label: 'Staying independent', icon: 'home', phrase: 'staying independent' },
+      { label: 'Moving safely', icon: 'directions_walk', phrase: 'moving more steadily' },
+      { label: 'Speaking with confidence', icon: 'record_voice_over', phrase: 'speaking with confidence' },
+      { label: 'Family and friends', icon: 'diversity_3', phrase: 'staying close to the people you love' },
+      { label: 'Being there for others', icon: 'volunteer_activism', phrase: 'being there for others' },
+      { label: 'Things I enjoy', icon: 'palette', phrase: 'the things you enjoy' },
+      { label: 'Feeling calmer', icon: 'spa', phrase: 'feeling calmer' },
+      { label: 'Feeling like myself', icon: 'face', phrase: 'feeling like yourself' }
+    ];
+    const picks = s.picks.slice(0, max);
+    const p = (k) => (picks.length > k ? list[picks[k]] : (picks.length ? list[picks[0]] : list[0]));
+    const moments = [
+      { when: 'Day 5', ask: true, notification: false, icon: '', source: '',
+        message: 'Today: a short grounding practice. How might it help?',
+        replies: [
+          { label: 'Feel steadier', fb: 'Steadiness builds a little at a time.' },
+          { label: 'A calmer start', fb: 'A calm start makes the next step easier.' },
+          { label: 'Not sure yet', fb: 'Notice how you feel after. That counts too.' }
+        ] },
+      { when: 'Week 3', ask: false, notification: true, icon: 'fitness_center', source: 'After physio',
+        message: 'Strength work is hard some days. It’s part of ' + p(1).phrase + '.' },
+      { when: 'Week 6', ask: false, notification: true, icon: 'record_voice_over', source: 'Before speech practice',
+        message: 'A small, steady try today is part of ' + p(2).phrase + '.' }
+    ];
+    const moment = moments[s.m];
+    const full = picks.length >= max;
+    return {
+      isIntro: s.screen === 'intro', isChoose: s.screen === 'choose', isConfirm: s.screen === 'confirm', isLater: s.screen === 'later',
+      toIntro: () => this.setState({ screen: 'intro' }),
+      toChoose: () => this.setState({ screen: 'choose' }),
+      chooseTitle: max === 1 ? 'Choose one' : 'Choose up to 3',
+      options: list.map((o, i) => {
+        const idx = picks.indexOf(i);
+        const on = idx >= 0;
+        return {
+          label: o.label, icon: o.icon, pressed: on ? 'true' : 'false', locked: max > 1 && full && !on,
+          cls: on ? 'is-selected' : '', indCls: max > 1 ? 'ind-box' : '',
+          badge: on ? (max === 1 ? '✓' : String(idx + 1)) : '',
+          pick: () => (max === 1 ? this.setState({ picks: [i] }) : this.setState({ picks: on ? picks.filter((x) => x !== i) : picks.concat([i]) }))
+        };
+      }),
+      nonePicked: picks.length === 0,
+      toConfirm: () => this.setState({ screen: 'confirm' }),
+      primaryIcon: p(0).icon,
+      chosen: picks.map((i, k) => ({ label: list[i].label, icon: list[i].icon, cls: k === 0 ? 'pill-amber' : '' })),
+      toLater: () => this.setState({ screen: 'later', m: 0, reply: null, replyFb: '' }),
+      p1Label: p(0).label,
+      moment, momentKey: 'm' + s.m,
+      mSteps: moments.map((_, i) => (i < s.m ? 'is-done' : i === s.m ? 'is-current' : '')),
+      replies: (moment.replies || []).map((r, i) => ({
+        label: r.label, pressed: s.reply === i ? 'true' : 'false', cls: s.reply === i ? 'is-selected' : '',
+        pick: () => this.setState({ reply: i, replyFb: r.fb })
+      })),
+      hasReplyFb: s.replyFb !== '', replyFb: s.replyFb,
+      prevMoment: () => (s.m > 0 ? this.setState({ m: s.m - 1, reply: null, replyFb: '' }) : this.setState({ screen: 'confirm' })),
+      nextMoment: () => (s.m < moments.length - 1 ? this.setState({ m: s.m + 1, reply: null, replyFb: '' }) : this.setState({ screen: 'intro', picks: [], m: 0 })),
+      nextLabel: s.m < moments.length - 1 ? 'Next' : 'Start over'
+    };
+  }
+}
+</script>
+</body>
+</html>

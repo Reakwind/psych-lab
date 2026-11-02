@@ -1,0 +1,3551 @@
+[
+  {
+    "type": "paragraph",
+    "text": "PD psychology program",
+    "block": 1
+  },
+  {
+    "type": "paragraph",
+    "text": "Introduction",
+    "block": 2
+  },
+  {
+    "type": "paragraph",
+    "text": "This psychological program is designed as an integrated component of a broader digital therapeutic experience for people with Parkinson’s disease (PwP). Its purpose is not only to address psychological symptoms, but also to support the day-to-day behaviors that make multidisciplinary treatment effective over time. The psychological program is intended to help users 1) cope more effectively with the emotional and psychological burden of PD, through a supportive framework and a toolkit of relevant practices that users can learn practice and integrate into daily life; 2) engage with movement, physical therapy, speech therapy, occupational therapy, cognitive training, and medication-management; and 3) build a sustainable daily routine that can continue after the initial structured 12-week phase. Notably, the app is not trying to deliver a traditional therapist-led CBT or mindfulness course. It is trying to support daily participation in a complex rehabilitation environment, with no live therapist and minimal writing or conversational interaction.",
+    "block": 3
+  },
+  {
+    "type": "paragraph",
+    "text": "Clinical rationale",
+    "block": 4
+  },
+  {
+    "type": "paragraph",
+    "text": "Parkinson's affects a wide range of emotional, cognitive, and behavioral processes. People living with Parkinson’s often face challenges such as anxiety, depression, emotional dysregulation, attention difficulties, apathy, reduced motivation, identity shifts, and adjustment difficulties related to the disease’s progression and its impact on daily life. In more advanced stages, there can also be psychosis (as an undesired result of the dopaminergic treatment), impulse control issues, and cognitive decline.",
+    "block": 5
+  },
+  {
+    "type": "paragraph",
+    "text": "These \"non-motor symptoms\" are in part shaped by the experience of living with PD, but many of them are direct symptoms of the condition itself – often appearing before the motor symptoms. They can significantly affect quality of life, independence, daily functioning, relationships, and adherence to the therapeutic program. They can even amplify motor symptoms (for example - anxiety or sleep difficulties may exacerbate tremors and freezing), creating a reinforcing cycle of distress and functional decline.",
+    "block": 6
+  },
+  {
+    "type": "paragraph",
+    "text": "A psychological component is especially important in PD because emotional and motivational difficulties are not peripheral to the condition. Anxiety, low mood, stress, apathy, shame, guilt reduced confidence, and social withdrawal can all interfere with rehabilitation and daily functioning. The program acknowledges and validates these challenges, bringing them into awareness while offering practical ways to respond, alongside a sense of support and encouragement. The central challenge this psychological program is designed to address is not just “mental health symptoms,” but the moment-to-moment gap between intention and action. A user may value movement, believe it is important, and still fail to begin. They may want to use the speech program but avoid it because of embarrassment or low confidence. They may know that sleep affects tomorrow’s functioning but fail to implement a settling routine because the day already feels like a loss. The program is designed around these gaps.",
+    "block": 7
+  },
+  {
+    "type": "paragraph",
+    "text": "The program combines several therapeutic traditions in a practical way:",
+    "block": 8
+  },
+  {
+    "type": "paragraph",
+    "text": "CBT-informed elements are used for unhelpful thoughts, worry, self-criticism, sleep, and practical coping.",
+    "block": 9
+  },
+  {
+    "type": "paragraph",
+    "text": "Behavioral activation is used to address apathy, reduced activity, low momentum, and the tendency to wait for motivation before acting.",
+    "block": 10
+  },
+  {
+    "type": "paragraph",
+    "text": "Mindfulness and physiological regulation are used to help users settle stress and re-engage attention.",
+    "block": 11
+  },
+  {
+    "type": "paragraph",
+    "text": "ACT (acceptance and commitment therapy)-informed elements are introduced in simplified form to support purpose, willingness, values-based action, and psychological flexibility.",
+    "block": 12
+  },
+  {
+    "type": "paragraph",
+    "text": "Self-compassion and pacing are used to reduce boom-bust cycles, shame, and dropout after difficult days.",
+    "block": 13
+  },
+  {
+    "type": "paragraph",
+    "text": "Graded confidence-building is used to support participation in movement, speech, cognition, and social action.",
+    "block": 14
+  },
+  {
+    "type": "paragraph",
+    "text": "This combination is especially appropriate in PD because the app needs to support both emotional wellbeing and adherence behavior. In addition, to some extent, there is an aspect of a journey to the psychological content, with later content building upon earlier concepts, allowing users to gradually expand their skills, understanding, and application over time.",
+    "block": 15
+  },
+  {
+    "type": "paragraph",
+    "text": "In addition, the program incorporates two supporting approaches that are useful in a non-conversational, therapist-free digital environment.",
+    "block": 16
+  },
+  {
+    "type": "paragraph",
+    "text": "The first is an MI-informed motivational layer. The app does not attempt to replicate formal motivational interviewing, since it cannot provide live reflective listening or responsive dialogue. Instead, it uses structured MI-consistent elements: eliciting personally meaningful reasons, acknowledging ambivalence without confrontation, supporting autonomy, strengthening confidence, and helping users choose the next step rather than merely deciding whether or not to act. This is designed to increase adherence and persistence, which are shaped by self-efficacy, confidence, meaning, fatigue, and support as much as by knowledge of what is “good to do.”",
+    "block": 17
+  },
+  {
+    "type": "paragraph",
+    "text": "The second is the careful use of therapeutic suggestion. This is not formal hypnosis, and the program should not be framed that way. Rather, it uses brief supportive suggestions that shape attention, bodily settling, expectancy, and readiness for action. In practice, this means language that helps users orient to the present moment, soften bodily tension, anticipate manageable success, and enter tasks with less friction. Suggestive wording is particularly well suited to audio-guided practices, calming sequences, and confidence-building prompts. In a condition where initiation, bodily tension, uncertainty, and symptom-related apprehension can all interfere with action, such phrasing can make the psychological layer feel more immediate and embodied. Suggestive language should be used to support attention, calm, confidence, and readiness, not to make unrealistic promises or imply magical control over symptoms. Suitable uses include:",
+    "block": 18
+  },
+  {
+    "type": "paragraph",
+    "text": "settling the body before tasks",
+    "block": 19
+  },
+  {
+    "type": "paragraph",
+    "text": "post-practice prompts",
+    "block": 20
+  },
+  {
+    "type": "paragraph",
+    "text": "increasing expectancy of manageable success",
+    "block": 21
+  },
+  {
+    "type": "paragraph",
+    "text": "focusing attention on one step at a time",
+    "block": 22
+  },
+  {
+    "type": "paragraph",
+    "text": "softening self-critical interpretations",
+    "block": 23
+  },
+  {
+    "type": "paragraph",
+    "text": "reinforcing bodily cues of readiness",
+    "block": 24
+  },
+  {
+    "type": "paragraph",
+    "text": "pleasant familiarity over different practices (voice, movement, etc.) starting with a pleasant welcome, taking a calming breath, ending with a thank you, an encouragement, or a \"for the rest of the day…\".",
+    "block": 25
+  },
+  {
+    "type": "paragraph",
+    "text": "Importantly, the program also aims to strengthen users' perception that every interaction with the app is itself a meaningful act of managing their Parkinson's. The messaging and overall tone should help users recognize that every practice they complete, every activity they engage in, and every time they return to the app is already an active step toward better self-management, healthier habits, and improved daily functioning. Over time, the app should reinforce the feeling that \"I am someone who is actively doing something for my health,\" helping users see themselves as more active, engaged, and capable.",
+    "block": 26
+  },
+  {
+    "type": "paragraph",
+    "text": "Because Parkinson’s disease is highly variable, the psychological program is intentionally broad. It is designed to address a wide range of emotional, cognitive, and functional challenges that people with Parkinson’s may face in daily life. The program aims to better equip users with knowledge, tools, habits, and practical strategies to manage difficulties (unhelpful emotional and cognitive patterns, harmful habits or self-talk and more) or positively put- living healthier life with PD and improving quality of life.",
+    "block": 27
+  },
+  {
+    "type": "paragraph",
+    "text": "While some patients may also develop deeper insight as a result of the psychology program, in essence it is mainly trying to produce:",
+    "block": 28
+  },
+  {
+    "type": "paragraph",
+    "text": "lower self-blame",
+    "block": 29
+  },
+  {
+    "type": "paragraph",
+    "text": "higher self-efficacy",
+    "block": 30
+  },
+  {
+    "type": "paragraph",
+    "text": "higher willingness to start",
+    "block": 31
+  },
+  {
+    "type": "paragraph",
+    "text": "better emotional regulation before tasks",
+    "block": 32
+  },
+  {
+    "type": "paragraph",
+    "text": "more flexible persistence on bad days",
+    "block": 33
+  },
+  {
+    "type": "paragraph",
+    "text": "stronger identity and meaning around continued practice",
+    "block": 34
+  },
+  {
+    "type": "paragraph",
+    "text": "long-term habit formation with a low burden interface",
+    "block": 35
+  },
+  {
+    "type": "paragraph",
+    "text": "Increased involvement with life",
+    "block": 36
+  },
+  {
+    "type": "paragraph",
+    "text": "Note that the same principles and language can and should be consistently applied not only within the psychological program but also within all the other programs in the app (physical therapy, occupational therapy, dance therapy, speech therapy, cognitive training, etc.).",
+    "block": 37
+  },
+  {
+    "type": "paragraph",
+    "text": "Design Principles",
+    "block": 38
+  },
+  {
+    "type": "paragraph",
+    "text": "The psychological program has a “standalone” component to it, but it is also an adherence engine - The psychology layer should support use of the rest of the app. It should not feel like “extra homework” competing with the rehabilitation content.",
+    "block": 39
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily interaction should be low-burden and mostly non-writing based - The program is designed for video, audio, games, and tap-based input. Free-text writing is minimized. This is especially appropriate for PD because handwriting, typing, fatigue, and cognitive load can all make long journaling tasks impractical, especially in a self-guided format.",
+    "block": 40
+  },
+  {
+    "type": "paragraph",
+    "text": "In line with the approach taken across the entire therapeutic program, the psychological program emphasizes learning with application. Ideally, each concept, technique, or therapeutic principle introduced is accompanied by opportunities for practice and integration. This may take the form of interactive exercises, structured reflections, or real-life tasks that are brought back into the app through self-reporting and feedback. The goal (and challenge) is to make therapeutic content not only informative, but usable, engaging, and relevant to users’ daily experiences.",
+    "block": 41
+  },
+  {
+    "type": "paragraph",
+    "text": "Safety and escalation need to be built in - Because the app is self-guided, it should include basic information on when to seek additional support, including in mental health aspects (severe anxiety, depression, hallucinations, etc.,). This can also be referred throughout the program in places where it makes sense to (e.g., in the unit talking about anxiety).",
+    "block": 42
+  },
+  {
+    "type": "paragraph",
+    "text": "Theme (within the first 12 weeks) - Each unit focuses on one main psychological or behavioral skill, taught through one anchor “lesson” and repeated daily micro-practices.",
+    "block": 43
+  },
+  {
+    "type": "paragraph",
+    "text": "Logic for missed days – the anchor should be prioritized and not to be missed.",
+    "block": 44
+  },
+  {
+    "type": "paragraph",
+    "text": "Program High-Level Structure",
+    "block": 45
+  },
+  {
+    "type": "paragraph",
+    "text": "The psychological program is organized into units, each addressing specific themes, topics, or therapeutic targets relevant to individuals living with Parkinson’s. Notably, the psychological program follows a more linear and progressive structure compared to other domains, at least in the initial 12 weeks, which are more structured. As we move to the maintenance phase, users can continue to practice the psychological tools and routines they most connected with.",
+    "block": 46
+  },
+  {
+    "type": "paragraph",
+    "text": "In the first 12 weeks, each unit has one main theme, but the theme is taught through repetition and practical use. The unit rhythm is:",
+    "block": 47
+  },
+  {
+    "type": "paragraph",
+    "text": "one “anchor lesson” at the start of the unit- ± 3 minutes long",
+    "block": 48
+  },
+  {
+    "type": "paragraph",
+    "text": "one related short daily interaction",
+    "block": 49
+  },
+  {
+    "type": "paragraph",
+    "text": "Some of these will be additional “learning” to reinforce the message and place it in additional contexts",
+    "block": 50
+  },
+  {
+    "type": "paragraph",
+    "text": "Some of these will be practices that can be used repeatedly over time - also beyond the unit in which they were introduced --> note that some of the practices are longer (up to 7 minutes), will be marked below as longer",
+    "block": 51
+  },
+  {
+    "type": "paragraph",
+    "text": "optional additional content patients can access if interested",
+    "block": 52
+  },
+  {
+    "type": "paragraph",
+    "text": "In addition, the themes can be used within other modules in the app (e.g., the physiotherapist can speak about action before motivation, the occupational therapist can refer to pacing, etc.) + they can inform reusable boosters linked to that unit’s theme – see above the note about creating visuals that can be repeated throughout the app.",
+    "block": 53
+  },
+  {
+    "type": "paragraph",
+    "text": "The intention is that users meet the same ideas in slightly different forms: watch it once, practice it repeatedly, use it while doing other therapy, and then eventually internalize it as part of their routine. While it is expected that the “learning” sections will not necessarily be something the patients go back to, the practices should be designed to be used repeatedly.",
+    "block": 54
+  },
+  {
+    "type": "paragraph",
+    "text": "Types of activities",
+    "block": 55
+  },
+  {
+    "type": "paragraph",
+    "text": "The psychology program includes the following types of assets:",
+    "block": 56
+  },
+  {
+    "type": "paragraph",
+    "text": "Educational – these are designed to provide information. They may be delivered in various formats, such as video, animated video, slides, articles, etc. They are passive in nature and are not designed to be used many times.",
+    "block": 57
+  },
+  {
+    "type": "paragraph",
+    "text": "Practices – these are designed as tools that the patients that they learn and repeat over time, as self-care tools. These can be, for example, breathing exercises, relaxation/mindfulness audios, collecting a positive moment, etc.",
+    "block": 58
+  },
+  {
+    "type": "paragraph",
+    "text": "Interactive- these are designed to help patients internalize the education they have been exposed to. The goal is to turn them from passive viewers to more active “learners”. These may include, for example – asking a question and letting the patient choose from a list of answers, adopting certain ideas/thoughts and rejecting others, marking a key idea to “keep” etc. These mechanisms may be shared across modules. They are not designed as self-help tools or activities that the patient is likely to go back to and can follow the educational or the practice content.",
+    "block": 59
+  },
+  {
+    "type": "paragraph",
+    "text": "Visual anchors – this is a part of the educational content, however it is spelled out separately because of its importance and applicability beyond the piece of educational content it appears in originally. The idea is to create several key visual anchors. For example, show a visual of a bull’s eye to signify how close an action is to core values, and then use the visual later when asking about value-guided actions in the daily protocol. Or use a visual of an imbalance between perceived effort and perceived reward when explaining apathy, and then repeat this visual when the physical therapist talks about the daily physio practice.",
+    "block": 60
+  },
+  {
+    "type": "paragraph",
+    "text": "A focus on practices",
+    "block": 61
+  },
+  {
+    "type": "paragraph",
+    "text": "The psychological content is structured into modules (weeks), each covering themes that support the patient journey. Alongside the modules, users are introduced to practices that they learn and repeat over time, either in their original form or with variations adapted to each module’s theme. These practices also function as standalone self-care tools.",
+    "block": 62
+  },
+  {
+    "type": "paragraph",
+    "text": "Conceptual note: The practices are connected and support each other. Each emphasizes a different aspect of mind–body regulation while supporting the others.",
+    "block": 63
+  },
+  {
+    "type": "paragraph",
+    "text": "Relaxation practices emphasize ease and physical comfort, which supports breathing and mindfulness.",
+    "block": 64
+  },
+  {
+    "type": "paragraph",
+    "text": "Breathing practices are embedded within both relaxation and mindfulness that often call for intentional breathing.",
+    "block": 65
+  },
+  {
+    "type": "paragraph",
+    "text": "Mindfulness introduces acceptance and non-judgmental awareness, which enhances the effectiveness of both relaxation and breathing practices.",
+    "block": 66
+  },
+  {
+    "type": "paragraph",
+    "text": "Core/optional practices",
+    "block": 67
+  },
+  {
+    "type": "paragraph",
+    "text": "Core practices are integrated into daily activities and repeated throughout the program, sometimes with variations aligned to module themes.",
+    "block": 68
+  },
+  {
+    "type": "paragraph",
+    "text": "Additional practices are offered for users who want to deepen their engagement, understanding, and practice.(e.g., after practicing two short breathing exercises, the user can access two additional optional breathing techniques; or after practicing guided imagery for relaxation, the user can try guided imagery for a safe place or a longer version for sleep).",
+    "block": 69
+  },
+  {
+    "type": "paragraph",
+    "text": "Structure of practices",
+    "block": 70
+  },
+  {
+    "type": "paragraph",
+    "text": "Practices include the following components:",
+    "block": 71
+  },
+  {
+    "type": "paragraph",
+    "text": "Intro",
+    "block": 72
+  },
+  {
+    "type": "paragraph",
+    "text": "core things to remember",
+    "block": 73
+  },
+  {
+    "type": "paragraph",
+    "text": "Practice",
+    "block": 74
+  },
+  {
+    "type": "paragraph",
+    "text": "The first time the practice is introduced, it will be introduced with all parts.  In the library (or wherever else the user will be able to go back to the practice) the user should be able to skip the intro.",
+    "block": 75
+  },
+  {
+    "type": "paragraph",
+    "text": "Practice overview (high-level)",
+    "block": 76
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "",
+        "Core",
+        "Additional",
+        "Format"
+      ],
+      [
+        "breathing",
+        "belly breathingbox breathing",
+        "physiological sigh, coherent breathing",
+        "Animations + programmed logic"
+      ],
+      [
+        "Relaxation",
+        "Progressive muscle relaxation, Guided imagery (relaxation/safe place/medication)",
+        "longer PMR versions, extended and varied guided imagery practices, including variations for sleep which will be in a separate category in the library",
+        "Audios "
+      ],
+      [
+        "Mindfulness",
+        "awareness of breath, body scan,mindful walking, observing thoughts, A grounding technique, ATT",
+        "mindful eating, Settling attention in the hands and feet, longer and varied meditation practices",
+        "Audios "
+      ],
+      [
+        "Reflective and cognitive",
+        "choose a connection microstep, choose a pleasure microstep, exploring a pleasant experience, self- compassion moment, gratitude moment, a connection card game, “my compass”",
+        "Daily intention for pacing, guided audio practice for self- compassion",
+        "Core activities are interactions and optional activities are audios "
+      ]
+    ],
+    "block": 77
+  },
+  {
+    "type": "paragraph",
+    "text": "Note - For breathing exercises – there are additional requirements related to including audio and allowing change of pace. See document  Breathing Exercises- design and implementation input.docx",
+    "block": 78
+  },
+  {
+    "type": "paragraph",
+    "text": "Note – for exploring a pleasant experience, self- compassion moment, gratitude moment - See document Reflective and emotional practices for App C and PD App.docx",
+    "block": 79
+  },
+  {
+    "type": "paragraph",
+    "text": "Note – the connection card game required further specification. Two ideas Renan suggested (in addition to suggesting the concept in the first place) were rolling dice to choose (maybe choose a themed pile?) and displaying a “card” with prompts on both sides so that if someone sits across someone else they can see it at the same time.",
+    "block": 80
+  },
+  {
+    "type": "paragraph",
+    "text": "Practice frequencyThree practices per week are ideal to ensure meaningful exposure and engagement. There is no need for users to practice all types or specific categories; after initial exposure, it may be more beneficial for them to practice regularly what feels most suitable and relevant to them (choice).",
+    "block": 81
+  },
+  {
+    "type": "paragraph",
+    "text": "Practice timing – open question",
+    "block": 82
+  },
+  {
+    "type": "paragraph",
+    "text": "Ideally, some practices would be timed to be practiced at the end of the day. Open question – can that be done",
+    "block": 83
+  },
+  {
+    "type": "paragraph",
+    "text": "Personalization – to be specifiedOver time, the app could personalize practice recommendations based on user preferences (e.g., breathing, relaxation, mindfulness, cognitive practices). For this purpose, the app would need to collect the user’s rating of each practice. Details are TBD.",
+    "block": 84
+  },
+  {
+    "type": "paragraph",
+    "text": "Continuing with practices after the 12 weeks – open question",
+    "block": 85
+  },
+  {
+    "type": "paragraph",
+    "text": "Ideally, users will be able to continue using the practices after the 12 weeks protocol. This is outside the scope of this document, however if a general plan is put in place to address longer-term use, the psychological practices should be part of it, based on the table of practices.",
+    "block": 86
+  },
+  {
+    "type": "paragraph",
+    "text": "Thoughts for after the 12 weeks (new section)",
+    "block": 87
+  },
+  {
+    "type": "paragraph",
+    "text": "Current assumption is that after the 12 weeks the program will simply continue. This means that",
+    "block": 88
+  },
+  {
+    "type": "paragraph",
+    "text": "week 12 does not have to be a “let’s collect our thoughts and summarize” week.",
+    "block": 89
+  },
+  {
+    "type": "paragraph",
+    "text": "We should have a repetitive structure that can be used over time after week 12 too",
+    "block": 90
+  },
+  {
+    "type": "paragraph",
+    "text": "Suggestion – a 7 day structure, in which there is:",
+    "block": 91
+  },
+  {
+    "type": "paragraph",
+    "text": "Day 1 – choice between relaxation exercises: PMR, guided imagery relaxation, guided imagery safe place, grounding",
+    "block": 92
+  },
+  {
+    "type": "paragraph",
+    "text": "Day 2 – choice between breathing exercises: belly, square, coherent, sigh",
+    "block": 93
+  },
+  {
+    "type": "paragraph",
+    "text": "Day 3 – choice between “self-care” reflections – gratitude, self-compassion, pleasant moment, I am enough audio",
+    "block": 94
+  },
+  {
+    "type": "paragraph",
+    "text": "Day 4 – choice between mindfulness exercises – awareness of breath, body scan, observing thoughts, mindful eating, mindful walking, attention to hands and feet",
+    "block": 95
+  },
+  {
+    "type": "paragraph",
+    "text": "Day 5 – Card game (can be self reflection or with someone)",
+    "block": 96
+  },
+  {
+    "type": "paragraph",
+    "text": "Day 6 – combined inner voice workout",
+    "block": 97
+  },
+  {
+    "type": "paragraph",
+    "text": "Day 7 – choice between in-the-moment tools to practice – one breath reset, soften one place, three anchors",
+    "block": 98
+  },
+  {
+    "type": "paragraph",
+    "text": "Thought – if this is the “end game”, we should strive to make the program gradually shift to this structure, and have less education pieces unless they are crucial for the motivation/good practice, moving the rest to the library",
+    "block": 99
+  },
+  {
+    "type": "paragraph",
+    "text": "A focus on non-practice interactions",
+    "block": 100
+  },
+  {
+    "type": "paragraph",
+    "text": "(note – practices are in the previous section, some of them are interactive)",
+    "block": 101
+  },
+  {
+    "type": "paragraph",
+    "text": "Cognitive Training Interaction: Working with Thoughts (thoughts game)",
+    "block": 102
+  },
+  {
+    "type": "paragraph",
+    "text": "Several units in the psychological program involve identifying and working with thoughts/self talk- whether biased, unhelpful, validating, or self-compassionate. While users receive psychoeducation and reflection, a gamified component can deepen this work by providing repetitive, engaging training that supports cognitive flexibility, emotional distancing (defusion), and internalization of more adaptive inner voice. Importantly, there is an evidence base for the efficacy of this sort of game suggested here (see the work of Guy Doron).",
+    "block": 103
+  },
+  {
+    "type": "paragraph",
+    "text": "The core concept is:",
+    "block": 104
+  },
+  {
+    "type": "paragraph",
+    "text": "we present the user with a “sorting task” of thoughts. Each time the task is different, based on the specific unit we are in. For example, in the “thoughts are not commands” unit, the user will need to identify biased thoughts versus non-biased thoughts. In the “self care” unit, the user will need to identify thoughts that promote self compassion  versus thoughts that do not promote it.",
+    "block": 105
+  },
+  {
+    "type": "paragraph",
+    "text": "We can also mix a few tasks together from several units.",
+    "block": 106
+  },
+  {
+    "type": "paragraph",
+    "text": "the user should get feedback if they identified correctly or not.",
+    "block": 107
+  },
+  {
+    "type": "paragraph",
+    "text": "Core therapeutic principles supported:",
+    "block": 108
+  },
+  {
+    "type": "paragraph",
+    "text": "Repeated exposure to maladaptive vs. adaptive statements",
+    "block": 109
+  },
+  {
+    "type": "paragraph",
+    "text": "Reinforcement of adaptive thinking and self-talk",
+    "block": 110
+  },
+  {
+    "type": "paragraph",
+    "text": "Defusion through repetition, labeling, and interaction",
+    "block": 111
+  },
+  {
+    "type": "paragraph",
+    "text": "Non-declarative learning that supports cognitive flexibility",
+    "block": 112
+  },
+  {
+    "type": "paragraph",
+    "text": "Key aspects to consider:",
+    "block": 113
+  },
+  {
+    "type": "paragraph",
+    "text": "This is not a full-blown game with progression/regression, but it can be a powerful way to practice the learned content in a fun and effective manner.",
+    "block": 114
+  },
+  {
+    "type": "paragraph",
+    "text": "The most important thing is making it fun and rewarding: Guy Doron's app can be an example for a dull and flat implementation. This deepends on availability of design and creative resources, but in theory there is an opportunity to integrate gamification elements like playful reinforcements, and humor. For example, biased thoughts could appear with exaggerated or caricatured visuals (e.g., the phrase “You’re not good enough” might be spoken by a cartoonish “inner critic” character like an old disapproving aunt). Having a golden statement (like \"I'm good enough\") that when the user correctly swipe, fills the screen, etc. Using positive imagery and positive reinforcement: positive imagery like brain, trees or clouds in the mechanic. In addition, \"correct\" responses trigger visual/audio feedback (growth, clarity, affirming messages), but avoid punitive framing for biased thoughts (not to create negative associations). These touches might be the way to make it enjoyable and more memorable.",
+    "block": 115
+  },
+  {
+    "type": "paragraph",
+    "text": "Swipe mechanic: e.g., accept/reject - was used effectively in research, can be replaced with a different mechanic of course.",
+    "block": 116
+  },
+  {
+    "type": "paragraph",
+    "text": "Speech integration: Optional - hear thoughts read aloud and/or speak them to deepen processing and externalization.",
+    "block": 117
+  },
+  {
+    "type": "paragraph",
+    "text": "Progress encouragement: Periodic feedback to reinforce positive change (e.g., “You’re training you inner voice to be more balanced”)",
+    "block": 118
+  },
+  {
+    "type": "paragraph",
+    "text": "Short, flexible play format: 2–3 minute sessions.",
+    "block": 119
+  },
+  {
+    "type": "paragraph",
+    "text": "Repeated explanations of the game's rational and desired outcome: direct or via embedded rationale cues like “When you practice this skill, you’re strengthening your resilience.”",
+    "block": 120
+  },
+  {
+    "type": "paragraph",
+    "text": "Note: In PD this game also engages cognitive aspects like proceeding speed, fine movement and visuospatial abilities, that might need special consideration.",
+    "block": 121
+  },
+  {
+    "type": "paragraph",
+    "text": "Personal note from Ariel: I genuinely believe this format holds potential as subtle yet meaningful therapeutic support tool. If designed thoughtfully, it can help bridge the gap between theory and practice, making cognitive work more accessible, engaging, and emotionally resonant for users.",
+    "block": 122
+  },
+  {
+    "type": "paragraph",
+    "text": "Pre or post-activity reflection",
+    "block": 123
+  },
+  {
+    "type": "paragraph",
+    "text": "Before or after activities (also outside the psychological program) we may define a reflection. This will be in the form of one of the following:",
+    "block": 124
+  },
+  {
+    "type": "paragraph",
+    "text": "Showing just text (and the user is invited to think about it)",
+    "block": 125
+  },
+  {
+    "type": "paragraph",
+    "text": "Note that ideally there would be some mechanism to make sure the user indeed takes a few seconds to think instead of just clicking next",
+    "block": 126
+  },
+  {
+    "type": "paragraph",
+    "text": "asking a question and letting the patient choose from a list of answers",
+    "block": 127
+  },
+  {
+    "type": "paragraph",
+    "text": "Note that there can be 1-3 questions per activity",
+    "block": 128
+  },
+  {
+    "type": "paragraph",
+    "text": "Note that the app should present a feedback based on the answer selected for each question (ideally, we can define a few response options and randomly show one so that the user is not always presented with the same feedback)",
+    "block": 129
+  },
+  {
+    "type": "paragraph",
+    "text": "Examples – after a mindfulness practice, ask if they feel more relaxed; after the anchor lesson ask a few questions such as “do you ever feel more anxious when your medication starts to wear off? (reply) “do you ever feel that stress makes symptoms more prominent?” (reply) “do you sometimes feel that it is hard to relax? (reply)” and then based on the answers, show a connecting sentence “in the following days we will share some practical tools you can use when …”.",
+    "block": 130
+  },
+  {
+    "type": "paragraph",
+    "text": "Logic – the app should allow to define if the post-activity reflection is shown:",
+    "block": 131
+  },
+  {
+    "type": "paragraph",
+    "text": "Always",
+    "block": 132
+  },
+  {
+    "type": "paragraph",
+    "text": "Only the first X times this activity is done",
+    "block": 133
+  },
+  {
+    "type": "paragraph",
+    "text": "Skip option – the app should allow users to skip the reflection and continue to the next activity",
+    "block": 134
+  },
+  {
+    "type": "paragraph",
+    "text": "Note that a similar structure can also be used for activities without prior educational content displayed (e.g. - in the first unit, one activity is that the user is reminded of the motivation they chose on day 1 and is invited to reflect how today’s daily activity can be relevant to achieve this motivation)",
+    "block": 135
+  },
+  {
+    "type": "paragraph",
+    "text": "Note that it makes sense for the app to remember the replies and use this information in the care coordinator.",
+    "block": 136
+  },
+  {
+    "type": "paragraph",
+    "text": "Keep",
+    "block": 137
+  },
+  {
+    "type": "paragraph",
+    "text": "To help facilitate knowledge assimilation, we will offer user the ability to “keep” 1-3 key points from education pieces they view or practices they perform. These will be pre-defined and the user will just be able to select them. the user will be able to access these “keeps” in the library, and each “keep” will link to the original education or practice it was taken from.",
+    "block": 138
+  },
+  {
+    "type": "paragraph",
+    "text": "Select Motivation",
+    "block": 139
+  },
+  {
+    "type": "paragraph",
+    "text": "In the first unit, the user will be asked to select a main motivation for using the app (out of a predetermined list)",
+    "block": 140
+  },
+  {
+    "type": "paragraph",
+    "text": "Consider option to let the user choose up to 3 main motivations",
+    "block": 141
+  },
+  {
+    "type": "paragraph",
+    "text": "This app needs to “remember” this selection so that future messaging to the user can relate back to this motivation selection (for example – write a message after completing a physical therapy sequence connecting it with the selected motivation).",
+    "block": 142
+  },
+  {
+    "type": "paragraph",
+    "text": "The motivation(s) selected do not need to appear consistently anywhere after the selection (meaning there is no need to display it somewhere or let the user edit it, etc.)",
+    "block": 143
+  },
+  {
+    "type": "paragraph",
+    "text": "A note on the care coordinator",
+    "block": 144
+  },
+  {
+    "type": "paragraph",
+    "text": "The care coordinator should collect the patients’ choices throughout the use of the app and use that to provide patient-specific framing of the activities (both within the psych program and outside of it). For example, if a patient indicates that spending time with family is a strong value/motivation, the care coordinator will use that to create motivational and suggestive introductions to activities within the app (example – working on your strength may feel like a lot sometimes, but remember this is not just a movement goal, you are doing it so that you can have more quality time with your family).",
+    "block": 145
+  },
+  {
+    "type": "paragraph",
+    "text": "Out of scopes/open questions",
+    "block": 146
+  },
+  {
+    "type": "paragraph",
+    "text": "Out of scope – biofeedback",
+    "block": 147
+  },
+  {
+    "type": "paragraph",
+    "text": "We are not integrating any form of biofeedback (e.g., - heart rate, breathing sound via microphone) . It could be powerful but requires significant effort.",
+    "block": 148
+  },
+  {
+    "type": "paragraph",
+    "text": "Open question - Mood tracking and integration of the psych program with it: at the moment, we have not determined if there is mood tracking, and at the moment any mood tracking is not directly linked to the psychological program.",
+    "block": 149
+  },
+  {
+    "type": "paragraph",
+    "text": "Key units in the psychological program:",
+    "block": 150
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "#",
+        "Unit name",
+        "Theme"
+      ],
+      [
+        "1",
+        "Unit 1: Welcome",
+        "Welcoming users into the program. "
+      ],
+      [
+        "2",
+        "Unit 2: Action before motivation",
+        "Meaningful action often needs to come before motivation feels strong enough"
+      ],
+      [
+        "3+4",
+        "Unit 3+4 (longer unit) Stress, anxiety, and calming the body",
+        "Explains the impact of Parkinson’s on anxiety, stress and tension. Teaches breathing, grounding, and physiological regulation skills to reduce distress and regain emotional control. "
+      ],
+      [
+        "5",
+        "Unit 5: Thoughts are not commands",
+        "Addresses common unhelpful thinking patterns"
+      ],
+      [
+        "6",
+        "Unit 6: Mindfulness and present-moment awareness",
+        "Introduces mindfulness in daily life and the relevance of it in PD. "
+      ],
+      [
+        "7",
+        "Unit 7: Self-care: Self-compassion, self-validation, gratitude and exploring pleasant moments",
+        "Emphasize compassion, validation, and paying attention to small things that feel good."
+      ],
+      [
+        "8",
+        "Unit 8 – “I am enough”: Confidence, embarrassment, and social participation",
+        "Explores the impact of shame, embarrassment and perceived stigma, and encourages social participation. "
+      ],
+      [
+        "9",
+        "Unit 9 - Values and Meaningful Action",
+        "Guides users to clarify what matters most, even amid illness. Promotes meaningful action and engagement in personally important roles and activities. "
+      ],
+      [
+        "10",
+        "Unit 10 - Meeting difficulty, pain and discomfort",
+        "Helps users face emotional or physical pain with more openness and less resistance. "
+      ],
+      [
+        "11",
+        "Unit 11: Sleep, rest, and evening reset",
+        "Applies core principles from CBT-I to address sleep"
+      ],
+      [
+        "12",
+        "Unit 12: Emotional resilience and putting it all together",
+        "A wrap-up module that helps users integrate skills, reflect on progress, and strengthen long-term coping."
+      ]
+    ],
+    "block": 151
+  },
+  {
+    "type": "paragraph",
+    "text": "Program Detailed Structure",
+    "block": 152
+  },
+  {
+    "type": "paragraph",
+    "text": "Throughout the program, some elements are considered core, while others are optional for those interested in exploring more.",
+    "block": 153
+  },
+  {
+    "type": "paragraph",
+    "text": "Unit 1: Welcome",
+    "block": 154
+  },
+  {
+    "type": "paragraph",
+    "text": "Anchor",
+    "block": 155
+  },
+  {
+    "type": "paragraph",
+    "text": "a brief explanation that PD affects not only movement (its not all physical symptoms), but also mood, attention, stress, confidence, motivation, energy fluctuation, frustration tolerance, and social comfort and that these are common and understandable consequences of the condition.",
+    "block": 156
+  },
+  {
+    "type": "paragraph",
+    "text": "These difficulties are not always in the foreground when people think about Parkinson’s or even in medical appointments (people tend to think mainly on the physical symptoms), yet living with them can be complex and burdensome. Addressing them and learning how to respond to them a little more effectively (a little bit every day… small steps make a big difference…) can make a meaningful difference in daily life.",
+    "block": 157
+  },
+  {
+    "type": "paragraph",
+    "text": "a normalization of common reactions: frustration, grief, worry, slower initiation, embarrassment, reduced spontaneity, self-blame",
+    "block": 158
+  },
+  {
+    "type": "paragraph",
+    "text": "The psychological program is designed to help you build practical skills for these different challenges.",
+    "block": 159
+  },
+  {
+    "type": "paragraph",
+    "text": "Sometimes this means learning how to respond differently to difficult thoughts or worries.",
+    "block": 160
+  },
+  {
+    "type": "paragraph",
+    "text": "Sometimes it means learning ways to calm the body or regulate stress.",
+    "block": 161
+  },
+  {
+    "type": "paragraph",
+    "text": "Sometimes it means training attention and mindfulness.",
+    "block": 162
+  },
+  {
+    "type": "paragraph",
+    "text": "Sometimes it means strengthening self-compassion, confidence, or social participation.",
+    "block": 163
+  },
+  {
+    "type": "paragraph",
+    "text": "And sometimes it means finding ways to stay engaged with the people, activities, and values that matter to you.",
+    "block": 164
+  },
+  {
+    "type": "paragraph",
+    "text": "Throughout the program, you will learn simple tools, practice them, and might gradually discover which ones work best for you.",
+    "block": 165
+  },
+  {
+    "type": "paragraph",
+    "text": "Emphasize that the app is built around repetition, flexibility, experimentation, and small steps rather than perfection.",
+    "block": 166
+  },
+  {
+    "type": "paragraph",
+    "text": "The overall message is that even a few minutes of practice can be a meaningful investment in yourself and your daily life.",
+    "block": 167
+  },
+  {
+    "type": "paragraph",
+    "text": "***Perhaps we could also note that this is a gradual learning process (a few minutes a day). Each week adds another small piece to the puzzle. On its own, each step may seem simple, but over time these small pieces can add up to something meaningful.",
+    "block": 168
+  },
+  {
+    "type": "paragraph",
+    "text": "a simple explanation that the app is built around repetition, flexibility, and small steps. The tone should be: there is a target, but we protect continuity. The framing is positive and encouraging: even a few minutes in the app is already a meaningful step, a few minutes invested in self-care.",
+    "block": 169
+  },
+  {
+    "type": "paragraph",
+    "text": "Reinforce that every interaction with the app is already a meaningful act of managing Parkinson's. we want to frame each completed activity as active participation in one's health, helping users begin to see themselves as people who are actively taking care of themselves.",
+    "block": 170
+  },
+  {
+    "type": "paragraph",
+    "text": "Content can and should use stories/examples (e.g., someone who wants to walk more safely, someone who wants to feel more confident speaking, someone who wants to stay connected and independent).",
+    "block": 171
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily activities (to be finalized with the prontent team)",
+    "block": 172
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "Name",
+        "Description",
+        "E (educational) /P (practice) / I (interactive)",
+        "Core/ Optional",
+        "Format",
+        "Lengthmin",
+        "Dailyactivity",
+        "Prontent"
+      ],
+      [
+        "Select motivation (this will be after the anchor, same day)",
+        "User selects the main reason they are using the app – what matters to them. The app needs to remember this so that future “check ins” can be made using this motivation, however it does not need to be displayed somewhere consistently Living with Parkinson's can naturally shift attention toward symptoms, appointments, and day-to-day challenges. It is easy to lose sight of what we are ultimately trying to protect or move toward. The practices in the app are not meant to become another appointment or chore, but rather a moment to support yourself in moving toward the things that matter most to you. What matters most is personal, and only you can decide what feels most meaningful to you at this point in your life. Taking a moment to reconnect with it from time to time can be a helpful reminder of why you are investing this time in yourself. Invite users to pause for a moment and choose one personal reason that feels most meaningful to them right now. This is simply a direction that can help guide and motivate small daily steps.Emphasize that there is no right or wrong choice, and that motivations may naturally change over time.",
+        "I",
+        "C",
+        "",
+        "1",
+        "0 (part of anchor)",
+        ""
+      ],
+      [
+        "Belly breathing",
+        "A first opportunity to try one of the self-regulation tools introduced in the anchor lesson. The practice is intended as a brief “taste” of the technique, with additional explanations and varied exercises introduced later in the program. Coming soon…. 😊",
+        "E+P",
+        "C",
+        "",
+        "3",
+        "1",
+        ""
+      ],
+      [
+        "Pacing ",
+        "a brief explanation of pacing principles with emphasis on acknowledging and validating the challenge, and introducing the underlying attitude stressing that it does not have to perfect. Link to the effect of the medication",
+        "E",
+        "C",
+        "",
+        "3",
+        "2",
+        ""
+      ],
+      [
+        "Battery analogy and planned rests ",
+        "fatigue as a signal that the battery is running low; pacing as noticing this early, recharging in a timely and effective way, and using energy more intentionally on what matters. Focus on becoming more aware of energy levels and signs of fatigue, and on building rest into the daily routine before the battery runs too low. ",
+        "E",
+        "C",
+        "",
+        "2",
+        "3",
+        ""
+      ],
+      [
+        "Pacing tool – break to small tasks",
+        "Pacing tool – break tasks to smaller chunks - Small steps – sometimes you need really really small steps (5 steps, each step less than 1 minute, all together less than 5 minutes). The idea is to break the task to small items in order to get started. Once they get started it might be easier to do the longer task (so for example even if the task is to walk 30 minutes in the park, you can break it into “1) getting the clothes i want to wear for the walk out of the closet; 2) changing into these clothes; 3)putting on walking shoes; 3) getting my keys; 4) getting out of the house; 5) putting music on my phone)",
+        "E",
+        "C",
+        "",
+        "3",
+        "4",
+        ""
+      ],
+      [
+        "Link motivation",
+        "User is reminded of the main motivation they chose and is invited to reflect how today’s daily activity can be relevant to achieve this motivation",
+        "E",
+        "C",
+        "",
+        "2",
+        "5",
+        ""
+      ],
+      [
+        "Practicing with Parkinson's",
+        "Practicing Is an ongoing process of experiencing learning and adapting.Practical tips for adapting breathing, relaxation, and mindfulness practices to Parkinson's. In general, the goal is not to practice perfectly or to struggle with what is happening, but to find ways of practicing that feel comfortable and sustainable. Users are encouraged to approach the practices with flexibility, accepting that each practice will be different. A practice that feels calming and pleasant one day may feel tiring on another. Some days it may help you feel more alert, while on others you may even fall asleep during the practice. These are all normal experiences. Rather than striving for the \"perfect\" practice, the goal is to find an approach that feels comfortable, realistic, and sustainable, remembering that \"good enough\" is often exactly what is needed.Suggesting to allow themselves some trial and error to be curious.PD-related topics to address (to be finalized). Some of these points may also be covered in dedicated intros.Timing of practice in relation to medication (\"on\" vs. \"off\" periods): practices might feel different during \"on\" and \"off\" periods. This is expected and does not mean the practice is working better or worse. See what works for you. choosing a comfortable body position: practice sitting upright, sitting with back support, reclining, or lying comfortably on their back. Encourage experimentation to find what works best on a given day. Consider creating a dedicated, comfortable place at home where they can practice regularlyPracticing with tremor or involuntary movements: Tremor, dyskinesia, stiffness, or other involuntary movements may be present during practice, and that is completely okay. The goal is not to make these experiences disappear or to stay perfectly still. Instead, practice is about learning to work with whatever is present. For example, when the guidance says \"allow the body to soften,\" this may simply mean your version of softening today. If stiffness is present, soften what you can. If tremor is present, let it be part of the experience rather than something that has to be stopped before the practice can begin. We want to practice with a gentle, accepting attitude, where the practice becomes an opportunity to respond to your body with kindness and care rather than struggle. Responding to Changes in Breathing: Encourage users to notice changes in breathing comfort or quality and adapt the practice accordingly. Simple adjustments such as changing position, returning to a natural breathing rhythm, or shortening the practice are important part of the practice. Adapting to fatigue or wandering attention: Attention may naturally be drawn to the tremor. Rather than treating this as a distraction or failure, gently notice it “hello tremor” and return attention to the practice with a smile whenever possible.",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "6",
+        ""
+      ],
+      [
+        "Building a habit",
+        "A short video of a patient speaking about creating routine for the app + reflection on their selected slot/routine",
+        "E+I",
+        "O",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Pacing tool - alternate",
+        "Teach to alternate between different types of effort",
+        "E",
+        "O",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Daily intention for pacing audio",
+        "Setting a daily intention for pacing- 3 minutes guided audio practice",
+        "P",
+        "O",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "block": 173
+  },
+  {
+    "type": "paragraph",
+    "text": "Unit 2: Action before motivation",
+    "block": 174
+  },
+  {
+    "type": "paragraph",
+    "text": "Anchor:",
+    "block": 175
+  },
+  {
+    "type": "paragraph",
+    "text": "Meaningful action often needs to come before motivation feels strong enough. This is especially important in PD, where low momentum, apathy, discouragement, and reduced spontaneity can contribute to a passive loop.",
+    "block": 176
+  },
+  {
+    "type": "paragraph",
+    "text": "It's really hard to increase motivation. Waiting for motivation to come is unhelpful and impractical – the common confusion is we often treat motivation as if it’s the fuel we need before we begin. But in many cases, action is what generates motivation, not the other way around. You might start feeling more motivated once you are already engaged in activities.  However, it is possible to get help to get started.",
+    "block": 177
+  },
+  {
+    "type": "paragraph",
+    "text": "difficulty initiating does not mean laziness or lack of character. The first step is often harder than the second and third (like a train, it is hardest to get moving at the beginning, but once it starts, it carries itself more easily).",
+    "block": 178
+  },
+  {
+    "type": "paragraph",
+    "text": "explain the cycle in which low action leads to lower confidence and lower mood, which then makes future action less likely. Explain why often the thing that is most within the patient’s control is the action. It should clarify that the app’s own content can count as meaningful action: movement can count as health and accomplishment, speech work can count as connection, cognitive work can count as engagement and competence, and occupational strategies can count as independence.",
+    "block": 179
+  },
+  {
+    "type": "paragraph",
+    "text": "Waiting for motivation or the “right” feeling before acting can become a trap. This can happen to anyone, but it is especially relevant in Parkinson’s, where motivation, energy, and mood can fluctuate due to the condition itself. A person may think, “I’ll start when I feel more ready, less tired, or more motivated,” but these internal states are not fully under voluntary control. As a result, action gets delayed. Over time, this leads to less activity, less sense of reward, and less momentum, which can lower mood and confidence and make starting feel even harder.",
+    "block": 180
+  },
+  {
+    "type": "paragraph",
+    "text": "Note – this is a topic which really would resonate well if presented by the other therapists in the app",
+    "block": 181
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily activities (to be finalized with the prontent team)",
+    "block": 182
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "Name",
+        "Description",
+        "E (educational) /P (practice) / I (interactive)",
+        "Core/ Optional",
+        "Lengthmin",
+        "Dailyactivity",
+        "Prontent"
+      ],
+      [
+        "Apathy quick explanation",
+        "perceived effort is higher, perceived reward is lower (introduce visual)** Emphasize that using the app is itself meaningful action. Completing today's activity is already an example of taking action, building healthy habits, and actively managing Parkinson's.",
+        "E",
+        "C",
+        "2",
+        "1",
+        ""
+      ],
+      [
+        "The bus driver metaphor",
+        "The Bus Driver metaphor is a recurring theme throughout the program. The animation is general and includes different possible \"passengers.\" When it reappears in other contexts, the relevant connection will be introduced briefly, with an option to rewatch the animation.In this item, the screens can present passengers such as apathy, avoidance, or low motivation, which may try to turn the bus back home or suggest not leaving at all, and invite users to relate to them as passengers rather than hijackers.",
+        "E",
+        "C",
+        "2",
+        "2",
+        ""
+      ],
+      [
+        "Initiation tool - 5-second countdown",
+        "Remind visually the inactivity cycle and the apathy imbalance",
+        "E",
+        "C",
+        "2",
+        "3",
+        ""
+      ],
+      [
+        "A grounding technique (audio)",
+        "Interduce a grounding technique (audio) and short reflection if it helps start the next activity more connected and grounded. ",
+        "E+P",
+        "C",
+        "3 ",
+        "",
+        ""
+      ],
+      [
+        "Barriers to action ",
+        "explain how things can get in the way and what solutions can be in place for that, for example to complete today’s physical therapy session (can be presented by another therapist)Validate common motivations and difficulties, then offer practical strategies that support follow-through, such as scheduling activities, creating reminders, building routines, connecting activities to existing habits, and drawing on support from family members or others. The overall tone should be accepting and encouraging, acknowledging that low drive can be part of the challenge while focusing on supporting yourself and taking the next manageable step",
+        "E",
+        "C",
+        "2",
+        "4",
+        ""
+      ],
+      [
+        "Choose a pleasure micro step",
+        "E.g., Listen to a song you like, drink a drink you like ",
+        "P+I",
+        "C",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Inner voice workout on motivation",
+        "Users will practice adopting a more supportive way of self talk when taking action - Acknowledge that most people have some form of a critical inner voice, each with its own tone and style. Becoming aware of this voice, and gently shifting toward a more supportive and encouraging inner language when needed, can make it easier to begin and to keep going. \"There’s no point trying, nothing will really change”, “I should wait until I feel better before doing anything,\" \"I should be handling this better”, \"If I don’t feel like it, it’s a sign I shouldn’t do it”, “If I can’t do it properly, there’s no point”, “Other people manage better than me”, “This shouldn’t be this hard”, “I’ve already missed a day, so what’s the point now”, “It’s not worth doing if it’s just a few minutes”.",
+        "I",
+        "C",
+        "3",
+        "5",
+        ""
+      ],
+      [
+        "Choose a connection micro step ",
+        "A brief reminder that social connection is an important source of meaning, wellbeing, and engagement in life. Users are invited to take one small step toward connection, even if motivation is not particularly strong today. E.g., leave a short voice note, send a text message, set up time to meet a friend later that week",
+        "P+I",
+        "C",
+        "1",
+        "6",
+        ""
+      ],
+      [
+        "Share your journey",
+        "Encourage users to involve someone close in their journey. Highlight how sharing the experience, talking about progress, and occasionally doing simple activities together (e.g., a walk, breathing practice, or celebrating milestones) can make the process more meaningful, enjoyable, and easier to sustain.",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Initiation tool – only do the first minute",
+        "Remind visually the inactivity cycle and the apathy imbalance",
+        "E",
+        "O",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "block": 183
+  },
+  {
+    "type": "paragraph",
+    "text": "Unit 3+4 (longer unit) Stress, anxiety, and calming the body",
+    "block": 184
+  },
+  {
+    "type": "paragraph",
+    "text": "Anchor:",
+    "block": 185
+  },
+  {
+    "type": "paragraph",
+    "text": "Normalize that stress and anxiety are very common human experiences and part of everyday life. At the same time, when living with ongoing physical challenges, they can become more frequent or more intense. Learning effective ways to regulate stress can therefore become a valuable resource.",
+    "block": 186
+  },
+  {
+    "type": "paragraph",
+    "text": "Explain that stress and anxiety can also amplify physical symptoms and increase perceived effort, so being able to calm the body and mind, even a little, can make daily activities feel more manageable. For example, these skills can help get some ease in moments of tension, help you get more out of moments of rest, improve sleep, and make it easier to focus or reconnect with yourself before activity.",
+    "block": 187
+  },
+  {
+    "type": "paragraph",
+    "text": "Many people do not engage with these tools because they feel inaccessible, unclear, or not suitable for them. This is a chance to explore these skills in a simple and practical way, to try them out, and to find what works for you through direct experience.",
+    "block": 188
+  },
+  {
+    "type": "paragraph",
+    "text": "Explain that anxiety may appear as the medication wears off for some people. Explain the anxiety wave and how it will naturally come down unless it is ‘fed”.",
+    "block": 189
+  },
+  {
+    "type": "paragraph",
+    "text": "Include a brief introduction to mind–body practices as part of the anchor, covering the basic ideas of what these practices are, how they can help, and how they are typically practiced. (More specific guidance and explanations will be provided within the daily activities for each practice, e.g. breathing, relaxation, mindfulness, etc,). Perhaps touching on specific applications and special consideration for PD.",
+    "block": 190
+  },
+  {
+    "type": "paragraph",
+    "text": "Note - Users will be invited to rate the different practices after completing them. This serves as a brief reflection that helps them notice what felt helpful, relevant, calming, or enjoyable. Note – this could also be a way for the app to learn what works best for users and suggest higher rated practices, however if user choice is available this is optional.",
+    "block": 191
+  },
+  {
+    "type": "paragraph",
+    "text": "Consistently reinforce that completing a practice is itself meaningful progress. Feedback throughout the app should strengthen the association between using the app and being an active, engaged participant in one's own health and rehabilitation.",
+    "block": 192
+  },
+  {
+    "type": "paragraph",
+    "text": "Note that this unit has some longer practices",
+    "block": 193
+  },
+  {
+    "type": "paragraph",
+    "text": "Two brief and engaging introductory explanations will be developed: one for all breathing practices and one for all relaxation practices. These introductions will focus on the rationale, purpose, and general approach to each type of practice. They will be presented only the first time users encounter a breathing or relaxation exercise and will remain accessible for later with practices of that kind.",
+    "block": 194
+  },
+  {
+    "type": "paragraph",
+    "text": "Individual practices will have only on the instructions, key points, and practical guidance needed for that specific exercise. These will be delivered through brief pre-practice screens and/or audio guidance.",
+    "block": 195
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily activities (to be finalized with the prontent team)",
+    "block": 196
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "Name",
+        "Description",
+        "E (educational) /P (practice) / I (interactive)",
+        "Core/ Optional",
+        "Lengthmin",
+        "Dailyactivity",
+        ""
+      ],
+      [
+        "Breathing exercise’s introduction ",
+        "",
+        "E",
+        "",
+        "1-2",
+        "1",
+        ""
+      ],
+      [
+        "Belly breathing practice",
+        "a brief introduction and guided practice",
+        "P",
+        "C",
+        "2",
+        "",
+        ""
+      ],
+      [
+        "The struggle switch metaphor",
+        "",
+        "E",
+        "C",
+        "2",
+        "2",
+        ""
+      ],
+      [
+        "Relaxation and guided imagery introduction",
+        "Introduction to guided imagery and PMRAdd a note for users: These practices can be particularly helpful before sleep and as part of a consistent bedtime routine. For more ideas and guidance, see the Sleep section in the Library.",
+        "E",
+        "C",
+        "1-2",
+        "3",
+        ""
+      ],
+      [
+        "Guided imagery for relaxation",
+        "a brief introduction and guided practice",
+        "P",
+        "C",
+        "5",
+        "",
+        ""
+      ],
+      [
+        "Box breathing practice",
+        "a brief introduction and guided practice",
+        "P",
+        "C",
+        "3",
+        "4",
+        ""
+      ],
+      [
+        "Truth or myth about relaxation ",
+        "",
+        "E",
+        "C",
+        "2",
+        "5",
+        ""
+      ],
+      [
+        "Grounding technique",
+        "a brief introduction and guided practice",
+        "E+P",
+        "C",
+        "2",
+        "6",
+        ""
+      ],
+      [
+        "Progressive muscle relaxation ",
+        "a brief introduction and guided practice",
+        "P",
+        "C",
+        "5",
+        "7 (0)",
+        ""
+      ],
+      [
+        "Patient experience – using tools to calm the body",
+        "",
+        "E",
+        "C",
+        "3",
+        "8 (1)",
+        ""
+      ],
+      [
+        "inner voice workout on mindfulness ",
+        "Users will practice adopting a more supportive way of self talk related to the practices they learned (e.g., I can never relax, I am not doing this the right way)  ",
+        "I",
+        "C",
+        "3",
+        "9 (2)",
+        ""
+      ],
+      [
+        "Guided Safe Place Relaxation",
+        "a brief introduction and guided practice",
+        "P",
+        "C",
+        "5",
+        "10 (3)",
+        ""
+      ],
+      [
+        "In-the-moment tools",
+        "Note: A short introductory video providing examples and setting the tone for how these tools can be used in everyday moments.Breathing, relaxation, and mindfulness practices help train our mind and body to be better at self-regulation skills. These skills can be brought into everyday life through brief moments. Sometimes this may be as simple as taking one intentional breath, noticing the body, softening one body part. These small moments can help us pause, reconnect with ourselves, and respond more intentionally throughout the day. Small tools - big difference. One-Breath Reset: A brief self-regulation tool that uses one intentional breath to create a moment of pause, awareness, and gentle reset. Designed to be used throughout the day, even in the middle of daily activities.Soften One Place: A brief self-regulation tool that invites users to notice one area of the body that may be holding tension and gently soften it with a gentle exehale. The goal is not to eliminate discomfort, but to reduce unnecessary tension and create a small moment of ease and awareness during the day.Three Anchors: A brief grounding practice that uses three simple points of attention: the feeling of the feet on the ground, the sensation in the hands, and one sound in the environment. It helps reconnect with the present moment, broaden attention and create a sense of steadiness during the day.choose one of the three you want to practice sometime during the day.",
+        "E",
+        "C",
+        "3",
+        "11 (4)",
+        ""
+      ],
+      [
+        "The bus driver metaphor on anxiety ",
+        "The Bus Driver metaphor is a recurring theme throughout the program. This item briefly revisits the metaphor and connects it to anxiety, stress, and self-regulation. In this context, anxiety and stress can also be presented as passengers on the bus. For example, noticing stress and choosing to do something calming or regulating, or noticing anxiety and the urge to avoid, while responding with the message: \"You may be here, but you are not driving the bus. I choose the direction and pace.\" The focus is on taking the next helpful action alongside the anxiety, rather than waiting for it to disappear.Users can be offered the option to rewatch the original animation if they would like a refresher on the metaphor.",
+        "E",
+        "",
+        "",
+        "12 (5)",
+        ""
+      ],
+      [
+        "Self-regulation reflection ",
+        "Interactive reflection on the self-regulation practices introduced so far. Users review and reflect on what felt most helpful or relevant. Emphasize personal preference, experimentation, and individual fit. Reinforce that there is no single “best” practice, and encourage users to identify which strategies work best for them, when they are most useful, and how they can be incorporated into daily life.",
+        "E+I",
+        "",
+        "2",
+        "13 (6)",
+        ""
+      ],
+      [
+        "Getting the most from practice",
+        "A brief educational activity that validates common challenges people may encounter when practicing mind–body techniques, including Parkinson’s-specific considerations. It provides practical guidance on how to approach the practices with flexibility and a \"good enough\" mindset, helping users adapt them to their needs and integrate them into everyday life as useful self-regulation tools.",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "psychological sigh",
+        "a brief introduction and guided practice",
+        "P",
+        "O",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Coherent breathing",
+        "a brief introduction and guided practice",
+        "P",
+        "O",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "block": 197
+  },
+  {
+    "type": "paragraph",
+    "text": "Unit 5: Thoughts are not commands",
+    "block": 198
+  },
+  {
+    "type": "paragraph",
+    "text": "Anchor:",
+    "block": 199
+  },
+  {
+    "type": "paragraph",
+    "text": "Provide a brief explanation of common thinking patterns and biases, and how thoughts influence emotions, physical sensations, and ultimately behavior. Emphasize that the mind is constantly generating thoughts, and that learning how to soften the impact of these thoughts and respond to them more flexibly can be very useful in daily life.",
+    "block": 200
+  },
+  {
+    "type": "paragraph",
+    "text": "Introduces simple cognitive flexibility and defusion.",
+    "block": 201
+  },
+  {
+    "type": "paragraph",
+    "text": "The goal is to reduce the power of common unhelpful thoughts enough that the user can proceed with the next step. Loosen the grip of unhelpful thoughts enough to keep moving and understand the role of interpretation",
+    "block": 202
+  },
+  {
+    "type": "paragraph",
+    "text": "Present a small set of common thoughts in PD: “this won’t help,”  “I’m failing,”, “if  I can’t do it the proper way it's not worth it”, “doing only a few minutes does not count”",
+    "block": 203
+  },
+  {
+    "type": "paragraph",
+    "text": "a thought can be understandable without being useful, and that the next helpful action does not depend on first eliminating every discouraging thought.",
+    "block": 204
+  },
+  {
+    "type": "paragraph",
+    "text": "Introduce the idea of noticing a thought rather than being caught in it (e.g., shifting from “I’m failing” to “I notice I’m having the thought that I’m failing”)",
+    "block": 205
+  },
+  {
+    "type": "paragraph",
+    "text": "One of the key messages of this unit is that thoughts can play a powerful role in shaping our experience: emotions, attention, physical sensations, and behavior. Use simple examples to demonstrate how a thought may lead to discouragement, tension, and avoidance, while different thoughts may lead to a different experience and response. Emphasize that while we cannot control which thoughts appear, we can learn practical ways to relate to them more flexibly and reduce their impact when they are not helpful.",
+    "block": 206
+  },
+  {
+    "type": "paragraph",
+    "text": "See the framing provided it the link which I think is impowering and provide a positive context to cognitive and emotional work: https://youtu.be/ELpfYCZa87g?si=tHx5OvR2XltezSEh",
+    "block": 207
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily activities (to be finalized with the prontent team)",
+    "block": 208
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "Name",
+        "Description",
+        "E (educational) /P (practice) / I (interactive)",
+        "Core/ Optional",
+        "Lengthmin",
+        "Dailyactivity"
+      ],
+      [
+        "Balancing thoughts ",
+        "the goal is not perfect positive thinking but finding a more helpful and workable perspective:noticing the thought labeling it choosing a balanced response taking the next step anywayIntegrating reflection prompts such as: “What thought tends to hook me most?” “What would be a more balanced response?” or “What would I say to a friend in this situation?”",
+        "E",
+        "C",
+        "3",
+        "1"
+      ],
+      [
+        "Inner voice workout",
+        "Similar to the first unit, focusing on various maladaptive thought patterns and allowing patients to adopt/reject helpful versus maladaptive thoughts ",
+        "I",
+        "C",
+        "2",
+        "2"
+      ],
+      [
+        "Mindfulness practice observing thoughts",
+        "This is a mindfulness practice but we do not present it as such at this stage. We guide the patients to observe thoughts (e.g., clouds in the sky / leaves on a stream), emphasizing noticing thoughts and letting them pass without needing to hold on to them or push them away",
+        "P",
+        "C",
+        "5",
+        "3"
+      ],
+      [
+        "Connecting to action",
+        "Learning to respond to thoughts more flexibly ultimately help us with emotional regulation, reduce getting stuck in unhelpful patterns, and create more freedom to choose meaningful action. Emphasize that automatic thoughts can influence behavior without us noticing. By becoming aware of thoughts and creating some distance from them, we gain more choice in how we respond and can act based on what matters to us rather than on autopilot. The goal is not to push through for its own sake, but to avoid getting stuck or drained by unhelpful thoughts so that we can invest our energy in the people, activities, and values that matter most to us. Connect this to the broader picture of values and the Bus Metaphor.",
+        "E",
+        "C",
+        "3",
+        "4"
+      ],
+      [
+        "chessboard metaphor",
+        "The Chessboard Metaphor is a therapeutic metaphor in Acceptance and Commitment Therapy (ACT) designed to help individuals stop fighting internal battles with difficult thoughts and emotions. It encourages viewing oneself as the board (the observer) rather than the chess pieces (thoughts, feelings, sensations). This shifts focus from trying to win an impossible internal game to accepting experiences and acting on values.thoughts are like pieces on the board; the goal is not to argue with every thought or automatically follow it, but to notice it from a wider perspective and allow it to come and go.",
+        "E",
+        "C",
+        "3",
+        "5"
+      ],
+      [
+        "Guided imagery for medication",
+        "a brief introduction and guided practice",
+        "P",
+        "C",
+        "5",
+        "6"
+      ],
+      [
+        "Practice relaxation – repeat (1 day)",
+        "Let users choose from the relaxation practices they learned. ",
+        "P",
+        "C",
+        "",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "block": 209
+  },
+  {
+    "type": "paragraph",
+    "text": "Unit 6: Mindfulness and present-moment awareness",
+    "block": 210
+  },
+  {
+    "type": "paragraph",
+    "text": "Anchor",
+    "block": 211
+  },
+  {
+    "type": "paragraph",
+    "text": "The anchor lesson should provide a clear and practical foundation for mindfulness, keeping the explanation relevant and grounded without becoming overly theoretical. It may include brief scientific context (including in PD) and simple everyday examples to support understanding and application.",
+    "block": 212
+  },
+  {
+    "type": "paragraph",
+    "text": "It should explain that the mind often moves into prediction, self-evaluation, discouragement, worries about the future, or regrets about the past. Returning attention to the present moment can help reduce distress and allow for fuller engagement with daily life.",
+    "block": 213
+  },
+  {
+    "type": "paragraph",
+    "text": "Introduce mindfulness in daily life and its relevance in PD. Practices such as awareness of breath, body scan, mindful walking, and mindful eating can help users respond with awareness rather than react automatically to internal or external stressors. Emphasize that mindfulness is not only a formal practice, but an ongoing way of relating to experience – gently, kindly, and repeatedly bringing attention back to the present moment.",
+    "block": 214
+  },
+  {
+    "type": "paragraph",
+    "text": "Link this to the broader role of attention in PD. Many actions that were once automatic may require more conscious attention, and learning to direct attention intentionally can support functioning in daily activities, such as walking through narrow spaces or speaking more clearly. In this sense, training attention becomes a meaningful and practical skill.",
+    "block": 215
+  },
+  {
+    "type": "paragraph",
+    "text": "Throughout the week, highlight that the emphasis is not on doing long or perfect practices, but on cultivating an attitude of patiently returning attention and finding a sustainable rhythm. Mindfulness can be applied directly within everyday activities, and brief practices before tasks (e.g., before walking or eating) may help make these actions feel more manageable and steadier.",
+    "block": 216
+  },
+  {
+    "type": "paragraph",
+    "text": "Users will be invited to rate the different practices after completing them. This serves both as a brief reflection that helps them notice what felt helpful, relevant, calming, or enjoyable and as a way for the app to learn what works best for them. This allows the app to suggest practices that feel more personally supportive and increases the likelihood of continued use and integration.",
+    "block": 217
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily activities (to be finalized with the prontent team)",
+    "block": 218
+  },
+  {
+    "type": "paragraph",
+    "text": "Two brief and engaging introductory explanations: one for mindfulness meditation practices and one for ATT practice. These introductions will focus on the rationale, purpose, and general approach to each type of practice. They will be presented only the first time users encounter a mindfulness or ATT exercise and will remain accessible for later viewing.",
+    "block": 219
+  },
+  {
+    "type": "paragraph",
+    "text": "Individual practices will focus only on the instructions, key points, and practical guidance needed for that specific exercise. These will be delivered through brief pre-practice screens and/or audio guidance.",
+    "block": 220
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "Name",
+        "Description",
+        "E (educational) /P (practice) / I (interactive)",
+        "Core/ Optional",
+        "Lengthmin",
+        "Dailyactivity"
+      ],
+      [
+        "The white bear metaphor",
+        "Refers to the psychological phenomenon where deliberately trying to suppress a thought makes it more likely to surface, known as \"ironic process theory\" or \"ironic rebound\". Coined by Daniel Wegner in 1987, it demonstrates that forbidding yourself from thinking about a specific topic (like a white bear) causes that thought to occupy your mind more frequentlyNote: The value of this metaphor lies less in explaining a psychological phenomenon and more in helping users recognize a common human experience. The message should be broadened beyond thoughts to include emotions, physical sensations, worries, and other internal experiences. The explanation should connect to mindfulness and illustrate how repeatedly fighting, suppressing, or pushing experiences away can sometimes make them more prominent. Mindfulness offers a different approach: noticing, allowing, and responding more flexibly rather than getting pulled into struggle with internal experience.",
+        "E",
+        "C",
+        "3",
+        "1"
+      ],
+      [
+        "Introduction to mindfulness practice",
+        "Introduction to Awareness of breath body scan Mindful eating Mindful walking",
+        "E",
+        "C",
+        "2",
+        "2"
+      ],
+      [
+        "Awareness of breath",
+        "Short intro + practice +  reflection",
+        "P",
+        "C",
+        "5",
+        ""
+      ],
+      [
+        "body scan",
+        "Short intro + practice +  reflection",
+        "P",
+        "C",
+        "5",
+        "3"
+      ],
+      [
+        "Introduction to ATT",
+        "",
+        "E",
+        "C",
+        "2",
+        "4"
+      ],
+      [
+        "Attention training (ATT)",
+        "Short intro + practice +  reflection",
+        "P",
+        "C",
+        "5",
+        ""
+      ],
+      [
+        "Neuroplasticity in the context of attention practice",
+        "Explanation about the effect of attention practice and mindfulness on the brain",
+        "E",
+        "C",
+        "2",
+        ""
+      ],
+      [
+        "Mindful eating",
+        "Short intro + practice +  reflection.Note: mindful eating and walking can benefit from contextualization by OT/PT. They can reinforce the idea that mindfulness is also about intentionally directing attention. In PD, where many activities require more conscious attention and cueing, practicing a softer, more observant, and less reactive or automatice style of attention may support both daily functioning and engagement in activities",
+        "P",
+        "C",
+        "3",
+        "5"
+      ],
+      [
+        "Mindful walking",
+        "Short intro + practice +  reflection",
+        "P",
+        "C",
+        "5",
+        "6"
+      ],
+      [
+        "grounding practice",
+        "Short intro + practice +  reflection",
+        "P",
+        "O",
+        "3",
+        ""
+      ],
+      [
+        "Neuroplasticity in the context of attention practice",
+        "Explanation about the effect of attention practice and mindfulness on the brain",
+        "E",
+        "O",
+        "2",
+        ""
+      ],
+      [
+        "The 3 f’s ",
+        "noticing the tendency to fight, flee, or fuel the storyline, and offering an alternative of allowing the experience to be present without escalating it, while still taking the next step.",
+        "E",
+        "O",
+        "3",
+        ""
+      ],
+      [
+        "Settling attention in the hands and feet",
+        "Short intro + practice +  reflection",
+        "E+P",
+        "O",
+        "5",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Wind down routines",
+        "Real-life wind-down examples: simple, relatable routines that combine app practices with everyday activities (e.g., shower, tea, reading, light stretching). The goal is to help users connect to what feels realistic and suitable for them. Followed by a brief reflection to support personalization (e.g., “Which part of this routine feels most doable for me?” “What would I like to try this week?”). ",
+        "E+I",
+        "C",
+        "",
+        ""
+      ],
+      [
+        "Relaxation before sleep ",
+        "Remind the users the sleep visual and focus on the body tension and arousal. Introduce the user to the area in the library that contains the audios for sleep and invite them to try it tonight if they wish to (ideally if we could actually offer it at night it would be better to just practice)",
+        "E",
+        "C",
+        "",
+        ""
+      ],
+      [
+        "PMR ",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Breathing exercise",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "block": 221
+  },
+  {
+    "type": "paragraph",
+    "text": "Note – it would be helpful to incorporate the concept also into educational pieces or as part of the practices in physical therapy, occupational therapy, speech therapy, dance. Topics like: eating, talking, breathing, walking with big steps, dealing with freezing, daily activity etc. all involve this ability to direct attention and these therapists can mention mindfulness as one way to “train” this attention muscle.",
+    "block": 222
+  },
+  {
+    "type": "paragraph",
+    "text": "Unit 7: Self-care: Self-compassion, self-validation, gratitude and exploring pleasant moments",
+    "block": 223
+  },
+  {
+    "type": "paragraph",
+    "text": "Anchor",
+    "block": 224
+  },
+  {
+    "type": "paragraph",
+    "text": "Present the principles of self-compassion, self-validation, gratitude and exploring pleasant moments. Differentiate this from positivity at all costs.",
+    "block": 225
+  },
+  {
+    "type": "paragraph",
+    "text": "Explain the importance of self-validation and self-compassion, and how they can support emotional resilience, reduce self-criticism, and make it easier to continue engaging with daily activities. While the concepts can be introduced clearly and directly, the emphasis should remain practical and relatable.",
+    "block": 226
+  },
+  {
+    "type": "paragraph",
+    "text": "Highlight the benefits from gratitude practice and from exploring pleasant moments, emphasizing that the idea is to focus on normal daily experiences, and not anything “huge”.",
+    "block": 227
+  },
+  {
+    "type": "paragraph",
+    "text": "Include a cognitive component that addresses common misconceptions and biases (e.g., “I should be handling this better,” “I don’t deserve rest”) and introduces more supportive and realistic self-talk that can be used in day-to-day situations.Highlight that self-care is not only about how we think or feel, but also about what we do. This includes intentionally making space in daily life for activities that are meaningful, enjoyable, or nourishing, even in small ways.",
+    "block": 228
+  },
+  {
+    "type": "paragraph",
+    "text": "Reinforce that taking a few minutes to engage with the app is already an act of self-care. Highlight that every practice reflects an ongoing investment in one's own wellbeing, regardless of symptom changes.",
+    "block": 229
+  },
+  {
+    "type": "paragraph",
+    "text": "A possible organizing theme for this unit is that self-care can take many different forms. It can be physical, such as eating well, engaging in enjoyable or restorative activities, making time for hobbies and interests, or taking a break when needed. It can also be reflected in how we relate to ourselves internally: how we respond to self-critical, blaming, or judgmental thoughts, and whether we cultivate a more supportive, compassionate, and encouraging inner voice.",
+    "block": 230
+  },
+  {
+    "type": "paragraph",
+    "text": "These different aspects of self-care are closely connected. A more supportive inner voice can make it easier to engage in behaviors that support wellbeing, while engaging in self-supportive actions can reinforce a more caring and compassionate stance toward oneself. In this way, self-care is something we practice through our actions. The anchor lesson can introduce this framework through a simple visual diagram, with each daily activity highlighting a different aspect of self-care.",
+    "block": 231
+  },
+  {
+    "type": "paragraph",
+    "text": "Something like this:",
+    "block": 232
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily activities (to be finalized with the prontent team)",
+    "block": 233
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "Name",
+        "Description",
+        "E (educational) /P (practice) / I (interactive)",
+        "Core/ Optional",
+        "Lengthmin",
+        "Dailyactivity"
+      ],
+      [
+        "Exploring a pleasant experience introduction ",
+        " introduction for the practice of Exploring Pleasant Experiences",
+        "E",
+        "C",
+        "1-2",
+        "1"
+      ],
+      [
+        "Exploring pleasant experience practice",
+        "Practice + reflectionNote: this it not necessarily an audio practice",
+        "P",
+        "C",
+        "2",
+        ""
+      ],
+      [
+        "Self-care as a practice",
+        "Self-care as a practice – take a self-care break. )Emphasize that self-care is behavioral: identifying small activities that feel supportive, scheduling them intentionally, and acknowledging them as meaningful actions. The app can guide users to plan these moments and reinforce follow-through).Emphasize that self-care is a practice that can be developed over time. It looks different for different people, but involves intentionally noticing what supports wellbeing and making space for those actions in daily life. Frame self-care as an active choice, not self-indulgence, deliberately doing things that help care for oneself, rather than simply doing whatever feels good in the moment.",
+        "E",
+        "C",
+        "2",
+        "2"
+      ],
+      [
+        "A Moment of Self-Compassion",
+        "Short intro + practice +  reflection",
+        "E+P",
+        "C",
+        "5",
+        "3"
+      ],
+      [
+        "A Moment of Gratitude",
+        "Short intro + practice +  reflectionNote: this it not necessarily audio practice",
+        "E+P",
+        "C",
+        "2-3",
+        "4"
+      ],
+      [
+        "Inner voice workout on self-validation and self-compassion thought practice ",
+        "Using the same thought game mechanism, this time where the user needs to identify thoughts that promote self-compassion and self-validation and thoughts that do not",
+        "I",
+        "C",
+        "2",
+        "4"
+      ],
+      [
+        "breathing practice",
+        "Choosing between breathing practices. Include a pre-practice page that frames the exercise as an act of self-care, invites users to notice whether the practice feels caring and supportive, and encourages a focus on comfort, ease, and self-compassion throughout the exercise",
+        "P",
+        "C",
+        "3",
+        "5"
+      ],
+      [
+        "Self-validation explained",
+        "Explanation of what self-validation is and how to practice it, explaining how it contributes to wellbeing, followed by a guided practice. ",
+        "E+I",
+        "C",
+        "3-5",
+        "6"
+      ],
+      [
+        "Guided audio practice for self- compassion",
+        "",
+        "P",
+        "O",
+        "",
+        ""
+      ],
+      [
+        "What brings me up and what brings me down",
+        "An education piece explaining that for different people different things can promote self care. For example – for one person gardening is a wonderful self-care moment, and for others it is a boring chore. Encourage the user to reflect on what brings them up versus down. Use a hot air balloon metaphor.Reflection prompts such as: “What helps me feel supported and restored?”",
+        "E",
+        "O",
+        "",
+        ""
+      ],
+      [
+        "Self-compassion explained",
+        "A more detailed explanation of what self-compassion is, explaining how it contributes to wellbeing ",
+        "E",
+        "O",
+        "",
+        ""
+      ],
+      [
+        "Self-validation explained",
+        "A more detailed explanation of what self-validation is, explaining how it contributes to wellbeing ",
+        "E",
+        "O",
+        "",
+        ""
+      ]
+    ],
+    "block": 234
+  },
+  {
+    "type": "paragraph",
+    "text": "Unit 8 – “I am enough”: Confidence, embarrassment, and social participation",
+    "block": 235
+  },
+  {
+    "type": "paragraph",
+    "text": "Anchor",
+    "block": 236
+  },
+  {
+    "type": "paragraph",
+    "text": "Address self-judgment and withdrawal. Normalize withdrawal also in the context of apathy.",
+    "block": 237
+  },
+  {
+    "type": "paragraph",
+    "text": "Address and normalize embarrassment and self-consciousness explicitly, since fear of visible flaws/handicap can interfere with speech, movement, and social participation. Use concrete, relatable examples from the lives of PwP to support reflection.",
+    "block": 238
+  },
+  {
+    "type": "paragraph",
+    "text": "Address stigma of Parkinson and validate that the environment might indeed treat them in ways that make them feel worse.",
+    "block": 239
+  },
+  {
+    "type": "paragraph",
+    "text": "Highlight the importance of social engagement as a meaningful part of well-being, and frame it in a broad and flexible way that can fit different preferences, personalities, and styles of connection.",
+    "block": 240
+  },
+  {
+    "type": "paragraph",
+    "text": "Introduce a more helpful, gradual, and self-compassionate approach to engaging despite these feelings - Return to the practice of self-validation and self-compassion as a foundation for social engagement. PD might bring moments of self-consciousness, comparison, or self-criticism, especially in visible or interpersonal situations. Rather than trying to eliminate these reactions, the aim here is to relate to them differently. Prompt them to think “In what area of my life could I be a bit more friendly toward myself right now?” and give some examples of supporting self talk.",
+    "block": 241
+  },
+  {
+    "type": "paragraph",
+    "text": "Talk about graded participation, including with other parkies and with others who are not with PD",
+    "block": 242
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily activities (to be finalized with the prontent team)",
+    "block": 243
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "Name",
+        "Description",
+        "E (educational) /P (practice) / I (interactive)",
+        "Core/ Optional",
+        "Lengthmin",
+        "Dailyactivity"
+      ],
+      [
+        "Testimonials – embarrassing moments",
+        "Patients share experiences around PD-related moments  on self-consciousness, embarrassment, social challenges, and staying connected while living with Parkinson’s.",
+        "E",
+        "C",
+        "3",
+        "1"
+      ],
+      [
+        "Exploring pleasant experience practice",
+        "Practice ",
+        "P",
+        "C",
+        "2",
+        ""
+      ],
+      [
+        "Relaxation practice of your choice ",
+        "Before the practice, link this to something they can try doing before or during social interaction to help with stress",
+        "E+P",
+        "C",
+        "5",
+        "3"
+      ],
+      [
+        "Self-compassion moment",
+        "Before the practice, link this to something they can try doing before or during social interaction to help with shame or self-judgment ",
+        "E+P",
+        "C",
+        "",
+        "4"
+      ],
+      [
+        "connection card game. Option to play alone or with someone else",
+        "There are many games like this out there. See https://game.estherperel.com/products/where-should-we-begin-a-game-of-stories-2nd-edition, https://www.hyggegames.com/en-gb/product/the-hygge-game, https://theskindeep.co.uk/ for inspiration. the idea is to create a “Card” game, where the drawn card has a prompt. The user can simply think about it if playing solo, or (preferred and recommended) ask someone else they are playing with. Prompts can include many topics, and should encourage sharing of small and big things. It can be related to PD or not. Consider including not only conversation and reflection prompts, but also action-oriented prompts that encourage small meaningful steps in daily life. For example: \"What's one small act of self-care you could do later today?\" or \"Is there someone you haven't spoken to in a while who you could send a message to today?\" These prompts can help translate reflection into action.",
+        "E+P",
+        "C",
+        "3",
+        "4"
+      ],
+      [
+        "A Moment of Gratitude",
+        "Short intro + practice +  reflectionNote: this it not necessarily an audio practice",
+        "E+P",
+        "C",
+        "",
+        "5"
+      ],
+      [
+        "Graded social participation + Choose a connection micro step",
+        "Frame social courage in realistic terms, and help patients think about some small change they can make to make their participation greater. For example - stay in a social setting slightly longer remain in a shared space even if you feel some discomfortattend a social gathering during the week, in a way that feels manageableconnect with a family member or a friend, whether by text, phone call, or in persontell a family member or friend who supports you “thank you,” and let them know how much you appreciate them.at the end – show the “Choose a connection micro step” ",
+        "E+I",
+        "C",
+        "",
+        "6"
+      ],
+      [
+        "Shame and embarrassment in the intimate context",
+        "Normalize and offer strategies to deal with ",
+        "E",
+        "O",
+        "",
+        ""
+      ],
+      [
+        "I am enough audio practice",
+        "",
+        "P",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Testimonials – dealing with stigma",
+        "Patients share experiences around dealing with stigma ",
+        "E",
+        "O",
+        "",
+        ""
+      ],
+      [
+        "inner voice workout on shame and embarrassment ",
+        "Addressing negative bias and offering more supportive perspectives around shame, embarrassment and social engagement",
+        "I",
+        "O",
+        "2",
+        "2"
+      ]
+    ],
+    "block": 244
+  },
+  {
+    "type": "paragraph",
+    "text": "Unit 9 - Values and Meaningful Action",
+    "block": 245
+  },
+  {
+    "type": "paragraph",
+    "text": "Anchor (ideally – presented by a patient)",
+    "block": 246
+  },
+  {
+    "type": "paragraph",
+    "text": "The anchor lesson should focus on what kind of person they want to be and continue being, even in the presence of PD, and how their actions can express that direction. The focus is on identifying values, such as family / self-care / health / independence / connection / courage / growth / calm / contribution. Each person has different leading values. Taking a moment to think about these values and then figuring out small ways in which actions can bring us closer to being the kind of person we want to be is all it takes.",
+    "block": 247
+  },
+  {
+    "type": "paragraph",
+    "text": "The message should remain grounded in the real challenges users face, offering concrete and relatable examples. It should avoid a tone that feels overly spiritual or positive-psychology-like. Instead, it should be optimistic in a grounded way – acknowledging the difficulty of living with PD while also emphasizing the user’s values and the actions they can take in alignment with them. It can address grief for changed roles and the fact that engaging with the app may be one way of preserving identity rather than simply complying with a regimen.",
+    "block": 248
+  },
+  {
+    "type": "paragraph",
+    "text": "Use the bullseye metaphor visually to anchor this.",
+    "block": 249
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily activities (to be finalized with the prontent team)Note – see Appendix – ACT resources for information on relevant ACT metaphors, working with values, etc.",
+    "block": 250
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "Name",
+        "Description",
+        "E (educational) /P (practice) / I (interactive)",
+        "Core/ Optional",
+        "Lengthmin",
+        "Dailyactivity"
+      ],
+      [
+        "Compass metaphor (ACT) + activity ",
+        "A compass does not remove hills, fatigue, or uncertainty. It just helps you keep direction towards what is important to you. Actions can be bigger or smaller and they all count. For the value of connection: a full version might be meeting a friend, a lighter version a phone call, and a tiny version sending one text. Users choose one value from a list of common values and are invited to hold this direction in mind throughout the day. They are prompted to occasionally ask themselves what small action, if any, could express or support this value in the present moment / tomorrow / next week.A nice metaphor: \"Growing the Garden\", Throughout the app we do this and that and every meaningful action waters something:  Relationships. Confidence. Independence. Curiosity. Purpose. The practice becomes choosing what to water today.",
+        "E+I",
+        "C",
+        "3",
+        "1"
+      ],
+      [
+        "An identity cue before another practice",
+        "Visual reminder of the bullseye, along with s prompt to think about how this practice brings them closer to being the person they want to be:This is not only about practicing. For me, it is also about…” staying connected / protecting independence / caring for my mind and body / staying involved in life / feeling more like myself / being there for family",
+        "E",
+        "C",
+        "1",
+        "2"
+      ],
+      [
+        "The choice point ",
+        "Life is full of challenging situations, thoughts, and feelings (the \"storm\"). In PD they are also full with motor symptoms, apathy, and more. When these arise, you reach a \"fork in the road\" (or Choice Point), where you decide whether to take a path that moves you away from your values or towards a rich and meaningful life. Away Moves: Behaving in ways that temporarily avoid or suppress uncomfortable thoughts/feelings but ultimately increase distress and pull you away from your values. Example – social withdrawal.  Towards Moves: Behaving in ways that are consistent with your deepest values, even while experiencing pain. The Goal: The goal is not to eliminate \"bad\" feelings, but to recognize the choice point and, through mindfulness and \"unhooking\" techniques, make choices that align with your values.",
+        "E",
+        "C",
+        "",
+        "2"
+      ],
+      [
+        " Mindfulness practice of your choice.",
+        "Before the practice, put a context of – this can help you untangle thoughts when you are in an emotional storm so that you can choose to act in a way that aligns with your values",
+        "E+P",
+        "C",
+        "5",
+        "3"
+      ],
+      [
+        "Role changes",
+        "Education - Parkinson’s may have changed how some roles look. But some parts of who you are may still be expressible in new ways (enriched with examples related to PD, for example: grandparent → send voice note, sit and play, ask about schoolactive person → short walk, chair exercise, stretchingfriend → reply to one message)Then offer a simple tap-based structure: “Which role feels important to protect”? : partner / parent / grandparent / friend / worker/ learner /active person / community member/something else and then a reflection question: “What is one way this role can still be lived today, even in a smaller or adapted form?”",
+        "E+I",
+        "C",
+        "3",
+        "4"
+      ],
+      [
+        "Relaxation or breathing practice of your choice",
+        "Choosing between the core relaxation and breathing practices. ",
+        "P",
+        "C",
+        "3-5",
+        "5"
+      ],
+      [
+        "The compass – activation",
+        "Which direction matters most today? (e.g., choosing between pairs of values). This can be structured like a short “tournament” (e.g., 4 pairs → 2 pairs → final), leading to a top value. ” family / self-care / health / independence / connection / courage / growth / calm / contribution (need to determine the list)What would a move in this direction look like today  (remind this can be tiny, medium or bigger)",
+        "P",
+        "C",
+        "2",
+        "6"
+      ],
+      [
+        "Labels that hook us and how to overcome them (thought game)",
+        "“I’m useless” / “I’m a burden”/ “I’m not myself anymore”/ “I’m weak” / “I’m only a patient now” / “I’m too slow to matter”… ",
+        "I",
+        "O",
+        "",
+        ""
+      ]
+    ],
+    "block": 251
+  },
+  {
+    "type": "paragraph",
+    "text": "Unit 10 - Responding to Difficulty",
+    "block": 252
+  },
+  {
+    "type": "paragraph",
+    "text": "Anchor",
+    "block": 253
+  },
+  {
+    "type": "paragraph",
+    "text": "We want to acknowledge and validate the challenges of living with Parkinson’s disease. These challenges may involve physical discomfort, pain, stiffness, fatigue, tremor, or other symptoms. However, it is important to acknowledge that these experiences are rarely only physical. They often involve many interacting parts, including the thoughts we have about symptoms, how much attention we give them, tension in the body, changes in activity and participation, and emotional reactions such as frustration, discouragement, or worry. These experiences are a normal part of living with an ongoing condition.",
+    "block": 254
+  },
+  {
+    "type": "paragraph",
+    "text": "While we cannot always control what shows up, we often have some influence over how we respond than we initially realize. The same difficulty can lead us in different directions depending on how we relate to it.",
+    "block": 255
+  },
+  {
+    "type": "paragraph",
+    "text": "Introduce the discomfort cycle in a simple and visual way:",
+    "block": 256
+  },
+  {
+    "type": "paragraph",
+    "text": "A difficult experience appears (pain, symptoms, fatigue, frustration, worry, etc.)",
+    "block": 257
+  },
+  {
+    "type": "paragraph",
+    "text": "Thoughts and interpretations about the experience",
+    "block": 258
+  },
+  {
+    "type": "paragraph",
+    "text": "Increased attention to symptoms and distress",
+    "block": 259
+  },
+  {
+    "type": "paragraph",
+    "text": "Difficult or unpleasant emotions like frustration, worry, or guilt.",
+    "block": 260
+  },
+  {
+    "type": "paragraph",
+    "text": "Tension and activation in the body",
+    "block": 261
+  },
+  {
+    "type": "paragraph",
+    "text": "Pulling back from activities and participation,",
+    "block": 262
+  },
+  {
+    "type": "paragraph",
+    "text": "life feels smaller.",
+    "block": 263
+  },
+  {
+    "type": "paragraph",
+    "text": "Explain the cycle in a simple and relatable way. not overly scientific, analytical – take it lightly. The emphasis is on showing how these experiences can become connected and influence one another, while highlighting that there are many opportunities for flexibility and influence along the way.",
+    "block": 264
+  },
+  {
+    "type": "paragraph",
+    "text": "Diagram note: This model originates from the TGCT pain unit and will need to be adapted for Parkinson’s. It is included here as a preliminary example. In the animation we’ll want to show arrows influences between non-adjacent parts of the cycle as well (for example doing fewer meaningful activities may lead to fewer positive emotions)",
+    "block": 265
+  },
+  {
+    "type": "paragraph",
+    "text": "Emphasize that these reactions are understandable and human. Normalize them as common responses when difficulties and uncertainty show up. Different people may experience different parts of the cycle, and not everyone will relate to every part of it. The goal is not to analyze it too closely, but simply to recognize patterns that may sometimes be relevant so we can support ourselves most effectively.",
+    "block": 266
+  },
+  {
+    "type": "paragraph",
+    "text": "The encouraging news is that each part of this cycle is also an opportunity for influence. Throughout the program, users have already learned a variety of tools that can help them work with thoughts, manage attention, respond more effectively to emotions, regulate the body, stay engaged in meaningful activities, and reconnect with what matters most.",
+    "block": 267
+  },
+  {
+    "type": "paragraph",
+    "text": "This unit is an opportunity to bring these pieces together. Rather than learning new skills, users will revisit different parts of the cycle and choose the approaches that feel most relevant and useful for them right now.",
+    "block": 268
+  },
+  {
+    "type": "paragraph",
+    "text": "The goal is to create more flexibility, more choice, and more opportunities to continue participating in life even when difficulties are present.",
+    "block": 269
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily activities (to be finalized with the prontent team)",
+    "block": 270
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "Name",
+        "Description",
+        "E (educational) /P (practice) / I (interactive)",
+        "Core/ Optional",
+        "Lengthmin",
+        "Dailyactivity"
+      ],
+      [
+        "The struggle switch ",
+        "metaphor from Acceptance and Commitment Therapy (ACT)—popularized by Dr. Russ Harris. Representing the mental effort to fight, avoid, or eliminate uncomfortable emotions, thoughts, or memories. When this internal switch is \"on,\" it amplifies suffering; turning it \"off\" means accepting, making space for, and letting go of the struggle against these experiences",
+        "E",
+        "C",
+        "",
+        "1"
+      ],
+      [
+        "The parable of the two arrows",
+        "While pain is inevitable in life (the first arrow), our emotional reaction to it causes unnecessary, optional suffering (the second arrow).",
+        "E",
+        "C",
+        "2",
+        "1"
+      ],
+      [
+        "Inner voice workout ",
+        "Connect this activity to the discomfort cycle and normalize that difficult thoughts can arise from varied reasons: symptoms, uncertainty, setbacks, or even just because. When we over identify or ruminate or fight with our thoughts it can contribute to fear, avoidance, self-criticism, and getting stuck. Mindfulness practices and the Inner Voice Workout are things we can do to help notice our thoughts, create some healthy distance from them, and respond more flexibly. The goal is to acknowledge thoughts without being pulled into them or struggling against them, creating more space to choose helpful actions and respond in ways that support wellbeing and functioning.",
+        "E+P",
+        "C",
+        "3",
+        "2"
+      ],
+      [
+        "Relaxation practice",
+        "Connect this activity to the body regulation layer of the discomfort cycle. Explain that symptoms, stress, and worry often contribute to physical tension and difficulty relaxing. Breathing, relaxation, and mindfulness practices can help reduce unnecessary tension, support rest and concentration, and strengthen the ability to direct attention more flexibly rather than becoming overly focused on symptoms.",
+        "E+P",
+        "C",
+        "",
+        "3"
+      ],
+      [
+        "The compass – activation",
+        "Context prior to practice – this can help deal with the desire to avoid (link to visual of the cycle)",
+        "E+P",
+        "C",
+        "",
+        "4"
+      ],
+      [
+        "Uninvited guest metaphor",
+        "The \"Unwelcome Party Guest\" is a key metaphor in Acceptance and Commitment Therapy (ACT) representing unwanted thoughts, emotions, or sensations (e.g., anxiety, sadness). Instead of wasting energy fighting or trying to eject these experiences, the metaphor encourages accepting their presence while focusing on meaningful life actions, essentially allowing them to be at the \"party\" without letting them run the show",
+        "E",
+        "C",
+        "3",
+        "5"
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Passengers on the bus metaphor",
+        "The \"Passengers on the Bus\" metaphor, developed by Steven Hayes for Acceptance and Commitment Therapy (ACT), posits that you are the driver of your life's bus, steering toward your values. The passengers represent your thoughts, emotions, fears, and memories, which often try to dictate the direction. The goal is to drive toward your goals while acknowledging, rather than fighting, these inner experiences",
+        "E",
+        "O",
+        "",
+        ""
+      ],
+      [
+        "The RAIN model",
+        "Key Components of the RAIN Model:R - Recognize What Is Happening: Consciously acknowledge your current thoughts, feelings, and behaviors, particularly when you are feeling stuck or emotionally charged.A - Allow the Experience to Be There: Let the thoughts or emotions exist without trying to fix, avoid, or judge them.I - Investigate with Kindness: Examine your inner experience with curiosity, specifically noticing how the emotion feels in the body (e.g., tightness, heat) and what beliefs are attached to it.N - Nurture with Self-Compassion/Non-identification: Offer yourself care for the suffering, or recognize that you are not defined by these passing thoughts and feelings",
+        "E",
+        "O",
+        "",
+        ""
+      ],
+      [
+        "The tug of war with a monster metaphor",
+        "Imagine you are holding one end of a rope, and on the other end is a terrifying monster. This monster represents your painful emotions, distressing thoughts, or uncomfortable memories. The harder you pull on the rope to try and defeat the monster, the harder it pulls back, keeping you stuck in a never-ending battle.Now, ask yourself: What would happen if you let go of the rope?",
+        "E",
+        "O",
+        "",
+        ""
+      ]
+    ],
+    "block": 271
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "Name",
+        "Description",
+        "E (educational) /P (practice) / I (interactive)",
+        "Core/ Optional",
+        "Lengthmin",
+        "Dailyactivity"
+      ],
+      [
+        "Each activity focuses on one part of the discomfort cycle. Users receive a brief reminder of how this part of the cycle may influence symptoms, wellbeing, and daily functioning, together with a message that there are practical ways to influence it. They are then offered several relevant practices or tools already introduced throughout the program and can choose the option that feels most useful or relevant for them at that moment. Each activity ends with a brief encouraging message that reinforces effort, flexibility, and the idea that even small actions can make a meaningful difference over time."
+      ],
+      [
+        "The parable of the two arrows",
+        "While pain is inevitable in life (the first arrow), our emotional reaction to it causes unnecessary, optional suffering (the second arrow).",
+        "E",
+        "C",
+        "2",
+        "1"
+      ],
+      [
+        "Working with Thoughts",
+        "Thoughts and beliefs can play an important role in how we experience difficulty. Sometimes our thoughts and interpretations can increase worry, self-criticism, discouragement, or avoidance. The good news is that while we cannot always control which thoughts appear, we can learn skills that help us relate to them differently. This can reduce the impact of unhelpful thinking patterns or simply create some distance from them to observe them more steadily.Below are several practices that can help you develop a healthier relationship with your thoughts and create a little more space between you and the thoughts that show up. Which of these feels most relevant to you today?observing thoughtsInner Voice WorkoutAwareness of breath a moment of self compassionEncourage users to draw on other strategies that help create perspective and flexibility around difficult thoughts, such as talking with a friend or family member, seeking advice, sharing concerns with someone supportive, focusing on the next helpful step, spending time on a hobby or other meaningful activities, spending time outdoors, engaging in movement or exercise, or doing something enjoyable or absorbing.",
+        "E+P",
+        "C",
+        "3-5",
+        "2"
+      ],
+      [
+        "Attention to symptoms and emotions",
+        "When symptoms or difficult emotions are present, it is natural for our attention to become drawn toward them. We may find ourselves monitoring, analyzing, or focusing on what feels uncomfortable. At the same time, difficult emotions such as frustration, sadness, fear, or discouragement are a natural part of facing ongoing challenges. Sometimes these experiences can take up more and more space, leaving less room for other aspects of life. Learning to respond with greater awareness, flexibility, and self-compassion can help us notice what we are experiencing, make space for difficult emotions, and broaden our attention beyond symptoms and distress.Below are several activities that can help you manage attention more flexibly and respond more effectively to difficult emotions. Which of these feels most relevant to you today?Body Scan - to strengthen attention skills and feel more grounded and at ease in our own body. Self-Validation - To notice and acknowledge emotions, and respond to yourself with understanding during difficult moments.Exploring a Pleasant Experience - To notice and fully experience pleasant moments that occur throughout the day.Gratitude Practice - To connect with positive emotions and notice sources of appreciation and meaning in your life.Encourage users to draw on other strategies that support attention flexibility and emotional wellbeing, such as talking with a friend, spending time with family petting the dog, gardening, volunteering, engaging in a hobby, listening to music, taking a walk, or doing yoga. ",
+        "E+P",
+        "C",
+        "2-5",
+        "3"
+      ],
+      [
+        "The uninvited guest metaphor",
+        "The \"Unwelcome Party Guest\" is a key metaphor in Acceptance and Commitment Therapy (ACT) representing unwanted thoughts, emotions, or sensations (e.g., anxiety, sadness). Instead of wasting energy fighting or trying to eject these experiences, the metaphor encourages accepting their presence while focusing on meaningful life actions, essentially allowing them to be at the \"party\" without letting them run the show",
+        "E",
+        "C",
+        "3",
+        "4"
+      ],
+      [
+        "Body Tension and Regulation",
+        "Symptoms, stress, worry, and ongoing challenges can all affect the body. It is common to respond with increased muscle tension, bracing, restlessness, or a feeling of being “on alert.” Over time, this can become tiring and may make it harder to rest, focus, or recover. While we cannot always control symptoms, we can learn skills that help the body settle, release unnecessary tension, and respond in a steadier way. Even small moments of regulation can make a meaningful difference over time.Below are several activities that can help reduce unnecessary tension and support physical and emotional regulation. Which of these feels most relevant to you today?Belly Breathing: To help the body slow down, settle, and release tension.Progressive Muscle Relaxation: To notice and release tension throughout the body.Guided Imagery: To support relaxation and create a sense of ease and comfort.Soften One Place: a tiny practice to notice and gently release tension in one area of the body.Gentle stretching: To reduce stiffness and tension, support comfort and mobility, and help the body feel more at ease.Encourage users to draw on other strategies that work for them, such as a warm shower, massage, tai chi, gentle movement, music, time in nature, or other calming and restorative activities.",
+        "E+P",
+        "C",
+        "1-5",
+        "5"
+      ],
+      [
+        "Meaningful action and participation",
+        "When symptoms, discomfort, difficult thoughts, or low mood are present, it is natural to pull back from activities and focus more narrowly on problems and limitations. Over time, life can become smaller as activities, relationships, and interests are gradually reduced. One of the most important ways to break this cycle is through meaningful action. This does not mean pushing through symptoms or ignoring limitations. Rather, it means taking manageable steps toward the people, activities, and values that matter to us. Below are several activities that can help you reconnect with what matters and take meaningful action. Which of these feels most relevant to you today?connection card game (Unit 8): To strengthen connection, curiosity, and meaningful conversations through simple questions and shared experiences.Exploring a pleasant moment. Inner voice workout on participation and motivation. (guided reflection and activation *screens only*) Compass metaphor and activation: reminding the compass, Suggesting six values/ roles and guiding to reconnect with a value or a rule that matters to you today and choose one small action that reflects the direction you want to move toward (alternative way to put it  is \"Which part of your life is asking for your attention today?\" Relationships, self care, joy, learning, confidence…)\"I am enough\": practice fits here and doesn’t make an appearance in other activities. Encourage users to draw on other activities that help them stay engaged with what matters, such as spending time with loved ones, participating in hobbies, exercising, volunteering, pursuing personal goals, engaging in community activities, or taking part in meaningful routines and traditions.",
+        "E+P",
+        "C",
+        "1-3",
+        "6"
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "The RAIN model",
+        "Key Components of the RAIN Model:R - Recognize What Is Happening: Consciously acknowledge your current thoughts, feelings, and behaviors, particularly when you are feeling stuck or emotionally charged.A - Allow the Experience to Be There: Let the thoughts or emotions exist without trying to fix, avoid, or judge them.I - Investigate with Kindness: Examine your inner experience with curiosity, specifically noticing how the emotion feels in the body (e.g., tightness, heat) and what beliefs are attached to it.N - Nurture with Self-Compassion/Non-identification: Offer yourself care for the suffering, or recognize that you are not defined by these passing thoughts and feelings",
+        "E",
+        "O",
+        "",
+        ""
+      ],
+      [
+        "The tug of war with a monster metaphor",
+        "Imagine you are holding one end of a rope, and on the other end is a terrifying monster. This monster represents your painful emotions, distressing thoughts, or uncomfortable memories. The harder you pull on the rope to try and defeat the monster, the harder it pulls back, keeping you stuck in a never-ending battle.Now, ask yourself: What would happen if you let go of the rope?",
+        "E",
+        "O",
+        "",
+        ""
+      ]
+    ],
+    "block": 272
+  },
+  {
+    "type": "paragraph",
+    "text": "Unit 11: Sleep, rest, and evening reset",
+    "block": 273
+  },
+  {
+    "type": "paragraph",
+    "text": "Anchor",
+    "block": 274
+  },
+  {
+    "type": "paragraph",
+    "text": "Explain how sleep and rest influence energy, mood, stress reactivity, and are also related to PD symptoms. Normalize that sleep difficulties are very common in life in general, and can become even more common in the context of Parkinson’s. Emphasize that not every sleep problem can be solved by psychology alone, and that medical factors, medication effects, or other difficulties may also be relevant. At the same time, routines, mental settling, and behavioral changes can still make a meaningful difference.",
+    "block": 275
+  },
+  {
+    "type": "paragraph",
+    "text": "Visual model of sleep influences: a simple visual diagram that highlights key areas where we can influence sleep. Thoughts, worries and attitudes (e.g., all cognitive related practices), arousal and tension (mind-body practices and wind down), and habits and behaviour (sleep hygiene daily routines, sleep-related habits, light exposure during the day). The goal is to feel that even if sleep itself is not fully controllable, there are multiple points where small changes can support better rest.",
+    "block": 276
+  },
+  {
+    "type": "paragraph",
+    "text": "Also explain that different tools work for different people, and that the goal of this week is not to create a “perfect” routine, but to help users explore practical strategies, notice what is helpful, and gradually build something that feels supportive and realistic in daily life.",
+    "block": 277
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily activities (to be finalized with the prontent team)",
+    "block": 278
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "Name",
+        "Description",
+        "E (educational) /P (practice) / I (interactive)",
+        "Core/Optional"
+      ],
+      [
+        "How sleep works  ",
+        "Provide a simple, accessible explanation of how sleep works, focusing on key principles such as sleep drive and circadian rhythm. Keep the explanation practical and directly linked to everyday habits (e.g., consistent wake time, light exposure, timing of rest and activity) + add reflection on how they are doing in terms of helping their sleep cycle?  ",
+        "E+I",
+        "o"
+      ],
+      [
+        "Wind down routines",
+        "Real-life wind-down examples: simple, relatable routines that combine app practices with everyday activities (e.g., shower, tea, reading, light stretching). The goal is to help users connect to what feels realistic and suitable for them. Followed by a brief reflection to support personalization (e.g., “Which part of this routine feels most doable for me?” “What would I like to try this week?”). ",
+        "E+I",
+        "C"
+      ],
+      [
+        "Relaxation before sleep ",
+        "Remind the users the sleep visual and focus on the body tension and arousal. Introduce the user to the area in the library that contains the audios for sleep and invite them to try it tonight if they wish to (ideally if we could actually offer it at night it would be better to just practice)Also note other applications or useful use for self-regulation techniques in day-to-day. ",
+        "E",
+        "C"
+      ],
+      [
+        "inner voice workout for sleep",
+        "with common unhelpful thoughts about sleep and gentler, less pressured alternatives",
+        "I",
+        "o"
+      ],
+      [
+        "Sleep hygiene, Stimulus control and rebuilding the sleep-bed connection",
+        "Introduce the principles of sleep hygiene, stimulus control and of the sleep bed-connection. Reflective “test yourself” follows with feedback ",
+        "E+I",
+        "o"
+      ],
+      [
+        "Exploring a pleasant experience ",
+        "Context – suggest they can also try this as part of their winding down routine",
+        "P",
+        "C"
+      ]
+    ],
+    "block": 279
+  },
+  {
+    "type": "paragraph",
+    "text": "Unit 12: Emotional resilience and putting it all together",
+    "block": 280
+  },
+  {
+    "type": "paragraph",
+    "text": "The final unit consolidates the program into a long-term system. The purpose is to help users sustain the routine beyond the 12-week guided phase without requiring endless novelty. Note this week should be prioritized not to be skipped even if there are missed days before it.",
+    "block": 281
+  },
+  {
+    "type": "paragraph",
+    "text": "Anchor",
+    "block": 282
+  },
+  {
+    "type": "paragraph",
+    "text": "The anchor lesson should normalize future lapses, explain that the goal is not to never miss but to restart well, and help the user save their best tools, preferred time, easiest successful entry point, rescue strategy, and restart strategy. It should emphasize “restart, don’t catch up.”",
+    "block": 283
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily practices (to be finalized, described here as an illustration)",
+    "block": 284
+  },
+  {
+    "type": "paragraph",
+    "text": "Daily activities (to be finalized with the prontent team)",
+    "block": 285
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "Name",
+        "Description",
+        "E (educational) /P (practice) / I (interactive)",
+        "Core/Optional"
+      ],
+      [
+        "Relaxation practice (choice)",
+        "",
+        "P",
+        "C"
+      ],
+      [
+        "Mindfulness practice (choice)",
+        "",
+        "P",
+        "C"
+      ],
+      [
+        "A connection card game",
+        "",
+        "P",
+        "C"
+      ],
+      [
+        "gratitude moment",
+        "",
+        "P",
+        "C"
+      ],
+      [
+        "my compass",
+        "",
+        "P",
+        "C"
+      ],
+      [
+        "Farewell with all the major visuals ",
+        "Summary of the 12 weeks with all the major visuals ",
+        "E",
+        "C"
+      ],
+      [
+        "Combined thoughts game (across all categories from all units)",
+        "",
+        "I",
+        "O"
+      ]
+    ],
+    "block": 286
+  },
+  {
+    "type": "paragraph",
+    "text": "for our meeting.",
+    "block": 287
+  },
+  {
+    "type": "table",
+    "rows": [
+      [
+        "notes",
+        "Activation",
+        "User Choice",
+        "Exploring a pleasant experience / Gratitude",
+        "Inner voice",
+        "Mindfulness / meditation / grounding",
+        "Relaxation",
+        "Breathing",
+        "Unit"
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1"
+      ],
+      [
+        "",
+        "1",
+        "",
+        "",
+        "1",
+        "1 grounding",
+        "",
+        "",
+        "2"
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "1grounding",
+        "1PMR2Guided imagery for relaxation3Guided Safe Place Relaxation",
+        "2",
+        "3-4"
+      ],
+      [
+        "Perhaps move medication to the library to have another practice of relaxation ",
+        "",
+        "",
+        "",
+        "1",
+        "1 observing thoughts",
+        "1Guided imagery for medication",
+        "",
+        "5"
+      ],
+      [
+        "",
+        "",
+        "",
+        "`",
+        "",
+        "1Awareness of breath2body scan3Mindful eating4Mindful walking",
+        "1 PMR",
+        "1",
+        "6-7"
+      ],
+      [
+        "",
+        "",
+        "",
+        "1 Pleasant expValidation?",
+        "1",
+        "1A Moment of Self-Compassion",
+        "",
+        "1",
+        "8"
+      ],
+      [
+        "Add awareness of breath somehow",
+        "1 Connection card game2 Choose a connection micro step",
+        "",
+        "1 Pleasant exp 2 A moment of gratitude",
+        "1",
+        "",
+        "1 User choice",
+        "",
+        "9"
+      ],
+      [
+        "",
+        "1 Compass metaphor (ACT) + activity2 The compass – activation",
+        "Relaxation or breathing",
+        "",
+        "",
+        "1 User choice",
+        "?",
+        "?",
+        "10"
+      ],
+      [
+        "",
+        "4 user-choice practices covering all categories",
+        "11"
+      ],
+      [
+        "",
+        "",
+        "12"
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "block": 288
+  },
+  {
+    "type": "paragraph",
+    "text": "Optional side path: troubleshoot your journey",
+    "block": 289
+  },
+  {
+    "type": "paragraph",
+    "text": "\"Troubleshooting your journey\" or overcoming obstacles: need to decide exactly where this fits in. The idea is to help users with initiation or persistence, by identifying things that get in the way and coming up with compassionate ways to overcome the barriers. Ideally this would not be shown to users who are managing the daily activity well, so that we do not create an expectation of barriers.",
+    "block": 290
+  },
+  {
+    "type": "paragraph",
+    "text": "Appendix 1 - Example Language",
+    "block": 291
+  },
+  {
+    "type": "paragraph",
+    "text": "MI-Language",
+    "block": 292
+  },
+  {
+    "type": "paragraph",
+    "text": "“What matters most to you right now?”",
+    "block": 293
+  },
+  {
+    "type": "paragraph",
+    "text": "“What would this app help you protect?”",
+    "block": 294
+  },
+  {
+    "type": "paragraph",
+    "text": "“What do you hope will feel different if this works?”",
+    "block": 295
+  },
+  {
+    "type": "paragraph",
+    "text": "“Which time of day gives you the best chance of success in completing the activity?”",
+    "block": 296
+  },
+  {
+    "type": "paragraph",
+    "text": "“What would make this easier to return to tomorrow?”",
+    "block": 297
+  },
+  {
+    "type": "paragraph",
+    "text": "“Which part of the day feels most realistic for your routine?”",
+    "block": 298
+  },
+  {
+    "type": "paragraph",
+    "text": "“Doing this today would help me…”",
+    "block": 299
+  },
+  {
+    "type": "paragraph",
+    "text": "“The part of me that wants to do this is thinking about…”",
+    "block": 300
+  },
+  {
+    "type": "paragraph",
+    "text": "“If I did one small step today, the benefit would be…”",
+    "block": 301
+  },
+  {
+    "type": "paragraph",
+    "text": "“What would the part of you that wants to keep going say next?”",
+    "block": 302
+  },
+  {
+    "type": "paragraph",
+    "text": "“What is the next helpful step, even with this thought here?”",
+    "block": 303
+  },
+  {
+    "type": "paragraph",
+    "text": "“What would help you stay engaged, even if you do it more gently today?”",
+    "block": 304
+  },
+  {
+    "type": "paragraph",
+    "text": "“Which matters more today: proving something, or protecting tomorrow?”",
+    "block": 305
+  },
+  {
+    "type": "paragraph",
+    "text": "“What small brave action feels realistic today?”",
+    "block": 306
+  },
+  {
+    "type": "paragraph",
+    "text": "“What still matters most now?”",
+    "block": 307
+  },
+  {
+    "type": "paragraph",
+    "text": "“What kind of person are you trying to keep being?”",
+    "block": 308
+  },
+  {
+    "type": "paragraph",
+    "text": "“Which part of your life does this effort protect?”",
+    "block": 309
+  },
+  {
+    "type": "paragraph",
+    "text": "“What would help tomorrow feel more manageable?”",
+    "block": 310
+  },
+  {
+    "type": "paragraph",
+    "text": "“What matters enough to keep this routine going?”",
+    "block": 311
+  },
+  {
+    "type": "paragraph",
+    "text": "Example suggestion language",
+    "block": 312
+  },
+  {
+    "type": "paragraph",
+    "text": "(note – it can be modifies to be more day to day language)",
+    "block": 313
+  },
+  {
+    "type": "paragraph",
+    "text": "“As you answer this question, you may notice a clearer sense of why this effort matters.”",
+    "block": 314
+  },
+  {
+    "type": "paragraph",
+    "text": "“Starting with one small step often feels more possible”",
+    "block": 315
+  },
+  {
+    "type": "paragraph",
+    "text": "“Your body does not need to feel perfect for one useful action to happen.”",
+    "block": 316
+  },
+  {
+    "type": "paragraph",
+    "text": "“The more often this happens at the same time, the less effort it may take to begin.”",
+    "block": 317
+  },
+  {
+    "type": "paragraph",
+    "text": "“A familiar cue can help your mind and body arrive more quickly.”",
+    "block": 318
+  },
+  {
+    "type": "paragraph",
+    "text": "“As you breathe out, your shoulders may soften.”",
+    "block": 319
+  },
+  {
+    "type": "paragraph",
+    "text": "“Once you begin, the next step may feel more manageable.”",
+    "block": 320
+  },
+  {
+    "type": "paragraph",
+    "text": "“You may notice a little more steadiness when you slow the start.”",
+    "block": 321
+  },
+  {
+    "type": "paragraph",
+    "text": "“Even if your body feels uncertain, one useful action is still possible.”",
+    "block": 322
+  },
+  {
+    "type": "paragraph",
+    "text": "“Action often changes the feeling of the day once it begins.”",
+    "block": 323
+  },
+  {
+    "type": "paragraph",
+    "text": "“You may notice that doing something useful shifts how possible the next step feels.”",
+    "block": 324
+  },
+  {
+    "type": "paragraph",
+    "text": "“Once the first movement begins, the next one may come more easily.”",
+    "block": 325
+  },
+  {
+    "type": "paragraph",
+    "text": "“You only need to let the beginning happen.”",
+    "block": 326
+  },
+  {
+    "type": "paragraph",
+    "text": "“Your body may still be willing to do one small step, even if motivation feels quiet.”",
+    "block": 327
+  },
+  {
+    "type": "paragraph",
+    "text": "“As you exhale, your shoulders may soften a little.”",
+    "block": 328
+  },
+  {
+    "type": "paragraph",
+    "text": "“The floor beneath your feet can help your body feel a little steadier.”",
+    "block": 329
+  },
+  {
+    "type": "paragraph",
+    "text": "“With each slower breath, the next step may feel more manageable.”",
+    "block": 330
+  },
+  {
+    "type": "paragraph",
+    "text": "“Your body does not need to be completely calm; it only needs enough calm to begin.”",
+    "block": 331
+  },
+  {
+    "type": "paragraph",
+    "text": "“You may notice that a thought feels less solid once you name it.”",
+    "block": 332
+  },
+  {
+    "type": "paragraph",
+    "text": "“The thought can be there, and the next action can still happen.”",
+    "block": 333
+  },
+  {
+    "type": "paragraph",
+    "text": "“As you hear the coping line, the thought may lose a little of its pull.”",
+    "block": 334
+  },
+  {
+    "type": "paragraph",
+    "text": "“As you bring attention to your feet and breath, you may feel a little more present.”",
+    "block": 335
+  },
+  {
+    "type": "paragraph",
+    "text": "“There may be room for both discomfort and one useful action.”",
+    "block": 336
+  },
+  {
+    "type": "paragraph",
+    "text": "“You do not have to fight this feeling in order to take the next step.”",
+    "block": 337
+  },
+  {
+    "type": "paragraph",
+    "text": "“A smaller step taken kindly can still move you forward.”",
+    "block": 338
+  },
+  {
+    "type": "paragraph",
+    "text": "“You may notice that being gentler with yourself makes it easier to continue.”",
+    "block": 339
+  },
+  {
+    "type": "paragraph",
+    "text": "“A small act of courage is still courage.”",
+    "block": 340
+  },
+  {
+    "type": "paragraph",
+    "text": "“Choosing the right level can make success more likely.”",
+    "block": 341
+  },
+  {
+    "type": "paragraph",
+    "text": "“You may feel more willing once the task fits the day.”",
+    "block": 342
+  },
+  {
+    "type": "paragraph",
+    "text": "“Stepping down a level can help you stay in motion.”",
+    "block": 343
+  },
+  {
+    "type": "paragraph",
+    "text": "“Each small step can be a vote for the person you want to keep being.”",
+    "block": 344
+  },
+  {
+    "type": "paragraph",
+    "text": "“Even when the task is ordinary, the meaning behind it may be important.”",
+    "block": 345
+  },
+  {
+    "type": "paragraph",
+    "text": "“Routine can become a quiet expression of what matters.”",
+    "block": 346
+  },
+  {
+    "type": "paragraph",
+    "text": "“As the day ends, your body may begin to let go of some of its effort.”",
+    "block": 347
+  },
+  {
+    "type": "paragraph",
+    "text": "“You do not need to solve tomorrow tonight.”",
+    "block": 348
+  },
+  {
+    "type": "paragraph",
+    "text": "“Rest can begin even before sleep arrives.”",
+    "block": 349
+  },
+  {
+    "type": "paragraph",
+    "text": "“A missed day does not have to become a lost week.”",
+    "block": 350
+  },
+  {
+    "type": "paragraph",
+    "text": "“Restarting may feel easier when you return to what has worked before.”",
+    "block": 351
+  },
+  {
+    "type": "paragraph",
+    "text": "“You already have a system that can help you begin again.”",
+    "block": 352
+  },
+  {
+    "type": "paragraph",
+    "text": "Note that we can also make it a bit more everyday speech, while still remaining invitational and not “do this” style:",
+    "block": 353
+  },
+  {
+    "type": "paragraph",
+    "text": "Answering this might make it a bit clearer why this whole effort is worth it.",
+    "block": 354
+  },
+  {
+    "type": "paragraph",
+    "text": "Usually, just doing one tiny thing feels way more doable.",
+    "block": 355
+  },
+  {
+    "type": "paragraph",
+    "text": "I don't have to feel great to get something done.",
+    "block": 356
+  },
+  {
+    "type": "paragraph",
+    "text": "The more I do this at the same time, the more it just becomes second nature.",
+    "block": 357
+  },
+  {
+    "type": "paragraph",
+    "text": "Having a familiar little \"start signal\" helps my brain and body get into the zone.",
+    "block": 358
+  },
+  {
+    "type": "paragraph",
+    "text": "Sometimes a little more air in the lungs helps the shoulders drop.",
+    "block": 359
+  },
+  {
+    "type": "paragraph",
+    "text": "Getting the ball rolling usually makes the next part feel less like a mountain.",
+    "block": 360
+  },
+  {
+    "type": "paragraph",
+    "text": "Things feel a bit more grounded when I don't rush into them.",
+    "block": 361
+  },
+  {
+    "type": "paragraph",
+    "text": "It’s okay to feel shaky and still take a step forward.",
+    "block": 362
+  },
+  {
+    "type": "paragraph",
+    "text": "Actually doing something often changes the whole vibe of the day.",
+    "block": 363
+  },
+  {
+    "type": "paragraph",
+    "text": "Getting one thing done can make the next step feel a lot more possible.",
+    "block": 364
+  },
+  {
+    "type": "paragraph",
+    "text": "The first move is the hardest; it usually gets a bit smoother after that.",
+    "block": 365
+  },
+  {
+    "type": "paragraph",
+    "text": "You really only have to worry about getting started.",
+    "block": 366
+  },
+  {
+    "type": "paragraph",
+    "text": "Even when I'm not \"feeling it,\" I can usually manage one little thing.",
+    "block": 367
+  },
+  {
+    "type": "paragraph",
+    "text": "As I breathe out, my shoulders might just soften up a little bit.",
+    "block": 368
+  },
+  {
+    "type": "paragraph",
+    "text": "I can let my feet hit the floor and just feel the ground for a second to steady up.",
+    "block": 369
+  },
+  {
+    "type": "paragraph",
+    "text": "Taking a breath and slowing down can make the next step feel less heavy.",
+    "block": 370
+  },
+  {
+    "type": "paragraph",
+    "text": "The body doesn't have to be perfectly calm; it just needs to be calm enough to move.",
+    "block": 371
+  },
+  {
+    "type": "paragraph",
+    "text": "Naming a thought seems to make it feel a lot less heavy.",
+    "block": 372
+  },
+  {
+    "type": "paragraph",
+    "text": "That thought can just sit there while I get on with what I'm doing.",
+    "block": 373
+  },
+  {
+    "type": "paragraph",
+    "text": "Hearing those supportive words can take some of the power out of a tough thought.",
+    "block": 374
+  },
+  {
+    "type": "paragraph",
+    "text": "Just noticing my feet and my breathing helps me feel a little more \"here.\"",
+    "block": 375
+  },
+  {
+    "type": "paragraph",
+    "text": "I can be uncomfortable and still do something helpful at the same time.",
+    "block": 376
+  },
+  {
+    "type": "paragraph",
+    "text": "I don't have to fight the feeling just to take the next step.",
+    "block": 377
+  },
+  {
+    "type": "paragraph",
+    "text": "Being easy on myself while I take a small step still counts as progress.",
+    "block": 378
+  },
+  {
+    "type": "paragraph",
+    "text": "It’s usually a lot easier to keep going when I’m being kind to myself.",
+    "block": 379
+  },
+  {
+    "type": "paragraph",
+    "text": "A little act of courage is still courage, no matter how small it looks.",
+    "block": 380
+  },
+  {
+    "type": "paragraph",
+    "text": "Don't overcomplicate it—picking a level that actually fits the day makes it easier to win.",
+    "block": 381
+  },
+  {
+    "type": "paragraph",
+    "text": "I usually feel more up for things once the task actually matches my energy.",
+    "block": 382
+  },
+  {
+    "type": "paragraph",
+    "text": "Scaling things back a bit is a good way to keep the momentum going.",
+    "block": 383
+  },
+  {
+    "type": "paragraph",
+    "text": "Every little thing I do is a vote for the person I want to be.",
+    "block": 384
+  },
+  {
+    "type": "paragraph",
+    "text": "Even the most basic tasks can still be a way of taking care of what matters.",
+    "block": 385
+  },
+  {
+    "type": "paragraph",
+    "text": "A simple routine can be a quiet way of showing what’s important to me.",
+    "block": 386
+  },
+  {
+    "type": "paragraph",
+    "text": "As the day winds down, the body can finally start letting go of the day's stress.",
+    "block": 387
+  },
+  {
+    "type": "paragraph",
+    "text": "Tomorrow’s problems can wait until tomorrow.",
+    "block": 388
+  },
+  {
+    "type": "paragraph",
+    "text": "I can start winding down even if I'm not ready for bed yet.",
+    "block": 389
+  },
+  {
+    "type": "paragraph",
+    "text": "Just because I missed today doesn't mean the whole week is a wash.",
+    "block": 390
+  },
+  {
+    "type": "paragraph",
+    "text": "Restarting feels a lot easier when I just go back to what worked before.",
+    "block": 391
+  },
+  {
+    "type": "paragraph",
+    "text": "The system is already there; I can always use it to find my way back.",
+    "block": 392
+  },
+  {
+    "type": "paragraph",
+    "text": "Appendix 2 – ACT resources",
+    "block": 393
+  },
+  {
+    "type": "paragraph",
+    "text": "See this document - ACT Resources.docx",
+    "block": 394
+  },
+  {
+    "type": "paragraph",
+    "text": "Appendix 3 – Apathy resources",
+    "block": 395
+  },
+  {
+    "type": "paragraph",
+    "text": "Apathy in PD is increasingly understood not as a mood problem like depression, but as a disorder of motivation and effort-based decision-making. While depression affects how someone feels (sadness, hopelessness), apathy reflects a disruption in the brain’s “cost-benefit calculator\". The brain tends to overestimate how much effort a task will require and underestimate how rewarding it will feel. This bias fuels an “Underdo-It” cycle: a person decides it’s too much work to attend a coffee meetup, stays home, receives no rewarding dopamine boost from social interaction, and as a result finds the next activity even harder to initiate.",
+    "block": 396
+  },
+  {
+    "type": "paragraph",
+    "text": "Modern cognitive-behavioral approaches for apathy (CBT-A) aim to recalibrate this system by reducing perceived effort (e.g., focusing first on putting on walking shoes rather than completing a full walk), increasing reward saliency significance, and using structured “if-then” plans to bypass impaired initiation. By creating small, achievable “micro-wins” such as committing to just five minutes of activity patients can trigger modest dopamine releases that help gradually restore motivation.",
+    "block": 397
+  },
+  {
+    "type": "paragraph",
+    "text": "See paper and video for more details:https://onlinelibrary.wiley.com/doi/10.1155/2024/2820257",
+    "block": 398
+  },
+  {
+    "type": "paragraph",
+    "text": "https://www.youtube.com/watch?v=h8wXvto29E4",
+    "block": 399
+  },
+  {
+    "type": "paragraph",
+    "text": "https://www.parkinsons.org.uk/professionals/resources/cognitive-behavioural-framework-for-treating-apathy-parkinsons",
+    "block": 400
+  },
+  {
+    "type": "paragraph",
+    "text": "The shift toward effort-based decision-making represents a major evolution in how we treat apathy. Historically, doctors treated apathy like depression, but we now know they are neurologically different: depression is a \"feeling\" problem (sadness), while apathy is a \"valuation\" problem (the brain decides the reward isn't worth the effort).In Parkinson's, the brain’s \"cost-benefit calculator\" becomes biased. Because dopamine levels are low, the brain overestimates how much physical or mental effort a task will take and underestimates how good the reward will feel.",
+    "block": 401
+  },
+  {
+    "type": "paragraph",
+    "text": "This creates a self-reinforcing loop:",
+    "block": 402
+  },
+  {
+    "type": "paragraph",
+    "text": "The Trap: \"It’s too much work to go to that coffee meetup. I’ll just stay here.\"",
+    "block": 403
+  },
+  {
+    "type": "paragraph",
+    "text": "The Result: Because you don't go, you get zero dopamine \"spikes\" from social interaction.",
+    "block": 404
+  },
+  {
+    "type": "paragraph",
+    "text": "The Consequence: Your brain's \"reward system\" remains dormant, making the next task feel even harder. This is the \"Underdo-It\" Cycle—a downward spiral of inactivity that actually makes the biological apathy worse.",
+    "block": 405
+  },
+  {
+    "type": "paragraph",
+    "text": "Modern CBT (sometimes called CBT-A for Apathy) focuses on recalibrating this internal calculator. Therapists work on three specific areas:",
+    "block": 406
+  },
+  {
+    "type": "paragraph",
+    "text": "Cost-Reduction Strategies: If a task feels like it costs 10 units of energy, how can we lower it to 2?",
+    "block": 407
+  },
+  {
+    "type": "paragraph",
+    "text": "Example: Instead of \"going for a 30-minute walk,\" the goal is \"putting on walking shoes.\" Once the shoes are on, the \"activation energy\" required for the walk is significantly lower.",
+    "block": 408
+  },
+  {
+    "type": "paragraph",
+    "text": "Reward Saliency: Apathetic brains \"miss\" rewards. Therapists use Savoring Techniques—asking patients to focus intensely on a specific positive detail (the smell of the coffee, the sun on their face) to \"force\" the brain to acknowledge the reward.",
+    "block": 409
+  },
+  {
+    "type": "paragraph",
+    "text": "External Scaffolding: Since the brain struggles with internal initiation, CBT-A uses \"If-Then\" planning (Implementation Intentions).",
+    "block": 410
+  },
+  {
+    "type": "paragraph",
+    "text": "Script: \"If the clock strikes 10:00 AM, then I will stand up and walk to the kitchen.\" This moves the decision from the struggling frontal lobe to a more automatic response.",
+    "block": 411
+  },
+  {
+    "type": "paragraph",
+    "text": "The goal is to create \"micro-wins\" that provide just enough dopamine to fuel the next small action.",
+    "block": 412
+  },
+  {
+    "type": "paragraph",
+    "text": "The 5-Minute Rule: Patients are told to commit to an activity for just 5 minutes. Often, the act of starting provides the neurochemical \"kick\" needed to continue.",
+    "block": 413
+  },
+  {
+    "type": "paragraph",
+    "text": "Low-Reward Sensitivity Training: Research shows apathetic patients ignore low rewards. CBT-A teaches patients to \"stack\" rewards.",
+    "block": 414
+  },
+  {
+    "type": "paragraph",
+    "text": "Example: Don't just do physical therapy; do physical therapy while listening to a favorite podcast. The podcast provides an immediate, high-probability reward that \"subsidizes\" the effort of the exercise.",
+    "block": 415
+  },
+  {
+    "type": "paragraph",
+    "text": "Appendix – 4 - CBT resources",
+    "block": 416
+  },
+  {
+    "type": "paragraph",
+    "text": "Cbt for anxiety - cbt_therapist_manual_25_11_2021",
+    "block": 417
+  },
+  {
+    "type": "paragraph",
+    "text": "Copied from it:",
+    "block": 418
+  },
+  {
+    "type": "paragraph",
+    "text": "Fear of further physical (or mental) deterioration is very common in people suffering from Parkinson’s disease. Progression of the disease is inevitable. Patients are often frightened by seeing other patients who are further in the disease and have more severe symptoms. However, the rate of decline as well as the course of the disease vary a lot between patients. It may be necessary to remind them repeatedly about this. On the other hand, it can be this unpredictable aspect of the disease that makes patients with Parkinson’s disease anxious. As a therapist, it is important to check whether a patient worries excessively about the (uncertain) progression of the disease, and if it is necessary to formulate (specific and realistic) treatment goals about this.",
+    "block": 419
+  },
+  {
+    "type": "paragraph",
+    "text": "Especially in patients with Parkinson's disease there may be specific circumstances related to the disease that trigger anxiety, such as medication wearing off, motor fluctuations, dystonia, freezing, or balance problems",
+    "block": 420
+  },
+  {
+    "type": "paragraph",
+    "text": "Hypothetical example:",
+    "block": 421
+  },
+  {
+    "type": "paragraph",
+    "text": "Situation: Standing in line for the cash register. You are about to pay and you notice that there are many people standing behind you. Thoughts: \"That is such a long queue. People are looking annoyed; they must be in a hurry. I have to pay really fast now, but I can't\"",
+    "block": 422
+  },
+  {
+    "type": "paragraph",
+    "text": "Feelings: Nervous, stressed",
+    "block": 423
+  },
+  {
+    "type": "paragraph",
+    "text": "Physical signs: Increased muscle tension, tremor worsens",
+    "block": 424
+  },
+  {
+    "type": "paragraph",
+    "text": "Behavior: Difficulty to get your money out of your wallet, you might drop the wallet",
+    "block": 425
+  },
+  {
+    "type": "paragraph",
+    "text": "Effect: Feeling more embarrassed. In future, you might tend to avoid the supermarket.",
+    "block": 426
+  },
+  {
+    "type": "paragraph",
+    "text": "Source: adapted from the 'Patient Education Program Parkinson (PEPP)'PEPP -",
+    "block": 427
+  },
+  {
+    "type": "paragraph",
+    "text": "One potential framework that can help patients increase motivation and fulfill plans and change habits is through the WOOP technique- https://woopmylife.org/",
+    "block": 428
+  },
+  {
+    "type": "paragraph",
+    "text": "This mental strategy has four stages of defining a wish, assessing its outcome, considering barriers to achieving the wish and setting a plan on how to accomplish the wish.",
+    "block": 429
+  },
+  {
+    "type": "paragraph",
+    "text": "We can think how to integrate some of these principles into the plan and track users on the accomplishment of the goals / wishes they define for themselves.This might serve as a tool to reduce motivational barriers despite challenges and difficulties to initiate and invest effort in activities.",
+    "block": 430
+  }
+]

@@ -1,0 +1,156 @@
+{
+  "scope": "Local saved Psych Lab; Claude hosted artifact has not been synchronized.",
+  "summary": {
+    "scripts": 51,
+    "session_boards": 51,
+    "audio": 51,
+    "authored_storyboards": 51,
+    "placeholder_storyboards": 0,
+    "animations_rendered": 51,
+    "animations_exported": 51,
+    "trios_integrated": 51,
+    "rendered_not_integrated": [],
+    "storyboard_only": [],
+    "not_started": [],
+    "container_issues": [],
+    "duration_issues_over_0_25s": []
+  },
+  "completed_sessions": [
+    {
+      "session": "S17",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999709725379944,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S19",
+      "frame_samples": 16,
+      "audio_correlation": 0.999970555305481,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S23",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999697208404541,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S30",
+      "frame_samples": 16,
+      "audio_correlation": 0.99997478723526,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S32",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999744892120361,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S33a",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999641180038452,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S33b",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999682307243347,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S34",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999725222587585,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S35",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999724626541138,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S37",
+      "frame_samples": 16,
+      "audio_correlation": 0.999970018863678,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S46",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999729990959167,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S48",
+      "frame_samples": 16,
+      "audio_correlation": 0.999973714351654,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S49",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999692440032959,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S53",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999714493751526,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S54",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999674558639526,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S56",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999703764915466,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S57",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999659061431885,
+      "export_matches": true,
+      "narration_unchanged": true
+    },
+    {
+      "session": "S99",
+      "frame_samples": 16,
+      "audio_correlation": 0.9999724626541138,
+      "export_matches": true,
+      "narration_unchanged": true
+    }
+  ],
+  "source_frame_comparisons": 288,
+  "minimum_audio_correlation": 0.9999641180038452,
+  "lab_playback": {
+    "sessions_passed": 51,
+    "errors": [],
+    "mobile": {
+      "viewport": 390,
+      "body": 390
+    }
+  }
+}

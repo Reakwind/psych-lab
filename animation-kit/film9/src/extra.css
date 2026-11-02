@@ -1,0 +1,5 @@
+.road { fill:color-mix(in srgb, var(--second) 34%, var(--ground)) } .road-dk { fill:color-mix(in srgb, var(--second) 50%, var(--ground)) }
+.road-st { fill:none; stroke:color-mix(in srgb, var(--second) 34%, var(--ground)) }
+.cab { fill:color-mix(in srgb, var(--second) 70%, var(--ground)) }
+.nostones [class*="-st"] { display:none }
+.dark { fill:var(--second); fill-rule:evenodd }

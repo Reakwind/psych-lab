@@ -1,0 +1,9 @@
+{
+  "hooks": {
+    "SessionStart": [{"matcher": "startup|resume", "hooks": [{"type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/scripts/agents.py\" setup", "timeout": 30}]}],
+    "PreToolUse": [{"matcher": "Bash", "hooks": [{"type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/scripts/agent_safety.py\" claude", "timeout": 10}]}]
+  },
+  "permissions": {
+    "deny": ["Read(.env)", "Read(.env.*)", "Bash(git reset *)", "Bash(git clean *)", "Bash(git rebase *)", "Bash(git push --force*)", "Bash(git push -f*)"]
+  }
+}

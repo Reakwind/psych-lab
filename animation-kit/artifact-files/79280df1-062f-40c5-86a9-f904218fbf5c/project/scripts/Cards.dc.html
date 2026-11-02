@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>משחק קלפי שיחה</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}
+@keyframes wobble{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+@keyframes deal{from{opacity:0;transform:translateY(60px) rotate(-6deg)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div class="app" dir="rtl" lang="he" style="--font-display: 'Rubik', system-ui, sans-serif; --font-body: 'Rubik', system-ui, sans-serif">
+
+<sc-if value="{{isSetup}}" hint-placeholder-val="{{ true }}">
+<div class="topbar"><button class="icon-btn" onClick="{{handBack}}" aria-label="סגירה"><span class="icon">close</span></button><span class="topbar-title">קלפי שיחה</span><span class="topbar-spacer"></span></div>
+<div class="screen" style="padding-top: 8px; gap: 18px">
+  <div class="seg">
+    <button class="{{soloCls}}" onClick="{{setSolo}}" aria-pressed="{{soloPressed}}"><span class="icon icon-s">person</span>לבד</button>
+    <button class="{{togetherCls}}" onClick="{{setTogether}}" aria-pressed="{{togetherPressed}}"><span class="icon icon-s">group</span>יחד</button>
+  </div>
+  <button class="card card-inverse row" onClick="{{roll}}" disabled="{{rolling}}" style="border: none; cursor: pointer; text-align: start; gap: 20px; padding: 20px">
+    <span style="width: 88px; height: 88px; flex-shrink: 0; border-radius: 24px; background: var(--surface-lowest); padding: 14px; box-sizing: border-box; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; animation: {{dieAnim}}" aria-hidden="true">
+      <sc-for list="{{pips}}" as="p" hint-placeholder-count="9"><span style="border-radius: 50%; background: {{p}}"></span></sc-for>
+    </span>
+    <span class="stack" style="gap: 4px">
+      <span class="t-title" style="color: var(--inverse-on-surface)">{{dieTitle}}</span>
+      <span class="t-label-s" style="opacity: .75">{{dieSub}}</span>
+    </span>
+  </button>
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+    <sc-for list="{{piles}}" as="pl" hint-placeholder-count="4">
+      <button class="list-row" onClick="{{pl.pick}}" style="flex-direction: column; align-items: flex-start; min-height: 150px; gap: 12px; padding: 18px">
+        <span class="list-lead {{pl.lead}}"><span class="icon icon-l">{{pl.icon}}</span></span>
+        <span class="list-title">{{pl.name}}</span>
+        <span class="row t-label-s muted" style="gap: 4px"><span class="icon icon-s">{{pl.dieIcon}}</span>{{pl.note}}</span>
+      </button>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{isSolo}}" hint-placeholder-val="{{ false }}">
+<div class="topbar"><button class="icon-btn" onClick="{{toSetup}}" aria-label="חזרה לערימות"><span class="icon mirror-rtl">arrow_back</span></button><span class="topbar-title">{{pile.name}}</span><span class="topbar-spacer"></span></div>
+<div class="screen" style="padding-top: 12px">
+  <div key="{{cardKey}}" class="card grow" style="background: {{pile.tint}}; display: flex; flex-direction: column; justify-content: space-between; padding: 28px; position: relative; overflow: hidden; animation: deal .5s var(--ease-emph)">
+    <div class="art" style="position: absolute; left: -50px; top: -50px; width: 200px; height: 200px; opacity: .55">
+      <div class="layer shape shape-flower" style="width: 200px; height: 200px; background: #fff"></div>
+    </div>
+    <span class="list-lead {{pile.lead}}" style="position: relative; background: rgba(255,255,255,.7)"><span class="icon icon-l">{{pile.icon}}</span></span>
+    <p class="t-headline" style="position: relative; color: var(--on-surface)">{{prompt}}</p>
+    <span class="row t-label-s" style="gap: 6px; color: var(--on-surface-variant)"><span class="icon icon-s">psychology_alt</span>פשוט שמים לב למה שעולה</span>
+  </div>
+  <div class="row t-label-s muted" style="justify-content: center">{{cardNo}}</div>
+  <button class="btn btn-filled btn-l btn-block" onClick="{{nextCard}}"><span class="icon">style</span>הקלף הבא</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isTogether}}" hint-placeholder-val="{{ false }}">
+<div class="screen" style="padding: 20px 16px 16px; gap: 12px">
+  <div key="{{cardKey}}" class="card grow" style="background: {{pile.tint}}; display: flex; flex-direction: column; padding: 0; overflow: hidden; animation: deal .5s var(--ease-emph)">
+    <div style="flex: 1 1 0; display: flex; flex-direction: column; justify-content: space-between; padding: 22px; transform: rotate(180deg)">
+      <span class="list-lead {{pile.lead}}" style="width: 48px; height: 48px; background: rgba(255,255,255,.7)"><span class="icon">{{pile.icon}}</span></span>
+      <p class="t-headline-s">{{prompt}}</p>
+    </div>
+    <div class="row" style="justify-content: center; gap: 10px; padding: 0 20px">
+      <span style="flex: 1 1 auto; border-top: 2px dashed rgba(0,0,0,.2)"></span>
+      <span class="icon muted">sync_alt</span>
+      <span style="flex: 1 1 auto; border-top: 2px dashed rgba(0,0,0,.2)"></span>
+    </div>
+    <div style="flex: 1 1 0; display: flex; flex-direction: column; justify-content: space-between; padding: 22px">
+      <p class="t-headline-s">{{prompt}}</p>
+      <span class="list-lead {{pile.lead}}" style="width: 48px; height: 48px; background: rgba(255,255,255,.7)"><span class="icon">{{pile.icon}}</span></span>
+    </div>
+  </div>
+  <div class="btn-group">
+    <button class="btn btn-tonal" onClick="{{toSetup}}" style="flex: 0 0 auto; width: 72px; padding: 0" aria-label="חזרה לערימות"><span class="icon">grid_view</span></button>
+    <button class="btn btn-filled" onClick="{{nextCard}}"><span class="icon">style</span>הקלף הבא</button>
+  </div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"defaultMode":{"editor":"enum","options":["Solo","Together"],"default":"Together"},"onDone":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { screen: 'setup', mode: null, face: 5, rolling: false, rolled: false, pile: 0, n: 0, order: [] };
+  }
+  componentWillUnmount() { clearInterval(this.rollTimer); clearTimeout(this.openTimer); }
+  piles() {
+    return [
+      { name: 'יומיום', icon: 'wb_sunny', lead: 'lead-audio', tint: '#B3EFE4', note: '1 או 2', dieIcon: 'casino', prompts: ['מה גרם לכם לחייך השבוע?', 'איזה אוכל מרגיש כמו בית?', 'איזה שיר הייתם שמים עכשיו?', 'לאיזה מקום הייתם רוצים לחזור?', 'למה אתם מחכים?'] },
+      { name: 'זיכרונות', icon: 'history_edu', lead: 'lead-game', tint: '#FFDEA3', note: '3 או 4', dieIcon: 'casino', prompts: ['מתי הפתעתם את עצמכם?', 'מי לימד אתכם משהו חשוב?', 'איזו מסורת כדאי לשמור?', 'מה אהבתם בילדות?', 'איזה יום הייתם רוצים לחיות שוב?'] },
+      { name: 'פעולות קטנות', icon: 'directions_run', lead: 'lead-video', tint: '#D8E2FF', note: '5 או 6', dieIcon: 'casino', prompts: ['מעשה קטן אחד של דאגה לעצמכם להמשך היום?', 'למי אפשר לשלוח הודעה היום?', 'למי אפשר להודות היום?', 'דבר קטן אחד לעשות יחד השבוע?'] },
+      { name: 'לחיות עם פרקינסון', icon: 'forum', lead: 'lead-choice', tint: '#FFD7F3', note: 'בבחירה בלבד', dieIcon: 'block', prompts: ['מה בפרקינסון אחרים לא רואים?', 'מה עוזר לכם ביום קשה?', 'מה הייתם רוצים שאנשים יבינו?', 'ממה אתם עדיין נהנים באותה מידה?'] }
+    ];
+  }
+  open(i) {
+    const n = this.piles()[i].prompts.length;
+    const order = Array.from({ length: n }, (_, k) => k);
+    for (let k = n - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); const x = order[k]; order[k] = order[j]; order[j] = x; }
+    this.setState({ screen: 'card', pile: i, n: 0, order });
+  }
+  roll() {
+    let ticks = 0;
+    this.setState({ rolling: true });
+    this.rollTimer = setInterval(() => {
+      ticks += 1;
+      const face = 1 + Math.floor(Math.random() * 6);
+      if (ticks >= 10) {
+        clearInterval(this.rollTimer);
+        this.setState({ face, rolling: false, rolled: true });
+        this.openTimer = setTimeout(() => this.open(Math.floor((face - 1) / 2)), 800);
+      } else this.setState({ face });
+    }, 110);
+  }
+  renderVals() {
+    const s = this.state;
+    const mode = s.mode || ((this.props.defaultMode ?? 'Together') === 'Together' ? 'together' : 'solo');
+    const solo = mode === 'solo';
+    const piles = this.piles();
+    const pile = piles[s.pile];
+    const faces = { 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] };
+    const on = faces[s.face] || [];
+    const pos = s.order.length ? s.order[s.n % s.order.length] : 0;
+    return {
+      embedded: !!this.props.onDone, standalone: !this.props.onDone, handBack: () => { if (this.props.onDone) this.props.onDone(); },
+      isSetup: s.screen === 'setup', isSolo: s.screen === 'card' && solo, isTogether: s.screen === 'card' && !solo,
+      setSolo: () => this.setState({ mode: 'solo' }), setTogether: () => this.setState({ mode: 'together' }),
+      soloCls: solo ? 'is-selected' : '', togetherCls: solo ? '' : 'is-selected',
+      soloPressed: solo ? 'true' : 'false', togetherPressed: solo ? 'false' : 'true',
+      pips: [0, 1, 2, 3, 4, 5, 6, 7, 8].map((k) => (on.includes(k) ? '#171D1B' : 'transparent')),
+      dieAnim: s.rolling ? 'wobble .22s linear infinite' : 'none',
+      dieTitle: s.rolling ? 'מגלגלים…' : (s.rolled ? 'יצא ' + s.face : 'מגלגלים קובייה'),
+      dieSub: s.rolled && !s.rolling ? piles[Math.floor((s.face - 1) / 2)].name : 'שהמזל יבחר ערימה',
+      rolling: s.rolling,
+      roll: () => this.roll(),
+      piles: piles.map((p, i) => Object.assign({}, p, { pick: () => this.open(i) })),
+      pile, prompt: pile.prompts[pos],
+      cardNo: ((s.n % pile.prompts.length) + 1) + ' מתוך ' + pile.prompts.length,
+      cardKey: s.pile + '-' + s.n,
+      nextCard: () => this.setState({ n: s.n + 1 }),
+      toSetup: () => this.setState({ screen: 'setup', rolled: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+/* Scene motion library. Every scene is a small lit world: a sky, a pool of light, drifting dust,
+   and figures that build in on a spring, act out the idea, then settle into slow idle motion.
+   Native CSS only: linear() springs, individual transform properties (so an entrance and an idle
+   loop stack on one element), pathLength line drawing and offset-path motion.
+
+   Each element has three animation slots, set as custom properties so they never override each other:
+     --in    a one-shot entrance or story beat   (classes in-*, or inline)
+     --idle  an endless calm loop                (classes i-*, or inline)
+     --fx    a second loop when one is not enough
+   Story beats use the individual properties translate / scale / rotate / opacity;
+   idle loops use transform, so the two compose. */
+
+@property --in { syntax: '*'; inherits: false; }
+@property --idle { syntax: '*'; inherits: false; }
+@property --fx { syntax: '*'; inherits: false; }
+
+.scene {
+  --spring: linear(0, 0.012 0.8%, 0.05 1.7%, 0.2 3.6%, 0.44 6%, 0.68 8.6%, 0.86 11.3%, 0.98 14.2%, 1.05 17.3%, 1.075 20.5%, 1.07 23.4%, 1.045 27.8%, 1.012 33.6%, 0.995 39.5%, 0.99 45%, 0.996 56%, 1.001 70%, 1);
+  --soft: linear(0, 0.03 2%, 0.16 5.6%, 0.4 10.5%, 0.66 16.2%, 0.85 22.6%, 0.96 29.6%, 1.015 37%, 1.03 44.5%, 1.02 53%, 1.004 66%, 1);
+  --out: cubic-bezier(.16, 1, .3, 1);
+  --io: cubic-bezier(.45, 0, .55, 1);
+  --ink: #14201E;
+  width: 100%; height: 360px; position: relative; overflow: hidden; isolation: isolate;
+  border-radius: 32px; font-family: 'Rubik', var(--font-body);
+  background: radial-gradient(120% 80% at 50% 30%, var(--glow) 0%, transparent 55%) , linear-gradient(var(--top), var(--bot));
+}
+.scene * { animation: var(--in, none), var(--idle, none), var(--fx, none); }
+.scene svg { display: block; overflow: visible; }
+.scene svg *:not([transform]) { transform-box: fill-box; transform-origin: center; }
+.scene .layer { position: absolute; inset: 0; }
+.scene .cam { position: absolute; inset: 0; --in: cam 2.6s var(--out) both; --idle: cam-drift 18s var(--io) 2.6s infinite alternate; }
+.scene .vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(130% 95% at 50% 45%, transparent 60%, rgba(5, 10, 20, .28) 100%); }
+
+/* dust motes: tiny lights drifting up through every world */
+.scene .mote { position: absolute; width: var(--s); height: var(--s); border-radius: 50%; background: var(--mote); opacity: 0; --idle: mote var(--dur) linear var(--dl) infinite; }
+
+/* text on a scene */
+.scene .lbl { position: absolute; box-sizing: border-box; padding: 8px 14px; border-radius: 16px; background: rgba(255, 255, 255, .95); color: var(--ink); font-size: 17px; line-height: 1.3; font-weight: 600; text-align: center; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .45), 0 1px 2px rgba(0, 0, 0, .12); }
+.scene .lbl-s { font-size: 15px; padding: 6px 11px; border-radius: 13px; }
+.scene .lbl-l { font-size: 20px; padding: 12px 18px; border-radius: 20px; }
+.scene .ttl { position: absolute; color: #fff; font-weight: 600; text-align: center; text-shadow: 0 2px 12px rgba(0, 0, 0, .35); }
+.scene .center-x { left: 0; right: 0; margin-inline: auto; width: fit-content; }
+.scene .tail::after { content: ''; position: absolute; width: 14px; height: 14px; background: inherit; border-radius: 3px; bottom: -5px; inset-inline-start: var(--tx, 24px); rotate: 45deg; }
+
+/* entrances: one-shot, delayed by --d */
+.scene .in-pop   { --in: k-pop .9s var(--spring) var(--d, 0s) both; }
+.scene .in-pops  { --in: k-pop 1.1s var(--soft) var(--d, 0s) both; }
+.scene .in-rise  { --in: k-rise 1.1s var(--out) var(--d, 0s) both; }
+.scene .in-drop  { --in: k-drop 1s var(--spring) var(--d, 0s) both; }
+.scene .in-blur  { --in: k-blur 1.2s var(--out) var(--d, 0s) both; }
+.scene .in-fade  { --in: k-fade 1.2s var(--out) var(--d, 0s) both; }
+.scene .in-grow  { --in: k-grow 1s var(--spring) var(--d, 0s) both; transform-origin: 50% 100%; }
+.scene .in-growx { --in: k-growx 1.1s var(--out) var(--d, 0s) both; }
+.scene .in-left  { --in: k-left 1.1s var(--out) var(--d, 0s) both; }
+.scene .in-right { --in: k-right 1.1s var(--out) var(--d, 0s) both; }
+.scene .in-draw  { stroke-dasharray: 1 1; stroke-dashoffset: 1; --in: k-draw var(--dd, 1.6s) var(--io) var(--d, 0s) both; }
+
+/* idle loops: endless, offset by --dl, length --t */
+.scene .i-float   { --idle: i-float var(--t, 6s) var(--io) var(--dl, 0s) infinite alternate; }
+.scene .i-bob     { --idle: i-bob var(--t, 3s) var(--io) var(--dl, 0s) infinite alternate; }
+.scene .i-sway    { --idle: i-sway var(--t, 7s) var(--io) var(--dl, 0s) infinite alternate; }
+.scene .i-breathe { --idle: i-breathe var(--t, 8s) var(--io) var(--dl, 0s) infinite; }
+.scene .i-pulse   { --idle: i-pulse var(--t, 3.2s) var(--io) var(--dl, 0s) infinite; }
+.scene .i-glow    { --idle: i-glow var(--t, 4s) var(--io) var(--dl, 0s) infinite alternate; }
+.scene .i-twinkle { --idle: i-twinkle var(--t, 3s) var(--io) var(--dl, 0s) infinite; }
+.scene .i-spin    { --idle: i-spin var(--t, 40s) linear var(--dl, 0s) infinite; }
+.scene .i-blink   { --idle: i-blink var(--t, 5.5s) linear var(--dl, 0s) infinite; }
+.scene .i-ripple  { --idle: i-ripple var(--t, 5s) var(--out) var(--dl, 0s) infinite; }
+.scene .i-rain    { --idle: i-rain var(--t, 1.1s) linear var(--dl, 0s) infinite; }
+.scene .i-flap    { --idle: i-flap var(--t, .9s) var(--io) var(--dl, 0s) infinite alternate; }
+.scene .i-shake   { --idle: i-shake var(--t, .45s) linear var(--dl, 0s) infinite; }
+.scene .i-zz      { --idle: i-zz var(--t, 4.5s) var(--out) var(--dl, 0s) infinite; }
+.scene .i-drift   { --idle: i-drift var(--t, 30s) linear var(--dl, 0s) infinite; }
+.scene .i-scroll  { --idle: i-scroll var(--t, 6s) linear var(--dl, 0s) infinite; }
+
+@keyframes cam { from { scale: 1.06; } to { scale: 1; } }
+@keyframes cam-drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(0, -4px) scale(1.025); } }
+@keyframes mote { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: .9; } 85% { opacity: .5; } 100% { opacity: 0; transform: translate(var(--dx, 10px), -70px); } }
+
+@keyframes k-pop   { from { scale: 0; opacity: 0; } to { scale: 1; opacity: 1; } }
+@keyframes k-rise  { from { translate: 0 26px; opacity: 0; } to { translate: 0 0; opacity: 1; } }
+@keyframes k-drop  { from { translate: 0 -90px; opacity: 0; } to { translate: 0 0; opacity: 1; } }
+@keyframes k-blur  { from { opacity: 0; filter: blur(8px); translate: 0 10px; } to { opacity: 1; filter: blur(0); translate: 0 0; } }
+@keyframes k-fade  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes k-grow  { from { scale: 1 0; } to { scale: 1 1; } }
+@keyframes k-growx { from { scale: 0 1; } to { scale: 1 1; } }
+@keyframes k-left  { from { translate: -60px 0; opacity: 0; } to { translate: 0 0; opacity: 1; } }
+@keyframes k-right { from { translate: 60px 0; opacity: 0; } to { translate: 0 0; opacity: 1; } }
+@keyframes k-draw  { to { stroke-dashoffset: 0; } }
+
+@keyframes i-float   { from { transform: translateY(-5px); } to { transform: translateY(5px); } }
+@keyframes i-bob     { from { transform: translateY(0); } to { transform: translateY(-3px); } }
+@keyframes i-sway    { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg); } }
+@keyframes i-breathe { 0%, 100% { transform: scale(.93); } 45%, 55% { transform: scale(1.05); } }
+@keyframes i-pulse   { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.06); opacity: .85; } }
+@keyframes i-glow    { from { opacity: .45; } to { opacity: 1; } }
+@keyframes i-twinkle { 0%, 100% { opacity: .25; transform: scale(.7); } 50% { opacity: 1; transform: scale(1); } }
+@keyframes i-spin    { to { transform: rotate(360deg); } }
+@keyframes i-blink   { 0%, 93%, 100% { transform: scaleY(1); } 95.5% { transform: scaleY(.08); } }
+@keyframes i-ripple  { from { transform: scale(.4); opacity: .7; } to { transform: scale(1.6); opacity: 0; } }
+@keyframes i-rain    { from { transform: translateY(-14px); opacity: 0; } 30% { opacity: .9; } to { transform: translateY(46px); opacity: 0; } }
+@keyframes i-flap    { from { transform: scaleY(1); } to { transform: scaleY(-.5); } }
+@keyframes i-shake   { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(1.5px, -1px); } 50% { transform: translate(-1px, 1px); } 75% { transform: translate(1px, 1.5px); } }
+@keyframes i-zz      { from { transform: translate(0, 0) scale(.6); opacity: 0; } 25% { opacity: 1; } to { transform: translate(-18px, -46px) scale(1.1); opacity: 0; } }
+@keyframes i-drift   { from { transform: translateX(0); } to { transform: translateX(-120px); } }
+@keyframes i-scroll  { from { transform: translateX(0); } to { transform: translateX(var(--w, -171px)); } }
+
+/* the player pauses the picture with the voice */
+.scene.is-paused, .scene.is-paused * { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scene, .scene * { animation-delay: 0s !important; animation-duration: 1ms !important; animation-iteration-count: 1 !important; }
+  .scene .mote { display: none; }
+}
+
+/* ---------- story beats used by single scenes ---------- */
+.scene .i-breath { --idle: i-breath var(--t, 5s) var(--io) var(--dl, 0s) infinite alternate; transform-origin: 50% 100%; }
+.scene .i-wave { --idle: i-wave .7s var(--io) var(--dl, .9s) 6 alternate both; }
+.scene .i-beat { --idle: i-beat var(--t, 2.4s) var(--io) var(--dl, 1s) infinite; }
+.scene .i-par { --idle: i-par var(--t, 12s) var(--io) var(--dl, 0s) infinite alternate; }
+.scene .i-puff { --idle: i-puff var(--t, 5s) var(--out) var(--dl, 0s) infinite; }
+.scene .i-wiggle { --idle: i-wiggle var(--t, 4s) var(--io) var(--dl, 0s) infinite alternate; }
+.scene .b-hop { --in: b-hop 1s linear var(--d, 1.6s) both; }
+.scene .b-tip { --in: b-tip 2.2s var(--soft) var(--d, 1.3s) both; }
+.scene .b-level { --in: b-level 2.4s var(--soft) var(--d, .9s) both; }
+.scene .b-droop { --in: b-droop 1.8s var(--soft) var(--d, .9s) both; }
+.scene .b-jump { --in: b-jump 1.1s linear var(--d, .5s) both; }
+.scene .b-off { --in: b-off .6s var(--out) var(--d, 1s) both; }
+.scene .b-on { --in: b-on .7s var(--spring) var(--d, 1s) both; }
+.scene .b-gone { --in: b-gone .9s var(--out) var(--d, 1.8s) both; }
+.scene .b-flip { --in: b-flip 1.3s var(--soft) var(--d, .5s) both; }
+.scene .b-seek { --in: b-seek 3.4s linear var(--d, .4s) both; }
+.scene .b-pour { --in: b-pour 1.2s var(--soft) var(--d, .7s) both; }
+.scene .b-open { --in: b-open 1.6s var(--soft) var(--d, 1.2s) both; }
+.scene .b-knob { --in: b-knob 1.6s var(--spring) var(--d, 1.4s) both; }
+.scene .b-merge { --in: b-merge 2.6s var(--io) var(--d, 1.6s) both; }
+.scene .b-ride { offset-rotate: 0deg; --in: b-ride var(--dd, 6s) var(--io) var(--d, .3s) both; }
+.scene .b-orb-in { --in: b-orb-in 4s var(--io) var(--d, .6s) both; }
+.scene .b-orb-out { --in: b-orb-out 5s var(--io) var(--d, .6s) both; }
+
+@keyframes i-breath { from { transform: scale(1, 1); } to { transform: scale(1.012, 1.03); } }
+@keyframes i-wave { from { transform: rotate(-6deg); } to { transform: rotate(16deg); } }
+@keyframes i-beat { 0%, 45%, 100% { transform: scale(1); } 10% { transform: scale(1.08); } 20% { transform: scale(1); } 30% { transform: scale(1.05); } }
+@keyframes i-par { from { transform: translateX(calc(var(--px, 6px) * -1)); } to { transform: translateX(var(--px, 6px)); } }
+@keyframes i-puff { from { transform: translate(0, 0) scale(.5); opacity: 0; } 20% { opacity: .8; } to { transform: translate(14px, -60px) scale(1.4); opacity: 0; } }
+@keyframes i-wiggle { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+@keyframes b-hop { 0% { translate: var(--ox) var(--oy); animation-timing-function: cubic-bezier(.3, 0, .6, 1); } 45% { translate: calc(var(--ox) * .45) calc(var(--oy) * .45 - 30px); animation-timing-function: cubic-bezier(.4, 0, .8, .6); } 80% { translate: 0 2px; } 90% { translate: 0 -2px; } 100% { translate: 0 0; } }
+@keyframes b-tip { from { rotate: 0deg; } to { rotate: var(--ang); } }
+@keyframes b-level { from { rotate: var(--ang); } to { rotate: 0deg; } }
+@keyframes b-droop { to { rotate: var(--ang, 8deg); translate: 0 var(--dy, 7px); } }
+@keyframes b-jump { 0% { translate: 0 0; animation-timing-function: cubic-bezier(.2, .6, .4, 1); } 40% { translate: 0 -16px; animation-timing-function: cubic-bezier(.6, 0, .8, .4); } 70% { translate: 0 0; } 82% { translate: 0 -4px; } 100% { translate: 0 0; } }
+@keyframes b-off { to { opacity: .14; scale: .92; } }
+@keyframes b-on { from { opacity: .14; scale: .92; } to { opacity: 1; scale: 1; } }
+@keyframes b-gone { to { opacity: 0; } }
+@keyframes b-flip { from { rotate: y -110deg; opacity: 0; } 30% { opacity: 1; } to { rotate: y 0deg; opacity: 1; } }
+@keyframes b-seek { 0% { rotate: 70deg; animation-timing-function: cubic-bezier(.4, 0, .6, 1); } 24% { rotate: -96deg; animation-timing-function: cubic-bezier(.4, 0, .6, 1); } 44% { rotate: -8deg; animation-timing-function: cubic-bezier(.4, 0, .6, 1); } 62% { rotate: -58deg; animation-timing-function: cubic-bezier(.4, 0, .6, 1); } 78% { rotate: -32deg; animation-timing-function: cubic-bezier(.4, 0, .6, 1); } 90% { rotate: -43deg; } 100% { rotate: -40deg; } }
+@keyframes b-pour { from { rotate: 0deg; } to { rotate: -28deg; } }
+@keyframes b-open { to { scale: .42 1; } }
+@keyframes b-knob { from { translate: var(--ox, 110px) 0; } to { translate: 0 0; } }
+@keyframes b-merge { 0% { translate: 0 0; rotate: 0deg; } 60% { translate: -150px -78px; rotate: -24deg; } 100% { translate: -230px -96px; rotate: 0deg; } }
+@keyframes b-ride { 0% { offset-distance: 0%; } 100% { offset-distance: 100%; } }
+@keyframes b-orb-in { from { scale: .62; } to { scale: 1.12; } }
+@keyframes b-orb-out { from { scale: 1.12; } to { scale: .62; } }
+
+/* loops that belong to one scene */
+@keyframes box-dot { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+@keyframes box-core { 0%, 100% { transform: scale(.66); } 25%, 50% { transform: scale(1); } 75% { transform: scale(.66); } }
+@keyframes box-side { 0%, 24% { opacity: 1; scale: 1.08; } 27%, 97% { opacity: .42; scale: 1; } 100% { opacity: 1; scale: 1.08; } }
+@keyframes cyc-comet { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+@keyframes cyc-flash { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 214, 120, 0); } 4% { box-shadow: 0 0 0 10px rgba(255, 214, 120, .45); } 14% { box-shadow: 0 0 0 18px rgba(255, 214, 120, 0); } }
+@keyframes cell-flick { 0%, 40% { opacity: 1; } 50%, 90% { opacity: .14; } 100% { opacity: 1; } }
+@keyframes flow { 0% { offset-distance: 0%; opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+@keyframes buoy { 0% { transform: translateY(0); } 12.5% { transform: translateY(-17.7px); } 25% { transform: translateY(-25px); } 37.5% { transform: translateY(-17.7px); } 50% { transform: translateY(0); } 62.5% { transform: translateY(17.7px); } 75% { transform: translateY(25px); } 87.5% { transform: translateY(17.7px); } 100% { transform: translateY(0); } }
+@keyframes peak { 0%, 30%, 70%, 100% { transform: scale(1); } 50% { transform: scale(1.6); } }
+@keyframes bear-peek { 0%, 6% { translate: 0 80px; } 14%, 30% { translate: 0 0; } 36%, 40% { translate: 0 80px; } 46%, 62% { translate: -44px 6px; } 68%, 72% { translate: -44px 86px; } 78%, 94% { translate: 46px 4px; } 100% { translate: 46px 84px; } }
+@keyframes pawn-a { 0%, 15% { transform: translate(0, 0); } 30%, 65% { transform: translate(0, -52px); } 80%, 100% { transform: translate(0, 0); } }
+@keyframes pawn-b { 0%, 35% { transform: translate(0, 0); } 50%, 85% { transform: translate(-52px, 0); } 95%, 100% { transform: translate(0, 0); } }
+@keyframes wobble { from { transform: rotate(-1.6deg); } to { transform: rotate(1.6deg); } }
+@keyframes phone-card { 0% { translate: 0 0; opacity: 0; scale: .8; } 8%, 52% { translate: 0 0; opacity: 1; scale: 1; } 70%, 100% { translate: 0 -120px; opacity: 0; scale: .9; } }
+@keyframes phone-tap { 0%, 22% { translate: 40px 80px; opacity: 0; } 34% { translate: 0 0; opacity: 1; scale: 1; } 42% { scale: .8; } 48% { scale: 1; opacity: 1; } 60%, 100% { translate: 20px 60px; opacity: 0; } }
+@keyframes phone-ring { 0%, 40% { transform: scale(.2); opacity: 0; } 42% { opacity: .8; } 60%, 100% { transform: scale(1.8); opacity: 0; } }
+@keyframes car { from { translate: 420px 0; } to { translate: -120px 0; } }
+@keyframes hand-pat { 0%, 100% { rotate: 0deg; } 50% { rotate: -9deg; } }
+@keyframes ember-out { to { opacity: 0; } }
+@keyframes calm-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes knob-turn { from { rotate: -70deg; } to { rotate: 70deg; } }
+@keyframes rise-heart { from { transform: translate(0, 0) scale(.4); opacity: 0; } 20% { opacity: 1; } to { transform: translate(var(--dx, 0px), -120px) scale(1); opacity: 0; } }
+@keyframes confetti { from { transform: translate(0, -40px) rotate(0deg); opacity: 0; } 10% { opacity: 1; } to { transform: translate(var(--dx, 20px), 380px) rotate(540deg); opacity: 1; } }
+@keyframes stack-squash { 0% { scale: 1 1; } 30% { scale: 1.08 .86; } 60% { scale: .97 1.04; } 100% { scale: 1 1; } }
+@keyframes scan-band { from { transform: translateY(-60px); } to { transform: translateY(330px); } }
+@keyframes trail-step { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+.scene .b-show { --idle: k-fade .01s linear var(--d, 0s) both; }
+.scene .b-hide { --fx: b-gone .01s linear var(--h, 99s) forwards; }
+
+/* pieces drawn in HTML */
+.scene .orb { position: absolute; left: 0; top: 0; width: 22px; height: 22px; margin: 0; border-radius: 50%; background: radial-gradient(circle, #fff 0 30%, var(--c, #FFE3A1) 46%, transparent 72%); box-shadow: 0 0 18px 6px var(--cg, rgba(255, 214, 120, .55)); }
+.scene .cloud { position: absolute; padding: 13px 20px; border-radius: 28px; background: #fff; color: #33424A; font-size: 16px; line-height: 1.25; font-weight: 600; white-space: nowrap; filter: drop-shadow(0 8px 10px rgba(40, 80, 120, .18)); }
+.scene .cloud::before, .scene .cloud::after { content: ''; position: absolute; border-radius: 50%; background: #fff; z-index: -1; }
+.scene .cloud::before { width: 44px; height: 44px; top: -18px; inset-inline-start: 18%; }
+.scene .cloud::after { width: 30px; height: 30px; top: -11px; inset-inline-start: 48%; }
+.scene .rays { position: absolute; border-radius: 50%; background: repeating-conic-gradient(from 0deg, var(--ray, rgba(255, 236, 190, .16)) 0deg 8deg, transparent 8deg 22.5deg); -webkit-mask: radial-gradient(circle, #000 12%, transparent 62%); mask: radial-gradient(circle, #000 12%, transparent 62%); }
+.scene .glass { box-sizing: border-box; display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: 22px; background: rgba(255, 255, 255, .1); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18), 0 12px 24px -14px rgba(0, 0, 0, .5); color: #fff; font-size: 19px; line-height: 1.25; font-weight: 600; }
+.scene .badge { width: 50px; height: 50px; flex-shrink: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; background: radial-gradient(circle at 34% 30%, rgba(255, 255, 255, .45), transparent 52%), var(--c, #2E8A7F); box-shadow: 0 0 0 4px rgba(255, 255, 255, .08), 0 8px 16px -6px rgba(0, 0, 0, .5); }
+.scene .badge .icon { font-size: 26px; font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
+.scene .card3d { position: absolute; box-sizing: border-box; border-radius: 26px; backface-visibility: hidden; }
+.scene .word { display: inline-block; }
+
+/* ---------- second set: scenes for the ideas the scripts keep returning to ---------- */
+@property --spot { syntax: '<length>'; inherits: false; initial-value: 64px; }
+.scene .dark-stage { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 46%, transparent calc(var(--spot) * .82), rgba(6, 9, 18, .9) var(--spot)); --in: spot-open 2.6s var(--io) var(--d, 1.6s) both; }
+.scene .harsh { background: #FFE3DC; color: #6B1E12; box-shadow: 0 0 0 2px #E0644F, 0 10px 24px -10px rgba(0, 0, 0, .45); border-radius: 6px 18px 4px 16px; }
+.scene .tile { box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 6px 4px; border-radius: 16px; background: #FFFFFF; box-shadow: 0 4px 10px -6px rgba(0, 0, 0, .35); color: #14201E; font-size: 13px; line-height: 1.15; font-weight: 600; text-align: center; }
+.scene .tile .icon { font-size: 24px; color: var(--c, #2E8A7F); font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
+.scene .block { box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 8px; border-radius: 14px; text-align: center; font-weight: 600; line-height: 1.2; box-shadow: inset 0 7px 0 rgba(255, 255, 255, .28), inset 0 -6px 0 rgba(0, 0, 0, .14), 0 12px 20px -12px rgba(0, 0, 0, .55); }
+
+@keyframes spot-open { from { --spot: 64px; } to { --spot: 300px; } }
+@keyframes wander { 0%, 12% { offset-distance: 0%; } 42%, 60% { offset-distance: 100%; } 90%, 100% { offset-distance: 0%; } }
+@keyframes home-ring { 0%, 86% { transform: scale(.3); opacity: 0; } 90% { opacity: .9; } 100% { transform: scale(1.8); opacity: 0; } }
+@keyframes walk-in { from { translate: 0 120px; } to { translate: 0 0; } }
+@keyframes pocket-out { from { translate: var(--ox, 0px) 120px; scale: .3; opacity: 0; } 30% { opacity: 1; } to { translate: 0 0; scale: 1; opacity: 1; } }
+@keyframes soften { to { opacity: 0; scale: .7; filter: blur(4px); } }
+@keyframes sun-day { from { offset-distance: 0%; } to { offset-distance: 100%; } }

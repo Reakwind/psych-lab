@@ -1,0 +1,1112 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#F3EEE4;overflow:hidden}
+#stage{position:relative;width:1080px;height:1080px;overflow:hidden;background:#F3EEE4;--sans:'Rubik',system-ui,sans-serif}
+.scene{position:absolute;inset:0;display:none}</style>
+<style>#stage { --ground:#F3EEE4; --main:#2B6A62; --second:#1F2A33; --accent:#E8A33D; color:var(--second); font-family:var(--sans, system-ui, sans-serif) }
+.ground { position:absolute; inset:0; background:radial-gradient(110% 80% at 50% 30%, var(--ground), color-mix(in srgb, var(--ground) 90%, var(--accent))) }
+.words { position:absolute; margin:0; display:flex; flex-direction:column; gap:16px; direction:rtl } .words > * { margin:0 }
+.line { font-family:var(--display, var(--sans, system-ui, sans-serif)); font-size:54px; line-height:1.15; font-weight:600 } .sub { font-size:30px }
+.tag { position:absolute; left:0; top:0; padding:10px 24px; border-radius:999px; background:color-mix(in srgb, var(--ground) 40%, white); color:var(--second); font-size:32px; font-weight:600; direction:rtl; white-space:nowrap; box-shadow:0 10px 24px -10px rgba(0,0,0,.25) }
+.tag-warm { background:color-mix(in srgb, var(--accent) 22%, var(--ground)) }
+.tag-cool { background:color-mix(in srgb, var(--main) 16%, var(--ground)) }
+.art { position:absolute; inset:0; width:100%; height:100%; overflow:visible }
+.cap { position:absolute; left:40px; right:40px; bottom:28px; padding:16px 26px; border-radius:22px; background:color-mix(in srgb, var(--second) 82%, transparent); color:var(--ground); font-size:27px; line-height:1.4; direction:rtl; text-align:center }
+.wall-lo { fill:color-mix(in srgb, var(--ground) 90%, var(--second)) }
+.floor { fill:color-mix(in srgb, var(--accent) 30%, var(--ground)) } .floor-dk { fill:color-mix(in srgb, var(--accent) 40%, var(--second) 12%) }
+.ink { fill:none; stroke:var(--second); stroke-width:5; stroke-linecap:round; stroke-linejoin:round }
+.skin { fill:color-mix(in srgb, var(--accent) 38%, var(--ground)) } .skin-dk { fill:color-mix(in srgb, var(--accent) 55%, var(--ground)) }
+.hair { fill:color-mix(in srgb, var(--second) 28%, var(--ground)) } .hair-dk { fill:color-mix(in srgb, var(--second) 42%, var(--ground)) }
+.knit { fill:var(--main) } .knit-dk { fill:color-mix(in srgb, var(--main) 72%, var(--second)) } .knit-lt { fill:color-mix(in srgb, var(--main) 70%, var(--ground)) }
+.skirt { fill:color-mix(in srgb, var(--second) 75%, var(--main)) }
+.chair { fill:color-mix(in srgb, var(--accent) 45%, var(--ground)) } .chair-dk { fill:color-mix(in srgb, var(--accent) 62%, var(--second) 14%) }
+.wood { fill:color-mix(in srgb, var(--accent) 48%, var(--second) 22%) } .wood-lt { fill:color-mix(in srgb, var(--accent) 40%, var(--ground)) }
+.glass { fill:color-mix(in srgb, var(--main) 22%, var(--ground)) } .leaf { fill:var(--main) } .leaf-lt { fill:color-mix(in srgb, var(--main) 65%, var(--ground)) }
+.slate { fill:color-mix(in srgb, var(--second) 55%, var(--ground)) } .slate-dk { fill:color-mix(in srgb, var(--second) 75%, var(--ground)) }
+.amber { fill:var(--accent) } .amber-dk { fill:color-mix(in srgb, var(--accent) 75%, var(--second)) } .amber-lt { fill:color-mix(in srgb, var(--accent) 45%, var(--ground)) }
+.metal { fill:color-mix(in srgb, var(--second) 80%, var(--ground)) }
+.shade { fill:rgba(0,0,0,.12) } .light { fill:color-mix(in srgb, var(--ground) 30%, white) }.sky { fill:color-mix(in srgb, var(--main) 14%, var(--ground)) } .hill-far { fill:color-mix(in srgb, var(--main) 30%, var(--ground)) } .hill-near { fill:color-mix(in srgb, var(--main) 45%, var(--ground)) }
+.grass { fill:color-mix(in srgb, var(--main) 58%, var(--ground)) } .stone { fill:color-mix(in srgb, var(--accent) 22%, var(--ground)) } .stone-dk { fill:color-mix(in srgb, var(--accent) 30%, var(--second)) } .stone-lit { fill:var(--accent) }
+.pack { fill:color-mix(in srgb, var(--accent) 60%, var(--second)) } .pack-dk { fill:color-mix(in srgb, var(--accent) 42%, var(--second)) } .pack-lt { fill:color-mix(in srgb, var(--accent) 70%, var(--ground)) }
+.weight { fill:color-mix(in srgb, var(--second) 60%, var(--ground)) } .weight-dk { fill:color-mix(in srgb, var(--second) 78%, var(--ground)) }
+.nira-skin { fill:color-mix(in srgb, color-mix(in srgb, var(--accent) 55%, var(--ground)) 82%, var(--second)) } .nira-skin-dk { fill:color-mix(in srgb, color-mix(in srgb, var(--accent) 60%, var(--ground)) 70%, var(--second)) }
+.nira-hair { fill:color-mix(in srgb, var(--second) 82%, var(--accent)) } .nira-hair-dk { fill:var(--second) } .nira-top { fill:var(--accent) } .nira-top-dk { fill:color-mix(in srgb, var(--accent) 78%, var(--second)) } .nira-pants { fill:color-mix(in srgb, var(--second) 82%, var(--main)) }
+
+.ariel-top { fill:#4E7FAA } .ariel-top-dk { fill:#3D6890 } .ariel-pants { fill:color-mix(in srgb, var(--second) 85%, #4E7FAA) } .ariel-hair { fill:#5B4034 } .ariel-scr { fill:color-mix(in srgb, #4E7FAA 22%, var(--ground)) }
+.mat { fill:color-mix(in srgb, var(--main) 32%, var(--ground)) } .cushion { fill:color-mix(in srgb, var(--accent) 40%, var(--ground)) }
+.voice-grey { fill:color-mix(in srgb, var(--second) 22%, var(--ground)) } .voice-warm { fill:color-mix(in srgb, var(--accent) 52%, var(--ground)) }
+.thought { position:absolute; left:0; top:0; width:600px; box-sizing:border-box; padding:30px 38px; border-radius:34px; font-size:40px; line-height:1.3; font-weight:600; text-align:center; direction:rtl; color:var(--second); background:color-mix(in srgb, var(--second) 14%, var(--ground)); border:5px solid var(--second); box-shadow:0 18px 30px -16px rgba(0,0,0,.35) }
+.thought.kind { background:color-mix(in srgb, var(--accent) 30%, var(--ground)) }
+.thought.heavy { background:color-mix(in srgb, var(--second) 52%, var(--ground)); color:var(--ground) }
+.btn { position:absolute; left:0; top:0; padding:16px 34px; border-radius:999px; font-size:34px; font-weight:600; direction:rtl; white-space:nowrap; border:4px solid var(--second); color:var(--second); background:color-mix(in srgb, var(--second) 12%, var(--ground)) }
+.btn.keep { background:color-mix(in srgb, var(--accent) 34%, var(--ground)) }
+.count { position:absolute; left:0; top:0; font-size:64px; font-weight:700; color:var(--second); direction:rtl; white-space:nowrap }
+.struck { --s:0 } .struck::after { content:''; position:absolute; left:16px; right:16px; top:50%; height:5px; margin-top:-2px; border-radius:3px; background:#C0392B; transform:scaleX(var(--s)); transform-origin:100% 50% }
+.thought.sm { width:440px; font-size:34px; padding:24px 30px }
+.thought.xs { width:420px; font-size:33px; padding:20px 24px; border-width:4px; border-radius:28px }
+.fra-top { fill:color-mix(in srgb, var(--main) 55%, #9CC5A1) } .fra-top-dk { fill:color-mix(in srgb, var(--main) 75%, #9CC5A1) } .fra-hair { fill:#6B4E3D } .fra-hair-dk { fill:#4E382B } .fra-pants { fill:color-mix(in srgb, var(--second) 80%, var(--main)) }
+.frb-top { fill:#B07AA1 } .frb-top-dk { fill:#8E5F82 } .frb-hair { fill:#8A8F99 } .frb-hair-dk { fill:#6C7280 } .frb-pants { fill:color-mix(in srgb, var(--second) 85%, #B07AA1) }
+.frg-top { fill:color-mix(in srgb, var(--second) 25%, var(--ground)) } .frg-top-dk { fill:color-mix(in srgb, var(--second) 35%, var(--ground)) } .frg-hair { fill:color-mix(in srgb, var(--second) 50%, var(--ground)) } .frg-hair-dk { fill:color-mix(in srgb, var(--second) 60%, var(--ground)) } .frg-pants { fill:color-mix(in srgb, var(--second) 45%, var(--ground)) }
+.stone-lit { fill:var(--accent) }
+</style></head><body><div id="stage"></div>
+<script>
+const clamp01 = (x) => Math.max(0, Math.min(1, x));
+const kit = {
+  clamp01, seg: (t, a, b) => clamp01((t - a) / (b - a)), lerp: (a, b, p) => a + (b - a) * p,
+  eo: (x) => 1 - Math.pow(1 - x, 3), ei: (x) => x * x * x,
+  eio: (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2),
+  eob: (x, s = 1.4) => { const c3 = s + 1; return 1 + c3 * Math.pow(x - 1, 3) + s * Math.pow(x - 1, 2); },
+  breathe: (t, a = 0.012, p = 3.2) => 1 + a * Math.sin(2 * Math.PI * t / p),
+  h: (s) => { const d = document.createElement('div'); d.innerHTML = s.trim(); return d.firstElementChild; },
+  css: (txt) => { const st = document.createElement('style'); st.textContent = txt; document.getElementById('stage').append(st); },
+  defs: [], scene(id, o) { kit.defs.push([id, o]); },
+};
+</script>
+<script>// Ruth's living room, Ruth herself, the spark and the scale: drawn once, reused by every scene so the world never changes between cuts.
+// Stage is 1080 square. Effort sits on the RIGHT pan (where a Hebrew reader starts), reward on the LEFT.
+window.CAPTIONS = true; // review captions; set false before exporting for the app, which shows its own
+window.R = {
+  PIV: [540, 175], ARM: 290,
+  room(o) {
+    o = o || {};
+    let s = '<rect class="wall-lo" x="0" y="650" width="1080" height="210"/><rect class="shade" x="0" y="646" width="1080" height="6"/>' +
+      '<rect class="floor" x="0" y="860" width="1080" height="220"/><rect class="floor-dk" x="0" y="860" width="1080" height="12"/>' +
+      '<path class="floor-dk" opacity=".35" d="M0 940 H1080 V946 H0Z M0 1020 H1080 V1026 H0Z"/>' +
+      '<rect class="wood-lt" x="62" y="322" width="246" height="236" rx="14"/><rect class="glass" x="80" y="340" width="210" height="200" rx="6"/>' +
+      '<path class="light" opacity=".7" d="M100 520 L170 360 H200 L130 520Z"/><path class="wood-lt" d="M182 340 h8 v200 h-8Z M80 436 h210 v8 h-210Z"/>' +
+      '<rect class="wood" x="52" y="552" width="266" height="16" rx="8"/>' +
+      '<path class="knit-lt" d="M248 300 C276 380 262 470 300 590 L320 590 L322 300Z"/>';
+    if (o.clock) s += '<g class="' + o.clock + '"><circle class="light" cx="540" cy="250" r="52"/><circle class="ink" cx="540" cy="250" r="52"/><circle class="metal" cx="540" cy="250" r="6"/></g>';
+    if (o.open) s += '<rect class="amber-lt" x="820" y="450" width="190" height="410" rx="6"/><path class="light" opacity=".8" d="M820 860 L1010 860 L1080 1080 L700 1080Z"/><path class="wood" d="M820 450 L760 476 L760 860 L820 860Z"/>';
+    else s += '<rect class="wood" x="820" y="450" width="190" height="410" rx="6"/><rect class="wood-lt" opacity=".55" x="848" y="482" width="134" height="150" rx="6"/><rect class="wood-lt" opacity=".55" x="848" y="660" width="134" height="170" rx="6"/><circle class="amber" cx="846" cy="668" r="10"/>';
+    if (o.shoes !== false) s += '<g class="' + (o.shoes || 'shoes') + '">' + R.shoe(726, 858) + R.shoe(772, 860) + '</g>';
+    if (o.plant !== false) s += R.plant();
+    return s;
+  },
+  shoe(x, y) { return '<path class="slate-dk" d="M' + x + ' ' + y + ' q0 -26 22 -28 q14 0 18 12 l20 6 q10 4 8 10 Z"/><rect class="light" opacity=".5" x="' + (x + 6) + '" y="' + (y - 3) + '" width="56" height="3"/>'; },
+  plant() {
+    return '<g class="plant"><ellipse class="shade" cx="130" cy="862" rx="62" ry="10"/>' +
+      '<path class="leaf" d="M130 770 C90 720 70 690 64 640 C100 660 122 700 130 770Z M130 770 C150 700 180 670 214 650 C206 700 172 740 130 770Z M130 770 C120 700 124 650 140 600 C156 650 150 710 130 770Z"/>' +
+      '<path class="leaf-lt" d="M130 770 C108 730 96 700 92 668 C116 690 126 724 130 770Z"/>' +
+      '<path class="amber-dk" d="M84 770 H176 L164 860 H96Z"/><rect class="amber" x="78" y="764" width="104" height="22" rx="6"/></g>';
+  },
+  chair() {
+    return '<ellipse class="shade" cx="520" cy="864" rx="230" ry="16"/><rect class="chair-dk" x="352" y="820" width="18" height="42" rx="6"/><rect class="chair-dk" x="670" y="820" width="18" height="42" rx="6"/>' +
+      '<path class="chair" d="M360 820 V600 Q360 552 410 552 H630 Q680 552 680 600 V820Z"/><path class="chair-dk" opacity=".45" d="M630 552 Q680 552 680 600 V820 H640 V600 Q640 566 630 552Z"/>' +
+      '<rect class="chair" x="318" y="690" width="78" height="140" rx="34"/><rect class="chair" x="644" y="690" width="78" height="140" rx="34"/>' +
+      '<rect class="chair-dk" x="380" y="736" width="280" height="90" rx="26"/>';
+  },
+  // Ruth, drawn around a local origin. pose: sit (origin = hips on the seat), stand / step / water (origin = between the feet), bend (origin = feet).
+  ruth(id, pose) {
+    const head = '<g class="' + id + '-head"><path class="hair-dk" d="M-58 -10 C-66 -70 -30 -102 4 -100 C44 -98 66 -66 58 -6 C56 18 44 30 36 34 L-40 34 C-52 26 -56 12 -58 -10Z"/>' +
+      '<ellipse class="skin" cx="0" cy="-4" rx="44" ry="50"/><path class="hair" d="M-48 -16 C-48 -72 -6 -92 24 -84 C52 -76 58 -44 52 -22 C30 -44 -6 -54 -48 -16Z"/>' +
+      '<g class="' + id + '-eyes"><circle class="metal" cx="-16" cy="-2" r="5"/><circle class="metal" cx="18" cy="-2" r="5"/></g>' +
+      '<circle class="ink" style="stroke-width:3.5" cx="-16" cy="-2" r="15"/><circle class="ink" style="stroke-width:3.5" cx="18" cy="-2" r="15"/><path class="ink" style="stroke-width:3.5" d="M-1 -4 h4"/>' +
+      '<ellipse class="skin-dk" opacity=".6" cx="-26" cy="20" rx="9" ry="5"/><ellipse class="skin-dk" opacity=".6" cx="30" cy="20" rx="9" ry="5"/>' +
+      '<path class="ink ' + id + '-mouth" style="stroke-width:4" d="M-10 26 Q2 32 14 26"/></g>';
+    const torso = '<path class="knit" d="M-72 0 C-78 -60 -74 -120 -56 -150 Q-30 -168 0 -168 Q30 -168 56 -150 C74 -120 78 -60 72 0Z"/>' +
+      '<path class="knit-dk" opacity=".55" d="M30 -166 Q56 -152 62 -120 C72 -70 74 -30 72 0 H40 C46 -60 44 -120 30 -166Z"/><path class="light" opacity=".85" d="M-16 -168 L0 -120 L16 -168Z"/>' +
+      '<circle class="knit-lt" cx="0" cy="-100" r="5"/><circle class="knit-lt" cx="0" cy="-70" r="5"/><circle class="knit-lt" cx="0" cy="-40" r="5"/>';
+    const neck = '<rect class="skin-dk" x="-14" y="-186" width="28" height="24" rx="8"/>';
+    if (pose === 'sit') {
+      return '<g class="' + id + '-ruth"><path class="skirt" d="M-66 -6 C-30 -16 70 -14 118 4 L126 40 C80 52 -40 50 -70 34Z"/>' +
+        '<path class="skin" d="M96 30 h26 l6 84 h-26Z M60 34 h26 l4 82 h-26Z"/><path class="slate-dk" d="M58 112 h40 q14 0 16 12 h-56Z M96 110 h40 q14 0 16 12 h-56Z"/>' +
+        torso.replace(/0Z"/, '0Z"') + neck + '<g transform="translate(0 -218)">' + head + '</g>' +
+        '<path class="knit" d="M-66 -140 C-92 -90 -80 -40 -30 -10 L-10 -30 C-46 -50 -52 -96 -40 -128Z"/><path class="knit" d="M66 -140 C92 -90 84 -40 40 -12 L22 -30 C52 -50 56 -96 42 -128Z"/>' +
+        '<ellipse class="skin" cx="-12" cy="-22" rx="20" ry="14"/><ellipse class="skin" cx="22" cy="-24" rx="20" ry="14"/></g>';
+    }
+    const legs = pose === 'step' ? '<path class="skin" d="M-36 -200 l24 0 l-30 196 h-24Z M12 -200 l24 0 l36 192 h-24Z"/>' + R.shoe(-74, 2).replace('slate-dk', 'slate-dk') + R.shoe(40, 2)
+      : '<path class="skin" d="M-34 -200 h26 l-2 196 h-26Z M8 -200 h26 l2 196 h-26Z"/>' + R.shoe(-48, 2) + R.shoe(0, 2);
+    const arms = pose === 'water'
+      ? '<path class="knit" d="M-60 -330 C-84 -280 -82 -230 -70 -196 L-50 -200 C-60 -240 -58 -280 -42 -316Z"/><path class="knit" d="M58 -330 C96 -320 128 -300 150 -270 L134 -254 C112 -280 88 -296 52 -300Z"/>' +
+        '<g class="' + id + '-can"><path class="main-can glass" d="M130 -272 h70 l-6 64 h-58Z"/><path class="ink" style="stroke-width:4" d="M200 -258 L246 -236 M140 -272 q30 -30 54 0"/><rect class="knit-dk" x="130" y="-276" width="70" height="10" rx="4"/></g>'
+      : '<path class="knit" d="M-60 -330 C-84 -280 -82 -230 -70 -196 L-50 -200 C-60 -240 -58 -280 -42 -316Z"/><path class="knit" d="M60 -330 C84 -280 82 -230 70 -196 L50 -200 C60 -240 58 -280 42 -316Z"/><ellipse class="skin" cx="-62" cy="-192" rx="14" ry="16"/><ellipse class="skin" cx="62" cy="-192" rx="14" ry="16"/>';
+    const body = '<g transform="translate(0 -200)"><path class="skirt" d="M-64 -40 L64 -40 L80 40 L-80 40Z"/>' + torso.replace(/-168/g, '-168') + '</g>';
+    const lean = pose === 'bend' ? ' transform="rotate(24 0 -200)"' : '';
+    return '<g class="' + id + '-ruth"><ellipse class="shade" cx="0" cy="4" rx="80" ry="10"/>' + legs + '<g' + lean + '>' + body.replace('translate(0 -200)', 'translate(0 -200)') +
+      '<g transform="translate(0 -200)">' + neck.replace('-186', '-186') + '</g><g transform="translate(0 -418)">' + head + '</g>' + arms + '</g></g>';
+  },
+  spark(id) {
+    return '<g class="' + id + '-spark"><circle class="' + id + '-ring ink" style="stroke-width:4;stroke-dasharray:10 12" r="40"/>' +
+      '<circle class="' + id + '-glow amber-lt" r="64" opacity=".5"/><path class="' + id + '-star amber" d="M0 -46 C6 -12 12 -6 46 0 C12 6 6 12 0 46 C-6 12 -12 6 -46 0 C-12 -6 -6 -12 0 -46Z"/></g>';
+  },
+  scale(id, right, left) {
+    const pan = (k, items) => '<g class="' + id + '-pan' + k + '"><path class="ink" style="stroke-width:3" d="M0 0 L-92 150 M0 0 L92 150"/>' + (items || '') +
+      '<path class="' + (k === 'R' ? 'slate' : 'amber') + '" d="M-110 150 H110 Q100 196 0 198 Q-100 196 -110 150Z"/><path class="' + (k === 'R' ? 'slate-dk' : 'amber-dk') + '" d="M-110 150 H110 Q108 160 104 166 H-104 Q-108 160 -110 150Z"/></g>';
+    return '<g class="' + id + '-scale"><path class="metal" d="M532 175 h16 l10 150 h-36Z"/><rect class="metal" x="496" y="320" width="88" height="16" rx="8"/>' +
+      pan('R', right) + pan('L', left) +
+      '<g class="' + id + '-beam"><rect class="metal" x="240" y="166" width="600" height="18" rx="9"/><circle class="amber" cx="540" cy="175" r="16"/><circle class="metal" cx="540" cy="175" r="7"/></g></g>';
+  },
+  // effort blocks and reward tokens, drawn relative to a pan's hang point
+  block(cls, x, w, h, y) { y = y == null ? 150 : y; return '<g class="' + cls + '"><rect class="slate-dk" x="' + (x - w / 2) + '" y="' + (y - h) + '" width="' + w + '" height="' + h + '" rx="10"/><rect class="slate" x="' + (x - w / 2 + 6) + '" y="' + (y - h + 6) + '" width="' + (w - 12) + '" height="' + (h / 2 - 6) + '" rx="6"/></g>'; },
+  token(cls, kind, x, r) {
+    const c = '<g class="' + cls + '"><g transform="translate(' + x + ' ' + (150 - r) + ')">';
+    if (kind === 'heart') return c + '<path class="amber-dk" d="M0 ' + (r * .8) + ' C' + (-r * 1.3) + ' 0 ' + (-r * .7) + ' ' + (-r * 1.1) + ' 0 ' + (-r * .4) + ' C' + (r * .7) + ' ' + (-r * 1.1) + ' ' + (r * 1.3) + ' 0 0 ' + (r * .8) + 'Z"/></g></g>';
+    if (kind === 'talk') return c + '<path class="light" d="M' + (-r) + ' ' + (-r * .7) + ' h' + (2 * r) + ' v' + (r * 1.2) + ' h' + (-r) + ' l' + (-r * .5) + ' ' + (r * .5) + ' v' + (-r * .5) + ' h' + (-r * .5) + 'Z"/><circle class="metal" cx="' + (-r * .4) + '" cy="' + (-r * .1) + '" r="' + (r * .12) + '"/><circle class="metal" cx="0" cy="' + (-r * .1) + '" r="' + (r * .12) + '"/><circle class="metal" cx="' + (r * .4) + '" cy="' + (-r * .1) + '" r="' + (r * .12) + '"/></g></g>';
+    if (kind === 'compass') return c + '<circle class="leaf-lt" r="' + r + '"/><circle class="ink" style="stroke-width:4" r="' + r + '"/><path class="amber-dk" d="M0 ' + (-r * .75) + ' L' + (r * .22) + ' 0 L0 ' + (r * .75) + ' L' + (-r * .22) + ' 0Z"/></g></g>';
+    return c + '<circle class="amber-lt" r="' + r + '"/><circle class="amber" r="' + (r * .55) + '"/></g></g>';
+  },
+
+  // the scale lives in a thought bubble above Ruth: a soft cloud behind it keeps the room quiet
+  cloud(cls) {
+    return '<g class="' + cls + '"><path class="shade" transform="translate(0 10)" d="M130 520 C60 520 36 446 80 404 C26 360 48 262 126 252 C114 150 220 96 300 126 C352 50 474 40 540 82 C606 40 730 50 780 126 C862 96 968 150 956 252 C1034 262 1054 360 1000 404 C1044 446 1020 520 950 520Z"/>' +
+      '<path class="light" opacity=".92" d="M130 520 C60 520 36 446 80 404 C26 360 48 262 126 252 C114 150 220 96 300 126 C352 50 474 40 540 82 C606 40 730 50 780 126 C862 96 968 150 956 252 C1034 262 1054 360 1000 404 C1044 446 1020 520 950 520Z"/></g>';
+  },
+  // Ruth's head in side profile, facing right, with the top of the skull cut away to show the brain.
+  // Inside sits the "spark-maker": a light bulb wired into the brain. Classes: p-brain, p-nerves, p-bulb, plus R.spark(p) parts.
+  profile(p) {
+    const skull = 'M246 520 C226 330 360 170 540 168 C700 166 812 262 826 398 C832 452 818 496 842 540 L874 600 C882 616 872 628 856 630 L842 632 C848 646 846 660 836 666 C842 678 838 694 824 700 C826 734 808 760 776 764 C720 790 640 800 580 788 C500 772 430 740 384 700 C310 640 254 590 246 520Z';
+    return '<rect width="1080" height="1080" style="fill:color-mix(in srgb, var(--main) 14%, var(--ground))"/>' +
+      '<circle cx="540" cy="520" r="470" style="fill:color-mix(in srgb, var(--ground) 70%, white)"/>' +
+      '<path class="skin" d="' + skull + '"/>' +
+      '<path class="skin-dk" opacity=".55" d="M384 700 C310 640 254 590 246 520 C244 470 250 420 262 380 C290 540 370 660 500 730 C580 770 690 772 776 764 C720 790 640 800 580 788 C500 772 430 740 384 700Z"/>' +
+      // ear and the arm of her glasses
+      '<path class="skin-dk" d="M470 520 C430 500 404 540 414 590 C422 630 452 652 482 640 C474 600 476 560 470 520Z"/><path class="ink" style="stroke-width:4;opacity:.5" d="M452 548 C436 566 440 604 458 620"/>' +
+      '<path class="ink" style="stroke-width:9" d="M470 530 L760 512"/>' +
+      // hair: a soft grey bob over the back and top of the head
+      '<path class="hair" d="M232 560 C200 360 330 150 540 140 C700 132 820 220 846 360 C780 300 700 280 640 300 C520 260 400 330 360 470 C340 560 360 660 410 720 C330 720 250 660 232 560Z"/>' +
+      '<path class="hair-dk" opacity=".55" d="M232 560 C220 470 236 390 270 320 C270 450 300 580 380 700 C320 690 250 640 232 560Z"/>' +
+      '<path class="ink" style="stroke-width:4;opacity:.18" d="M300 300 C340 250 400 220 470 210 M280 420 C300 360 340 320 400 290 M700 200 C760 220 800 260 820 310"/>' +
+      // face: brow, eye behind the lens, glasses, mouth and cheek
+      '<path class="ink" style="stroke-width:8" d="M748 464 C770 452 796 452 814 462"/>' +
+      '<ellipse class="' + p + '-eye metal" cx="790" cy="512" rx="9" ry="10"/>' +
+      '<ellipse class="light" opacity=".28" cx="786" cy="514" rx="44" ry="40"/><ellipse class="ink" style="stroke-width:8" cx="786" cy="514" rx="44" ry="40"/>' +
+      '<path class="ink" style="stroke-width:6" d="M806 690 C820 692 830 690 836 684"/>' +
+      '<ellipse class="skin-dk" opacity=".6" cx="740" cy="600" rx="34" ry="20"/>' +
+      // the cutaway: skull rim, a dark cavity, and the brain inside
+      '<g class="' + p + '-cut"><clipPath id="' + p + '-clip"><ellipse cx="510" cy="370" rx="218" ry="166"/></clipPath>' +
+      '<ellipse cx="510" cy="370" rx="234" ry="182" style="fill:color-mix(in srgb, var(--ground) 55%, white)"/>' +
+      '<ellipse cx="510" cy="370" rx="218" ry="166" style="fill:color-mix(in srgb, var(--second) 78%, var(--main))"/>' +
+      '<g clip-path="url(#' + p + '-clip)"><g transform="translate(510 368) scale(.93) translate(-530 -380)"><g class="' + p + '-brain">' +
+      '<path class="amber-lt" d="M330 410 C318 320 390 240 490 232 C570 222 660 252 706 316 C738 360 734 418 708 446 C716 480 690 506 654 500 C632 528 578 532 548 510 C516 532 462 530 444 504 C404 518 352 502 346 466 C332 452 328 432 330 410Z"/>' +
+      '<path class="amber-lt" style="fill:color-mix(in srgb, var(--accent) 52%, var(--ground))" d="M372 470 C352 492 360 528 392 538 C424 548 456 534 462 512 C430 520 396 504 372 470Z"/>' +
+      '<path class="amber-dk" opacity=".45" d="M548 510 C556 540 552 570 540 590 L520 590 C526 566 526 536 514 512Z"/>' +
+      '<path style="fill:none;stroke:color-mix(in srgb, var(--accent) 70%, var(--second));stroke-width:5;stroke-linecap:round;opacity:.55" d="M392 330 C420 300 460 296 488 318 C510 290 556 286 584 306 M620 290 C650 300 676 326 684 356 M360 400 C392 384 430 392 448 420 C470 396 510 396 530 418 M560 380 C596 360 640 370 664 400 M440 470 C470 452 506 458 520 482 M590 452 C620 440 652 450 668 472 M380 486 C398 496 424 500 444 494 M392 520 C410 526 430 526 446 520"/>' +
+      '</g>' +
+      '<path class="' + p + '-nerves" style="fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;stroke-dasharray:2 16" d="M528 360 C480 330 430 320 392 330 M548 360 C590 320 640 310 680 330 M520 400 C470 420 430 440 404 470 M556 404 C600 420 640 440 664 464"/>' +
+      // the spark-maker: a light bulb wired into the brain
+      '<g class="' + p + '-bulb"><ellipse class="shade" cx="540" cy="452" rx="40" ry="8"/>' +
+      '<path class="metal" d="M516 404 h48 v14 h-48Z M520 420 h40 v10 h-40Z M526 432 h28 v12 h-28Z"/>' +
+      '<circle cx="540" cy="354" r="58" style="fill:color-mix(in srgb, var(--ground) 40%, white);opacity:.9"/>' +
+      '<path class="ink" style="stroke-width:5" d="M498 394 C474 372 470 334 492 312 C520 284 564 286 588 314 C608 340 604 374 582 394 L564 404 L516 404Z"/>' +
+      '<g transform="translate(540 352) scale(.62)">' + R.spark(p) + '</g>' +
+      '<path class="ink" style="stroke-width:3;opacity:.45" d="M528 404 L530 376 M552 404 L550 376"/></g></g></g>' +
+      '<ellipse cx="510" cy="370" rx="234" ry="182" style="fill:none;stroke:var(--second);stroke-width:6;opacity:.85"/></g>';
+  },
+  refs(kit, id, names) { const o = {}; for (const n of names) o[n] = kit.stage.querySelector('.' + id + '-' + n); return o; },
+  // tilt the beam by deg (positive: effort side down); pans hang straight with a little swing
+  setScale(r, deg, swing) {
+    const [px, py] = R.PIV, a = deg * Math.PI / 180, c = Math.cos(a) * R.ARM, s = Math.sin(a) * R.ARM, w = swing || 0;
+    r.beam.setAttribute('transform', 'rotate(' + deg + ' ' + px + ' ' + py + ')');
+    r.panR.setAttribute('transform', 'translate(' + (px + c) + ' ' + (py + s) + ') rotate(' + w + ')');
+    r.panL.setAttribute('transform', 'translate(' + (px - c) + ' ' + (py - s) + ') rotate(' + w + ')');
+    return { R: [px + c, py + s + 200], L: [px - c, py - s + 200] };
+  },
+  place(el, x, y, o) { el.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,0)'; if (o != null) el.style.opacity = o; },
+  blink(eyes, t, off) { const p = ((t + (off || 0)) % 4.1); eyes.setAttribute('transform', p > 3.95 ? 'translate(0 -2) scale(1 .15)' : ''); },
+  caption(kit, text) { if (window.CAPTIONS) kit.stage.append(kit.h('<p class="cap">' + text + '</p>')); },
+  // ---- session 1: the path, the backpack, Nira, the tools ----
+  PATH: [[540, 1000, 130], [462, 880, 104], [560, 790, 86], [496, 716, 70], [562, 656, 58], [516, 606, 48], [566, 566, 40], [532, 534, 32], [560, 508, 26], [544, 488, 20], [556, 472, 16]],
+  stone(cls, x, y, r) {
+    return '<g class="' + cls + '"><ellipse class="stone-dk" cx="' + x + '" cy="' + (y + r * 0.1) + '" rx="' + r + '" ry="' + (r * 0.4) + '"/><ellipse class="stone ' + cls + '-top" cx="' + x + '" cy="' + y + '" rx="' + (r * 0.96) + '" ry="' + (r * 0.34) + '"/>' +
+      '<ellipse class="light" opacity=".45" cx="' + (x - r * 0.25) + '" cy="' + (y - r * 0.1) + '" rx="' + (r * 0.4) + '" ry="' + (r * 0.1) + '"/></g>';
+  },
+  land(p, o) {
+    o = o || {};
+    let s = '<rect class="sky" width="1080" height="1080"/>' +
+      '<circle class="' + p + '-sun" cx="' + (o.sunX || 820) + '" cy="' + (o.sunY || 300) + '" r="70" style="fill:var(--accent);opacity:' + (o.sun ? 1 : 0) + '"/>' +
+      '<path class="hill-far" d="M0 470 C180 410 360 448 540 440 C730 430 900 392 1080 446 V1080 H0Z"/>' +
+      '<path class="hill-near" d="M0 600 C220 556 470 600 720 578 C880 566 980 556 1080 584 V1080 H0Z"/>' +
+      '<path class="grass" d="M0 780 C260 740 560 770 820 750 C930 742 1010 744 1080 756 V1080 H0Z"/>' +
+      '<g class="' + p + '-tufts"><path class="hill-near" d="M120 840 l10 -30 l8 30 l10 -24 l6 24Z M900 860 l10 -30 l8 30 l10 -24 l6 24Z M260 980 l10 -30 l8 30 l10 -24 l6 24Z M820 1000 l10 -30 l8 30 l10 -24 l6 24Z"/></g>';
+    R.PATH.forEach(([x, y, r], k) => { s += R.stone(p + '-st' + k, x, y, r); });
+    return s;
+  },
+  // a backpack worn by a front-facing figure: the bag shows behind her, the straps in front
+  BAG: [170, 1060],
+  PILE: [[118, 958], [196, 964], [156, 928], [232, 932]],
+  weight() { return '<ellipse class="shade" cx="0" cy="34" rx="46" ry="10"/><ellipse class="weight-dk" cx="0" cy="6" rx="44" ry="34"/><ellipse class="weight" cx="0" cy="0" rx="42" ry="32"/><ellipse class="light" opacity=".35" cx="-12" cy="-12" rx="14" ry="6"/>'; },
+  bagDown(id) { return '<g class="' + id + '-bagdown" transform="translate(' + R.BAG[0] + ' ' + R.BAG[1] + ') rotate(6) scale(.8)">' + R.packBehind(id) + '</g>'; },
+  pile(id) { return '<g class="' + id + '-pile">' + R.PILE.map(([x, y]) => '<g transform="translate(' + x + ' ' + y + ') scale(.6)">' + R.weight() + '</g>').join('') + '</g>'; },
+  packBehind(id) {
+    return '<g class="' + id + '-pack"><rect class="pack-dk" x="-112" y="-424" width="224" height="238" rx="46"/><rect class="pack" x="-104" y="-430" width="208" height="226" rx="42"/><rect class="pack-lt" opacity=".5" x="-80" y="-422" width="160" height="40" rx="18"/></g>';
+  },
+  straps(id) {
+    return '<g class="' + id + '-straps"><path class="pack-dk" d="M-58 -368 C-66 -330 -66 -290 -60 -246 L-44 -246 C-48 -290 -48 -330 -40 -366Z M58 -368 C66 -330 66 -290 60 -246 L44 -246 C48 -290 48 -330 40 -366Z"/></g>';
+  },
+  // the same bag seen through: a soft outline over her body with the four heavy stones inside
+  packX(id) {
+    const w = (k, x, y) => '<g class="' + id + '-w' + k + '"><ellipse class="weight-dk" cx="' + x + '" cy="' + (y + 6) + '" rx="40" ry="32"/><ellipse class="weight" cx="' + x + '" cy="' + y + '" rx="38" ry="30"/><ellipse class="light" opacity=".35" cx="' + (x - 12) + '" cy="' + (y - 10) + '" rx="14" ry="6"/></g>';
+    return '<g class="' + id + '-xray"><rect x="-104" y="-370" width="208" height="226" rx="42" style="fill:color-mix(in srgb, var(--ground) 30%, white);opacity:.8"/>' +
+      '<rect x="-104" y="-370" width="208" height="226" rx="42" style="fill:none;stroke:var(--second);stroke-width:5;stroke-dasharray:14 10"/>' +
+      w(0, -48, -310) + w(1, 48, -310) + w(2, -48, -216) + w(3, 48, -216) + '</g>';
+  },
+  // Ruth seen from behind, walking up the path, her backpack on her back
+  ruthBack(id, step) {
+    const legs = step ? '<path class="skin" d="M-36 -200 l24 0 l-14 196 h-24Z M12 -200 l24 0 l20 192 h-24Z"/>' + R.shoe(-62, 2) + R.shoe(20, 0)
+      : '<path class="skin" d="M-34 -200 h26 l-2 196 h-26Z M8 -200 h26 l2 196 h-26Z"/>' + R.shoe(-48, 2) + R.shoe(0, 2);
+    return '<g class="' + id + '-ruth"><ellipse class="shade" cx="0" cy="4" rx="80" ry="10"/>' + legs +
+      '<path class="skirt" d="M-64 -240 L64 -240 L80 -160 L-80 -160Z"/>' +
+      '<path class="knit" d="M-72 -200 C-78 -260 -74 -320 -56 -350 Q-30 -368 0 -368 Q30 -368 56 -350 C74 -320 78 -260 72 -200Z"/>' +
+      '<path class="knit" d="M-60 -330 C-84 -280 -82 -230 -70 -196 L-50 -200 C-60 -240 -58 -280 -42 -316Z M60 -330 C84 -280 82 -230 70 -196 L50 -200 C60 -240 58 -280 42 -316Z"/>' +
+      '<ellipse class="skin" cx="-62" cy="-192" rx="14" ry="16"/><ellipse class="skin" cx="62" cy="-192" rx="14" ry="16"/>' +
+      '<g transform="translate(0 -418)"><ellipse class="skin-dk" cx="-46" cy="0" rx="10" ry="16"/><ellipse class="skin-dk" cx="46" cy="0" rx="10" ry="16"/>' +
+      '<path class="hair-dk" d="M-50 10 C-60 -60 -30 -96 0 -96 C30 -96 60 -60 50 10 C40 34 -40 34 -50 10Z"/><path class="hair" d="M-44 0 C-50 -56 -24 -86 0 -86 C24 -86 50 -56 44 0 C30 18 -30 18 -44 0Z"/>' +
+      '<path class="ink" style="stroke-width:3;opacity:.3" d="M-10 -80 C-14 -50 -14 -20 -10 6 M14 -78 C18 -50 18 -22 14 4"/></g>' +
+      '<g class="' + id + '-pack"><rect class="pack-dk" x="-84" y="-372" width="168" height="196" rx="38"/><rect class="pack" x="-78" y="-378" width="156" height="186" rx="34"/>' +
+      '<rect class="pack-dk" x="-58" y="-300" width="116" height="74" rx="20"/><rect class="pack-lt" opacity=".6" x="-58" y="-372" width="116" height="30" rx="14"/></g></g>';
+  },
+  // Nira, the psychologist whose voice we hear: drawn like Ruth, but younger, curly dark hair, amber top
+  nira(id, pose) {
+    let s = R.ruth(id, pose || 'stand');
+    s = s.replace(/<circle class="ink" style="stroke-width:3.5"[^>]*r="15"\/>/g, '').replace('<path class="ink" style="stroke-width:3.5" d="M-1 -4 h4"/>', '');
+    s = s.replace(/class="knit-lt"/g, 'class="nira-top-dk"').replace(/class="knit-dk"/g, 'class="nira-top-dk"').replace(/class="knit"/g, 'class="nira-top"')
+      .replace(/class="skirt"/g, 'class="nira-pants"').replace(/class="hair-dk"/g, 'class="nira-hair-dk"').replace(/class="hair"/g, 'class="nira-hair"')
+      .replace(/class="skin-dk"/g, 'class="nira-skin-dk"').replace(/class="skin"/g, 'class="nira-skin"');
+    const curls = '<g class="nira-hair"><circle cx="-40" cy="-62" r="22"/><circle cx="-12" cy="-80" r="24"/><circle cx="20" cy="-78" r="22"/><circle cx="44" cy="-56" r="20"/><circle cx="-54" cy="-30" r="18"/><circle cx="54" cy="-26" r="16"/></g>';
+    return s.replace('<g class="' + id + '-eyes">', curls + '<g class="' + id + '-eyes">');
+  },
+  niraBack(id, step) {
+    return R.ruthBack(id, step).replace(/class="knit"/g, 'class="nira-top"').replace(/class="skirt"/g, 'class="nira-pants"').replace(/class="hair-dk"/g, 'class="nira-hair-dk"').replace(/class="hair"/g, 'class="nira-hair"')
+      .replace(/class="skin-dk"/g, 'class="nira-skin-dk"').replace(/class="skin"/g, 'class="nira-skin"').replace(/<g class="[^"]*-pack">.*?<\/g><\/g>$/, '</g>');
+  },
+  // the five tools of the program, as round badges
+  tool(cls, k, r) {
+    r = r || 56;
+    const fills = ['color-mix(in srgb, var(--main) 30%, var(--ground))', 'color-mix(in srgb, var(--main) 18%, var(--ground))', 'color-mix(in srgb, var(--accent) 30%, var(--ground))', 'color-mix(in srgb, var(--accent) 45%, var(--ground))', 'color-mix(in srgb, var(--main) 42%, var(--ground))'];
+    const g = [
+      '<path class="light" d="M-30 10 C-44 10 -44 -12 -28 -12 C-28 -30 -4 -34 4 -20 C16 -30 34 -20 30 -6 C42 -4 40 14 28 14Z"/><path class="ink" style="stroke-width:5" d="M-30 10 C-44 10 -44 -12 -28 -12 C-28 -30 -4 -34 4 -20 C16 -30 34 -20 30 -6 C42 -4 40 14 28 14 L-30 14"/><path class="ink" style="stroke-width:5" d="M-8 2 q8 -10 16 0"/>',
+      '<path class="ink" style="stroke-width:6" d="M-30 -14 q10 -12 20 0 t20 0 t20 0 M-30 4 q10 -12 20 0 t20 0 t20 0 M-30 22 q10 -12 20 0 t20 0 t20 0"/>',
+      '<path class="light" d="M-34 0 Q0 -30 34 0 Q0 30 -34 0Z"/><path class="ink" style="stroke-width:5" d="M-34 0 Q0 -30 34 0 Q0 30 -34 0Z"/><circle class="metal" r="11"/><circle class="light" cx="4" cy="-4" r="3"/>',
+      '<path class="amber-dk" d="M0 26 C-40 2 -26 -32 0 -12 C26 -32 40 2 0 26Z"/><path class="light" opacity=".55" d="M-16 -12 q6 -6 12 0"/>',
+      '<circle class="ink" style="stroke-width:7" cx="-12" cy="0" r="18"/><circle class="ink" style="stroke-width:7" cx="12" cy="0" r="18"/>'
+    ][k];
+    return '<g class="' + cls + '"><circle class="shade" cy="' + (r * 0.12) + '" r="' + r + '"/><circle r="' + r + '" style="fill:' + fills[k] + ';stroke:var(--second);stroke-width:5"/><g transform="scale(' + (r / 56) + ')">' + g + '</g></g>';
+  },
+
+  // swap a standing figure's hanging arms for two arms that can rotate at the shoulder (id-armL, id-armR)
+  armsFree(markup, id) {
+    return markup.replace(/<path class="(knit|[a-z]+-top)" d="M-60 -330 [^"]*"\/><path class="\1" d="M60 -330 [^"]*"\/><ellipse class="(skin|nira-skin)" cx="-62"[^>]*\/><ellipse class="\2" cx="62"[^>]*\/>/, (m, top, skin) =>
+      '<g class="' + id + '-armL"><path class="' + top + '" d="M-60 -330 C-84 -280 -82 -230 -70 -196 L-50 -200 C-60 -240 -58 -280 -42 -316Z"/><ellipse class="' + skin + '" cx="-62" cy="-192" rx="14" ry="16"/></g>' +
+      '<g class="' + id + '-armR"><path class="' + top + '" d="M60 -330 C84 -280 82 -230 70 -196 L50 -200 C60 -240 58 -280 42 -316Z"/><ellipse class="' + skin + '" cx="62" cy="-192" rx="14" ry="16"/></g>');
+  },
+  // raise both arms by a (0..1); arms swing out and up around the shoulders
+  raise(r, a) {
+    r.armL.setAttribute('transform', 'rotate(' + (a * 150) + ' -52 -326)');
+    r.armR.setAttribute('transform', 'rotate(' + (-a * 150) + ' 52 -326)');
+  },
+
+
+  // ---- sessions 3–4: Ariel, Ruth on the mat, the inner voice, thought cards, the pacer, the day line ----
+  // Ariel, the second guide: Ruth's figure re-dressed — short dark hair and beard, no glasses, blue shirt, trousers
+  ariel(id, pose) {
+    let s = R.ruth(id, pose || 'stand');
+    s = s.replace(/<circle class="ink" style="stroke-width:3.5"[^>]*r="15"\/>/g, '').replace('<path class="ink" style="stroke-width:3.5" d="M-1 -4 h4"/>', '');
+    s = s.replace(/<path class="hair-dk" d="M-58 -10[^"]*"\/>/, '<ellipse class="skin-dk" cx="-44" cy="0" rx="9" ry="14"/><ellipse class="skin-dk" cx="44" cy="0" rx="9" ry="14"/>');
+    s = s.replace(/<path class="hair" d="M-48 -16[^"]*"\/>/, '<path class="ariel-hair" d="M-46 -12 C-54 -62 -20 -86 6 -84 C38 -82 56 -58 46 -12 C40 -34 26 -46 4 -48 C-16 -48 -36 -38 -46 -12Z"/>');
+    s = s.replace('<path class="ink ' + id + '-mouth"', '<path class="ariel-hair" d="M-42 8 C-40 42 -18 58 2 58 C22 58 42 42 42 8 C34 28 22 38 2 38 C-18 38 -34 28 -42 8Z"/><path class="ariel-hair" d="M-18 24 C-8 14 12 14 22 24 C12 21 -8 21 -18 24Z"/><path class="ink ' + id + '-mouth"');
+    s = s.replace('<path class="skin" d="M-34 -200', '<path class="ariel-pants" d="M-34 -200').replace('<path class="skin" d="M-36 -200', '<path class="ariel-pants" d="M-36 -200');
+    s = s.replace(/class="skirt"/g, 'class="ariel-pants"').replace(/class="knit-lt"/g, 'class="ariel-top-dk"').replace(/class="knit-dk"/g, 'class="ariel-top-dk"').replace(/class="knit"/g, 'class="ariel-top"');
+    return s;
+  },
+  // a guide on Ruth's phone screen; who: 'ariel' | 'nira'. Phone centred on (x, y), 74 × 116
+  phone(id, x, y, who) {
+    const fig = who === 'nira' ? R.nira(id + '-g', 'stand') : R.ariel(id + '-g', 'stand');
+    return '<g class="' + id + '-phone"><rect class="metal" x="' + (x - 37) + '" y="' + (y - 58) + '" width="74" height="116" rx="12"/>' +
+      '<clipPath id="' + id + '-scr"><rect x="' + (x - 29) + '" y="' + (y - 48) + '" width="58" height="94" rx="6"/></clipPath>' +
+      '<g clip-path="url(#' + id + '-scr)"><rect class="' + (who === 'nira' ? 'amber-lt' : 'ariel-scr') + '" x="' + (x - 29) + '" y="' + (y - 48) + '" width="58" height="94"/>' +
+      '<g transform="translate(' + x + ' ' + (y + 58) + ') scale(.17)">' + fig + '</g></g></g>';
+  },
+  // the room seen from straight above: floorboards, a mat and a cushion — Ruth lies on it (see ruthTop)
+  overhead(p) {
+    let s = '<rect class="floor" width="1080" height="1080"/>';
+    for (let k = 0; k < 9; k++) s += '<rect class="floor-dk" opacity=".3" x="0" y="' + (k * 130 + 40) + '" width="1080" height="5"/>';
+    s += '<g class="' + p + '-plant"><circle class="shade" cx="972" cy="122" r="108"/><circle class="amber-dk" cx="962" cy="112" r="70"/>' +
+      '<path class="leaf" d="M962 112 L900 30 Q950 40 962 112Z M962 112 L1060 70 Q1040 120 962 112Z M962 112 L1010 200 Q960 190 962 112Z M962 112 L880 160 Q900 110 962 112Z"/><path class="leaf-lt" d="M962 112 L930 40 Q960 60 962 112Z"/></g>';
+    s += '<rect class="shade" x="128" y="356" width="844" height="400" rx="60"/><rect class="' + p + '-mat mat" x="120" y="340" width="844" height="400" rx="60"/>' +
+      '<rect class="mat-dk" opacity=".5" x="150" y="370" width="784" height="340" rx="44" style="fill:none;stroke-width:6;stroke:color-mix(in srgb, var(--main) 50%, var(--ground))"/>' +
+      '<ellipse class="shade" cx="236" cy="552" rx="92" ry="128"/><ellipse class="' + p + '-cushion cushion" cx="226" cy="540" rx="88" ry="124"/><path class="light" opacity=".4" d="M190 450 Q226 430 262 450"/>';
+    return s;
+  },
+  // Ruth lying on her back seen from above: her standing figure turned so her head rests to the left, feet to the right.
+  // The right arm is free (id-armR) so a hand can rest on her belly. Origin = her feet.
+  ruthTop(id) {
+    let s = R.armsFree(R.ruth(id, 'stand'), id).replace('<ellipse class="shade" cx="0" cy="4" rx="80" ry="10"/>', '');
+    return '<g transform="rotate(-90)">' + s + '</g>';
+  },
+  // Ruth's inner voice: a small cloud with a face. Grey (critic) and warm layers cross-fade (id-grey, id-warm).
+  voice(id) {
+    const d = 'M-60 20 C-84 20 -92 -12 -70 -24 C-76 -56 -40 -72 -18 -56 C-6 -84 40 -84 50 -54 C78 -66 100 -36 82 -12 C100 0 92 24 70 24 L-10 24 L-34 48 L-30 24Z';
+    return '<g class="' + id + '-voice"><path class="shade" transform="translate(0 8)" d="' + d + '"/><path class="' + id + '-grey voice-grey" d="' + d + '"/><path class="' + id + '-warm voice-warm" d="' + d + '" opacity="0"/>' +
+      '<g class="' + id + '-eyes"><circle class="metal" cx="-6" cy="-14" r="6"/><circle class="metal" cx="26" cy="-14" r="6"/></g><path class="ink ' + id + '-mouth" style="stroke-width:5" d="M-2 4 Q10 10 22 4"/></g>';
+  },
+  // a centred transform for HTML pieces (thought cards, words): position, scale, rotation, opacity
+  put(el, x, y, s, rot, o) { el.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,-50%) scale(' + (s == null ? 1 : s) + ') rotate(' + (rot || 0) + 'deg)'; if (o != null) el.style.opacity = o; },
+  // the breathing pacer: a soft circle and n count dots below it (id-ring, id-core, id-d0..)
+  pacer(id, n) {
+    let s = '<g class="' + id + '-pacer"><circle class="' + id + '-ring" r="150" style="fill:var(--main);opacity:.12"/><circle class="' + id + '-core" r="110" style="fill:color-mix(in srgb, var(--main) 22%, var(--ground));stroke:var(--main);stroke-width:8"/>';
+    for (let k = 0; k < (n || 5); k++) s += '<circle class="' + id + '-d' + k + '" cx="' + ((k - ((n || 5) - 1) / 2) * 44) + '" cy="200" r="14" style="fill:var(--ground);stroke:var(--second);stroke-width:4"/>';
+    return s + '</g>';
+  },
+  // one day, morning on the right (sun) to evening on the left (moon): an ease curve that lifts after each pill
+  dayLine(id, y, pills) {
+    let s = '<g class="' + id + '-day"><rect class="metal" x="110" y="' + (y - 3) + '" width="860" height="6" rx="3"/>' +
+      '<circle class="amber" cx="1000" cy="' + y + '" r="30"/><path class="slate" d="M84 ' + (y - 30) + ' a30 30 0 1 0 0 60 a40 40 0 0 1 0 -60Z"/>';
+    (pills || []).forEach((x, k) => {
+      s += '<g class="' + id + '-pill' + k + '" transform="translate(' + x + ' ' + (y + 46) + ')"><rect x="-30" y="-14" width="60" height="28" rx="14" style="fill:var(--ground);stroke:var(--second);stroke-width:4"/><path d="M-30 0 a14 14 0 0 1 14 -14 h14 v28 h-14 a14 14 0 0 1 -14 -14Z" style="fill:#D96C6C"/></g>';
+    });
+    s += '<path class="' + id + '-curve" pathLength="1" style="fill:none;stroke:var(--accent);stroke-width:9;stroke-linecap:round" d="M970 ' + (y - 60) + ' C900 ' + (y - 250) + ' 840 ' + (y - 250) + ' 790 ' + (y - 120) + ' C750 ' + (y - 40) + ' 700 ' + (y - 260) + ' 610 ' + (y - 250) + ' C520 ' + (y - 240) + ' 500 ' + (y - 60) + ' 420 ' + (y - 80) + ' C340 ' + (y - 100) + ' 300 ' + (y - 220) + ' 230 ' + (y - 200) + ' C180 ' + (y - 186) + ' 150 ' + (y - 120) + ' 120 ' + (y - 110) + '"/></g>';
+    return s;
+  },
+  // Ruth's upper body in side profile (facing right), the chest cut away: lung, diaphragm, belly front.
+  // Animated parts: id-lung (scale), id-dia (moves down on the in-breath), id-belly (pushes out), id-air (in/out flow)
+  torso(id) {
+    return '<rect width="1080" height="1080" style="fill:color-mix(in srgb, var(--main) 14%, var(--ground))"/><circle cx="540" cy="560" r="470" style="fill:color-mix(in srgb, var(--ground) 70%, white)"/>' +
+      // back and shoulders, cardigan
+      '<path class="knit" d="M330 1080 L330 520 C330 420 380 360 470 350 L560 350 C640 356 690 400 700 470 L712 560 L712 1080Z"/>' +
+      '<g class="' + id + '-belly"><path class="knit" d="M700 520 C760 600 790 700 780 800 C772 880 740 940 712 980 L640 980 L640 520Z"/></g>' +
+      '<path class="knit-dk" opacity=".5" d="M330 520 C330 460 344 410 380 380 C360 450 356 560 370 1080 H330Z"/>' +
+      // neck and head (side view), grey bob, glasses
+      '<rect class="skin-dk" x="510" y="290" width="70" height="80" rx="20"/>' +
+      '<path class="skin" d="M470 220 C470 130 540 90 600 100 C660 110 690 170 684 230 C700 250 706 262 694 270 L690 300 C688 330 660 340 630 338 C580 340 520 320 494 290 C474 270 470 246 470 220Z"/>' +
+      '<path class="hair" d="M450 260 C430 150 500 70 590 76 C660 80 700 130 696 190 C660 150 610 140 570 160 C530 180 510 230 520 300 C490 300 460 290 450 260Z"/>' +
+      '<ellipse class="light" opacity=".28" cx="652" cy="210" rx="30" ry="28"/><ellipse class="ink" style="stroke-width:6" cx="652" cy="210" rx="30" ry="28"/><path class="ink" style="stroke-width:6" d="M622 206 L560 200"/><circle class="metal" cx="658" cy="210" r="6"/>' +
+      '<path class="ink" style="stroke-width:5" d="M664 296 q12 2 20 -6"/>' +
+      // the cutaway window into the chest and belly
+      '<clipPath id="' + id + '-clip"><path d="M400 430 C400 400 430 384 470 384 L600 384 C650 390 676 420 680 470 L690 860 C690 900 660 920 620 920 L460 920 C420 920 400 900 400 860Z"/></clipPath>' +
+      '<path d="M394 424 C394 392 426 376 470 376 L600 376 C656 382 684 416 688 470 L698 860 C698 906 664 928 620 928 L460 928 C416 928 394 906 394 860Z" style="fill:color-mix(in srgb, var(--ground) 55%, white)"/>' +
+      '<g clip-path="url(#' + id + '-clip)"><rect x="380" y="370" width="340" height="580" style="fill:color-mix(in srgb, var(--second) 78%, var(--main))"/>' +
+      '<g class="' + id + '-lung"><path style="fill:#E9A3AE" d="M430 640 C410 560 430 450 500 420 C540 404 600 410 630 450 C660 500 660 590 650 650 C620 680 470 690 430 640Z"/>' +
+      '<path style="fill:none;stroke:#C77985;stroke-width:6;stroke-linecap:round;opacity:.7" d="M540 400 V520 M540 470 C510 500 490 540 480 590 M540 480 C570 510 590 550 600 600"/></g>' +
+      '<g class="' + id + '-dia"><path style="fill:none;stroke:#D9534F;stroke-width:16;stroke-linecap:round" d="M410 720 C450 650 620 640 680 716"/></g>' +
+      '<g class="' + id + '-gut"><path class="amber-lt" opacity=".6" d="M420 780 C430 740 640 730 680 790 L690 920 H410Z"/></g></g>' +
+      '<path d="M394 424 C394 392 426 376 470 376 L600 376 C656 382 684 416 688 470 L698 860 C698 906 664 928 620 928 L460 928 C416 928 394 906 394 860Z" style="fill:none;stroke:var(--second);stroke-width:6;opacity:.85"/>' +
+      '<path class="' + id + '-air" pathLength="1" style="fill:none;stroke:var(--main);stroke-width:10;stroke-linecap:round;stroke-dasharray:.06 .06" d="M880 250 C820 250 760 258 700 270"/>';
+  },
+
+  // the armchair with Ruth seated in it, shifted dx to the side; Ruth's parts are id-head, id-eyes, id-mouth; id-body breathes
+  seated(id, dx) {
+    return '<g transform="translate(' + (dx || 0) + ' 0)">' + R.chair() + '<g transform="translate(500 742)"><g class="' + id + '-body">' + R.ruth(id, 'sit') + '</g></g></g>';
+  },
+  // a big phone filling the frame, for the game screens (screen 440 × 760, centred on x 540)
+  bigPhone(id) {
+    return '<g class="' + id + '-big"><rect class="shade" x="290" y="150" width="520" height="900" rx="64"/><rect class="metal" x="270" y="130" width="540" height="900" rx="64"/>' +
+      '<rect x="300" y="190" width="480" height="790" rx="30" style="fill:color-mix(in srgb, var(--ground) 80%, white)"/><rect class="slate" x="490" y="150" width="100" height="14" rx="7"/></g>';
+  },
+
+  // ---- session 3a props ----
+  // the circle of attention: a soft warm disc with a dashed rim, radius 1 (scale it)
+  attn(id) {
+    return '<g class="' + id + '-attn"><circle r="1" style="fill:var(--accent);opacity:.13"/><circle r="1" style="fill:none;stroke:var(--accent);stroke-width:.022;stroke-dasharray:.06 .05;opacity:.9"/></g>';
+  },
+  // three short wiggle lines beside a trembling hand (animate the group's transform to make them shiver)
+  tremor(id) {
+    return '<g class="' + id + '-trem">' + [0, 1, 2].map((k) => '<path class="ink" style="stroke-width:5;opacity:.7" d="M' + (20 + k * 6) + ' ' + (-26 + k * 26) + ' q8 -8 16 0 t16 0"/>').join('') + '</g>';
+  },
+  // the picture-perfect meditator, as a framed picture (centre 0,0; 260 × 300)
+  perfect(id) {
+    return '<g class="' + id + '-perfect"><rect class="shade" x="-122" y="-140" width="260" height="300" rx="20"/><rect x="-130" y="-150" width="260" height="300" rx="20" style="fill:color-mix(in srgb, var(--ground) 60%, white);stroke:var(--second);stroke-width:6"/>' +
+      '<circle cx="0" cy="-30" r="96" style="fill:color-mix(in srgb, var(--main) 18%, var(--ground))"/>' +
+      '<ellipse class="skin" cx="0" cy="-70" rx="26" ry="30"/><path class="leaf-lt" d="M-34 30 C-36 -10 -24 -36 0 -36 C24 -36 36 -10 34 30Z"/>' +
+      '<path class="ink" style="stroke-width:4" d="M-10 -70 q4 3 8 0 M6 -70 q4 3 8 0"/><path class="slate-dk" d="M-26 -90 C-26 -110 26 -110 26 -90 C14 -100 -14 -100 -26 -90Z"/>' +
+      '<path class="leaf" d="M-76 50 C-40 20 40 20 76 50 C40 62 -40 62 -76 50Z"/><path class="ink" style="stroke-width:5" d="M-30 0 L-58 38 M30 0 L58 38"/></g>';
+  },
+  // a practice-day card with weather: kind 'sun' | 'cloud' | 'mixed' (centre 0,0; 220 × 250)
+  dayCard(id, kind) {
+    const icon = {
+      sun: '<circle class="amber" cx="0" cy="-30" r="46"/>' + [0, 1, 2, 3, 4, 5, 6, 7].map((k) => '<rect class="amber" x="-5" y="-108" width="10" height="20" rx="5" transform="rotate(' + k * 45 + ' 0 -30)"/>').join(''),
+      cloud: '<path class="slate" d="M-62 0 C-84 0 -84 -36 -56 -38 C-56 -70 -10 -82 4 -56 C22 -76 64 -66 62 -34 C88 -32 88 0 62 0Z"/>',
+      mixed: '<circle class="amber" cx="22" cy="-50" r="36"/><path style="fill:color-mix(in srgb, var(--second) 18%, var(--ground))" d="M-70 0 C-90 0 -90 -32 -64 -34 C-64 -62 -24 -72 -12 -48 C4 -66 40 -58 40 -30 C62 -28 62 0 40 0Z"/>',
+    }[kind];
+    return '<g class="' + id + '"><rect class="shade" x="-104" y="-116" width="220" height="250" rx="26"/><rect x="-110" y="-125" width="220" height="250" rx="26" style="fill:color-mix(in srgb, var(--ground) 50%, white);stroke:var(--second);stroke-width:6"/>' + icon + '</g>';
+  },
+  anchor(id) {
+    return '<g class="' + id + '"><circle class="ink" style="stroke-width:10" cx="0" cy="-70" r="18"/><path class="ink" style="stroke-width:12" d="M0 -52 V40 M-30 -20 H30 M-56 0 C-50 40 -20 54 0 54 C20 54 50 40 56 0"/><path class="ink" style="stroke-width:10" d="M-66 10 L-56 -6 L-42 8 M66 10 L56 -6 L42 8"/></g>';
+  },
+  hourglass(id) {
+    return '<g class="' + id + '"><rect class="wood" x="-70" y="-110" width="140" height="18" rx="9"/><rect class="wood" x="-70" y="92" width="140" height="18" rx="9"/>' +
+      '<path d="M-54 -92 H54 C54 -30 12 -14 12 0 C12 14 54 30 54 92 H-54 C-54 30 -12 14 -12 0 C-12 -14 -54 -30 -54 -92Z" style="fill:color-mix(in srgb, var(--ground) 50%, white);stroke:var(--second);stroke-width:6"/>' +
+      '<path class="amber" d="M-36 -64 H36 C30 -36 8 -24 0 -10 C-8 -24 -30 -36 -36 -64Z M-40 86 C-30 50 -10 40 0 34 C10 40 30 50 40 86Z"/></g>';
+  },
+  // a dial with a pointer (id-hand rotates about the centre)
+  dial(id) {
+    return '<g class="' + id + '"><circle class="shade" cx="4" cy="8" r="80"/><circle r="80" style="fill:color-mix(in srgb, var(--ground) 50%, white);stroke:var(--second);stroke-width:8"/>' +
+      [0, 1, 2, 3, 4, 5, 6].map((k) => '<rect class="slate" x="-3" y="-72" width="6" height="16" rx="3" transform="rotate(' + (-90 + k * 30) + ')"/>').join('') +
+      '<g class="' + id + '-hand"><path class="ink" style="stroke-width:10" d="M0 0 V-56"/></g><circle class="amber" r="14"/></g>';
+  },
+  // a reed that bends without breaking: flexibility, as a badge-sized icon
+  reed(id) {
+    return '<g class="' + id + '"><circle class="shade" cy="7" r="56"/><circle r="56" style="fill:color-mix(in srgb, var(--accent) 22%, var(--ground));stroke:var(--second);stroke-width:5"/>' +
+      '<path class="' + id + '-stem" style="fill:none;stroke:var(--main);stroke-width:8;stroke-linecap:round" d="M0 40 C0 10 6 -16 20 -36"/><path class="leaf" d="M20 -36 C34 -40 40 -30 36 -22 C28 -22 22 -28 20 -36Z M4 0 C-14 -6 -22 4 -18 12 C-8 12 0 6 4 0Z"/></g>';
+  },
+  // a small lesson note (paper slip with two lines)
+  note(id) {
+    return '<g class="' + id + '"><rect class="shade" x="-38" y="-24" width="80" height="56" rx="8"/><rect x="-42" y="-30" width="84" height="58" rx="8" style="fill:color-mix(in srgb, var(--accent) 22%, white);stroke:var(--second);stroke-width:4"/>' +
+      '<path class="ink" style="stroke-width:4;opacity:.6" d="M-26 -10 H26 M-26 6 H12"/></g>';
+  },
+  // a drifting thought, as a small cloud balloon with three dots
+  balloon(id) {
+    return '<g class="' + id + '"><path class="shade" transform="translate(0 6)" d="M-56 18 C-76 18 -76 -12 -52 -14 C-50 -42 -12 -50 0 -30 C14 -48 52 -40 50 -12 C72 -10 72 18 52 18Z"/>' +
+      '<path style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:5" d="M-56 18 C-76 18 -76 -12 -52 -14 C-50 -42 -12 -50 0 -30 C14 -48 52 -40 50 -12 C72 -10 72 18 52 18Z"/>' +
+      '<circle class="metal" cx="-18" cy="0" r="6"/><circle class="metal" cx="2" cy="0" r="6"/><circle class="metal" cx="22" cy="0" r="6"/></g>';
+  },
+  bell(id) {
+    return '<g class="' + id + '"><path class="amber" d="M-44 30 C-40 -10 -36 -50 0 -54 C36 -50 40 -10 44 30 L56 44 H-56Z"/><circle class="amber-dk" cx="0" cy="54" r="12"/><path class="ink" style="stroke-width:5;opacity:.6" d="M-74 -20 q-14 20 0 40 M74 -20 q14 20 0 40"/></g>';
+  },
+  calendar(id) {
+    return '<g class="' + id + '"><rect x="-56" y="-50" width="112" height="104" rx="12" style="fill:color-mix(in srgb, var(--ground) 50%, white);stroke:var(--second);stroke-width:5"/><rect class="amber" x="-56" y="-50" width="112" height="28" rx="10"/>' +
+      [0, 1, 2].map((r) => [0, 1, 2].map((c) => '<rect class="slate" x="' + (-36 + c * 28) + '" y="' + (-10 + r * 20) + '" width="16" height="10" rx="3"/>').join('')).join('') + '</g>';
+  },
+  // a wavy breath line as a path: x0..x0+w around y, amplitude, cycles, phase
+  wavePath(x0, y, w, amp, k, ph) {
+    let d = '';
+    for (let i = 0; i <= 80; i++) { const x = x0 + w * i / 80, yy = y - amp * Math.sin((i / 80) * k * 2 * Math.PI + (ph || 0)); d += (i ? ' L' : 'M') + x.toFixed(1) + ' ' + yy.toFixed(1); }
+    return d;
+  },
+
+  // ---- session 3b ----
+  // Ruth lying on the mat seen from above, right hand resting on her belly; returns markup (parts: id-armR, id-eyes, id-mouth)
+  lying(id, p) {
+    return R.overhead(p || id) + '<ellipse class="' + id + '-glow" cx="514" cy="547" rx="70" ry="56" style="fill:var(--main);opacity:0"/>' +
+      '<g transform="translate(770 540) scale(1.25)">' + R.ruthTop(id) + '</g>';
+  },
+  // the hand on the belly; a = 0 (arm at her side) .. 1 (hand on belly); breath b = 0..1 lifts it a little
+  handOn(arm, a, b) { arm.setAttribute('transform', 'rotate(' + (30 * a) + ' 52 -326) translate(' + (-6 * (b || 0)) + ' 0) scale(' + (1 + 0.05 * (b || 0)) + ')'); },
+  // a tension meter (centre-bottom origin): id-fill is the level
+  meter(id) {
+    return '<g class="' + id + '"><rect x="-34" y="-290" width="68" height="290" rx="34" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:6"/>' +
+      '<clipPath id="' + id + '-cl"><rect x="-26" y="-282" width="52" height="274" rx="26"/></clipPath><g clip-path="url(#' + id + '-cl)"><rect class="' + id + '-fill" x="-26" y="-282" width="52" height="274" style="fill:#D96C6C"/></g></g>';
+  },
+  stopSign(id) {
+    return '<g class="' + id + '"><polygon points="-30,-72 30,-72 72,-30 72,30 30,72 -30,72 -72,30 -72,-30" style="fill:#C0392B;stroke:var(--ground);stroke-width:8"/><rect x="-44" y="-10" width="88" height="20" rx="10" style="fill:var(--ground)"/></g>';
+  },
+  // a soft blanket for the overhead view (covers her legs)
+  blanket(id) {
+    return '<g class="' + id + '"><rect x="0" y="-130" width="330" height="260" rx="40" style="fill:color-mix(in srgb, var(--accent) 55%, var(--ground))"/><path style="fill:none;stroke:color-mix(in srgb, var(--accent) 70%, var(--second));stroke-width:6;opacity:.5" d="M40 -130 V130 M110 -130 V130 M180 -130 V130 M250 -130 V130"/></g>';
+  },
+  swirl(id) {
+    return '<path class="' + id + '" style="fill:none;stroke:var(--second);stroke-width:6;stroke-linecap:round;opacity:.7" d="M0 0 C10 -10 22 0 14 12 C4 24 -18 14 -16 -6 C-14 -28 16 -36 32 -16 C46 4 34 34 6 38"/>';
+  },
+
+  // ---- sessions 5–7 ----
+  // an upright battery centred on (0,0), 120 × 200; set its level with R.setBattery(fill, level)
+  battery(id) {
+    return '<g class="' + id + '-bat"><rect class="shade" x="-54" y="-92" width="120" height="200" rx="26"/><rect x="-26" y="-118" width="52" height="26" rx="8" style="fill:var(--second)"/>' +
+      '<rect x="-60" y="-100" width="120" height="200" rx="26" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:8"/>' +
+      '<clipPath id="' + id + '-bc"><rect x="-46" y="-86" width="92" height="172" rx="16"/></clipPath><g clip-path="url(#' + id + '-bc)"><rect class="' + id + '-fill" x="-46" y="-86" width="92" height="172"/></g>' +
+      '<path class="' + id + '-bolt" d="M8 -40 L-18 8 H0 L-8 44 L20 -4 H2Z" style="fill:var(--ground);opacity:0"/></g>';
+  },
+  setBattery(fill, level) {
+    const l = Math.max(0, Math.min(1, level));
+    fill.setAttribute('y', 86 - 172 * l); fill.setAttribute('height', 172 * l);
+    fill.style.fill = l < 0.25 ? '#D96C6C' : l < 0.55 ? 'var(--accent)' : '#6FAE7A';
+  },
+  // two friends of Ruth's, drawn like Nira but in their own colours; look 'a' | 'b'
+  friend(id, look, pose) {
+    return R.nira(id, pose || 'stand').replace(/nira-top-dk/g, 'fr' + look + '-top-dk').replace(/nira-top/g, 'fr' + look + '-top').replace(/nira-hair-dk/g, 'fr' + look + '-hair-dk').replace(/nira-hair/g, 'fr' + look + '-hair').replace(/nira-pants/g, 'fr' + look + '-pants');
+  },
+  clock(id) {
+    return '<g class="' + id + '"><circle class="shade" cx="4" cy="8" r="70"/><circle r="70" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:8"/>' +
+      [0, 1, 2, 3].map((k) => '<rect class="slate" x="-4" y="-62" width="8" height="14" rx="4" transform="rotate(' + k * 90 + ')"/>').join('') +
+      '<g class="' + id + '-h"><path class="ink" style="stroke-width:10" d="M0 0 V-32"/></g><g class="' + id + '-m"><path class="ink" style="stroke-width:7" d="M0 0 V-50"/></g><circle class="amber" r="9"/></g>';
+  },
+  mug(id) {
+    return '<g class="' + id + '"><path class="ink" style="stroke-width:10" d="M40 -20 q30 0 30 24 q0 24 -30 24"/><rect x="-40" y="-44" width="84" height="92" rx="14" style="fill:color-mix(in srgb, var(--main) 40%, var(--ground));stroke:var(--second);stroke-width:6"/>' +
+      '<path class="' + id + '-steam ink" style="stroke-width:6;opacity:.5" d="M-14 -60 q12 -16 0 -32 M12 -60 q12 -16 0 -32"/></g>';
+  },
+  star(id) {
+    return '<path class="' + id + '" d="M0 -70 L20 -24 L68 -20 L32 12 L42 60 L0 34 L-42 60 L-32 12 L-68 -20 L-20 -24Z" style="fill:var(--accent);stroke:var(--second);stroke-width:6;stroke-linejoin:round"/>';
+  },
+  // small roots growing down from a point (draw them on with stroke-dasharray via id-r)
+  roots(id) {
+    return '<path class="' + id + '-r" pathLength="1" style="fill:none;stroke:color-mix(in srgb, var(--accent) 50%, var(--second));stroke-width:7;stroke-linecap:round" d="M-14 0 C-20 30 -50 40 -70 70 M-14 0 C-10 40 -24 70 -20 100 M14 0 C20 30 50 40 70 70 M14 0 C10 40 24 70 20 100 M-40 40 C-60 46 -76 44 -90 50 M40 40 C60 46 76 44 90 50"/>';
+  },
+  // a drifting thought on a dashed string back to Ruth's head (string drawn by the scene)
+  phoneCall(id) {
+    return '<g class="' + id + '"><rect class="shade" x="-50" y="-90" width="112" height="190" rx="20"/><rect x="-56" y="-98" width="112" height="190" rx="20" style="fill:var(--second)"/>' +
+      '<rect x="-46" y="-84" width="92" height="156" rx="10" style="fill:color-mix(in srgb, var(--ground) 70%, white)"/><circle class="' + id + '-av" cx="0" cy="-36" r="24" style="fill:color-mix(in srgb, var(--main) 30%, var(--ground))"/>' +
+      '<g class="' + id + '-tick"><path class="ink" style="stroke-width:6;stroke:var(--second);opacity:.5" d="M-20 30 L-8 42 L16 18"/></g><rect class="' + id + '-btn" x="-30" y="50" width="60" height="14" rx="7" style="fill:#6FAE7A"/></g>';
+  },
+};</script>
+<script>// Session 12 additions: the friend seen from behind, round badges for what a close person can give (listen, ask, cheer, a heart in the hand)
+// and for what Ruth says (helps, less, would like to try), a speech bubble that holds one badge, small busts for a thought cloud, the open door's light.
+Object.assign(R, {
+  // where a walker stands along the path: k is a position between stones (0 = nearest)
+  onPath(k) { const P = R.PATH, i = Math.max(0, Math.min(P.length - 2, Math.floor(k))), f = k - i; return [kit.lerp(P[i][0], P[i + 1][0], f), kit.lerp(P[i][1], P[i + 1][1], f), kit.lerp(P[i][2], P[i + 1][2], f)]; },
+  // Ruth facing us with her backpack from session 1 (origin between her feet); xray adds the see-through view of the weights
+  packed(id, xray, pose) {
+    return '<g class="' + id + '-w">' + R.packBehind(id) + '<g class="' + id + '-bd">' + R.ruth(id, pose || 'stand') + '</g>' + R.straps(id) + (xray ? R.packX(id) : '') + '</g>';
+  },
+  // the close friend (friend a from sessions 5 and 63), seen from behind, with her curls
+  friendBack(id, step) {
+    const s = R.niraBack(id, step).replace(/nira-top-dk/g, 'fra-top-dk').replace(/nira-top/g, 'fra-top').replace(/nira-hair-dk/g, 'fra-hair-dk').replace(/nira-hair/g, 'fra-hair').replace(/nira-pants/g, 'fra-pants');
+    const curls = '<g class="fra-hair"><circle cx="-40" cy="-62" r="22"/><circle cx="-12" cy="-80" r="24"/><circle cx="20" cy="-78" r="22"/><circle cx="44" cy="-56" r="20"/><circle cx="-50" cy="-26" r="18"/><circle cx="50" cy="-22" r="16"/><circle cx="0" cy="-40" r="34"/></g>';
+    return s.replace('<g transform="translate(0 -418)">', '<g transform="translate(0 -418)">' + curls);
+  },
+  // the open door with its warm light (fade it in over the closed door of R.room)
+  doorOpen(id) {
+    return '<g class="' + id + '" opacity="0"><rect class="amber-lt" x="820" y="450" width="190" height="410" rx="6"/><path class="light" opacity=".8" d="M820 860 L1010 860 L1080 1080 L700 1080Z"/><path class="wood" d="M820 450 L760 476 L760 860 L820 860Z"/></g>';
+  },
+  // round badges (r 56, centre 0,0): ear (listen), ask (a question), cheer (a heart), helps (a tick), less (a down arrow), try (a sprout), give (a heart held out)
+  badge(id, kind, r) {
+    const F = { ear: 'color-mix(in srgb, var(--main) 30%, var(--ground))', ask: 'color-mix(in srgb, var(--main) 18%, var(--ground))', cheer: 'color-mix(in srgb, var(--accent) 45%, var(--ground))', helps: '#CFE6CF', less: '#F2D2CC', try: 'color-mix(in srgb, var(--accent) 30%, var(--ground))', give: 'color-mix(in srgb, var(--accent) 45%, var(--ground))', share: 'color-mix(in srgb, var(--accent) 30%, var(--ground))' };
+    const G = {
+      ear: '<path class="skin" d="M-6 -34 C18 -36 30 -14 26 6 C22 22 10 22 8 32 C6 44 -10 46 -16 36"/><path class="ink" style="stroke-width:6" d="M-6 -34 C18 -36 30 -14 26 6 C22 22 10 22 8 32 C6 44 -10 46 -16 36 M-4 -16 C8 -18 14 -6 8 4"/>',
+      ask: '<path class="light" d="M-34 -26 H34 Q42 -26 42 -18 V14 Q42 22 34 22 H-6 L-20 36 V22 H-34 Q-42 22 -42 14 V-18 Q-42 -26 -34 -26Z" style="stroke:var(--second);stroke-width:5"/><text y="12" text-anchor="middle" style="font:700 40px var(--sans);fill:var(--second)">?</text>',
+      cheer: '<path d="M0 26 C-40 2 -26 -32 0 -12 C26 -32 40 2 0 26Z" style="fill:#D96C6C;stroke:var(--second);stroke-width:5;stroke-linejoin:round"/>',
+      helps: '<path class="ink" style="stroke-width:10;stroke:#3E8E5A" d="M-24 2 L-6 20 L26 -16"/>',
+      less: '<path class="ink" style="stroke-width:10;stroke:#C0392B" d="M0 -26 V22 M-18 6 L0 24 L18 6"/>',
+      try: '<path class="ink" style="stroke-width:7;stroke:var(--main)" d="M0 30 V-6"/><path class="leaf" d="M0 -4 C-30 -8 -34 -30 -24 -36 C-6 -32 0 -22 0 -4Z M0 -10 C22 -16 30 -34 22 -40 C8 -36 0 -28 0 -10Z"/>',
+      give: '<path d="M-44 26 C-44 10 -26 6 -10 16 L8 26 L44 8 V34 H-44Z" style="fill:color-mix(in srgb, var(--accent) 38%, var(--ground));stroke:var(--second);stroke-width:5;stroke-linejoin:round"/><path d="M0 12 C-30 -6 -20 -36 0 -18 C20 -36 30 -6 0 12Z" style="fill:#D96C6C;stroke:var(--second);stroke-width:5;stroke-linejoin:round"/>',
+      share: '<path class="light" d="M-36 -24 H36 Q44 -24 44 -16 V12 Q44 20 36 20 H-4 L-18 34 V20 H-36 Q-44 20 -44 12 V-16 Q-44 -24 -36 -24Z" style="stroke:var(--second);stroke-width:5"/><circle class="metal" cx="-16" cy="-2" r="6"/><circle class="metal" cx="2" cy="-2" r="6"/><circle class="metal" cx="20" cy="-2" r="6"/>',
+    };
+    return '<g class="' + id + '"><g transform="scale(' + ((r || 56) / 56) + ')"><circle class="shade" cy="7" r="56"/><circle r="56" style="fill:' + F[kind] + ';stroke:var(--second);stroke-width:5"/>' + G[kind] + '</g></g>';
+  },
+  // a thought cloud with a question mark (centre 0,0)
+  qCloud(id) {
+    const d = 'M-60 20 C-84 20 -92 -12 -70 -24 C-76 -56 -40 -72 -18 -56 C-6 -84 40 -84 50 -54 C78 -66 100 -36 82 -12 C100 0 92 24 70 24Z';
+    return '<g class="' + id + '"><path class="shade" transform="translate(0 8)" d="' + d + '"/><path d="' + d + '" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:5"/>' +
+      '<text y="10" text-anchor="middle" style="font:700 56px var(--sans);fill:var(--second)">?</text><circle cx="-30" cy="52" r="10" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:4"/><circle cx="-44" cy="74" r="6" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:4"/></g>';
+  },
+  // a speech bubble (centre 0,0) that frames one badge; the tail points down-left, or down-right with flip
+  sayBubble(id, inner, flip) {
+    const d = 'M-90 -70 H90 Q116 -70 116 -44 V44 Q116 70 90 70 H-10 L-44 104 L-40 70 H-90 Q-116 70 -116 44 V-44 Q-116 -70 -90 -70Z';
+    return '<g class="' + id + '"><g transform="scale(' + (flip ? -1 : 1) + ' 1)"><path class="shade" transform="translate(0 8)" d="' + d + '"/><path d="' + d + '" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:6"/></g>' + (inner || '') + '</g>';
+  },
+  // a head-and-shoulders bust, look 'a' | 'b' | 'g' (centre of the head at 0,-40)
+  bust(id, look) {
+    const curls = look === 'a' ? '<g class="fra-hair"><circle cx="-34" cy="-80" r="18"/><circle cx="-10" cy="-96" r="20"/><circle cx="16" cy="-94" r="18"/><circle cx="36" cy="-76" r="16"/><circle cx="-44" cy="-54" r="14"/><circle cx="44" cy="-50" r="12"/></g>'
+      : '<path class="fr' + look + '-hair" d="M-46 -30 C-56 -90 -20 -110 4 -108 C40 -106 56 -80 48 -30 C40 -60 20 -76 0 -76 C-20 -76 -38 -62 -46 -30Z"/>';
+    return '<g class="' + id + '"><path class="fr' + look + '-top" d="M-86 80 C-86 20 -50 4 0 4 C50 4 86 20 86 80Z"/><ellipse class="nira-skin" cx="0" cy="-40" rx="40" ry="46"/>' + curls +
+      '<circle class="metal" cx="-14" cy="-40" r="5"/><circle class="metal" cx="14" cy="-40" r="5"/><path class="ink" style="stroke-width:4" d="M-10 -16 Q0 -8 10 -16"/></g>';
+  },
+  // the friend in an armchair facing Ruth (mirrored), centred on x = cx
+  friendSeat(id, cx) {
+    return '<g class="' + id + '-fw"><g transform="translate(' + (2 * cx) + ' 0) scale(-1 1)"><g transform="translate(' + (cx - 516) + ' 0)">' + R.chair() + '<g transform="translate(500 742)">' + R.friend(id + 'f', 'a', 'sit') + '</g></g></g></g>';
+  },
+  // a low tea table with two mugs, between the two armchairs
+  teaTable(id, cx) {
+    return '<g class="' + id + '-tea" transform="translate(' + (cx - 540) + ' 0)"><ellipse class="shade" cx="540" cy="866" rx="70" ry="10"/><rect class="wood" x="494" y="800" width="12" height="62" rx="5"/><rect class="wood" x="574" y="800" width="12" height="62" rx="5"/><rect class="wood-lt" x="480" y="782" width="120" height="22" rx="9"/>' +
+      '<g transform="translate(514 756) scale(.4)">' + R.mug(id + '-m1') + '</g><g transform="translate(568 756) scale(-.4 .4)">' + R.mug(id + '-m2') + '</g></g>';
+  },
+  // Ruth with her backpack and arms that can rise (id-armL, id-armR)
+  packedFree(id) {
+    return '<g class="' + id + '-w">' + R.packBehind(id) + '<g class="' + id + '-bd">' + R.armsFree(R.ruth(id, 'stand'), id) + '</g>' + R.straps(id) + '</g>';
+  },
+  // light a path stone's top: p = 0..1
+  litStone(top, p) { top.style.fill = 'color-mix(in srgb, var(--accent) ' + (22 + 78 * p).toFixed(1) + '%, var(--ground))'; },
+  setG(g, x, y, s, o) { g.setAttribute('transform', 'translate(' + x + ' ' + y + ') scale(' + Math.max(0.001, s == null ? 1 : s) + ')'); if (o != null) g.style.opacity = o; },
+  mouthNeutral: 'M-10 26 Q2 32 14 26', mouthHappy: 'M-12 24 Q2 38 16 24', mouthFlat: 'M-10 29 L14 29', mouthSad: 'M-10 31 Q2 25 14 31',
+});
+
+window.CAPTIONS = false;</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+kit.scene('j-inside', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.land('j1', { sun: true }) + R.packed('j1', true) + '<g class="j1-fr">' + R.friend('j1f', 'a') + '</g></svg>' +
+      '<div class="tag tag-cool j1-t">מפגש 12 · לשתף מישהו קרוב בדרך</div><div class="tag j1-a">רואים הרבה ממה שאנחנו עוברים</div><div class="tag tag-warm j1-b">איך זה מרגיש מבפנים</div></div>'));
+    Object.assign(this, R.refs(kit, 'j1', ['w', 'bd', 'pack', 'straps', 'xray', 'head', 'eyes', 'mouth', 'fr', 't', 'a', 'b']));
+    this.f = R.refs(kit, 'j1f', ['head', 'eyes', 'mouth']);
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.5); R.blink(this.f.eyes, t, 2.2);
+    // a close friend beside Ruth on her path sees a lot; how it feels inside (the weights in the pack) only we can see
+    const sag = eio(seg(t, 6.6, 7.8));
+    this.w.setAttribute('transform', 'translate(380 ' + (970 + 6 * sag) + ')');
+    this.bd.setAttribute('transform', 'scale(1 ' + (1 - 0.02 * sag) + ')');
+    this.pack.setAttribute('transform', 'translate(0 ' + 12 * sag + ')'); this.straps.setAttribute('transform', 'translate(0 ' + 5 * sag + ')'); this.xray.setAttribute('transform', 'translate(0 ' + 12 * sag + ')');
+    this.xray.style.opacity = eo(seg(t, 6.5, 7.3));
+    this.head.setAttribute('transform', 'rotate(' + (4 * sag) + ' 0 30) translate(0 ' + 6 * sag + ')');
+    this.mouth.setAttribute('d', sag > 0.5 ? R.mouthSad : R.mouthNeutral);
+    this.fr.setAttribute('transform', 'translate(760 976)');
+    this.f.head.setAttribute('transform', 'rotate(' + (-7 + Math.sin(t * 0.9) * 3) + ' 0 30)');
+    this.f.mouth.setAttribute('d', R.mouthNeutral);
+    R.place(this.t, 540, lerp(54, 40, eo(seg(t, 0.1, 0.5))), eo(seg(t, 0.1, 0.5)) * (1 - eo(seg(t, 3.3, 3.7))));
+    R.place(this.a, 760, lerp(372, 360, eo(seg(t, 1.6, 2.0))), eo(seg(t, 1.6, 2.0)) * (1 - eo(seg(t, 5.6, 6.0))));
+    R.place(this.b, 380, lerp(372, 360, eo(seg(t, 6.6, 7.0))), eo(seg(t, 6.6, 7.0)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+kit.scene('j-need', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.land('j2', { sun: true }) + R.packed('j2', true) + '<g class="j2-fr">' + R.friend('j2f', 'a') + '</g><g class="j2-q">' + R.qCloud('j2-qc') + '</g></svg>' +
+      '<div class="tag tag-warm j2-b">איך זה מרגיש מבפנים</div><div class="tag tag-cool j2-a">לא תמיד יכול לדעת מה אתם צריכים</div></div>'));
+    Object.assign(this, R.refs(kit, 'j2', ['w', 'bd', 'pack', 'straps', 'xray', 'head', 'eyes', 'mouth', 'fr', 'q', 'a', 'b']));
+    this.f = R.refs(kit, 'j2f', ['head', 'eyes', 'mouth']);
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.5); R.blink(this.f.eyes, t, 2.2);
+    // the see-through view fades; even someone who knows her well can't tell what she needs
+    const sag = 1 - eio(seg(t, 0.6, 1.8));
+    this.w.setAttribute('transform', 'translate(380 ' + (970 + 6 * sag) + ')');
+    this.bd.setAttribute('transform', 'scale(1 ' + (1 - 0.02 * sag) + ')');
+    this.pack.setAttribute('transform', 'translate(0 ' + 12 * sag + ')'); this.straps.setAttribute('transform', 'translate(0 ' + 5 * sag + ')'); this.xray.setAttribute('transform', 'translate(0 ' + 12 * sag + ')');
+    this.xray.style.opacity = 1 - eo(seg(t, 0.2, 1.0));
+    this.head.setAttribute('transform', 'rotate(' + (4 * sag + 6 * eio(seg(t, 2.8, 3.6))) + ' 0 30) translate(0 ' + 6 * sag + ')');
+    this.mouth.setAttribute('d', sag > 0.5 ? R.mouthSad : R.mouthNeutral);
+    this.fr.setAttribute('transform', 'translate(760 976)');
+    this.f.head.setAttribute('transform', 'rotate(' + lerp(-7, 6, eio(seg(t, 2.6, 3.4))) + ' 0 30)');
+    this.f.mouth.setAttribute('d', 'M-8 28 Q2 26 12 28');
+    R.setG(this.q, 830, 360 + Math.sin(t * 1.5) * 6, 1.25 * eob(seg(t, 2.9, 3.5), 1.6), eo(seg(t, 2.9, 3.1)));
+    R.place(this.b, 380, 360, 1 - eo(seg(t, 0.2, 0.7)));
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 3.4, 3.8))), eo(seg(t, 3.4, 3.8)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+const SHOE = '<g transform="translate(-6 18) scale(1.7)"><path class="slate-dk" d="M-30 0 q0 -26 22 -28 q14 0 18 12 l20 6 q10 4 8 10 Z"/><rect class="light" opacity=".5" x="-24" y="-3" width="56" height="3"/></g>';
+kit.scene('j-remind', {
+  init(kit) {
+    const grey = R.sayBubble('j3-gb', SHOE).replace('fill:color-mix(in srgb, var(--ground) 40%, white)', 'fill:color-mix(in srgb, var(--second) 34%, var(--ground))');
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.room({}) + R.doorOpen('j3-open') + '<g class="j3-sit">' + R.seated('j3', -200) + '</g>' +
+      '<g class="j3-st">' + R.ruth('j3s', 'stand') + '</g><g class="j3-bw">' + R.sayBubble('j3-bb', SHOE) + '</g><g class="j3-gw">' + grey + '</g></svg>' +
+      '<div class="tag tag-cool j3-a">תזכורת לצאת להליכה</div><div class="tag tag-warm j3-h">תעזור לכם להתחיל</div><div class="tag j3-p">תרגיש כמו לחץ</div></div>'));
+    Object.assign(this, R.refs(kit, 'j3', ['open', 'sit', 'body', 'head', 'eyes', 'mouth', 'st', 'bw', 'gw', 'a', 'h', 'p']));
+    this.s = R.refs(kit, 'j3s', ['eyes', 'mouth', 'head']);
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6); R.blink(this.s.eyes, t, 1.3);
+    // a reminder to go for a walk: one time it helps her up and out of the door...
+    const up = eio(seg(t, 2.6, 3.3)) * (1 - eio(seg(t, 3.9, 4.4)));
+    this.open.setAttribute('opacity', up);
+    this.sit.style.opacity = 1 - up; this.st.style.opacity = up;
+    this.st.setAttribute('transform', 'translate(' + lerp(560, 690, up) + ' 980)');
+    this.s.mouth.setAttribute('d', R.mouthHappy); this.s.head.setAttribute('transform', 'rotate(-6 0 30)');
+    const pop = eob(seg(t, 0.6, 1.1), 1.6);
+    // ...another time the same reminder turns grey and heavy and presses down on her
+    const heavy = eio(seg(t, 4.3, 6.2));
+    R.setG(this.bw, lerp(560, 520, heavy), lerp(300, 360, heavy) + Math.sin(t * 1.5) * 5 * (1 - heavy), pop * lerp(0.9, 1.35, heavy) * (1 - 0.5 * up), (1 - up) * (1 - heavy));
+    R.setG(this.gw, lerp(560, 520, heavy), lerp(300, 360, heavy), pop * lerp(0.9, 1.35, heavy), heavy);
+    this.body.setAttribute('transform', 'translate(0 ' + 10 * heavy + ') scale(1 ' + (1 - 0.03 * heavy) + ')');
+    this.head.setAttribute('transform', 'rotate(' + lerp(6, -4, heavy) + ' 0 30) translate(0 ' + 8 * heavy + ')');
+    this.mouth.setAttribute('d', heavy > 0.5 ? R.mouthSad : R.mouthNeutral);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 0.72, 1.1))), eo(seg(t, 0.72, 1.1)));
+    R.place(this.h, 690, lerp(392, 380, eo(seg(t, 2.94, 3.3))), eo(seg(t, 2.94, 3.3)) * (1 - eo(seg(t, 3.9, 4.2))));
+    R.place(this.p, 760, lerp(392, 380, eo(seg(t, 6.0, 6.4))), eo(seg(t, 6.0, 6.4)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+const B = [['ear', 'יקשיב', 7.86, 820, 250], ['ask', 'יתעניין', 8.42, 620, 200], ['cheer', 'יעודד', 9.31, 420, 250]];
+kit.scene('j-join', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.land('j4', { sun: true }) + R.packed('j4', false) +
+      '<g class="j4-fr"><g class="j4-fa">' + R.friend('j4f', 'a') + '</g><g class="j4-fb">' + R.friend('j4g', 'a', 'step') + '</g></g>' + B.map((b, k) => R.badge('j4-bg' + k, b[0])).join('') + '</svg>' +
+      B.map((b, k) => '<div class="tag tag-warm j4-n' + k + '">' + b[1] + '</div>').join('') + '<div class="tag tag-cool j4-a">שמישהו יצטרף אליכם</div><div class="tag j4-b">או לעשות את הדברים לבד</div></div>'));
+    Object.assign(this, R.refs(kit, 'j4', ['w', 'head', 'eyes', 'mouth', 'fr', 'fa', 'fb', 'a', 'b']));
+    this.f = R.refs(kit, 'j4f', ['head', 'eyes', 'mouth']); this.g = R.refs(kit, 'j4g', ['eyes']);
+    this.bg = B.map((b, k) => kit.stage.querySelector('.j4-bg' + k)); this.n = B.map((b, k) => kit.stage.querySelector('.j4-n' + k));
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.5); R.blink(this.f.eyes, t, 2.2); R.blink(this.g.eyes, t, 2.2);
+    // the friend walks up to join her; then steps aside: Ruth goes on alone, and from the side come listening, interest, encouragement
+    const come = eio(seg(t, 0.9, 2.4)), back = eio(seg(t, 3.5, 4.8)), walking = (come > 0 && come < 1) || (back > 0 && back < 1);
+    const fx = lerp(1240, 660, come) + 280 * back;
+    this.fr.setAttribute('transform', 'translate(' + fx + ' ' + (976 - 30 * back + (walking ? Math.abs(Math.sin(t * 7)) * -6 : 0)) + ') scale(' + lerp(1, 0.88, back) + ')');
+    this.fa.style.opacity = walking ? 0 : 1; this.fb.style.opacity = walking ? 1 : 0;
+    const go = eio(seg(t, 3.8, 5.6));
+    this.w.setAttribute('transform', 'translate(' + lerp(380, 300, go) + ' 970)');
+    this.head.setAttribute('transform', 'rotate(' + (-6 * come * (1 - back) + 4 * eio(seg(t, 7.6, 8.4))) + ' 0 30)');
+    this.mouth.setAttribute('d', t > 1.8 ? R.mouthHappy : R.mouthNeutral);
+    this.f.head.setAttribute('transform', 'rotate(' + (6 * come) + ' 0 30)'); this.f.mouth.setAttribute('d', R.mouthHappy);
+    B.forEach(([k0, w, a, x, y], k) => {
+      const p = eio(seg(t, a - 0.6, a + 0.1));
+      R.setG(this.bg[k], lerp(930, x, p), lerp(560, y, p) + Math.sin(t * 1.5 + k) * 5 * p, lerp(0.3, 1, eob(seg(t, a - 0.6, a + 0.1), 1.3)), eo(seg(t, a - 0.6, a - 0.4)));
+      R.place(this.n[k], x, lerp(y + 82, y + 70, eo(seg(t, a, a + 0.4))), eo(seg(t, a, a + 0.4)));
+    });
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 1.14, 1.5))), eo(seg(t, 1.14, 1.5)) * (1 - eo(seg(t, 3.3, 3.6))));
+    R.place(this.b, 540, lerp(54, 40, eo(seg(t, 4.2, 4.6))), eo(seg(t, 4.2, 4.6)) * (1 - eo(seg(t, 7.2, 7.5))));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+const S = [['helps', 'מה עוזר לכם', 3.8], ['less', 'מה פחות', 5.6], ['try', 'ומה הייתם רוצים לנסות', 8.2]];
+kit.scene('j-talk', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.room({ shoes: false, plant: false }) + R.seated('j5', -240) + R.friendSeat('j5', 820) + R.teaTable('j5', 548) +
+      '<g class="j5-sb">' + R.sayBubble('j5-say', S.map((s, k) => R.badge('j5-i' + k, s[0], 50)).join('')) + '</g></svg>' +
+      S.map((s, k) => '<div class="tag tag-warm j5-n' + k + '">' + s[1] + '</div>').join('') + '<div class="tag tag-cool j5-a">אפשר וכדאי לדבר על זה</div></div>'));
+    Object.assign(this, R.refs(kit, 'j5', ['body', 'head', 'eyes', 'mouth', 'sb', 'a']));
+    this.f = R.refs(kit, 'j5f', ['head', 'eyes', 'mouth', 'body']);
+    this.i = S.map((s, k) => kit.stage.querySelector('.j5-i' + k)); this.n = S.map((s, k) => kit.stage.querySelector('.j5-n' + k));
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6); R.blink(this.f.eyes, t, 1.9);
+    this.body.setAttribute('transform', 'scale(1 ' + kit.breathe(t, 0.01, 3.6) + ')');
+    // over tea Ruth tells her friend what helps, what less, and what she would like to try
+    const talk = t > 1.2;
+    R.setG(this.sb, 330, 250 + Math.sin(t * 1.4) * 4, eob(seg(t, 3.4, 3.9), 1.5), eo(seg(t, 3.4, 3.6)));
+    S.forEach(([k0, w, a], k) => {
+      const nx = k < 2 ? S[k + 1][2] : 99;
+      R.setG(this.i[k], 0, 0, eob(seg(t, a - 0.2, a + 0.3), 1.6) * (1 - eio(seg(t, nx - 0.3, nx))), t > a - 0.2 && t < nx ? 1 : 0);
+      R.place(this.n[k], 640, lerp(222, 210, eo(seg(t, a, a + 0.4))), eo(seg(t, a, a + 0.4)) * (1 - eo(seg(t, nx - 0.3, nx))));
+    });
+    this.mouth.setAttribute('d', talk && Math.floor(t * 5) % 2 ? 'M-10 24 Q2 36 14 24' : R.mouthNeutral);
+    this.head.setAttribute('transform', 'rotate(6 0 30)');
+    this.f.head.setAttribute('transform', 'rotate(' + (6 + Math.sin(t * 1.2) * 3) + ' 0 30)'); this.f.mouth.setAttribute('d', R.mouthNeutral);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 1.31, 1.7))), eo(seg(t, 1.31, 1.7)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+kit.scene('j-listen', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.room({ shoes: false, plant: false }) + R.seated('j6', -240) + R.friendSeat('j6', 820) + R.teaTable('j6', 548) +
+      '<g class="j6-sb">' + R.sayBubble('j6-say', R.badge('j6-i2', 'try', 50)) + '</g><g class="j6-fb">' + R.sayBubble('j6-fsay', R.badge('j6-gv', 'give', 50), true) + '</g></svg>' +
+      '<div class="tag tag-warm j6-n">ומה הייתם רוצים לנסות</div><div class="tag tag-cool j6-a">מה האדם שמולכם יכול ורוצה לתת</div></div>'));
+    Object.assign(this, R.refs(kit, 'j6', ['body', 'head', 'eyes', 'mouth', 'sb', 'fb', 'gv', 'n', 'a']));
+    this.f = R.refs(kit, 'j6f', ['head', 'eyes', 'mouth']);
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6); R.blink(this.f.eyes, t, 1.9);
+    this.body.setAttribute('transform', 'scale(1 ' + kit.breathe(t, 0.01, 3.6) + ')');
+    // now Ruth listens: what can her friend give, and what does she want to give
+    const out = 1 - eio(seg(t, 0.2, 0.7));
+    R.setG(this.sb, 330, 250, out, out); R.place(this.n, 640, 210, out);
+    R.setG(this.fb, 760, 250 + Math.sin(t * 1.4) * 4, eob(seg(t, 2.2, 2.7), 1.5), eo(seg(t, 2.2, 2.4)));
+    R.setG(this.gv, 0, 0, eob(seg(t, 2.5, 3.0), 1.6), t > 2.5 ? 1 : 0);
+    this.f.mouth.setAttribute('d', t > 2.2 && t < 4.6 && Math.floor(t * 5) % 2 ? 'M-10 24 Q2 36 14 24' : R.mouthHappy);
+    this.f.head.setAttribute('transform', 'rotate(6 0 30)');
+    this.head.setAttribute('transform', 'rotate(' + lerp(6, 10, eio(seg(t, 0.6, 1.4))) + ' 0 30)');
+    this.mouth.setAttribute('d', t > 3.4 ? R.mouthHappy : R.mouthNeutral);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 0.74, 1.1))), eo(seg(t, 0.74, 1.1)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+kit.scene('j-together', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.land('j7', { sun: true }) + R.packed('j7', false) + '<g class="j7-fr">' + R.friend('j7f', 'a') + '</g>' +
+      '<g class="j7-cb">' + R.packBehind('j7c') + '</g><path class="j7-arc" pathLength="1" style="fill:none;stroke:var(--accent);stroke-width:8;stroke-linecap:round;stroke-dasharray:0 1"/></svg>' +
+      '<div class="tag j7-a">ממשהו שעושים בשבילכם</div><div class="tag tag-warm j7-b">למשהו שמוצאים יחד</div><div class="tag tag-cool j7-c">דרך שמתאימה לכם, לאדם שמולכם ולקשר ביניכם</div></div>'));
+    Object.assign(this, R.refs(kit, 'j7', ['w', 'pack', 'straps', 'head', 'eyes', 'mouth', 'fr', 'cb', 'arc', 'a', 'b', 'c', 'st0-top']));
+    this.f = R.refs(kit, 'j7f', ['head', 'eyes', 'mouth']);
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.5); R.blink(this.f.eyes, t, 2.2);
+    // first the friend carries Ruth's pack for her; then Ruth takes it back and they find the way together
+    const take = eio(seg(t, 1.8, 2.8)) * (1 - eio(seg(t, 5.4, 6.2))), close = eio(seg(t, 5.8, 6.8));
+    const fx = lerp(760, 690, close);
+    this.fr.setAttribute('transform', 'translate(' + fx + ' 976)');
+    this.pack.style.opacity = 1 - take; this.straps.style.opacity = 1 - take;
+    const cx = lerp(380, fx + 92, take), cy = lerp(970, 1050, take);
+    this.cb.setAttribute('transform', 'translate(' + cx + ' ' + cy + ') scale(' + lerp(1, 0.62, take) + ')'); this.cb.style.opacity = take > 0.02 && take < 0.98 ? 1 : take >= 0.98 ? 1 : 0;
+    this.w.setAttribute('transform', 'translate(380 ' + (970 - 4 * take) + ')');
+    this.mouth.setAttribute('d', take > 0.5 ? R.mouthFlat : close > 0.5 ? R.mouthHappy : R.mouthNeutral);
+    this.head.setAttribute('transform', 'rotate(' + (-6 * close) + ' 0 30)');
+    this.f.head.setAttribute('transform', 'rotate(' + (8 * close) + ' 0 30)'); this.f.mouth.setAttribute('d', R.mouthHappy);
+    R.litStone(this['st0-top'], eo(seg(t, 6.1, 7.0)));
+    const k = eio(seg(t, 9.0, 10.0));
+    this.arc.setAttribute('d', 'M420 500 Q' + ((380 + fx) / 2 + 20) + ' 330 ' + (fx - 40) + ' 500'); this.arc.style.opacity = k > 0 ? 1 : 0; this.arc.style.strokeDasharray = k + ' 1';
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 2.8, 3.2))), eo(seg(t, 2.8, 3.2)) * (1 - eo(seg(t, 5.7, 6.0))));
+    R.place(this.b, 540, lerp(54, 40, eo(seg(t, 6.06, 6.4))), eo(seg(t, 6.06, 6.4)));
+    R.place(this.c, 540, lerp(152, 140, eo(seg(t, 7.2, 7.6))), eo(seg(t, 7.2, 7.6)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+const WHO = [['את מי', 3.79, 820], ['במה', 5.69, 640], ['וכמה', 6.07, 460]];
+const AMT = [['הרבה', 8.23, 70, 960, 330], ['מעט', 9.27, -25, 680, 230], ['או לא לשתף בכלל', 11.59, -80, 520, 370]];
+kit.scene('j-choice', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.room({ plant: false }) + R.seated('j8', -240) + '<g class="j8-dw">' + R.dial('j8d') + '</g></svg>' +
+      WHO.map((w, k) => '<div class="tag j8-w' + k + '">' + w[0] + '</div>').join('') + AMT.map((w, k) => '<div class="tag tag-warm j8-m' + k + '">' + w[0] + '</div>').join('') + '<div class="tag tag-cool j8-a">הבחירה תמיד שלכם</div></div>'));
+    Object.assign(this, R.refs(kit, 'j8', ['body', 'head', 'eyes', 'mouth', 'dw', 'a']));
+    this.hand = kit.stage.querySelector('.j8d-hand');
+    this.w = WHO.map((w, k) => kit.stage.querySelector('.j8-w' + k)); this.m = AMT.map((w, k) => kit.stage.querySelector('.j8-m' + k));
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6);
+    this.body.setAttribute('transform', 'scale(1 ' + kit.breathe(t, 0.01, 3.6) + ')');
+    // the choice is hers: whom, what, how much; the dial swings from a lot, to a little, to not at all
+    R.setG(this.dw, 780, 520, 2 * eob(seg(t, 0.6, 1.2), 1.4), eo(seg(t, 0.6, 0.8)));
+    let a = 0;
+    AMT.forEach(([w, s, deg], k) => { a = lerp(a, deg, eob(seg(t, s - 0.2, s + 0.5), 1.6)); });
+    this.hand.setAttribute('transform', 'rotate(' + a + ')');
+    WHO.forEach(([w, s, x], k) => R.place(this.w[k], x, lerp(162, 150, eo(seg(t, s, s + 0.4))), eo(seg(t, s, s + 0.4)) * (1 - eo(seg(t, 7.6, 8.0)))));
+    AMT.forEach(([w, s, deg, x, y], k) => R.place(this.m[k], x, lerp(y + 12, y, eo(seg(t, s, s + 0.4))), eo(seg(t, s, s + 0.4))));
+    this.head.setAttribute('transform', 'rotate(' + lerp(0, 8, eio(seg(t, 0.6, 1.4))) + ' 0 30)');
+    this.mouth.setAttribute('d', t > 1.5 ? R.mouthHappy : R.mouthNeutral);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 1.08, 1.5))), eo(seg(t, 1.08, 1.5)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+kit.scene('j-step', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.land('j9', { sun: true }) + '<g class="j9-ra">' + R.packed('j9', false) + '</g><g class="j9-rb">' + R.packed('j9s', false, 'step') + '</g>' +
+      '<g class="j9-fr">' + R.friend('j9f', 'a') + '</g></svg>' +
+      '<div class="tag tag-cool j9-a">מישהו שהייתם רוצים שיהיה קצת יותר קרוב</div><div class="tag tag-warm j9-b">להתחיל בצעד קטן</div></div>'));
+    Object.assign(this, R.refs(kit, 'j9', ['ra', 'rb', 'w', 'head', 'eyes', 'mouth', 'fr', 'a', 'b', 'st0-top']));
+    this.s = R.refs(kit, 'j9s', ['w', 'eyes', 'mouth', 'head']); this.f = R.refs(kit, 'j9f', ['head', 'eyes', 'mouth']);
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.5); R.blink(this.s.eyes, t, 0.5); R.blink(this.f.eyes, t, 2.2);
+    // the friend waits a little way off; Ruth takes one small step onto her path, toward her, and the stone lights
+    const st = eio(seg(t, 6.3, 7.3)), mid = st > 0.05 && st < 0.95;
+    const x = lerp(300, 450, st);
+    this.w.setAttribute('transform', 'translate(' + x + ' ' + (970 + 14 * st) + ')'); this.s.w.setAttribute('transform', 'translate(' + x + ' ' + (970 + 14 * st) + ')');
+    this.ra.style.opacity = mid ? 0 : 1; this.rb.style.opacity = mid ? 1 : 0;
+    R.litStone(this['st0-top'], eo(seg(t, 7.0, 7.8)));
+    this.fr.setAttribute('transform', 'translate(880 930) scale(.92)');
+    this.f.head.setAttribute('transform', 'rotate(' + (-8 + 4 * st) + ' 0 30)'); this.f.mouth.setAttribute('d', R.mouthHappy);
+    [this.head, this.s.head].forEach((h) => h.setAttribute('transform', 'rotate(' + (-6 * eio(seg(t, 3.0, 3.8))) + ' 0 30)'));
+    [this.mouth, this.s.mouth].forEach((m) => m.setAttribute('d', t > 7.2 ? R.mouthHappy : R.mouthNeutral));
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 3.0, 3.4))), eo(seg(t, 3.0, 3.4)));
+    R.place(this.b, 540, lerp(152, 140, eo(seg(t, 6.31, 6.7))), eo(seg(t, 6.31, 6.7)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+const I = [['משהו שלמדתם כאן באפליקציה', 3.39, 240], ['תרגול שעזר לכם', 7.73, 450], ['משהו שאתם מנסים לעשות אחרת', 12.01, 660]];
+kit.scene('j-what', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.land('j10') + R.packed('j10', false) +
+      '<g class="j10-i0"><g transform="scale(1.7)">' + R.note('j10-nt') + '</g></g><g class="j10-i1">' + R.tool('j10-tl', 1, 64) + '</g><g class="j10-i2"><g transform="scale(1.15)">' + R.reed('j10-rd') + '</g></g></svg>' +
+      I.map((w, k) => '<div class="tag tag-warm j10-n' + k + '">' + w[0] + '</div>').join('') + '<div class="tag tag-cool j10-a">במה למשל, אפשר לשתף?</div></div>'));
+    Object.assign(this, R.refs(kit, 'j10', ['w', 'pack', 'head', 'eyes', 'mouth', 'a', 'rd-stem']));
+    this.i = I.map((w, k) => kit.stage.querySelector('.j10-i' + k)); this.n = I.map((w, k) => kit.stage.querySelector('.j10-n' + k));
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.5);
+    // out of her backpack come things she could share: something learned in the app, a practice that helped, something she does differently
+    this.w.setAttribute('transform', 'translate(260 970)');
+    I.forEach(([w, a, y], k) => {
+      const p = eio(seg(t, a - 0.9, a + 0.1));
+      R.setG(this.i[k], lerp(260, 900, p), lerp(640, y, p) - Math.sin(Math.PI * p) * 120 + Math.sin(t * 1.4 + k) * 5 * p, lerp(0.2, 1, p), p > 0 ? 1 : 0);
+      R.place(this.n[k], 560, lerp(y - 18, y - 30, eo(seg(t, a, a + 0.4))), eo(seg(t, a, a + 0.4)));
+    });
+    this['rd-stem'].setAttribute('transform', 'rotate(' + Math.sin(t * 1.6) * 8 + ' 0 40)');
+    this.pack.setAttribute('transform', 'rotate(' + [3.39, 7.73, 12.01].reduce((s, a) => s + 4 * Math.sin(Math.PI * seg(t, a - 0.9, a - 0.3)), 0) + ' 0 -300)');
+    this.head.setAttribute('transform', 'rotate(' + (-8 * eio(seg(t, 2.4, 3.2))) + ' 0 30)');
+    this.mouth.setAttribute('d', t > 3.4 ? R.mouthHappy : R.mouthNeutral);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 0.3, 0.7))), eo(seg(t, 0.3, 0.7)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+const W = [['לתרגול נשימה', 3.24, 800], ['לתנועה', 3.82, 540], ['להליכה', 4.49, 280]];
+kit.scene('j-invite', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.land('j11', { sun: true }) +
+      '<circle class="j11-br" cx="540" cy="720" r="330" style="fill:var(--main);opacity:0"/><circle class="j11-bc" cx="540" cy="720" r="330" style="fill:none;stroke:var(--main);stroke-width:8;opacity:0"/>' +
+      R.packedFree('j11') + '<g class="j11-fr">' + R.armsFree(R.friend('j11f', 'a'), 'j11f') + '</g></svg>' +
+      W.map((w, k) => '<div class="tag tag-warm j11-n' + k + '">' + w[0] + '</div>').join('') + '<div class="tag tag-cool j11-a">להזמין מישהו להצטרף</div></div>'));
+    Object.assign(this, R.refs(kit, 'j11', ['w', 'br', 'bc', 'armL', 'armR', 'head', 'eyes', 'mouth', 'fr', 'a']));
+    this.f = R.refs(kit, 'j11f', ['armL', 'armR', 'head', 'eyes', 'mouth']); this.n = W.map((w, k) => kit.stage.querySelector('.j11-n' + k));
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.5); R.blink(this.f.eyes, t, 2.2);
+    // an invitation: to breathe together, to move together, to walk together
+    const br = seg(t, 3.0, 6.0), b = Math.sin(Math.PI * Math.min(1, br * 2)) * (br > 0 ? 1 : 0);
+    this.br.style.opacity = 0.14 * eo(seg(t, 3.0, 3.4)); this.bc.style.opacity = 0.5 * eo(seg(t, 3.0, 3.4));
+    [this.br, this.bc].forEach((c) => c.setAttribute('r', 300 + 40 * Math.sin(t * 2.2)));
+    const up = eio(seg(t, 3.7, 4.1)) * (1 - eio(seg(t, 4.3, 4.7)));
+    R.raise(this, up * 0.8); R.raise(this.f, up * 0.8);
+    const walk = seg(t, 4.5, 5.94), bob = walk > 0 ? Math.abs(Math.sin(t * 7)) * -8 : 0;
+    this.w.setAttribute('transform', 'translate(' + (380 + 40 * walk) + ' ' + (970 + bob) + ')');
+    this.fr.setAttribute('transform', 'translate(' + (700 + 40 * walk) + ' ' + (976 + bob) + ')');
+    this.head.setAttribute('transform', 'rotate(' + (-6 * eio(seg(t, 0.8, 1.6))) + ' 0 30)'); this.f.head.setAttribute('transform', 'rotate(6 0 30)');
+    this.mouth.setAttribute('d', R.mouthHappy); this.f.mouth.setAttribute('d', R.mouthHappy);
+    W.forEach(([w, a, x], k) => R.place(this.n[k], x, lerp(54, 40, eo(seg(t, a, a + 0.3))), eo(seg(t, a, a + 0.3))));
+    R.place(this.a, 540, lerp(162, 150, eo(seg(t, 1.0, 1.4))), eo(seg(t, 1.0, 1.4)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+const P = [['a', 'חבר', 4.29, 770], ['b', 'בן משפחה', 4.93, 540], ['g', 'כל אדם אחר', 6.3, 310]];
+kit.scene('j-think', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.room({}) + R.seated('j12', 0) +
+      '<g class="j12-cl"><g transform="translate(540 236) scale(.74) translate(-540 -280)">' + R.cloud('j12-cloud') + '</g></g>' +
+      [0, 1, 2].map((k) => '<circle class="j12-pf' + k + '" r="' + (22 - k * 6) + '" style="fill:color-mix(in srgb, var(--ground) 30%, white);stroke:rgba(0,0,0,.12);stroke-width:4"/>').join('') +
+      '<circle class="j12-gl" cx="770" cy="196" r="96" style="fill:var(--accent);opacity:0"/>' + P.map((p, k) => R.bust('j12-b' + k, p[0])).join('') + '</svg>' +
+      P.map((p, k) => '<div class="tag j12-n' + k + '">' + p[1] + '</div>').join('') + '<div class="tag tag-cool j12-a">תחשבו עכשיו על אדם אחד כזה</div><div class="tag tag-warm j12-c">שמרגישים איתו בנוח וסומכים עליו</div></div>'));
+    Object.assign(this, R.refs(kit, 'j12', ['body', 'head', 'eyes', 'mouth', 'cl', 'gl', 'a', 'c']));
+    this.b = P.map((p, k) => kit.stage.querySelector('.j12-b' + k)); this.n = P.map((p, k) => kit.stage.querySelector('.j12-n' + k));
+    this.pf = [0, 1, 2].map((k) => kit.stage.querySelector('.j12-pf' + k));
+  },
+  render(t) {
+    this.body.setAttribute('transform', 'scale(1 ' + kit.breathe(t, 0.012, 4.0) + ')');
+    // Ruth closes her eyes and thinks of one person: a friend, family, anyone she trusts; in the pause, one of them warms
+    const shut = t > 1.0;
+    this.eyes.setAttribute('transform', shut ? 'translate(0 -2) scale(1 .15)' : '');
+    [[480, 452], [452, 428], [430, 404]].forEach(([x, y], k) => { this.pf[k].setAttribute('cx', x); this.pf[k].setAttribute('cy', y); this.pf[k].style.opacity = eo(seg(t, 1.2 + k * 0.15, 1.4 + k * 0.15)); });
+    const c = eob(seg(t, 1.6, 2.3), 1.3);
+    this.cl.setAttribute('transform', 'translate(540 236) scale(' + Math.max(0.001, c) + ') translate(-540 -236)'); this.cl.style.opacity = eo(seg(t, 1.6, 1.8));
+    const pick = eio(seg(t, 9.6, 11.0));
+    P.forEach(([look, w, a, x], k) => {
+      R.setG(this.b[k], x, 236 + Math.sin(t * 1.3 + k) * 4, 0.78 * eob(seg(t, a - 0.3, a + 0.3), 1.5) * (k === 0 ? 1 + 0.12 * pick : 1), (t > a - 0.3 ? 1 : 0) * (k === 0 ? 1 : 1 - 0.6 * pick));
+      R.place(this.n[k], x, lerp(312, 300, eo(seg(t, a, a + 0.4))), eo(seg(t, a, a + 0.4)) * (k === 0 ? 1 : 1 - 0.6 * pick));
+    });
+    this.gl.style.opacity = 0.3 * pick;
+    this.head.setAttribute('transform', 'rotate(' + Math.sin(t * 0.5) * 3 + ' 0 30)');
+    this.mouth.setAttribute('d', pick > 0.5 ? R.mouthHappy : R.mouthNeutral);
+    R.place(this.a, 540, lerp(972, 960, eo(seg(t, 0.32, 0.7))), eo(seg(t, 0.32, 0.7)) * (1 - eo(seg(t, 7.7, 8.0))));
+    R.place(this.c, 540, lerp(972, 960, eo(seg(t, 8.06, 8.4))), eo(seg(t, 8.06, 8.4)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+kit.scene('j-thing', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.room({}) + R.seated('j13', 0) +
+      '<g transform="translate(540 236) scale(.74) translate(-540 -280)">' + R.cloud('j13-cloud') + '</g>' +
+      [[480, 452, 22], [452, 428, 16], [430, 404, 10]].map(([x, y, r]) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" style="fill:color-mix(in srgb, var(--ground) 30%, white);stroke:rgba(0,0,0,.12);stroke-width:4"/>').join('') +
+      '<circle class="j13-gl" cx="540" cy="236" r="96" style="fill:var(--accent);opacity:0"/>' + ['a', 'b', 'g'].map((l, k) => R.bust('j13-b' + k, l)).join('') + '<g class="j13-nt"><g transform="scale(2)">' + R.note('j13-note') + '</g></g></svg>' +
+      '<div class="tag j13-n0">חבר</div><div class="tag tag-warm j13-c">שמרגישים איתו בנוח וסומכים עליו</div><div class="tag tag-warm j13-a">או משהו אחד שהייתם רוצים לחלוק</div></div>'));
+    Object.assign(this, R.refs(kit, 'j13', ['body', 'head', 'eyes', 'mouth', 'gl', 'nt', 'n0', 'a', 'c']));
+    this.b = [0, 1, 2].map((k) => kit.stage.querySelector('.j13-b' + k));
+  },
+  render(t) {
+    this.body.setAttribute('transform', 'scale(1 ' + kit.breathe(t, 0.012, 4.0) + ')');
+    // the people step back; one thing she'd like to share glows in the middle of the thought
+    this.eyes.setAttribute('transform', t < 4.6 ? 'translate(0 -2) scale(1 .15)' : '');
+    const off = eio(seg(t, 0.2, 0.9));
+    [[770, 1.12, 1], [540, 0.78, 0.4], [310, 0.78, 0.4]].forEach(([x, s, o], k) => R.setG(this.b[k], lerp(x, k === 0 ? 830 : x, off), 236, s * (1 - off * (k ? 1 : 0.35)), o * (1 - off * (k ? 1 : 0.2))));
+    R.place(this.n0, lerp(770, 830, off), 300, 1 - eo(seg(t, 0.2, 0.6)));
+    R.setG(this.nt, 540, 236 + Math.sin(t * 1.4) * 5, eob(seg(t, 0.7, 1.3), 1.6), eo(seg(t, 0.7, 0.9)));
+    this.gl.style.opacity = 0.3 * eo(seg(t, 0.9, 1.6)) * (0.85 + 0.15 * Math.sin(t * 3));
+    this.head.setAttribute('transform', 'rotate(' + Math.sin(t * 0.5) * 3 + ' 0 30)');
+    this.mouth.setAttribute('d', R.mouthHappy);
+    R.place(this.c, 540, 960, 1 - eo(seg(t, 0.1, 0.4)));
+    R.place(this.a, 540, lerp(972, 960, eo(seg(t, 0.54, 0.9))), eo(seg(t, 0.54, 0.9)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+const O = [['אדם אחד', 3.25, 820], ['דבר אחד', 4.62, 540], ['שיתוף אחד', 6.81, 260]];
+const LINES = '<path class="ink" style="stroke-width:7;opacity:.4" d="M-80 -40 H80 M-80 -14 H60 M-80 12 H80 M-80 38 H40"/>';
+kit.scene('j-one', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.room({}) + R.seated('j14', 0) +
+      '<g class="j14-cl"><g transform="translate(540 236) scale(.74) translate(-540 -280)">' + R.cloud('j14-cloud') + '</g></g>' +
+      '<g class="j14-big">' + R.sayBubble('j14-bb', LINES) + '</g>' +
+      '<g class="j14-o0">' + R.bust('j14-bu', 'a') + '</g><g class="j14-o1"><g transform="scale(2)">' + R.note('j14-note') + '</g></g><g class="j14-o2">' + R.badge('j14-sh', 'share', 70) + '</g></svg>' +
+      O.map((o, k) => '<div class="tag tag-warm j14-n' + k + '">' + o[0] + '</div>').join('') + '<div class="tag tag-cool j14-a">לא צריך להתחיל בשיחה גדולה</div></div>'));
+    Object.assign(this, R.refs(kit, 'j14', ['body', 'head', 'eyes', 'mouth', 'cl', 'big', 'a']));
+    this.o = O.map((o, k) => kit.stage.querySelector('.j14-o' + k)); this.n = O.map((o, k) => kit.stage.querySelector('.j14-n' + k));
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6);
+    this.body.setAttribute('transform', 'scale(1 ' + kit.breathe(t, 0.01, 3.6) + ')');
+    // no big conversation: the big bubble shrinks away; one person, one thing, one share
+    const gone = 1 - eio(seg(t, 0.0, 0.5));
+    this.cl.setAttribute('transform', 'translate(540 236) scale(' + Math.max(0.001, gone) + ') translate(-540 -236)'); this.cl.style.opacity = gone;
+    const big = eob(seg(t, 0.4, 1.0), 1.3), shrink = eio(seg(t, 2.0, 2.8));
+    R.setG(this.big, 540, 280, 2.4 * big * (1 - 0.8 * shrink), eo(seg(t, 0.4, 0.6)) * (1 - eo(seg(t, 2.4, 2.8))));
+    O.forEach(([w, a, x], k) => {
+      R.setG(this.o[k], x, 330 + Math.sin(t * 1.3 + k) * 5, (k === 0 ? 0.9 : 1) * eob(seg(t, a - 0.2, a + 0.4), 1.6), t > a - 0.2 ? 1 : 0);
+      R.place(this.n[k], x, lerp(172, 160, eo(seg(t, a, a + 0.4))), eo(seg(t, a, a + 0.4)));
+    });
+    this.head.setAttribute('transform', 'rotate(' + Math.sin(t * 0.7) * 3 + ' 0 30)');
+    this.mouth.setAttribute('d', R.mouthHappy);
+    R.place(this.a, 540, lerp(972, 960, eo(seg(t, 0.32, 0.7))), eo(seg(t, 0.32, 0.7)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+kit.scene('j-walk', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.land('j15', { sun: true }) + '<circle class="j15-gl" r="200" style="fill:var(--accent);opacity:0"/>' +
+      '<g class="j15-rw"><g class="j15-ra">' + R.ruthBack('j15a', false) + '</g><g class="j15-rb">' + R.ruthBack('j15b', true) + '</g></g>' +
+      '<g class="j15-fw"><g class="j15-fa">' + R.friendBack('j15c', false) + '</g><g class="j15-fb">' + R.friendBack('j15d', true) + '</g></g></svg>' +
+      '<div class="tag tag-warm j15-a">קצת יותר ביחד בתוך הדרך הזאת</div></div>'));
+    Object.assign(this, R.refs(kit, 'j15', ['gl', 'rw', 'ra', 'rb', 'fw', 'fa', 'fb', 'a']));
+    this.tops = R.PATH.map((p, k) => kit.stage.querySelector('.j15-st' + k + '-top'));
+  },
+  render(t) {
+    // Ruth and her friend walk her path side by side; the stones they pass light up
+    const k = lerp(0.1, 0.95, eio(seg(t, 0.0, 5.78)));
+    const [x, y, r] = R.onPath(k), s = 0.66 * r / 130, step = Math.floor(t * 1.8) % 2, bob = Math.abs(Math.sin(t * Math.PI * 1.8)) * -5;
+    this.ra.style.opacity = step ? 0 : 1; this.rb.style.opacity = step ? 1 : 0; this.fa.style.opacity = step ? 1 : 0; this.fb.style.opacity = step ? 0 : 1;
+    this.rw.setAttribute('transform', 'translate(' + (x - 70 * s / 0.66) + ' ' + (y + bob) + ') scale(' + s + ')');
+    this.fw.setAttribute('transform', 'translate(' + (x + 120 * s / 0.66) + ' ' + (y + bob) + ') scale(' + s + ')');
+    R.litStone(this.tops[0], 1); R.litStone(this.tops[1], eo(seg(t, 2.0, 3.0)));
+    this.gl.setAttribute('transform', 'translate(' + (x + 25) + ' ' + (y - 230 * s / 0.66) + ') scale(' + (s / 0.66) + ')'); this.gl.style.opacity = 0.18 * eo(seg(t, 3.2, 4.0));
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 3.29, 3.7))), eo(seg(t, 3.29, 3.7)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+kit.scene('j-onward', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.land('j16', { sun: true }) + '<circle class="j16-gl" r="200" style="fill:var(--accent);opacity:.18"/>' +
+      '<g class="j16-rw"><g class="j16-ra">' + R.ruthBack('j16a', false) + '</g><g class="j16-rb">' + R.ruthBack('j16b', true) + '</g></g>' +
+      '<g class="j16-fw"><g class="j16-fa">' + R.friendBack('j16c', false) + '</g><g class="j16-fb">' + R.friendBack('j16d', true) + '</g></g></svg>' +
+      '<div class="tag tag-warm j16-p">קצת יותר ביחד בתוך הדרך הזאת</div><div class="tag tag-cool j16-a">אולי תתחילו ופתאום לא תרצו להפסיק</div></div>'));
+    Object.assign(this, R.refs(kit, 'j16', ['gl', 'rw', 'ra', 'rb', 'fw', 'fa', 'fb', 'p', 'a']));
+    this.tops = R.PATH.map((p, k) => kit.stage.querySelector('.j16-st' + k + '-top'));
+  },
+  render(t) {
+    // they walk on; one stone after another lights up ahead of them
+    const k = lerp(0.95, 1.9, eio(seg(t, 0.0, 4.95)) * 0.6 + seg(t, 0, 4.95) * 0.4);
+    const [x, y, r] = R.onPath(k), s = 0.66 * r / 130, step = Math.floor(t * 1.8) % 2, bob = Math.abs(Math.sin(t * Math.PI * 1.8)) * -5;
+    this.ra.style.opacity = step ? 0 : 1; this.rb.style.opacity = step ? 1 : 0; this.fa.style.opacity = step ? 1 : 0; this.fb.style.opacity = step ? 0 : 1;
+    this.rw.setAttribute('transform', 'translate(' + (x - 70 * s / 0.66) + ' ' + (y + bob) + ') scale(' + s + ')');
+    this.fw.setAttribute('transform', 'translate(' + (x + 120 * s / 0.66) + ' ' + (y + bob) + ') scale(' + s + ')');
+    this.gl.setAttribute('transform', 'translate(' + (x + 25) + ' ' + (y - 230 * s / 0.66) + ') scale(' + (s / 0.66) + ')');
+    this.tops.forEach((top, j) => R.litStone(top, j < 2 ? 1 : eo(seg(t, 1.5 + (j - 2) * 0.35, 1.9 + (j - 2) * 0.35))));
+    R.place(this.p, 540, 40, 1 - eo(seg(t, 1.2, 1.5)));
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 1.63, 2.0))), eo(seg(t, 1.63, 2.0)));
+  },
+});
+
+}</script>
+
+<script>
+const SCENES = {"v": 1, "width": 1080, "height": 1080, "fps": 30, "background": "#F3EEE4", "scenes": [{"id": "j-inside", "dur": 8.18}, {"id": "j-need", "dur": 5.54}, {"id": "j-remind", "dur": 7.34}, {"id": "j-join", "dur": 10.65}, {"id": "j-talk", "dur": 9.59}, {"id": "j-listen", "dur": 5.44}, {"id": "j-together", "dur": 11.23}, {"id": "j-choice", "dur": 12.94}, {"id": "j-step", "dur": 8.39}, {"id": "j-what", "dur": 13.27}, {"id": "j-invite", "dur": 5.94}, {"id": "j-think", "dur": 13.2}, {"id": "j-thing", "dur": 6.27}, {"id": "j-one", "dur": 8.49}, {"id": "j-walk", "dur": 5.78}, {"id": "j-onward", "dur": 4.95}]};
+const stage = document.getElementById('stage');
+const live = [];
+let start = 0;
+for (const s of SCENES.scenes) {
+  const def = kit.defs.find((d) => d[0] === s.id);
+  const box = document.createElement('div'); box.className = 'scene'; stage.append(box);
+  const sk = Object.assign({}, kit, { stage: box, dur: s.dur, start });
+  if (def[1].init) def[1].init(sk);
+  live.push({ id: s.id, start, dur: s.dur, box, def: def[1], sk });
+  start += s.dur;
+}
+window.DURATION = start;
+let shown = null;
+window.renderAt = (T) => {
+  let cur = live[live.length - 1];
+  for (const sc of live) if (T < sc.start + sc.dur) { cur = sc; break; }
+  if (shown !== cur) { if (shown) shown.box.style.display = 'none'; cur.box.style.display = 'block'; shown = cur; }
+  cur.def.render.call(cur.def, T - cur.start, cur.sk);
+  return cur.id;
+};
+window.renderAt(0);
+</script></body></html>

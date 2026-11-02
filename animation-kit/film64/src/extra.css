@@ -1,0 +1,4 @@
+.bang { display:inline-block; border-radius:999px; padding:0 8px; box-shadow:0 0 0 calc(var(--ring, 0) * 6px) var(--accent) }
+.thought.lg { width:720px; font-size:52px; padding:34px 40px }
+.step { opacity:.5; background:color-mix(in srgb, var(--ground) 40%, white) }
+.step.on { opacity:1; background:color-mix(in srgb, var(--accent) 30%, var(--ground)) }

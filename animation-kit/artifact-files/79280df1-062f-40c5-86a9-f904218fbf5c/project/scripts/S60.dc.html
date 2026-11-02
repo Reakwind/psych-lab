@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>מפגש 60: שינויים בתפקידים שלנו</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="app" dir="rtl" lang="he" style="--font-display: 'Rubik', system-ui, sans-serif; --font-body: 'Rubik', system-ui, sans-serif">
+
+<div class="topbar">
+  <sc-if value="{{standalone}}" hint-placeholder-val="{{ true }}"><a class="back" href="Ruth.dc.html"><span class="icon">arrow_forward</span>למסלול</a></sc-if>
+  <sc-if value="{{embedded}}" hint-placeholder-val="{{ false }}"><button class="icon-btn" onClick="{{exit}}" aria-label="סגירה"><span class="icon">close</span></button></sc-if>
+  <span class="topbar-title"></span>
+  <span class="where">מפגש 60</span>
+</div>
+
+<!-- one video element for the whole board: picture and Nira's voice in one file -->
+<div style="padding: 4px 24px 0; flex-shrink: 0; display: {{videoDisplay}}">
+  <div class="card card-white" style="padding: 0; overflow: hidden; position: relative; width: 342px; height: 342px">
+    <video ref="{{setVideo}}" src="/_blob/2f0c50d1d139976681f42badd98e3a56" preload="auto" playsinline="{{yes}}" onTimeUpdate="{{onTime}}" onEnded="{{onEnded}}" onPlay="{{onPlay}}" onPause="{{onPause}}" style="width: 342px; height: 342px; display: block; object-fit: cover"></video>
+  </div>
+</div>
+
+<sc-if value="{{isIntro}}" hint-placeholder-val="{{ true }}">
+<div class="screen" style="padding-top: 18px; gap: 18px">
+  <div class="stack" style="gap: 6px">
+    <h1 class="t-headline">שינויים בתפקידים שלנו</h1>
+    <div class="row" style="gap: 8px; flex-wrap: wrap">
+      <span class="pill"><span class="icon icon-s">record_voice_over</span>נירה</span>
+      <span class="pill"><span class="icon icon-s">schedule</span>3 דקות</span>
+    </div>
+  </div>
+  <div class="grow"></div>
+  <div class="seg">
+    <button class="{{voiceCls}}" onClick="{{toggleVoice}}" aria-pressed="{{voicePressed}}"><span class="icon icon-s">{{voiceIcon}}</span>קול</button>
+    <button class="{{ccCls}}" onClick="{{toggleCc}}" aria-pressed="{{ccPressed}}"><span class="icon icon-s">closed_caption</span>כתוביות</button>
+  </div>
+  <button class="btn btn-filled btn-l btn-block" onClick="{{start}}"><span class="icon icon-fill">play_arrow</span>מתחילים</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isPlay}}" hint-placeholder-val="{{ false }}">
+<div class="screen" style="padding-top: 8px; gap: 10px">
+  <div class="stack" style="gap: 0; flex-shrink: 0">
+    <div class="seekwrap">
+      <input class="seek" type="range" min="0" max="{{total}}" step="0.1" value="{{tNow}}" onChange="{{onSeek}}" aria-label="מיקום בסרטון" aria-valuetext="{{timeText}}" style="--p: {{seekPct}}">
+    </div>
+    <div class="row" style="gap: 6px; min-height: 44px">
+      <span class="where" dir="ltr" style="white-space: nowrap">{{elapsed}} / {{totalText}}</span>
+      <span class="grow"></span>
+      <button class="chip" onClick="{{toggleVoice}}" aria-pressed="{{voicePressed}}" aria-label="קול" style="height: 44px; min-width: 56px; justify-content: center"><span class="icon icon-s">{{voiceIcon}}</span></button>
+      <button class="chip {{speedCls}}" onClick="{{toggleSpeeds}}" aria-expanded="{{speedsOpen}}" aria-label="מהירות {{speedText}}" style="height: 44px; min-width: 76px; justify-content: center; gap: 4px"><span class="icon icon-s">speed</span><span dir="ltr">{{speedText}}</span></button>
+    </div>
+    <sc-if value="{{showSpeeds}}" hint-placeholder-val="{{ false }}">
+      <div class="row" role="group" aria-label="מהירות ניגון" style="gap: 6px; justify-content: space-between; padding-top: 4px" dir="ltr">
+        <sc-for list="{{speeds}}" as="sp" hint-placeholder-count="7"><button class="chip {{sp.cls}}" onClick="{{sp.pick}}" aria-pressed="{{sp.pressed}}" style="height: 44px; min-width: 0; flex: 1 1 0; padding: 0; justify-content: center; font-size: 16px">{{sp.label}}</button></sc-for>
+      </div>
+    </sc-if>
+  </div>
+  <div class="grow scroll">
+    <sc-if value="{{cc}}" hint-placeholder-val="{{ true }}">
+      <p class="t-body" style="font-size: 20px; line-height: 30px; margin: 0">{{line}}</p>
+    </sc-if>
+  </div>
+  <div class="row" style="justify-content: center; gap: 24px; flex-shrink: 0">
+    <button class="icon-btn icon-btn-tonal" onClick="{{back10}}" aria-label="10 שניות אחורה"><span class="icon">replay_10</span></button>
+    <button class="play-btn {{playCls}}" onClick="{{toggle}}" aria-label="{{playLabel}}"><span class="icon icon-xl icon-fill">{{playIcon}}</span></button>
+    <button class="icon-btn icon-btn-tonal" onClick="{{fwd10}}" aria-label="10 שניות קדימה"><span class="icon">forward_10</span></button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{isEnd}}" hint-placeholder-val="{{ false }}">
+<div class="screen center" style="justify-content: center; gap: 22px">
+  <div class="art" style="width: 200px; height: 200px; animation: pop .7s var(--ease-emph)">
+    <div class="layer shape shape-sunny" style="width: 200px; height: 200px; background: var(--tertiary-container)"></div>
+    <div class="layer shape shape-cookie9" style="width: 120px; height: 120px; background: var(--primary)"></div>
+    <span class="glyph icon icon-xxl icon-fill" style="color: var(--on-primary)">check</span>
+  </div>
+  <h2 class="t-headline">סיימתם את המפגש</h2>
+  <div class="grow"></div>
+  <sc-if value="{{embedded}}" hint-placeholder-val="{{ false }}">
+    <button class="btn btn-filled btn-l btn-block" onClick="{{finish}}">המשך<span class="icon">arrow_back</span></button>
+    <button class="btn btn-tonal btn-block" onClick="{{replay}}"><span class="icon">replay</span>שוב</button>
+  </sc-if>
+  <sc-if value="{{standalone}}" hint-placeholder-val="{{ true }}">
+    <div class="btn-group" style="width: 100%">
+      <button class="btn btn-tonal" onClick="{{replay}}"><span class="icon">replay</span>שוב</button>
+      <a class="btn btn-outlined" href="Ruth.dc.html" style="text-decoration: none">למסלול</a>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"voice":{"editor":"boolean","default":true},"captions":{"editor":"boolean","default":true},"onExit":{"editor":null},"onDone":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { screen: 'intro', t: 0, playing: false, voiceOn: null, ccOn: null, speed: 1, speedsOpen: false };
+  }
+  // the narration's parts, for captions: start and end in seconds, and the line as Nira says it
+  times() { return [[0.0, 12.47], [12.47, 21.64], [21.64, 33.42], [33.42, 43.35], [43.35, 54.94], [54.94, 61.01], [61.01, 75.13], [75.13, 88.91], [88.91, 98.29], [98.29, 107.3], [107.3, 116.22], [116.22, 129.36], [129.36, 138.92], [138.92, 150.87]]; }
+  lines() { return ["לכולנו יש תפקידים שונים בחיים. אנחנו יכולים להיות בני או בנות זוג, הורים, סבים וסבתות, חברים, עובדים, מתנדבים או חלק מקהילה.", "התפקידים האלה יכולים להיות חלק מהאופן שבו אנחנו רואים את עצמנו, מהקשרים שלנו ומהדרך שבה אנחנו תורמים לאחרים.", "עם פרקינסון זה יכול להרגיש שאי אפשר למלא את התפקידים האלה יותר. דברים שעשינו בעבר יכולים לקחת יותר זמן או לדרוש יותר אנרגיה.", "לפעמים צריך יותר עזרה או שמישהו אחר מתחיל לעשות דברים שפעם עשינו בעצמנו. והשינויים האלה עלולים לכאוב.", "כשאנחנו רגילים במשך שנים לתפקיד מסוים, שינוי בו הוא לא רק שינוי במה שאנחנו עושים. הוא יכול להשפיע גם על האופן שבו אנחנו רואים את עצמנו.", "אבל יש הבדל בין התפקיד עצמו לבין הדרך שבה אנחנו ממלאים אותו.", "כשהדרך שהכרנו כבר פחות מתאימה, אפשר לעצור ולשאול: מה חשוב לי בתפקיד הזה? על איזה חלק ממנו הייתי רוצה לשמור? והאם הוא יכול לקבל צורה אחרת?", "מי שתמיד נהג בטיולים המשפחתיים למשל, יכול לתכנן את הטיול ולנווט. סבא או סבתא יכולים לבחור מפגש קצר יותר עם הנכדים, או פעילות משותפת ושקטה יותר.", "ומי שכבר לא יכול לקחת על עצמו את אותן משימות בעבודה או בקהילה, אולי עדיין יכול לתרום דרך ליווי והדרכה של אחרים.", "גם האנשים שסביבנו יכולים להיות חלק מההתאמה הזאת. עזרה לא חייבת להיות שמישהו אחר עושה הכול במקומנו.", "אפשר לדבר עם האנשים שקרובים אלינו על הדברים שבהם אנחנו רוצים עזרה, ועל הדברים שעדיין חשוב לנו לעשות בעצמנו.", "ולפעמים יש תפקידים שלא יכולים או לא צריכים להישאר כפי שהיו. זה יכול להיות אובדן אמיתי, ולא חייבים מיד לנסות למצוא לו תחליף או צד חיובי.", "כשאפשר, התאמה יכולה לעזור לנו להישאר מחוברים למה שחשוב לנו בתפקיד, בדרך שמתאימה למה שאפשרי עבורנו היום.", "אז תחשבו לרגע: איזה תפקידים חשובים לי ומשהו בהם השתנה? מה חשוב לי בהם? והאם יש דרך למלא אותם בצורה קצת שונה?"]; }
+  componentWillUnmount() { try { if (this.video) this.video.pause(); } catch (e) {} }
+  voiceOn() { return this.state.voiceOn ?? (this.props.voice ?? true); }
+  play(from) {
+    const v = this.video;
+    if (!v) return;
+    if (from != null) v.currentTime = from;
+    v.muted = !this.voiceOn();
+    v.playbackRate = this.state.speed;
+    const p = v.play();
+    if (p && p.catch) p.catch(() => this.setState({ playing: false }));
+    this.setState({ screen: 'play' });
+  }
+  renderVals() {
+    const s = this.state;
+    const times = this.times(), lines = this.lines();
+    const total = times[times.length - 1][1];
+    const t = Math.min(total, s.t);
+    let k = times.findIndex((sp) => t < sp[1]);
+    if (k < 0) k = times.length - 1;
+    const voice = this.voiceOn();
+    const cc = s.ccOn ?? (this.props.captions ?? true);
+    const fmt = (x) => Math.floor(x / 60) + ':' + String(Math.floor(x % 60)).padStart(2, '0');
+    const seekTo = (x) => { if (this.video) this.video.currentTime = Math.max(0, Math.min(total - 0.05, x)); this.setState({ t: x }); };
+    return {
+      yes: true,
+      embedded: !!this.props.onDone, standalone: !this.props.onDone,
+      exit: () => { try { this.video.pause(); } catch (e) {} if (this.props.onExit) this.props.onExit(); },
+      finish: () => { if (this.props.onDone) this.props.onDone(); },
+      setVideo: (el) => { this.video = el; if (el) el.muted = !voice; },
+      onTime: () => { if (this.video) this.setState({ t: this.video.currentTime }); },
+      onEnded: () => this.setState({ screen: 'end', playing: false }),
+      onPlay: () => this.setState({ playing: true }),
+      onPause: () => this.setState({ playing: false }),
+      isIntro: s.screen === 'intro', isPlay: s.screen === 'play', isEnd: s.screen === 'end',
+      videoDisplay: s.screen === 'end' ? 'none' : 'block',
+      start: () => this.play(0),
+      replay: () => this.play(0),
+      toggle: () => (s.playing ? this.video.pause() : this.play()),
+      back10: () => seekTo(t - 10), fwd10: () => seekTo(t + 10),
+      total, tNow: t, seekPct: (t / total * 100).toFixed(2) + '%',
+      onSeek: (e) => seekTo(Number(e.target.value)),
+      elapsed: fmt(t), totalText: fmt(total), timeText: fmt(t) + ' מתוך ' + fmt(total),
+      line: lines[k], cc,
+      playIcon: s.playing ? 'pause' : 'play_arrow', playCls: s.playing ? 'is-playing' : '', playLabel: s.playing ? 'השהיה' : 'המשך',
+      toggleVoice: () => { const on = !voice; if (this.video) this.video.muted = !on; this.setState({ voiceOn: on }); },
+      voiceCls: voice ? 'is-selected' : '', voicePressed: voice ? 'true' : 'false', voiceIcon: voice ? 'volume_up' : 'volume_off',
+      toggleCc: () => this.setState({ ccOn: !cc }), ccCls: cc ? 'is-selected' : '', ccPressed: cc ? 'true' : 'false',
+      speedText: s.speed + '×',
+      toggleSpeeds: () => this.setState({ speedsOpen: !s.speedsOpen }), showSpeeds: s.speedsOpen, speedsOpen: s.speedsOpen ? 'true' : 'false', speedCls: s.speedsOpen ? 'is-selected' : '',
+      speeds: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2].map((x) => ({ label: x + '×', pressed: x === s.speed ? 'true' : 'false', cls: x === s.speed ? 'is-selected' : '',
+        pick: () => { if (this.video) this.video.playbackRate = x; this.setState({ speed: x, speedsOpen: false }); } }))
+    };
+  }
+}
+</script>
+</body>
+</html>

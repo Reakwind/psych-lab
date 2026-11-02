@@ -1,0 +1,695 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#F3EEE4;overflow:hidden}
+#stage{position:relative;width:1080px;height:1080px;overflow:hidden;background:#F3EEE4;--sans:'Rubik',system-ui,sans-serif}
+.scene{position:absolute;inset:0;display:none}</style>
+<style>#stage { --ground:#F3EEE4; --main:#2B6A62; --second:#1F2A33; --accent:#E8A33D; color:var(--second); font-family:var(--sans, system-ui, sans-serif) }
+.ground { position:absolute; inset:0; background:radial-gradient(110% 80% at 50% 30%, var(--ground), color-mix(in srgb, var(--ground) 90%, var(--accent))) }
+.words { position:absolute; margin:0; display:flex; flex-direction:column; gap:16px; direction:rtl } .words > * { margin:0 }
+.line { font-family:var(--display, var(--sans, system-ui, sans-serif)); font-size:54px; line-height:1.15; font-weight:600 } .sub { font-size:30px }
+.tag { position:absolute; left:0; top:0; padding:10px 24px; border-radius:999px; background:color-mix(in srgb, var(--ground) 40%, white); color:var(--second); font-size:32px; font-weight:600; direction:rtl; white-space:nowrap; box-shadow:0 10px 24px -10px rgba(0,0,0,.25) }
+.tag-warm { background:color-mix(in srgb, var(--accent) 22%, var(--ground)) }
+.tag-cool { background:color-mix(in srgb, var(--main) 16%, var(--ground)) }
+.art { position:absolute; inset:0; width:100%; height:100%; overflow:visible }
+.cap { position:absolute; left:40px; right:40px; bottom:28px; padding:16px 26px; border-radius:22px; background:color-mix(in srgb, var(--second) 82%, transparent); color:var(--ground); font-size:27px; line-height:1.4; direction:rtl; text-align:center }
+.wall-lo { fill:color-mix(in srgb, var(--ground) 90%, var(--second)) }
+.floor { fill:color-mix(in srgb, var(--accent) 30%, var(--ground)) } .floor-dk { fill:color-mix(in srgb, var(--accent) 40%, var(--second) 12%) }
+.ink { fill:none; stroke:var(--second); stroke-width:5; stroke-linecap:round; stroke-linejoin:round }
+.skin { fill:color-mix(in srgb, var(--accent) 38%, var(--ground)) } .skin-dk { fill:color-mix(in srgb, var(--accent) 55%, var(--ground)) }
+.hair { fill:color-mix(in srgb, var(--second) 28%, var(--ground)) } .hair-dk { fill:color-mix(in srgb, var(--second) 42%, var(--ground)) }
+.knit { fill:var(--main) } .knit-dk { fill:color-mix(in srgb, var(--main) 72%, var(--second)) } .knit-lt { fill:color-mix(in srgb, var(--main) 70%, var(--ground)) }
+.skirt { fill:color-mix(in srgb, var(--second) 75%, var(--main)) }
+.chair { fill:color-mix(in srgb, var(--accent) 45%, var(--ground)) } .chair-dk { fill:color-mix(in srgb, var(--accent) 62%, var(--second) 14%) }
+.wood { fill:color-mix(in srgb, var(--accent) 48%, var(--second) 22%) } .wood-lt { fill:color-mix(in srgb, var(--accent) 40%, var(--ground)) }
+.glass { fill:color-mix(in srgb, var(--main) 22%, var(--ground)) } .leaf { fill:var(--main) } .leaf-lt { fill:color-mix(in srgb, var(--main) 65%, var(--ground)) }
+.slate { fill:color-mix(in srgb, var(--second) 55%, var(--ground)) } .slate-dk { fill:color-mix(in srgb, var(--second) 75%, var(--ground)) }
+.amber { fill:var(--accent) } .amber-dk { fill:color-mix(in srgb, var(--accent) 75%, var(--second)) } .amber-lt { fill:color-mix(in srgb, var(--accent) 45%, var(--ground)) }
+.metal { fill:color-mix(in srgb, var(--second) 80%, var(--ground)) }
+.shade { fill:rgba(0,0,0,.12) } .light { fill:color-mix(in srgb, var(--ground) 30%, white) }.sky { fill:color-mix(in srgb, var(--main) 14%, var(--ground)) } .hill-far { fill:color-mix(in srgb, var(--main) 30%, var(--ground)) } .hill-near { fill:color-mix(in srgb, var(--main) 45%, var(--ground)) }
+.grass { fill:color-mix(in srgb, var(--main) 58%, var(--ground)) } .stone { fill:color-mix(in srgb, var(--accent) 22%, var(--ground)) } .stone-dk { fill:color-mix(in srgb, var(--accent) 30%, var(--second)) } .stone-lit { fill:var(--accent) }
+.pack { fill:color-mix(in srgb, var(--accent) 60%, var(--second)) } .pack-dk { fill:color-mix(in srgb, var(--accent) 42%, var(--second)) } .pack-lt { fill:color-mix(in srgb, var(--accent) 70%, var(--ground)) }
+.weight { fill:color-mix(in srgb, var(--second) 60%, var(--ground)) } .weight-dk { fill:color-mix(in srgb, var(--second) 78%, var(--ground)) }
+.nira-skin { fill:color-mix(in srgb, color-mix(in srgb, var(--accent) 55%, var(--ground)) 82%, var(--second)) } .nira-skin-dk { fill:color-mix(in srgb, color-mix(in srgb, var(--accent) 60%, var(--ground)) 70%, var(--second)) }
+.nira-hair { fill:color-mix(in srgb, var(--second) 82%, var(--accent)) } .nira-hair-dk { fill:var(--second) } .nira-top { fill:var(--accent) } .nira-top-dk { fill:color-mix(in srgb, var(--accent) 78%, var(--second)) } .nira-pants { fill:color-mix(in srgb, var(--second) 82%, var(--main)) }
+
+.ariel-top { fill:#4E7FAA } .ariel-top-dk { fill:#3D6890 } .ariel-pants { fill:color-mix(in srgb, var(--second) 85%, #4E7FAA) } .ariel-hair { fill:#5B4034 } .ariel-scr { fill:color-mix(in srgb, #4E7FAA 22%, var(--ground)) }
+.mat { fill:color-mix(in srgb, var(--main) 32%, var(--ground)) } .cushion { fill:color-mix(in srgb, var(--accent) 40%, var(--ground)) }
+.voice-grey { fill:color-mix(in srgb, var(--second) 22%, var(--ground)) } .voice-warm { fill:color-mix(in srgb, var(--accent) 52%, var(--ground)) }
+.thought { position:absolute; left:0; top:0; width:600px; box-sizing:border-box; padding:30px 38px; border-radius:34px; font-size:40px; line-height:1.3; font-weight:600; text-align:center; direction:rtl; color:var(--second); background:color-mix(in srgb, var(--second) 14%, var(--ground)); border:5px solid var(--second); box-shadow:0 18px 30px -16px rgba(0,0,0,.35) }
+.thought.kind { background:color-mix(in srgb, var(--accent) 30%, var(--ground)) }
+.thought.heavy { background:color-mix(in srgb, var(--second) 52%, var(--ground)); color:var(--ground) }
+.btn { position:absolute; left:0; top:0; padding:16px 34px; border-radius:999px; font-size:34px; font-weight:600; direction:rtl; white-space:nowrap; border:4px solid var(--second); color:var(--second); background:color-mix(in srgb, var(--second) 12%, var(--ground)) }
+.btn.keep { background:color-mix(in srgb, var(--accent) 34%, var(--ground)) }
+.count { position:absolute; left:0; top:0; font-size:64px; font-weight:700; color:var(--second); direction:rtl; white-space:nowrap }
+.struck { --s:0 } .struck::after { content:''; position:absolute; left:16px; right:16px; top:50%; height:5px; margin-top:-2px; border-radius:3px; background:#C0392B; transform:scaleX(var(--s)); transform-origin:100% 50% }
+.thought.sm { width:440px; font-size:34px; padding:24px 30px }
+.thought.xs { width:420px; font-size:33px; padding:20px 24px; border-width:4px; border-radius:28px }
+.fra-top { fill:color-mix(in srgb, var(--main) 55%, #9CC5A1) } .fra-top-dk { fill:color-mix(in srgb, var(--main) 75%, #9CC5A1) } .fra-hair { fill:#6B4E3D } .fra-hair-dk { fill:#4E382B } .fra-pants { fill:color-mix(in srgb, var(--second) 80%, var(--main)) }
+.frb-top { fill:#B07AA1 } .frb-top-dk { fill:#8E5F82 } .frb-hair { fill:#8A8F99 } .frb-hair-dk { fill:#6C7280 } .frb-pants { fill:color-mix(in srgb, var(--second) 85%, #B07AA1) }
+.frg-top { fill:color-mix(in srgb, var(--second) 25%, var(--ground)) } .frg-top-dk { fill:color-mix(in srgb, var(--second) 35%, var(--ground)) } .frg-hair { fill:color-mix(in srgb, var(--second) 50%, var(--ground)) } .frg-hair-dk { fill:color-mix(in srgb, var(--second) 60%, var(--ground)) } .frg-pants { fill:color-mix(in srgb, var(--second) 45%, var(--ground)) }
+.cont-label{position:absolute;left:0;top:0;padding:13px 25px;border-radius:24px;background:color-mix(in srgb,var(--ground) 35%,white);box-shadow:0 12px 28px -16px #0006;color:var(--second);font:600 38px/1.35 var(--sans);direction:rtl;text-align:center;width:max-content;box-sizing:border-box;white-space:normal}
+.cont-label.warm{background:color-mix(in srgb,var(--accent) 27%,var(--ground))}.cont-label.cool{background:color-mix(in srgb,var(--main) 16%,var(--ground))}.cont-label.thought{background:color-mix(in srgb,var(--second) 15%,var(--ground));border:4px solid var(--second);border-radius:28px;font-size:38px;max-width:600px!important}.cont-labels{position:absolute;inset:0;pointer-events:none}.cont-object{display:none}
+.cont-count{position:absolute;left:0;top:0;font:600 72px/1.3 var(--sans);color:var(--second);padding:12px 28px;background:color-mix(in srgb,var(--accent) 25%,var(--ground));border-radius:28px;display:none;white-space:nowrap}
+</style></head><body><div id="stage"></div>
+<script>
+const clamp01 = (x) => Math.max(0, Math.min(1, x));
+const kit = {
+  clamp01, seg: (t, a, b) => clamp01((t - a) / (b - a)), lerp: (a, b, p) => a + (b - a) * p,
+  eo: (x) => 1 - Math.pow(1 - x, 3), ei: (x) => x * x * x,
+  eio: (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2),
+  eob: (x, s = 1.4) => { const c3 = s + 1; return 1 + c3 * Math.pow(x - 1, 3) + s * Math.pow(x - 1, 2); },
+  breathe: (t, a = 0.012, p = 3.2) => 1 + a * Math.sin(2 * Math.PI * t / p),
+  h: (s) => { const d = document.createElement('div'); d.innerHTML = s.trim(); return d.firstElementChild; },
+  css: (txt) => { const st = document.createElement('style'); st.textContent = txt; document.getElementById('stage').append(st); },
+  defs: [], scene(id, o) { kit.defs.push([id, o]); },
+};
+</script>
+<script>// Ruth's living room, Ruth herself, the spark and the scale: drawn once, reused by every scene so the world never changes between cuts.
+// Stage is 1080 square. Effort sits on the RIGHT pan (where a Hebrew reader starts), reward on the LEFT.
+window.CAPTIONS = true; // review captions; set false before exporting for the app, which shows its own
+window.R = {
+  PIV: [540, 175], ARM: 290,
+  room(o) {
+    o = o || {};
+    let s = '<rect class="wall-lo" x="0" y="650" width="1080" height="210"/><rect class="shade" x="0" y="646" width="1080" height="6"/>' +
+      '<rect class="floor" x="0" y="860" width="1080" height="220"/><rect class="floor-dk" x="0" y="860" width="1080" height="12"/>' +
+      '<path class="floor-dk" opacity=".35" d="M0 940 H1080 V946 H0Z M0 1020 H1080 V1026 H0Z"/>' +
+      '<rect class="wood-lt" x="62" y="322" width="246" height="236" rx="14"/><rect class="glass" x="80" y="340" width="210" height="200" rx="6"/>' +
+      '<path class="light" opacity=".7" d="M100 520 L170 360 H200 L130 520Z"/><path class="wood-lt" d="M182 340 h8 v200 h-8Z M80 436 h210 v8 h-210Z"/>' +
+      '<rect class="wood" x="52" y="552" width="266" height="16" rx="8"/>' +
+      '<path class="knit-lt" d="M248 300 C276 380 262 470 300 590 L320 590 L322 300Z"/>';
+    if (o.clock) s += '<g class="' + o.clock + '"><circle class="light" cx="540" cy="250" r="52"/><circle class="ink" cx="540" cy="250" r="52"/><circle class="metal" cx="540" cy="250" r="6"/></g>';
+    if (o.open) s += '<rect class="amber-lt" x="820" y="450" width="190" height="410" rx="6"/><path class="light" opacity=".8" d="M820 860 L1010 860 L1080 1080 L700 1080Z"/><path class="wood" d="M820 450 L760 476 L760 860 L820 860Z"/>';
+    else s += '<rect class="wood" x="820" y="450" width="190" height="410" rx="6"/><rect class="wood-lt" opacity=".55" x="848" y="482" width="134" height="150" rx="6"/><rect class="wood-lt" opacity=".55" x="848" y="660" width="134" height="170" rx="6"/><circle class="amber" cx="846" cy="668" r="10"/>';
+    if (o.shoes !== false) s += '<g class="' + (o.shoes || 'shoes') + '">' + R.shoe(726, 858) + R.shoe(772, 860) + '</g>';
+    if (o.plant !== false) s += R.plant();
+    return s;
+  },
+  shoe(x, y) { return '<path class="slate-dk" d="M' + x + ' ' + y + ' q0 -26 22 -28 q14 0 18 12 l20 6 q10 4 8 10 Z"/><rect class="light" opacity=".5" x="' + (x + 6) + '" y="' + (y - 3) + '" width="56" height="3"/>'; },
+  plant() {
+    return '<g class="plant"><ellipse class="shade" cx="130" cy="862" rx="62" ry="10"/>' +
+      '<path class="leaf" d="M130 770 C90 720 70 690 64 640 C100 660 122 700 130 770Z M130 770 C150 700 180 670 214 650 C206 700 172 740 130 770Z M130 770 C120 700 124 650 140 600 C156 650 150 710 130 770Z"/>' +
+      '<path class="leaf-lt" d="M130 770 C108 730 96 700 92 668 C116 690 126 724 130 770Z"/>' +
+      '<path class="amber-dk" d="M84 770 H176 L164 860 H96Z"/><rect class="amber" x="78" y="764" width="104" height="22" rx="6"/></g>';
+  },
+  chair() {
+    return '<ellipse class="shade" cx="520" cy="864" rx="230" ry="16"/><rect class="chair-dk" x="352" y="820" width="18" height="42" rx="6"/><rect class="chair-dk" x="670" y="820" width="18" height="42" rx="6"/>' +
+      '<path class="chair" d="M360 820 V600 Q360 552 410 552 H630 Q680 552 680 600 V820Z"/><path class="chair-dk" opacity=".45" d="M630 552 Q680 552 680 600 V820 H640 V600 Q640 566 630 552Z"/>' +
+      '<rect class="chair" x="318" y="690" width="78" height="140" rx="34"/><rect class="chair" x="644" y="690" width="78" height="140" rx="34"/>' +
+      '<rect class="chair-dk" x="380" y="736" width="280" height="90" rx="26"/>';
+  },
+  // Ruth, drawn around a local origin. pose: sit (origin = hips on the seat), stand / step / water (origin = between the feet), bend (origin = feet).
+  ruth(id, pose) {
+    const head = '<g class="' + id + '-head"><path class="hair-dk" d="M-58 -10 C-66 -70 -30 -102 4 -100 C44 -98 66 -66 58 -6 C56 18 44 30 36 34 L-40 34 C-52 26 -56 12 -58 -10Z"/>' +
+      '<ellipse class="skin" cx="0" cy="-4" rx="44" ry="50"/><path class="hair" d="M-48 -16 C-48 -72 -6 -92 24 -84 C52 -76 58 -44 52 -22 C30 -44 -6 -54 -48 -16Z"/>' +
+      '<g class="' + id + '-eyes"><circle class="metal" cx="-16" cy="-2" r="5"/><circle class="metal" cx="18" cy="-2" r="5"/></g>' +
+      '<circle class="ink" style="stroke-width:3.5" cx="-16" cy="-2" r="15"/><circle class="ink" style="stroke-width:3.5" cx="18" cy="-2" r="15"/><path class="ink" style="stroke-width:3.5" d="M-1 -4 h4"/>' +
+      '<ellipse class="skin-dk" opacity=".6" cx="-26" cy="20" rx="9" ry="5"/><ellipse class="skin-dk" opacity=".6" cx="30" cy="20" rx="9" ry="5"/>' +
+      '<path class="ink ' + id + '-mouth" style="stroke-width:4" d="M-10 26 Q2 32 14 26"/></g>';
+    const torso = '<path class="knit" d="M-72 0 C-78 -60 -74 -120 -56 -150 Q-30 -168 0 -168 Q30 -168 56 -150 C74 -120 78 -60 72 0Z"/>' +
+      '<path class="knit-dk" opacity=".55" d="M30 -166 Q56 -152 62 -120 C72 -70 74 -30 72 0 H40 C46 -60 44 -120 30 -166Z"/><path class="light" opacity=".85" d="M-16 -168 L0 -120 L16 -168Z"/>' +
+      '<circle class="knit-lt" cx="0" cy="-100" r="5"/><circle class="knit-lt" cx="0" cy="-70" r="5"/><circle class="knit-lt" cx="0" cy="-40" r="5"/>';
+    const neck = '<rect class="skin-dk" x="-14" y="-186" width="28" height="24" rx="8"/>';
+    if (pose === 'sit') {
+      return '<g class="' + id + '-ruth"><path class="skirt" d="M-66 -6 C-30 -16 70 -14 118 4 L126 40 C80 52 -40 50 -70 34Z"/>' +
+        '<path class="skin" d="M96 30 h26 l6 84 h-26Z M60 34 h26 l4 82 h-26Z"/><path class="slate-dk" d="M58 112 h40 q14 0 16 12 h-56Z M96 110 h40 q14 0 16 12 h-56Z"/>' +
+        torso.replace(/0Z"/, '0Z"') + neck + '<g transform="translate(0 -218)">' + head + '</g>' +
+        '<path class="knit" d="M-66 -140 C-92 -90 -80 -40 -30 -10 L-10 -30 C-46 -50 -52 -96 -40 -128Z"/><path class="knit" d="M66 -140 C92 -90 84 -40 40 -12 L22 -30 C52 -50 56 -96 42 -128Z"/>' +
+        '<ellipse class="skin" cx="-12" cy="-22" rx="20" ry="14"/><ellipse class="skin" cx="22" cy="-24" rx="20" ry="14"/></g>';
+    }
+    const legs = pose === 'step' ? '<path class="skin" d="M-36 -200 l24 0 l-30 196 h-24Z M12 -200 l24 0 l36 192 h-24Z"/>' + R.shoe(-74, 2).replace('slate-dk', 'slate-dk') + R.shoe(40, 2)
+      : '<path class="skin" d="M-34 -200 h26 l-2 196 h-26Z M8 -200 h26 l2 196 h-26Z"/>' + R.shoe(-48, 2) + R.shoe(0, 2);
+    const arms = pose === 'water'
+      ? '<path class="knit" d="M-60 -330 C-84 -280 -82 -230 -70 -196 L-50 -200 C-60 -240 -58 -280 -42 -316Z"/><path class="knit" d="M58 -330 C96 -320 128 -300 150 -270 L134 -254 C112 -280 88 -296 52 -300Z"/>' +
+        '<g class="' + id + '-can"><path class="main-can glass" d="M130 -272 h70 l-6 64 h-58Z"/><path class="ink" style="stroke-width:4" d="M200 -258 L246 -236 M140 -272 q30 -30 54 0"/><rect class="knit-dk" x="130" y="-276" width="70" height="10" rx="4"/></g>'
+      : '<path class="knit" d="M-60 -330 C-84 -280 -82 -230 -70 -196 L-50 -200 C-60 -240 -58 -280 -42 -316Z"/><path class="knit" d="M60 -330 C84 -280 82 -230 70 -196 L50 -200 C60 -240 58 -280 42 -316Z"/><ellipse class="skin" cx="-62" cy="-192" rx="14" ry="16"/><ellipse class="skin" cx="62" cy="-192" rx="14" ry="16"/>';
+    const body = '<g transform="translate(0 -200)"><path class="skirt" d="M-64 -40 L64 -40 L80 40 L-80 40Z"/>' + torso.replace(/-168/g, '-168') + '</g>';
+    const lean = pose === 'bend' ? ' transform="rotate(24 0 -200)"' : '';
+    return '<g class="' + id + '-ruth"><ellipse class="shade" cx="0" cy="4" rx="80" ry="10"/>' + legs + '<g' + lean + '>' + body.replace('translate(0 -200)', 'translate(0 -200)') +
+      '<g transform="translate(0 -200)">' + neck.replace('-186', '-186') + '</g><g transform="translate(0 -418)">' + head + '</g>' + arms + '</g></g>';
+  },
+  spark(id) {
+    return '<g class="' + id + '-spark"><circle class="' + id + '-ring ink" style="stroke-width:4;stroke-dasharray:10 12" r="40"/>' +
+      '<circle class="' + id + '-glow amber-lt" r="64" opacity=".5"/><path class="' + id + '-star amber" d="M0 -46 C6 -12 12 -6 46 0 C12 6 6 12 0 46 C-6 12 -12 6 -46 0 C-12 -6 -6 -12 0 -46Z"/></g>';
+  },
+  scale(id, right, left) {
+    const pan = (k, items) => '<g class="' + id + '-pan' + k + '"><path class="ink" style="stroke-width:3" d="M0 0 L-92 150 M0 0 L92 150"/>' + (items || '') +
+      '<path class="' + (k === 'R' ? 'slate' : 'amber') + '" d="M-110 150 H110 Q100 196 0 198 Q-100 196 -110 150Z"/><path class="' + (k === 'R' ? 'slate-dk' : 'amber-dk') + '" d="M-110 150 H110 Q108 160 104 166 H-104 Q-108 160 -110 150Z"/></g>';
+    return '<g class="' + id + '-scale"><path class="metal" d="M532 175 h16 l10 150 h-36Z"/><rect class="metal" x="496" y="320" width="88" height="16" rx="8"/>' +
+      pan('R', right) + pan('L', left) +
+      '<g class="' + id + '-beam"><rect class="metal" x="240" y="166" width="600" height="18" rx="9"/><circle class="amber" cx="540" cy="175" r="16"/><circle class="metal" cx="540" cy="175" r="7"/></g></g>';
+  },
+  // effort blocks and reward tokens, drawn relative to a pan's hang point
+  block(cls, x, w, h, y) { y = y == null ? 150 : y; return '<g class="' + cls + '"><rect class="slate-dk" x="' + (x - w / 2) + '" y="' + (y - h) + '" width="' + w + '" height="' + h + '" rx="10"/><rect class="slate" x="' + (x - w / 2 + 6) + '" y="' + (y - h + 6) + '" width="' + (w - 12) + '" height="' + (h / 2 - 6) + '" rx="6"/></g>'; },
+  token(cls, kind, x, r) {
+    const c = '<g class="' + cls + '"><g transform="translate(' + x + ' ' + (150 - r) + ')">';
+    if (kind === 'heart') return c + '<path class="amber-dk" d="M0 ' + (r * .8) + ' C' + (-r * 1.3) + ' 0 ' + (-r * .7) + ' ' + (-r * 1.1) + ' 0 ' + (-r * .4) + ' C' + (r * .7) + ' ' + (-r * 1.1) + ' ' + (r * 1.3) + ' 0 0 ' + (r * .8) + 'Z"/></g></g>';
+    if (kind === 'talk') return c + '<path class="light" d="M' + (-r) + ' ' + (-r * .7) + ' h' + (2 * r) + ' v' + (r * 1.2) + ' h' + (-r) + ' l' + (-r * .5) + ' ' + (r * .5) + ' v' + (-r * .5) + ' h' + (-r * .5) + 'Z"/><circle class="metal" cx="' + (-r * .4) + '" cy="' + (-r * .1) + '" r="' + (r * .12) + '"/><circle class="metal" cx="0" cy="' + (-r * .1) + '" r="' + (r * .12) + '"/><circle class="metal" cx="' + (r * .4) + '" cy="' + (-r * .1) + '" r="' + (r * .12) + '"/></g></g>';
+    if (kind === 'compass') return c + '<circle class="leaf-lt" r="' + r + '"/><circle class="ink" style="stroke-width:4" r="' + r + '"/><path class="amber-dk" d="M0 ' + (-r * .75) + ' L' + (r * .22) + ' 0 L0 ' + (r * .75) + ' L' + (-r * .22) + ' 0Z"/></g></g>';
+    return c + '<circle class="amber-lt" r="' + r + '"/><circle class="amber" r="' + (r * .55) + '"/></g></g>';
+  },
+
+  // the scale lives in a thought bubble above Ruth: a soft cloud behind it keeps the room quiet
+  cloud(cls) {
+    return '<g class="' + cls + '"><path class="shade" transform="translate(0 10)" d="M130 520 C60 520 36 446 80 404 C26 360 48 262 126 252 C114 150 220 96 300 126 C352 50 474 40 540 82 C606 40 730 50 780 126 C862 96 968 150 956 252 C1034 262 1054 360 1000 404 C1044 446 1020 520 950 520Z"/>' +
+      '<path class="light" opacity=".92" d="M130 520 C60 520 36 446 80 404 C26 360 48 262 126 252 C114 150 220 96 300 126 C352 50 474 40 540 82 C606 40 730 50 780 126 C862 96 968 150 956 252 C1034 262 1054 360 1000 404 C1044 446 1020 520 950 520Z"/></g>';
+  },
+  // Ruth's head in side profile, facing right, with the top of the skull cut away to show the brain.
+  // Inside sits the "spark-maker": a light bulb wired into the brain. Classes: p-brain, p-nerves, p-bulb, plus R.spark(p) parts.
+  profile(p) {
+    const skull = 'M246 520 C226 330 360 170 540 168 C700 166 812 262 826 398 C832 452 818 496 842 540 L874 600 C882 616 872 628 856 630 L842 632 C848 646 846 660 836 666 C842 678 838 694 824 700 C826 734 808 760 776 764 C720 790 640 800 580 788 C500 772 430 740 384 700 C310 640 254 590 246 520Z';
+    return '<rect width="1080" height="1080" style="fill:color-mix(in srgb, var(--main) 14%, var(--ground))"/>' +
+      '<circle cx="540" cy="520" r="470" style="fill:color-mix(in srgb, var(--ground) 70%, white)"/>' +
+      '<path class="skin" d="' + skull + '"/>' +
+      '<path class="skin-dk" opacity=".55" d="M384 700 C310 640 254 590 246 520 C244 470 250 420 262 380 C290 540 370 660 500 730 C580 770 690 772 776 764 C720 790 640 800 580 788 C500 772 430 740 384 700Z"/>' +
+      // ear and the arm of her glasses
+      '<path class="skin-dk" d="M470 520 C430 500 404 540 414 590 C422 630 452 652 482 640 C474 600 476 560 470 520Z"/><path class="ink" style="stroke-width:4;opacity:.5" d="M452 548 C436 566 440 604 458 620"/>' +
+      '<path class="ink" style="stroke-width:9" d="M470 530 L760 512"/>' +
+      // hair: a soft grey bob over the back and top of the head
+      '<path class="hair" d="M232 560 C200 360 330 150 540 140 C700 132 820 220 846 360 C780 300 700 280 640 300 C520 260 400 330 360 470 C340 560 360 660 410 720 C330 720 250 660 232 560Z"/>' +
+      '<path class="hair-dk" opacity=".55" d="M232 560 C220 470 236 390 270 320 C270 450 300 580 380 700 C320 690 250 640 232 560Z"/>' +
+      '<path class="ink" style="stroke-width:4;opacity:.18" d="M300 300 C340 250 400 220 470 210 M280 420 C300 360 340 320 400 290 M700 200 C760 220 800 260 820 310"/>' +
+      // face: brow, eye behind the lens, glasses, mouth and cheek
+      '<path class="ink" style="stroke-width:8" d="M748 464 C770 452 796 452 814 462"/>' +
+      '<ellipse class="' + p + '-eye metal" cx="790" cy="512" rx="9" ry="10"/>' +
+      '<ellipse class="light" opacity=".28" cx="786" cy="514" rx="44" ry="40"/><ellipse class="ink" style="stroke-width:8" cx="786" cy="514" rx="44" ry="40"/>' +
+      '<path class="ink" style="stroke-width:6" d="M806 690 C820 692 830 690 836 684"/>' +
+      '<ellipse class="skin-dk" opacity=".6" cx="740" cy="600" rx="34" ry="20"/>' +
+      // the cutaway: skull rim, a dark cavity, and the brain inside
+      '<g class="' + p + '-cut"><clipPath id="' + p + '-clip"><ellipse cx="510" cy="370" rx="218" ry="166"/></clipPath>' +
+      '<ellipse cx="510" cy="370" rx="234" ry="182" style="fill:color-mix(in srgb, var(--ground) 55%, white)"/>' +
+      '<ellipse cx="510" cy="370" rx="218" ry="166" style="fill:color-mix(in srgb, var(--second) 78%, var(--main))"/>' +
+      '<g clip-path="url(#' + p + '-clip)"><g transform="translate(510 368) scale(.93) translate(-530 -380)"><g class="' + p + '-brain">' +
+      '<path class="amber-lt" d="M330 410 C318 320 390 240 490 232 C570 222 660 252 706 316 C738 360 734 418 708 446 C716 480 690 506 654 500 C632 528 578 532 548 510 C516 532 462 530 444 504 C404 518 352 502 346 466 C332 452 328 432 330 410Z"/>' +
+      '<path class="amber-lt" style="fill:color-mix(in srgb, var(--accent) 52%, var(--ground))" d="M372 470 C352 492 360 528 392 538 C424 548 456 534 462 512 C430 520 396 504 372 470Z"/>' +
+      '<path class="amber-dk" opacity=".45" d="M548 510 C556 540 552 570 540 590 L520 590 C526 566 526 536 514 512Z"/>' +
+      '<path style="fill:none;stroke:color-mix(in srgb, var(--accent) 70%, var(--second));stroke-width:5;stroke-linecap:round;opacity:.55" d="M392 330 C420 300 460 296 488 318 C510 290 556 286 584 306 M620 290 C650 300 676 326 684 356 M360 400 C392 384 430 392 448 420 C470 396 510 396 530 418 M560 380 C596 360 640 370 664 400 M440 470 C470 452 506 458 520 482 M590 452 C620 440 652 450 668 472 M380 486 C398 496 424 500 444 494 M392 520 C410 526 430 526 446 520"/>' +
+      '</g>' +
+      '<path class="' + p + '-nerves" style="fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;stroke-dasharray:2 16" d="M528 360 C480 330 430 320 392 330 M548 360 C590 320 640 310 680 330 M520 400 C470 420 430 440 404 470 M556 404 C600 420 640 440 664 464"/>' +
+      // the spark-maker: a light bulb wired into the brain
+      '<g class="' + p + '-bulb"><ellipse class="shade" cx="540" cy="452" rx="40" ry="8"/>' +
+      '<path class="metal" d="M516 404 h48 v14 h-48Z M520 420 h40 v10 h-40Z M526 432 h28 v12 h-28Z"/>' +
+      '<circle cx="540" cy="354" r="58" style="fill:color-mix(in srgb, var(--ground) 40%, white);opacity:.9"/>' +
+      '<path class="ink" style="stroke-width:5" d="M498 394 C474 372 470 334 492 312 C520 284 564 286 588 314 C608 340 604 374 582 394 L564 404 L516 404Z"/>' +
+      '<g transform="translate(540 352) scale(.62)">' + R.spark(p) + '</g>' +
+      '<path class="ink" style="stroke-width:3;opacity:.45" d="M528 404 L530 376 M552 404 L550 376"/></g></g></g>' +
+      '<ellipse cx="510" cy="370" rx="234" ry="182" style="fill:none;stroke:var(--second);stroke-width:6;opacity:.85"/></g>';
+  },
+  refs(kit, id, names) { const o = {}; for (const n of names) o[n] = kit.stage.querySelector('.' + id + '-' + n); return o; },
+  // tilt the beam by deg (positive: effort side down); pans hang straight with a little swing
+  setScale(r, deg, swing) {
+    const [px, py] = R.PIV, a = deg * Math.PI / 180, c = Math.cos(a) * R.ARM, s = Math.sin(a) * R.ARM, w = swing || 0;
+    r.beam.setAttribute('transform', 'rotate(' + deg + ' ' + px + ' ' + py + ')');
+    r.panR.setAttribute('transform', 'translate(' + (px + c) + ' ' + (py + s) + ') rotate(' + w + ')');
+    r.panL.setAttribute('transform', 'translate(' + (px - c) + ' ' + (py - s) + ') rotate(' + w + ')');
+    return { R: [px + c, py + s + 200], L: [px - c, py - s + 200] };
+  },
+  place(el, x, y, o) { el.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,0)'; if (o != null) el.style.opacity = o; },
+  blink(eyes, t, off) { const p = ((t + (off || 0)) % 4.1); eyes.setAttribute('transform', p > 3.95 ? 'translate(0 -2) scale(1 .15)' : ''); },
+  caption(kit, text) { if (window.CAPTIONS) kit.stage.append(kit.h('<p class="cap">' + text + '</p>')); },
+  // ---- session 1: the path, the backpack, Nira, the tools ----
+  PATH: [[540, 1000, 130], [462, 880, 104], [560, 790, 86], [496, 716, 70], [562, 656, 58], [516, 606, 48], [566, 566, 40], [532, 534, 32], [560, 508, 26], [544, 488, 20], [556, 472, 16]],
+  stone(cls, x, y, r) {
+    return '<g class="' + cls + '"><ellipse class="stone-dk" cx="' + x + '" cy="' + (y + r * 0.1) + '" rx="' + r + '" ry="' + (r * 0.4) + '"/><ellipse class="stone ' + cls + '-top" cx="' + x + '" cy="' + y + '" rx="' + (r * 0.96) + '" ry="' + (r * 0.34) + '"/>' +
+      '<ellipse class="light" opacity=".45" cx="' + (x - r * 0.25) + '" cy="' + (y - r * 0.1) + '" rx="' + (r * 0.4) + '" ry="' + (r * 0.1) + '"/></g>';
+  },
+  land(p, o) {
+    o = o || {};
+    let s = '<rect class="sky" width="1080" height="1080"/>' +
+      '<circle class="' + p + '-sun" cx="' + (o.sunX || 820) + '" cy="' + (o.sunY || 300) + '" r="70" style="fill:var(--accent);opacity:' + (o.sun ? 1 : 0) + '"/>' +
+      '<path class="hill-far" d="M0 470 C180 410 360 448 540 440 C730 430 900 392 1080 446 V1080 H0Z"/>' +
+      '<path class="hill-near" d="M0 600 C220 556 470 600 720 578 C880 566 980 556 1080 584 V1080 H0Z"/>' +
+      '<path class="grass" d="M0 780 C260 740 560 770 820 750 C930 742 1010 744 1080 756 V1080 H0Z"/>' +
+      '<g class="' + p + '-tufts"><path class="hill-near" d="M120 840 l10 -30 l8 30 l10 -24 l6 24Z M900 860 l10 -30 l8 30 l10 -24 l6 24Z M260 980 l10 -30 l8 30 l10 -24 l6 24Z M820 1000 l10 -30 l8 30 l10 -24 l6 24Z"/></g>';
+    R.PATH.forEach(([x, y, r], k) => { s += R.stone(p + '-st' + k, x, y, r); });
+    return s;
+  },
+  // a backpack worn by a front-facing figure: the bag shows behind her, the straps in front
+  BAG: [170, 1060],
+  PILE: [[118, 958], [196, 964], [156, 928], [232, 932]],
+  weight() { return '<ellipse class="shade" cx="0" cy="34" rx="46" ry="10"/><ellipse class="weight-dk" cx="0" cy="6" rx="44" ry="34"/><ellipse class="weight" cx="0" cy="0" rx="42" ry="32"/><ellipse class="light" opacity=".35" cx="-12" cy="-12" rx="14" ry="6"/>'; },
+  bagDown(id) { return '<g class="' + id + '-bagdown" transform="translate(' + R.BAG[0] + ' ' + R.BAG[1] + ') rotate(6) scale(.8)">' + R.packBehind(id) + '</g>'; },
+  pile(id) { return '<g class="' + id + '-pile">' + R.PILE.map(([x, y]) => '<g transform="translate(' + x + ' ' + y + ') scale(.6)">' + R.weight() + '</g>').join('') + '</g>'; },
+  packBehind(id) {
+    return '<g class="' + id + '-pack"><rect class="pack-dk" x="-112" y="-424" width="224" height="238" rx="46"/><rect class="pack" x="-104" y="-430" width="208" height="226" rx="42"/><rect class="pack-lt" opacity=".5" x="-80" y="-422" width="160" height="40" rx="18"/></g>';
+  },
+  straps(id) {
+    return '<g class="' + id + '-straps"><path class="pack-dk" d="M-58 -368 C-66 -330 -66 -290 -60 -246 L-44 -246 C-48 -290 -48 -330 -40 -366Z M58 -368 C66 -330 66 -290 60 -246 L44 -246 C48 -290 48 -330 40 -366Z"/></g>';
+  },
+  // the same bag seen through: a soft outline over her body with the four heavy stones inside
+  packX(id) {
+    const w = (k, x, y) => '<g class="' + id + '-w' + k + '"><ellipse class="weight-dk" cx="' + x + '" cy="' + (y + 6) + '" rx="40" ry="32"/><ellipse class="weight" cx="' + x + '" cy="' + y + '" rx="38" ry="30"/><ellipse class="light" opacity=".35" cx="' + (x - 12) + '" cy="' + (y - 10) + '" rx="14" ry="6"/></g>';
+    return '<g class="' + id + '-xray"><rect x="-104" y="-370" width="208" height="226" rx="42" style="fill:color-mix(in srgb, var(--ground) 30%, white);opacity:.8"/>' +
+      '<rect x="-104" y="-370" width="208" height="226" rx="42" style="fill:none;stroke:var(--second);stroke-width:5;stroke-dasharray:14 10"/>' +
+      w(0, -48, -310) + w(1, 48, -310) + w(2, -48, -216) + w(3, 48, -216) + '</g>';
+  },
+  // Ruth seen from behind, walking up the path, her backpack on her back
+  ruthBack(id, step) {
+    const legs = step ? '<path class="skin" d="M-36 -200 l24 0 l-14 196 h-24Z M12 -200 l24 0 l20 192 h-24Z"/>' + R.shoe(-62, 2) + R.shoe(20, 0)
+      : '<path class="skin" d="M-34 -200 h26 l-2 196 h-26Z M8 -200 h26 l2 196 h-26Z"/>' + R.shoe(-48, 2) + R.shoe(0, 2);
+    return '<g class="' + id + '-ruth"><ellipse class="shade" cx="0" cy="4" rx="80" ry="10"/>' + legs +
+      '<path class="skirt" d="M-64 -240 L64 -240 L80 -160 L-80 -160Z"/>' +
+      '<path class="knit" d="M-72 -200 C-78 -260 -74 -320 -56 -350 Q-30 -368 0 -368 Q30 -368 56 -350 C74 -320 78 -260 72 -200Z"/>' +
+      '<path class="knit" d="M-60 -330 C-84 -280 -82 -230 -70 -196 L-50 -200 C-60 -240 -58 -280 -42 -316Z M60 -330 C84 -280 82 -230 70 -196 L50 -200 C60 -240 58 -280 42 -316Z"/>' +
+      '<ellipse class="skin" cx="-62" cy="-192" rx="14" ry="16"/><ellipse class="skin" cx="62" cy="-192" rx="14" ry="16"/>' +
+      '<g transform="translate(0 -418)"><ellipse class="skin-dk" cx="-46" cy="0" rx="10" ry="16"/><ellipse class="skin-dk" cx="46" cy="0" rx="10" ry="16"/>' +
+      '<path class="hair-dk" d="M-50 10 C-60 -60 -30 -96 0 -96 C30 -96 60 -60 50 10 C40 34 -40 34 -50 10Z"/><path class="hair" d="M-44 0 C-50 -56 -24 -86 0 -86 C24 -86 50 -56 44 0 C30 18 -30 18 -44 0Z"/>' +
+      '<path class="ink" style="stroke-width:3;opacity:.3" d="M-10 -80 C-14 -50 -14 -20 -10 6 M14 -78 C18 -50 18 -22 14 4"/></g>' +
+      '<g class="' + id + '-pack"><rect class="pack-dk" x="-84" y="-372" width="168" height="196" rx="38"/><rect class="pack" x="-78" y="-378" width="156" height="186" rx="34"/>' +
+      '<rect class="pack-dk" x="-58" y="-300" width="116" height="74" rx="20"/><rect class="pack-lt" opacity=".6" x="-58" y="-372" width="116" height="30" rx="14"/></g></g>';
+  },
+  // Nira, the psychologist whose voice we hear: drawn like Ruth, but younger, curly dark hair, amber top
+  nira(id, pose) {
+    let s = R.ruth(id, pose || 'stand');
+    s = s.replace(/<circle class="ink" style="stroke-width:3.5"[^>]*r="15"\/>/g, '').replace('<path class="ink" style="stroke-width:3.5" d="M-1 -4 h4"/>', '');
+    s = s.replace(/class="knit-lt"/g, 'class="nira-top-dk"').replace(/class="knit-dk"/g, 'class="nira-top-dk"').replace(/class="knit"/g, 'class="nira-top"')
+      .replace(/class="skirt"/g, 'class="nira-pants"').replace(/class="hair-dk"/g, 'class="nira-hair-dk"').replace(/class="hair"/g, 'class="nira-hair"')
+      .replace(/class="skin-dk"/g, 'class="nira-skin-dk"').replace(/class="skin"/g, 'class="nira-skin"');
+    const curls = '<g class="nira-hair"><circle cx="-40" cy="-62" r="22"/><circle cx="-12" cy="-80" r="24"/><circle cx="20" cy="-78" r="22"/><circle cx="44" cy="-56" r="20"/><circle cx="-54" cy="-30" r="18"/><circle cx="54" cy="-26" r="16"/></g>';
+    return s.replace('<g class="' + id + '-eyes">', curls + '<g class="' + id + '-eyes">');
+  },
+  niraBack(id, step) {
+    return R.ruthBack(id, step).replace(/class="knit"/g, 'class="nira-top"').replace(/class="skirt"/g, 'class="nira-pants"').replace(/class="hair-dk"/g, 'class="nira-hair-dk"').replace(/class="hair"/g, 'class="nira-hair"')
+      .replace(/class="skin-dk"/g, 'class="nira-skin-dk"').replace(/class="skin"/g, 'class="nira-skin"').replace(/<g class="[^"]*-pack">.*?<\/g><\/g>$/, '</g>');
+  },
+  // the five tools of the program, as round badges
+  tool(cls, k, r) {
+    r = r || 56;
+    const fills = ['color-mix(in srgb, var(--main) 30%, var(--ground))', 'color-mix(in srgb, var(--main) 18%, var(--ground))', 'color-mix(in srgb, var(--accent) 30%, var(--ground))', 'color-mix(in srgb, var(--accent) 45%, var(--ground))', 'color-mix(in srgb, var(--main) 42%, var(--ground))'];
+    const g = [
+      '<path class="light" d="M-30 10 C-44 10 -44 -12 -28 -12 C-28 -30 -4 -34 4 -20 C16 -30 34 -20 30 -6 C42 -4 40 14 28 14Z"/><path class="ink" style="stroke-width:5" d="M-30 10 C-44 10 -44 -12 -28 -12 C-28 -30 -4 -34 4 -20 C16 -30 34 -20 30 -6 C42 -4 40 14 28 14 L-30 14"/><path class="ink" style="stroke-width:5" d="M-8 2 q8 -10 16 0"/>',
+      '<path class="ink" style="stroke-width:6" d="M-30 -14 q10 -12 20 0 t20 0 t20 0 M-30 4 q10 -12 20 0 t20 0 t20 0 M-30 22 q10 -12 20 0 t20 0 t20 0"/>',
+      '<path class="light" d="M-34 0 Q0 -30 34 0 Q0 30 -34 0Z"/><path class="ink" style="stroke-width:5" d="M-34 0 Q0 -30 34 0 Q0 30 -34 0Z"/><circle class="metal" r="11"/><circle class="light" cx="4" cy="-4" r="3"/>',
+      '<path class="amber-dk" d="M0 26 C-40 2 -26 -32 0 -12 C26 -32 40 2 0 26Z"/><path class="light" opacity=".55" d="M-16 -12 q6 -6 12 0"/>',
+      '<circle class="ink" style="stroke-width:7" cx="-12" cy="0" r="18"/><circle class="ink" style="stroke-width:7" cx="12" cy="0" r="18"/>'
+    ][k];
+    return '<g class="' + cls + '"><circle class="shade" cy="' + (r * 0.12) + '" r="' + r + '"/><circle r="' + r + '" style="fill:' + fills[k] + ';stroke:var(--second);stroke-width:5"/><g transform="scale(' + (r / 56) + ')">' + g + '</g></g>';
+  },
+
+  // swap a standing figure's hanging arms for two arms that can rotate at the shoulder (id-armL, id-armR)
+  armsFree(markup, id) {
+    return markup.replace(/<path class="(knit|[a-z]+-top)" d="M-60 -330 [^"]*"\/><path class="\1" d="M60 -330 [^"]*"\/><ellipse class="(skin|nira-skin)" cx="-62"[^>]*\/><ellipse class="\2" cx="62"[^>]*\/>/, (m, top, skin) =>
+      '<g class="' + id + '-armL"><path class="' + top + '" d="M-60 -330 C-84 -280 -82 -230 -70 -196 L-50 -200 C-60 -240 -58 -280 -42 -316Z"/><ellipse class="' + skin + '" cx="-62" cy="-192" rx="14" ry="16"/></g>' +
+      '<g class="' + id + '-armR"><path class="' + top + '" d="M60 -330 C84 -280 82 -230 70 -196 L50 -200 C60 -240 58 -280 42 -316Z"/><ellipse class="' + skin + '" cx="62" cy="-192" rx="14" ry="16"/></g>');
+  },
+  // raise both arms by a (0..1); arms swing out and up around the shoulders
+  raise(r, a) {
+    r.armL.setAttribute('transform', 'rotate(' + (a * 150) + ' -52 -326)');
+    r.armR.setAttribute('transform', 'rotate(' + (-a * 150) + ' 52 -326)');
+  },
+
+
+  // ---- sessions 3–4: Ariel, Ruth on the mat, the inner voice, thought cards, the pacer, the day line ----
+  // Ariel, the second guide: Ruth's figure re-dressed — short dark hair and beard, no glasses, blue shirt, trousers
+  ariel(id, pose) {
+    let s = R.ruth(id, pose || 'stand');
+    s = s.replace(/<circle class="ink" style="stroke-width:3.5"[^>]*r="15"\/>/g, '').replace('<path class="ink" style="stroke-width:3.5" d="M-1 -4 h4"/>', '');
+    s = s.replace(/<path class="hair-dk" d="M-58 -10[^"]*"\/>/, '<ellipse class="skin-dk" cx="-44" cy="0" rx="9" ry="14"/><ellipse class="skin-dk" cx="44" cy="0" rx="9" ry="14"/>');
+    s = s.replace(/<path class="hair" d="M-48 -16[^"]*"\/>/, '<path class="ariel-hair" d="M-46 -12 C-54 -62 -20 -86 6 -84 C38 -82 56 -58 46 -12 C40 -34 26 -46 4 -48 C-16 -48 -36 -38 -46 -12Z"/>');
+    s = s.replace('<path class="ink ' + id + '-mouth"', '<path class="ariel-hair" d="M-42 8 C-40 42 -18 58 2 58 C22 58 42 42 42 8 C34 28 22 38 2 38 C-18 38 -34 28 -42 8Z"/><path class="ariel-hair" d="M-18 24 C-8 14 12 14 22 24 C12 21 -8 21 -18 24Z"/><path class="ink ' + id + '-mouth"');
+    s = s.replace('<path class="skin" d="M-34 -200', '<path class="ariel-pants" d="M-34 -200').replace('<path class="skin" d="M-36 -200', '<path class="ariel-pants" d="M-36 -200');
+    s = s.replace(/class="skirt"/g, 'class="ariel-pants"').replace(/class="knit-lt"/g, 'class="ariel-top-dk"').replace(/class="knit-dk"/g, 'class="ariel-top-dk"').replace(/class="knit"/g, 'class="ariel-top"');
+    return s;
+  },
+  // a guide on Ruth's phone screen; who: 'ariel' | 'nira'. Phone centred on (x, y), 74 × 116
+  phone(id, x, y, who) {
+    const fig = who === 'nira' ? R.nira(id + '-g', 'stand') : R.ariel(id + '-g', 'stand');
+    return '<g class="' + id + '-phone"><rect class="metal" x="' + (x - 37) + '" y="' + (y - 58) + '" width="74" height="116" rx="12"/>' +
+      '<clipPath id="' + id + '-scr"><rect x="' + (x - 29) + '" y="' + (y - 48) + '" width="58" height="94" rx="6"/></clipPath>' +
+      '<g clip-path="url(#' + id + '-scr)"><rect class="' + (who === 'nira' ? 'amber-lt' : 'ariel-scr') + '" x="' + (x - 29) + '" y="' + (y - 48) + '" width="58" height="94"/>' +
+      '<g transform="translate(' + x + ' ' + (y + 58) + ') scale(.17)">' + fig + '</g></g></g>';
+  },
+  // the room seen from straight above: floorboards, a mat and a cushion — Ruth lies on it (see ruthTop)
+  overhead(p) {
+    let s = '<rect class="floor" width="1080" height="1080"/>';
+    for (let k = 0; k < 9; k++) s += '<rect class="floor-dk" opacity=".3" x="0" y="' + (k * 130 + 40) + '" width="1080" height="5"/>';
+    s += '<g class="' + p + '-plant"><circle class="shade" cx="972" cy="122" r="108"/><circle class="amber-dk" cx="962" cy="112" r="70"/>' +
+      '<path class="leaf" d="M962 112 L900 30 Q950 40 962 112Z M962 112 L1060 70 Q1040 120 962 112Z M962 112 L1010 200 Q960 190 962 112Z M962 112 L880 160 Q900 110 962 112Z"/><path class="leaf-lt" d="M962 112 L930 40 Q960 60 962 112Z"/></g>';
+    s += '<rect class="shade" x="128" y="356" width="844" height="400" rx="60"/><rect class="' + p + '-mat mat" x="120" y="340" width="844" height="400" rx="60"/>' +
+      '<rect class="mat-dk" opacity=".5" x="150" y="370" width="784" height="340" rx="44" style="fill:none;stroke-width:6;stroke:color-mix(in srgb, var(--main) 50%, var(--ground))"/>' +
+      '<ellipse class="shade" cx="236" cy="552" rx="92" ry="128"/><ellipse class="' + p + '-cushion cushion" cx="226" cy="540" rx="88" ry="124"/><path class="light" opacity=".4" d="M190 450 Q226 430 262 450"/>';
+    return s;
+  },
+  // Ruth lying on her back seen from above: her standing figure turned so her head rests to the left, feet to the right.
+  // The right arm is free (id-armR) so a hand can rest on her belly. Origin = her feet.
+  ruthTop(id) {
+    let s = R.armsFree(R.ruth(id, 'stand'), id).replace('<ellipse class="shade" cx="0" cy="4" rx="80" ry="10"/>', '');
+    return '<g transform="rotate(-90)">' + s + '</g>';
+  },
+  // Ruth's inner voice: a small cloud with a face. Grey (critic) and warm layers cross-fade (id-grey, id-warm).
+  voice(id) {
+    const d = 'M-60 20 C-84 20 -92 -12 -70 -24 C-76 -56 -40 -72 -18 -56 C-6 -84 40 -84 50 -54 C78 -66 100 -36 82 -12 C100 0 92 24 70 24 L-10 24 L-34 48 L-30 24Z';
+    return '<g class="' + id + '-voice"><path class="shade" transform="translate(0 8)" d="' + d + '"/><path class="' + id + '-grey voice-grey" d="' + d + '"/><path class="' + id + '-warm voice-warm" d="' + d + '" opacity="0"/>' +
+      '<g class="' + id + '-eyes"><circle class="metal" cx="-6" cy="-14" r="6"/><circle class="metal" cx="26" cy="-14" r="6"/></g><path class="ink ' + id + '-mouth" style="stroke-width:5" d="M-2 4 Q10 10 22 4"/></g>';
+  },
+  // a centred transform for HTML pieces (thought cards, words): position, scale, rotation, opacity
+  put(el, x, y, s, rot, o) { el.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,-50%) scale(' + (s == null ? 1 : s) + ') rotate(' + (rot || 0) + 'deg)'; if (o != null) el.style.opacity = o; },
+  // the breathing pacer: a soft circle and n count dots below it (id-ring, id-core, id-d0..)
+  pacer(id, n) {
+    let s = '<g class="' + id + '-pacer"><circle class="' + id + '-ring" r="150" style="fill:var(--main);opacity:.12"/><circle class="' + id + '-core" r="110" style="fill:color-mix(in srgb, var(--main) 22%, var(--ground));stroke:var(--main);stroke-width:8"/>';
+    for (let k = 0; k < (n || 5); k++) s += '<circle class="' + id + '-d' + k + '" cx="' + ((k - ((n || 5) - 1) / 2) * 44) + '" cy="200" r="14" style="fill:var(--ground);stroke:var(--second);stroke-width:4"/>';
+    return s + '</g>';
+  },
+  // one day, morning on the right (sun) to evening on the left (moon): an ease curve that lifts after each pill
+  dayLine(id, y, pills) {
+    let s = '<g class="' + id + '-day"><rect class="metal" x="110" y="' + (y - 3) + '" width="860" height="6" rx="3"/>' +
+      '<circle class="amber" cx="1000" cy="' + y + '" r="30"/><path class="slate" d="M84 ' + (y - 30) + ' a30 30 0 1 0 0 60 a40 40 0 0 1 0 -60Z"/>';
+    (pills || []).forEach((x, k) => {
+      s += '<g class="' + id + '-pill' + k + '" transform="translate(' + x + ' ' + (y + 46) + ')"><rect x="-30" y="-14" width="60" height="28" rx="14" style="fill:var(--ground);stroke:var(--second);stroke-width:4"/><path d="M-30 0 a14 14 0 0 1 14 -14 h14 v28 h-14 a14 14 0 0 1 -14 -14Z" style="fill:#D96C6C"/></g>';
+    });
+    s += '<path class="' + id + '-curve" pathLength="1" style="fill:none;stroke:var(--accent);stroke-width:9;stroke-linecap:round" d="M970 ' + (y - 60) + ' C900 ' + (y - 250) + ' 840 ' + (y - 250) + ' 790 ' + (y - 120) + ' C750 ' + (y - 40) + ' 700 ' + (y - 260) + ' 610 ' + (y - 250) + ' C520 ' + (y - 240) + ' 500 ' + (y - 60) + ' 420 ' + (y - 80) + ' C340 ' + (y - 100) + ' 300 ' + (y - 220) + ' 230 ' + (y - 200) + ' C180 ' + (y - 186) + ' 150 ' + (y - 120) + ' 120 ' + (y - 110) + '"/></g>';
+    return s;
+  },
+  // Ruth's upper body in side profile (facing right), the chest cut away: lung, diaphragm, belly front.
+  // Animated parts: id-lung (scale), id-dia (moves down on the in-breath), id-belly (pushes out), id-air (in/out flow)
+  torso(id) {
+    return '<rect width="1080" height="1080" style="fill:color-mix(in srgb, var(--main) 14%, var(--ground))"/><circle cx="540" cy="560" r="470" style="fill:color-mix(in srgb, var(--ground) 70%, white)"/>' +
+      // back and shoulders, cardigan
+      '<path class="knit" d="M330 1080 L330 520 C330 420 380 360 470 350 L560 350 C640 356 690 400 700 470 L712 560 L712 1080Z"/>' +
+      '<g class="' + id + '-belly"><path class="knit" d="M700 520 C760 600 790 700 780 800 C772 880 740 940 712 980 L640 980 L640 520Z"/></g>' +
+      '<path class="knit-dk" opacity=".5" d="M330 520 C330 460 344 410 380 380 C360 450 356 560 370 1080 H330Z"/>' +
+      // neck and head (side view), grey bob, glasses
+      '<rect class="skin-dk" x="510" y="290" width="70" height="80" rx="20"/>' +
+      '<path class="skin" d="M470 220 C470 130 540 90 600 100 C660 110 690 170 684 230 C700 250 706 262 694 270 L690 300 C688 330 660 340 630 338 C580 340 520 320 494 290 C474 270 470 246 470 220Z"/>' +
+      '<path class="hair" d="M450 260 C430 150 500 70 590 76 C660 80 700 130 696 190 C660 150 610 140 570 160 C530 180 510 230 520 300 C490 300 460 290 450 260Z"/>' +
+      '<ellipse class="light" opacity=".28" cx="652" cy="210" rx="30" ry="28"/><ellipse class="ink" style="stroke-width:6" cx="652" cy="210" rx="30" ry="28"/><path class="ink" style="stroke-width:6" d="M622 206 L560 200"/><circle class="metal" cx="658" cy="210" r="6"/>' +
+      '<path class="ink" style="stroke-width:5" d="M664 296 q12 2 20 -6"/>' +
+      // the cutaway window into the chest and belly
+      '<clipPath id="' + id + '-clip"><path d="M400 430 C400 400 430 384 470 384 L600 384 C650 390 676 420 680 470 L690 860 C690 900 660 920 620 920 L460 920 C420 920 400 900 400 860Z"/></clipPath>' +
+      '<path d="M394 424 C394 392 426 376 470 376 L600 376 C656 382 684 416 688 470 L698 860 C698 906 664 928 620 928 L460 928 C416 928 394 906 394 860Z" style="fill:color-mix(in srgb, var(--ground) 55%, white)"/>' +
+      '<g clip-path="url(#' + id + '-clip)"><rect x="380" y="370" width="340" height="580" style="fill:color-mix(in srgb, var(--second) 78%, var(--main))"/>' +
+      '<g class="' + id + '-lung"><path style="fill:#E9A3AE" d="M430 640 C410 560 430 450 500 420 C540 404 600 410 630 450 C660 500 660 590 650 650 C620 680 470 690 430 640Z"/>' +
+      '<path style="fill:none;stroke:#C77985;stroke-width:6;stroke-linecap:round;opacity:.7" d="M540 400 V520 M540 470 C510 500 490 540 480 590 M540 480 C570 510 590 550 600 600"/></g>' +
+      '<g class="' + id + '-dia"><path style="fill:none;stroke:#D9534F;stroke-width:16;stroke-linecap:round" d="M410 720 C450 650 620 640 680 716"/></g>' +
+      '<g class="' + id + '-gut"><path class="amber-lt" opacity=".6" d="M420 780 C430 740 640 730 680 790 L690 920 H410Z"/></g></g>' +
+      '<path d="M394 424 C394 392 426 376 470 376 L600 376 C656 382 684 416 688 470 L698 860 C698 906 664 928 620 928 L460 928 C416 928 394 906 394 860Z" style="fill:none;stroke:var(--second);stroke-width:6;opacity:.85"/>' +
+      '<path class="' + id + '-air" pathLength="1" style="fill:none;stroke:var(--main);stroke-width:10;stroke-linecap:round;stroke-dasharray:.06 .06" d="M880 250 C820 250 760 258 700 270"/>';
+  },
+
+  // the armchair with Ruth seated in it, shifted dx to the side; Ruth's parts are id-head, id-eyes, id-mouth; id-body breathes
+  seated(id, dx) {
+    return '<g transform="translate(' + (dx || 0) + ' 0)">' + R.chair() + '<g transform="translate(500 742)"><g class="' + id + '-body">' + R.ruth(id, 'sit') + '</g></g></g>';
+  },
+  // a big phone filling the frame, for the game screens (screen 440 × 760, centred on x 540)
+  bigPhone(id) {
+    return '<g class="' + id + '-big"><rect class="shade" x="290" y="150" width="520" height="900" rx="64"/><rect class="metal" x="270" y="130" width="540" height="900" rx="64"/>' +
+      '<rect x="300" y="190" width="480" height="790" rx="30" style="fill:color-mix(in srgb, var(--ground) 80%, white)"/><rect class="slate" x="490" y="150" width="100" height="14" rx="7"/></g>';
+  },
+
+  // ---- session 3a props ----
+  // the circle of attention: a soft warm disc with a dashed rim, radius 1 (scale it)
+  attn(id) {
+    return '<g class="' + id + '-attn"><circle r="1" style="fill:var(--accent);opacity:.13"/><circle r="1" style="fill:none;stroke:var(--accent);stroke-width:.022;stroke-dasharray:.06 .05;opacity:.9"/></g>';
+  },
+  // three short wiggle lines beside a trembling hand (animate the group's transform to make them shiver)
+  tremor(id) {
+    return '<g class="' + id + '-trem">' + [0, 1, 2].map((k) => '<path class="ink" style="stroke-width:5;opacity:.7" d="M' + (20 + k * 6) + ' ' + (-26 + k * 26) + ' q8 -8 16 0 t16 0"/>').join('') + '</g>';
+  },
+  // the picture-perfect meditator, as a framed picture (centre 0,0; 260 × 300)
+  perfect(id) {
+    return '<g class="' + id + '-perfect"><rect class="shade" x="-122" y="-140" width="260" height="300" rx="20"/><rect x="-130" y="-150" width="260" height="300" rx="20" style="fill:color-mix(in srgb, var(--ground) 60%, white);stroke:var(--second);stroke-width:6"/>' +
+      '<circle cx="0" cy="-30" r="96" style="fill:color-mix(in srgb, var(--main) 18%, var(--ground))"/>' +
+      '<ellipse class="skin" cx="0" cy="-70" rx="26" ry="30"/><path class="leaf-lt" d="M-34 30 C-36 -10 -24 -36 0 -36 C24 -36 36 -10 34 30Z"/>' +
+      '<path class="ink" style="stroke-width:4" d="M-10 -70 q4 3 8 0 M6 -70 q4 3 8 0"/><path class="slate-dk" d="M-26 -90 C-26 -110 26 -110 26 -90 C14 -100 -14 -100 -26 -90Z"/>' +
+      '<path class="leaf" d="M-76 50 C-40 20 40 20 76 50 C40 62 -40 62 -76 50Z"/><path class="ink" style="stroke-width:5" d="M-30 0 L-58 38 M30 0 L58 38"/></g>';
+  },
+  // a practice-day card with weather: kind 'sun' | 'cloud' | 'mixed' (centre 0,0; 220 × 250)
+  dayCard(id, kind) {
+    const icon = {
+      sun: '<circle class="amber" cx="0" cy="-30" r="46"/>' + [0, 1, 2, 3, 4, 5, 6, 7].map((k) => '<rect class="amber" x="-5" y="-108" width="10" height="20" rx="5" transform="rotate(' + k * 45 + ' 0 -30)"/>').join(''),
+      cloud: '<path class="slate" d="M-62 0 C-84 0 -84 -36 -56 -38 C-56 -70 -10 -82 4 -56 C22 -76 64 -66 62 -34 C88 -32 88 0 62 0Z"/>',
+      mixed: '<circle class="amber" cx="22" cy="-50" r="36"/><path style="fill:color-mix(in srgb, var(--second) 18%, var(--ground))" d="M-70 0 C-90 0 -90 -32 -64 -34 C-64 -62 -24 -72 -12 -48 C4 -66 40 -58 40 -30 C62 -28 62 0 40 0Z"/>',
+    }[kind];
+    return '<g class="' + id + '"><rect class="shade" x="-104" y="-116" width="220" height="250" rx="26"/><rect x="-110" y="-125" width="220" height="250" rx="26" style="fill:color-mix(in srgb, var(--ground) 50%, white);stroke:var(--second);stroke-width:6"/>' + icon + '</g>';
+  },
+  anchor(id) {
+    return '<g class="' + id + '"><circle class="ink" style="stroke-width:10" cx="0" cy="-70" r="18"/><path class="ink" style="stroke-width:12" d="M0 -52 V40 M-30 -20 H30 M-56 0 C-50 40 -20 54 0 54 C20 54 50 40 56 0"/><path class="ink" style="stroke-width:10" d="M-66 10 L-56 -6 L-42 8 M66 10 L56 -6 L42 8"/></g>';
+  },
+  hourglass(id) {
+    return '<g class="' + id + '"><rect class="wood" x="-70" y="-110" width="140" height="18" rx="9"/><rect class="wood" x="-70" y="92" width="140" height="18" rx="9"/>' +
+      '<path d="M-54 -92 H54 C54 -30 12 -14 12 0 C12 14 54 30 54 92 H-54 C-54 30 -12 14 -12 0 C-12 -14 -54 -30 -54 -92Z" style="fill:color-mix(in srgb, var(--ground) 50%, white);stroke:var(--second);stroke-width:6"/>' +
+      '<path class="amber" d="M-36 -64 H36 C30 -36 8 -24 0 -10 C-8 -24 -30 -36 -36 -64Z M-40 86 C-30 50 -10 40 0 34 C10 40 30 50 40 86Z"/></g>';
+  },
+  // a dial with a pointer (id-hand rotates about the centre)
+  dial(id) {
+    return '<g class="' + id + '"><circle class="shade" cx="4" cy="8" r="80"/><circle r="80" style="fill:color-mix(in srgb, var(--ground) 50%, white);stroke:var(--second);stroke-width:8"/>' +
+      [0, 1, 2, 3, 4, 5, 6].map((k) => '<rect class="slate" x="-3" y="-72" width="6" height="16" rx="3" transform="rotate(' + (-90 + k * 30) + ')"/>').join('') +
+      '<g class="' + id + '-hand"><path class="ink" style="stroke-width:10" d="M0 0 V-56"/></g><circle class="amber" r="14"/></g>';
+  },
+  // a reed that bends without breaking: flexibility, as a badge-sized icon
+  reed(id) {
+    return '<g class="' + id + '"><circle class="shade" cy="7" r="56"/><circle r="56" style="fill:color-mix(in srgb, var(--accent) 22%, var(--ground));stroke:var(--second);stroke-width:5"/>' +
+      '<path class="' + id + '-stem" style="fill:none;stroke:var(--main);stroke-width:8;stroke-linecap:round" d="M0 40 C0 10 6 -16 20 -36"/><path class="leaf" d="M20 -36 C34 -40 40 -30 36 -22 C28 -22 22 -28 20 -36Z M4 0 C-14 -6 -22 4 -18 12 C-8 12 0 6 4 0Z"/></g>';
+  },
+  // a small lesson note (paper slip with two lines)
+  note(id) {
+    return '<g class="' + id + '"><rect class="shade" x="-38" y="-24" width="80" height="56" rx="8"/><rect x="-42" y="-30" width="84" height="58" rx="8" style="fill:color-mix(in srgb, var(--accent) 22%, white);stroke:var(--second);stroke-width:4"/>' +
+      '<path class="ink" style="stroke-width:4;opacity:.6" d="M-26 -10 H26 M-26 6 H12"/></g>';
+  },
+  // a drifting thought, as a small cloud balloon with three dots
+  balloon(id) {
+    return '<g class="' + id + '"><path class="shade" transform="translate(0 6)" d="M-56 18 C-76 18 -76 -12 -52 -14 C-50 -42 -12 -50 0 -30 C14 -48 52 -40 50 -12 C72 -10 72 18 52 18Z"/>' +
+      '<path style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:5" d="M-56 18 C-76 18 -76 -12 -52 -14 C-50 -42 -12 -50 0 -30 C14 -48 52 -40 50 -12 C72 -10 72 18 52 18Z"/>' +
+      '<circle class="metal" cx="-18" cy="0" r="6"/><circle class="metal" cx="2" cy="0" r="6"/><circle class="metal" cx="22" cy="0" r="6"/></g>';
+  },
+  bell(id) {
+    return '<g class="' + id + '"><path class="amber" d="M-44 30 C-40 -10 -36 -50 0 -54 C36 -50 40 -10 44 30 L56 44 H-56Z"/><circle class="amber-dk" cx="0" cy="54" r="12"/><path class="ink" style="stroke-width:5;opacity:.6" d="M-74 -20 q-14 20 0 40 M74 -20 q14 20 0 40"/></g>';
+  },
+  calendar(id) {
+    return '<g class="' + id + '"><rect x="-56" y="-50" width="112" height="104" rx="12" style="fill:color-mix(in srgb, var(--ground) 50%, white);stroke:var(--second);stroke-width:5"/><rect class="amber" x="-56" y="-50" width="112" height="28" rx="10"/>' +
+      [0, 1, 2].map((r) => [0, 1, 2].map((c) => '<rect class="slate" x="' + (-36 + c * 28) + '" y="' + (-10 + r * 20) + '" width="16" height="10" rx="3"/>').join('')).join('') + '</g>';
+  },
+  // a wavy breath line as a path: x0..x0+w around y, amplitude, cycles, phase
+  wavePath(x0, y, w, amp, k, ph) {
+    let d = '';
+    for (let i = 0; i <= 80; i++) { const x = x0 + w * i / 80, yy = y - amp * Math.sin((i / 80) * k * 2 * Math.PI + (ph || 0)); d += (i ? ' L' : 'M') + x.toFixed(1) + ' ' + yy.toFixed(1); }
+    return d;
+  },
+
+  // ---- session 3b ----
+  // Ruth lying on the mat seen from above, right hand resting on her belly; returns markup (parts: id-armR, id-eyes, id-mouth)
+  lying(id, p) {
+    return R.overhead(p || id) + '<ellipse class="' + id + '-glow" cx="514" cy="547" rx="70" ry="56" style="fill:var(--main);opacity:0"/>' +
+      '<g transform="translate(770 540) scale(1.25)">' + R.ruthTop(id) + '</g>';
+  },
+  // the hand on the belly; a = 0 (arm at her side) .. 1 (hand on belly); breath b = 0..1 lifts it a little
+  handOn(arm, a, b) { arm.setAttribute('transform', 'rotate(' + (30 * a) + ' 52 -326) translate(' + (-6 * (b || 0)) + ' 0) scale(' + (1 + 0.05 * (b || 0)) + ')'); },
+  // a tension meter (centre-bottom origin): id-fill is the level
+  meter(id) {
+    return '<g class="' + id + '"><rect x="-34" y="-290" width="68" height="290" rx="34" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:6"/>' +
+      '<clipPath id="' + id + '-cl"><rect x="-26" y="-282" width="52" height="274" rx="26"/></clipPath><g clip-path="url(#' + id + '-cl)"><rect class="' + id + '-fill" x="-26" y="-282" width="52" height="274" style="fill:#D96C6C"/></g></g>';
+  },
+  stopSign(id) {
+    return '<g class="' + id + '"><polygon points="-30,-72 30,-72 72,-30 72,30 30,72 -30,72 -72,30 -72,-30" style="fill:#C0392B;stroke:var(--ground);stroke-width:8"/><rect x="-44" y="-10" width="88" height="20" rx="10" style="fill:var(--ground)"/></g>';
+  },
+  // a soft blanket for the overhead view (covers her legs)
+  blanket(id) {
+    return '<g class="' + id + '"><rect x="0" y="-130" width="330" height="260" rx="40" style="fill:color-mix(in srgb, var(--accent) 55%, var(--ground))"/><path style="fill:none;stroke:color-mix(in srgb, var(--accent) 70%, var(--second));stroke-width:6;opacity:.5" d="M40 -130 V130 M110 -130 V130 M180 -130 V130 M250 -130 V130"/></g>';
+  },
+  swirl(id) {
+    return '<path class="' + id + '" style="fill:none;stroke:var(--second);stroke-width:6;stroke-linecap:round;opacity:.7" d="M0 0 C10 -10 22 0 14 12 C4 24 -18 14 -16 -6 C-14 -28 16 -36 32 -16 C46 4 34 34 6 38"/>';
+  },
+
+  // ---- sessions 5–7 ----
+  // an upright battery centred on (0,0), 120 × 200; set its level with R.setBattery(fill, level)
+  battery(id) {
+    return '<g class="' + id + '-bat"><rect class="shade" x="-54" y="-92" width="120" height="200" rx="26"/><rect x="-26" y="-118" width="52" height="26" rx="8" style="fill:var(--second)"/>' +
+      '<rect x="-60" y="-100" width="120" height="200" rx="26" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:8"/>' +
+      '<clipPath id="' + id + '-bc"><rect x="-46" y="-86" width="92" height="172" rx="16"/></clipPath><g clip-path="url(#' + id + '-bc)"><rect class="' + id + '-fill" x="-46" y="-86" width="92" height="172"/></g>' +
+      '<path class="' + id + '-bolt" d="M8 -40 L-18 8 H0 L-8 44 L20 -4 H2Z" style="fill:var(--ground);opacity:0"/></g>';
+  },
+  setBattery(fill, level) {
+    const l = Math.max(0, Math.min(1, level));
+    fill.setAttribute('y', 86 - 172 * l); fill.setAttribute('height', 172 * l);
+    fill.style.fill = l < 0.25 ? '#D96C6C' : l < 0.55 ? 'var(--accent)' : '#6FAE7A';
+  },
+  // two friends of Ruth's, drawn like Nira but in their own colours; look 'a' | 'b'
+  friend(id, look, pose) {
+    return R.nira(id, pose || 'stand').replace(/nira-top-dk/g, 'fr' + look + '-top-dk').replace(/nira-top/g, 'fr' + look + '-top').replace(/nira-hair-dk/g, 'fr' + look + '-hair-dk').replace(/nira-hair/g, 'fr' + look + '-hair').replace(/nira-pants/g, 'fr' + look + '-pants');
+  },
+  clock(id) {
+    return '<g class="' + id + '"><circle class="shade" cx="4" cy="8" r="70"/><circle r="70" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:8"/>' +
+      [0, 1, 2, 3].map((k) => '<rect class="slate" x="-4" y="-62" width="8" height="14" rx="4" transform="rotate(' + k * 90 + ')"/>').join('') +
+      '<g class="' + id + '-h"><path class="ink" style="stroke-width:10" d="M0 0 V-32"/></g><g class="' + id + '-m"><path class="ink" style="stroke-width:7" d="M0 0 V-50"/></g><circle class="amber" r="9"/></g>';
+  },
+  mug(id) {
+    return '<g class="' + id + '"><path class="ink" style="stroke-width:10" d="M40 -20 q30 0 30 24 q0 24 -30 24"/><rect x="-40" y="-44" width="84" height="92" rx="14" style="fill:color-mix(in srgb, var(--main) 40%, var(--ground));stroke:var(--second);stroke-width:6"/>' +
+      '<path class="' + id + '-steam ink" style="stroke-width:6;opacity:.5" d="M-14 -60 q12 -16 0 -32 M12 -60 q12 -16 0 -32"/></g>';
+  },
+  star(id) {
+    return '<path class="' + id + '" d="M0 -70 L20 -24 L68 -20 L32 12 L42 60 L0 34 L-42 60 L-32 12 L-68 -20 L-20 -24Z" style="fill:var(--accent);stroke:var(--second);stroke-width:6;stroke-linejoin:round"/>';
+  },
+  // small roots growing down from a point (draw them on with stroke-dasharray via id-r)
+  roots(id) {
+    return '<path class="' + id + '-r" pathLength="1" style="fill:none;stroke:color-mix(in srgb, var(--accent) 50%, var(--second));stroke-width:7;stroke-linecap:round" d="M-14 0 C-20 30 -50 40 -70 70 M-14 0 C-10 40 -24 70 -20 100 M14 0 C20 30 50 40 70 70 M14 0 C10 40 24 70 20 100 M-40 40 C-60 46 -76 44 -90 50 M40 40 C60 46 76 44 90 50"/>';
+  },
+  // a drifting thought on a dashed string back to Ruth's head (string drawn by the scene)
+  phoneCall(id) {
+    return '<g class="' + id + '"><rect class="shade" x="-50" y="-90" width="112" height="190" rx="20"/><rect x="-56" y="-98" width="112" height="190" rx="20" style="fill:var(--second)"/>' +
+      '<rect x="-46" y="-84" width="92" height="156" rx="10" style="fill:color-mix(in srgb, var(--ground) 70%, white)"/><circle class="' + id + '-av" cx="0" cy="-36" r="24" style="fill:color-mix(in srgb, var(--main) 30%, var(--ground))"/>' +
+      '<g class="' + id + '-tick"><path class="ink" style="stroke-width:6;stroke:var(--second);opacity:.5" d="M-20 30 L-8 42 L16 18"/></g><rect class="' + id + '-btn" x="-30" y="50" width="60" height="14" rx="7" style="fill:#6FAE7A"/></g>';
+  },
+};</script>
+<script>
+// Continuous scenes for the remaining films. The original drawing kit remains the visual authority.
+// Every label and timing is supplied by an individually authored, narration-based shot plan.
+Object.assign(R, {
+  cEsc(text) {return String(text).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));},
+  cModel(kind,id) {
+    const stroke='fill:none;stroke:var(--second);stroke-width:5;stroke-linecap:round;stroke-linejoin:round';
+    const disc=inner=>'<circle class="shade" cy="8" r="90"/><circle class="light" r="90" style="stroke:var(--second);stroke-width:5"/>'+inner;
+    const heart='<path class="amber-dk" d="M0 42 C-70 0 -46 -58 0 -22 C46 -58 70 0 0 42Z"/>';
+    if(kind==='voice')return R.voice(id);
+    if(kind==='friend')return R.friend(id,'a','stand');
+    if(kind==='friendB')return R.friend(id,'b','stand');
+    if(kind==='phone')return R.phone(id,0,0,'nira').replace('width="74"','width="74"');
+    if(kind==='mug')return R.mug(id);
+    if(kind==='battery')return R.battery(id);
+    if(kind==='clock')return R.clock(id);
+    if(kind==='calendar')return R.calendar(id);
+    if(kind==='tremor')return R.tremor(id);
+    if(kind==='meditation')return R.perfect(id);
+    if(kind==='ear')return disc('<path style="'+stroke+';stroke-width:8" d="M-25 38 C-36 22 -48 3 -42 -24 C-28 -68 40 -64 48 -20 C56 14 24 26 18 48 C12 78 -20 72 -25 38 M-18 24 C-38 -4 -18 -30 6 -24 C34 -16 20 14 2 18"/>');
+    if(kind==='heart')return disc(heart);
+    if(kind==='body')return disc('<circle class="skin" cy="-32" r="25"/><path class="knit" d="M-46 58 C-46 -4 -28 -6 0 -6 C28 -6 46 -4 46 58Z"/>');
+    if(kind==='thought')return disc('<path class="voice-grey" d="M-50 26 C-84 18 -80 -16 -54 -20 C-56 -58 -10 -64 8 -42 C36 -64 76 -44 66 -14 C92 2 70 30 48 26Z"/><circle class="metal" cx="-22" cy="2" r="6"/><circle class="metal" cy="2" r="6"/><circle class="metal" cx="22" cy="2" r="6"/>');
+    if(kind==='breath')return '<g class="'+id+'-pacer"><circle class="'+id+'-ring" r="150" style="fill:var(--main);opacity:.12"/><circle class="'+id+'-core" r="110" style="fill:color-mix(in srgb,var(--main) 22%,var(--ground));stroke:var(--main);stroke-width:8"/></g>';
+    if(kind==='attention')return '<circle r="150" style="fill:var(--accent);opacity:.12"/><circle r="150" style="fill:none;stroke:var(--accent);stroke-width:6;stroke-dasharray:14 12"/>';
+    if(kind==='tools')return [0,1,2,3,4].map((k)=>'<g transform="translate('+((2-k)*120)+' 0)">'+R.tool(id+'-'+k,k,44)+'</g>').join('');
+    if(kind==='rain')return '<path class="slate" d="M-90 10 C-130 4 -116 -48 -78 -48 C-78 -92 -12 -106 8 -70 C46 -102 112 -72 100 -28 C142 -10 120 20 90 20Z"/><path class="'+id+'-drops" style="fill:none;stroke:#5B8DB8;stroke-width:8;stroke-linecap:round" d="M-60 38 l-12 26 M-5 38 l-12 26 M50 38 l-12 26"/>';
+    if(kind==='child')return R.child(id);
+    if(kind==='toy')return R.toy(id);
+    if(kind==='moon')return '<circle class="amber-lt" r="72"/><circle cx="35" cy="-25" r="68" style="fill:#DCE0E9"/><circle class="light" cx="-108" cy="-56" r="6"/><circle class="light" cx="95" cy="70" r="5"/>';
+    if(kind==='bed')return '<rect class="wood" x="-245" y="-65" width="490" height="150" rx="28"/><rect class="light" x="-235" y="-100" width="470" height="140" rx="30"/><rect class="cushion" x="-216" y="-82" width="100" height="100" rx="28"/><path class="amber-lt" d="M-102 -92 H208 Q238 -92 238 -62 V40 H-102Z"/><path style="'+stroke+';opacity:.3" d="M-50 -92 V40 M30 -92 V40 M110 -92 V40 M190 -92 V40"/>';
+    if(kind==='hand')return disc('<path class="skin" style="stroke:var(--second);stroke-width:5" d="M-36 42 L-42 -2 Q-48 -22 -36 -26 Q-24 -28 -20 -8 L-20 -50 Q-20 -70 -8 -70 Q4 -70 4 -50 V-6 V-58 Q4 -78 16 -78 Q28 -78 28 -58 V-6 V-42 Q28 -62 40 -60 Q52 -58 52 -40 V26 Q50 66 14 70 H0 Q-30 68 -36 42Z"/>');
+    if(kind==='feet')return disc('<path class="skin" d="M-48 -60 h30 v90 h-30Z M18 -60 h30 v90 h-30Z"/>'+R.shoe(-68,48)+R.shoe(0,48));
+    if(kind==='check')return disc('<path style="fill:none;stroke:var(--main);stroke-width:18;stroke-linecap:round;stroke-linejoin:round" d="M-42 0 L-8 34 L48 -38"/>');
+    if(kind==='question')return disc('<text text-anchor="middle" y="32" style="font:600 108px var(--sans);fill:var(--accent)">?</text>');
+    if(kind==='compass')return '<circle class="shade" cy="10" r="134"/><circle class="light" r="134" style="stroke:var(--second);stroke-width:7"/><circle class="glass" r="112"/>'+[0,1,2,3].map(k=>'<path style="'+stroke+'" d="M0 -98 v15" transform="rotate('+k*90+')"/>').join('')+'<g class="'+id+'-needle"><path class="amber-dk" d="M0 -90 L24 0 H-24Z"/><path class="knit" d="M0 90 L24 0 H-24Z"/></g><circle class="metal" r="12"/>';
+    if(kind==='flag')return '<path style="'+stroke+';stroke-width:9" d="M-20 110 V-120"/><path class="amber" d="M-20 -120 H96 L64 -76 L96 -32 H-20Z"/><ellipse class="shade" cy="114" rx="84" ry="12"/>';
+    if(kind==='bear')return '<ellipse class="shade" cy="108" rx="110" ry="16"/><ellipse class="light" cy="35" rx="100" ry="94" style="stroke:var(--second);stroke-width:5"/><circle class="light" cx="-60" cy="-86" r="28" style="stroke:var(--second);stroke-width:5"/><circle class="light" cx="60" cy="-86" r="28" style="stroke:var(--second);stroke-width:5"/><ellipse class="light" cy="-42" rx="83" ry="73" style="stroke:var(--second);stroke-width:5"/><circle class="metal" cx="-28" cy="-48" r="7"/><circle class="metal" cx="28" cy="-48" r="7"/><ellipse class="wall-lo" cy="-14" rx="35" ry="27"/><ellipse class="metal" cy="-22" rx="14" ry="10"/><path style="'+stroke+'" d="M0 -12 v12 m-14 0 q14 14 28 0"/><ellipse class="light" cx="-78" cy="76" rx="38" ry="48" style="stroke:var(--second);stroke-width:5"/><ellipse class="light" cx="78" cy="76" rx="38" ry="48" style="stroke:var(--second);stroke-width:5"/>';
+    if(kind==='radio')return '<rect class="shade" x="-250" y="-100" width="500" height="260" rx="36"/><rect class="wood-lt" x="-258" y="-112" width="500" height="260" rx="36" style="stroke:var(--second);stroke-width:6"/><rect class="metal" x="-220" y="-78" width="420" height="32" rx="10"/>'+[-125,115].map((x,k)=>'<g transform="translate('+x+' 46)"><circle class="light" r="64" style="stroke:var(--second);stroke-width:7"/><g class="'+id+'-knob'+k+'"><path style="'+stroke+';stroke-width:10" d="M0 0 V-40"/></g><circle class="metal" r="8"/></g>').join('');
+    if(kind==='chess')return '<g class="'+id+'-board">'+Array.from({length:64},(_,i)=>'<rect x="'+(-240+i%8*60)+'" y="'+(-240+Math.floor(i/8)*60)+'" width="60" height="60" class="'+((i+Math.floor(i/8))%2?'knit-lt':'light')+'"/>').join('')+'<rect x="-246" y="-246" width="492" height="492" rx="8" style="fill:none;stroke:var(--second);stroke-width:10"/>'+[0,1,2,3,4,5,6,7].map((k)=>'<g class="'+id+'-piece'+k+'" transform="translate('+(-180+(k%4)*120)+' '+(k<4?-130:130)+')"><ellipse class="shade" cy="36" rx="34" ry="12"/><path class="'+(k<4?'light':'slate-dk')+'" d="M-34 32 L-22 8 L-14 -22 H14 L22 8 L34 32Z" style="stroke:var(--second);stroke-width:4"/><circle class="'+(k<4?'light':'slate-dk')+'" cy="-38" r="25" style="stroke:var(--second);stroke-width:4"/></g>').join('')+'</g>';
+    if(kind==='road')return '<rect class="grass" x="-440" y="-170" width="880" height="340" rx="35"/><path class="slate" d="M-440 -94 H440 V94 H-440Z"/><path style="fill:none;stroke:var(--ground);stroke-width:6;stroke-dasharray:45 35" d="M-440 0 H440"/>'+[0,1,2,3].map(k=>'<g class="'+id+'-car'+k+'"><rect class="'+(k===0?'amber':'light')+'" x="-54" y="-26" width="108" height="52" rx="18"/><rect class="glass" x="-18" y="-22" width="38" height="44" rx="8"/><rect class="metal" x="-40" y="-33" width="24" height="9" rx="4"/><rect class="metal" x="-40" y="24" width="24" height="9" rx="4"/><rect class="metal" x="22" y="-33" width="24" height="9" rx="4"/><rect class="metal" x="22" y="24" width="24" height="9" rx="4"/></g>').join('');
+    if(kind==='kettle')return '<ellipse class="shade" cy="72" rx="100" ry="18"/><path class="glass" d="M-78 40 Q-96 -58 -50 -74 H56 Q92 -54 78 40 L62 66 H-56Z" style="stroke:var(--second);stroke-width:6"/><path style="'+stroke+';stroke-width:13" d="M78 -52 Q154 -58 130 22 Q120 48 86 38"/><rect class="metal" x="-60" y="-82" width="114" height="15" rx="7"/><path class="'+id+'-steam" style="'+stroke+';opacity:.5" d="M-30 -110 q-28 -26 0 -50 M14 -110 q-28 -26 0 -50"/>';
+    if(kind==='dinner')return '<ellipse class="shade" cy="26" rx="180" ry="60"/><ellipse class="wood-lt" rx="180" ry="60"/><path class="wood" d="M-130 20 h22 v140 h-22Z M110 20 h22 v140 h-22Z"/>'+[-90,0,90].map(x=>'<ellipse class="light" cx="'+x+'" cy="-4" rx="35" ry="18"/><ellipse class="amber-lt" cx="'+x+'" cy="-4" rx="22" ry="11"/>').join('');
+    if(kind==='plant')return R.plant().replace('class="plant"','class="'+id+'"').replace('<g class="'+id+'">','<g class="'+id+'" transform="translate(-130 -760)">');
+    if(kind==='book')return '<path class="light" style="stroke:var(--second);stroke-width:6" d="M0 -90 C-42 -124 -100 -120 -140 -100 V100 C-100 80 -42 80 0 114 C42 80 100 80 140 100 V-100 C100 -120 42 -124 0 -90Z"/><path style="'+stroke+'" d="M0 -90 V112 M-110 -52 L-30 -36 M-110 -14 L-30 2 M30 -36 L110 -52 M30 2 L110 -14"/>';
+    if(kind==='message')return '<rect class="light" x="-130" y="-82" width="260" height="164" rx="30" style="stroke:var(--second);stroke-width:6"/><path class="light" d="M-60 82 L-100 120 L-92 82"/><path style="'+stroke+'" d="M-86 -30 H86 M-86 10 H55"/>';
+    if(kind==='tracker')return [0,1,2].map(k=>'<g transform="translate('+((1-k)*130)+' 0)"><ellipse class="stone-dk" cy="8" rx="54" ry="22"/><ellipse class="'+id+'-stone'+k+' stone" rx="52" ry="20"/><text text-anchor="middle" y="-35" style="font:600 38px var(--sans);fill:var(--second)">'+(k+1)+'</text></g>').join('');
+    if(kind==='lamp')return '<ellipse class="amber-lt" cy="10" rx="126" ry="92" opacity=".35"/><path class="metal" d="M-6 -10 h12 v190 h-12Z"/><ellipse class="metal" cy="190" rx="65" ry="14"/><path class="amber-lt" d="M-80 -88 H80 L118 18 H-118Z" style="stroke:var(--second);stroke-width:5"/>';
+    if(kind==='notice')return '<rect class="light" x="-160" y="-96" width="320" height="192" rx="24" style="stroke:var(--second);stroke-width:6"/><circle class="amber" cx="110" cy="-84" r="24"/><path style="'+stroke+'" d="M-120 -40 H65 M-120 0 H90 M-120 40 H20"/>';
+    throw Error('Unknown model: '+kind);
+  },
+  continuous(kit,spec) {
+    const clamp=kit.clamp01,ease=kit.eio,lerp=kit.lerp,shots=spec.shots;
+    const objects=new Map();for(const shot of shots)for(const p of shot.objects||[]){if(!objects.has(p.key))objects.set(p.key,p);else if(objects.get(p.key).kind!==p.kind)throw Error('Model key changed kind: '+p.key);}
+    const worldNames=[...new Set(shots.map(s=>s.world||'room'))];
+    const worldSvg=name=>{
+      if(name==='room'||name==='roomOpen'||name==='night')return R.room({shoes:false,open:name==='roomOpen'})+(name==='night'?'<rect class="glass" x="80" y="340" width="210" height="200" rx="6" style="fill:#DCE0E9"/><g transform="translate(190 432) scale(.55)">'+R.cModel('moon','nightmoon')+'</g>':'');
+      if(name==='path')return R.land('contpath',{sun:true});
+      if(name==='shore')return '<rect class="sky" width="1080" height="1080"/><circle class="amber" cx="850" cy="200" r="70"/><path class="glass" d="M0 480 Q250 440 540 480 T1080 480 V1080 H0Z"/><path class="floor" d="M0 820 Q400 740 1080 850 V1080 H0Z"/><path class="cont-seawave" style="fill:none;stroke:var(--main);stroke-width:12;opacity:.55"/>';
+      if(name==='mat')return R.lying('contmat','contmat');
+      if(name==='bed')return R.lying('contmat','contmat').replace('class="contmat-mat mat"','class="contmat-mat mat" style="fill:color-mix(in srgb,var(--ground) 35%,white)"')+'<rect class="wood" x="112" y="326" width="26" height="428" rx="13"/><rect class="wood" x="948" y="326" width="24" height="428" rx="12"/><g transform="translate(540 540) scale(.9)">'+R.blanket('contbed')+'</g>';
+      if(name==='torso')return R.torso('conttorso');
+      throw Error('Unknown world '+name);
+    };
+    kit.scene('continuous-'+spec.id.toLowerCase(),{
+      init(sk){
+        const worlds=worldNames.map(name=>'<g class="cont-world-'+name+'">'+worldSvg(name)+'</g>').join('');
+        const chair='<g class="cont-chair">'+R.chair()+'</g>';
+        const seated='<g class="cont-sit"><g class="cont-body">'+R.ruth('contperson','sit')+'</g></g>';
+        const standing='<g class="cont-stand">'+R.ruth('contstanding','stand')+'</g>';
+        const bending='<g class="cont-bend">'+R.ruth('contbending','bend')+'</g>';
+        sk.stage.append(sk.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">'+worlds+chair+seated+standing+bending+
+          [...objects].map(([key,p])=>'<g class="cont-object" data-object="'+key+'">'+R.cModel(p.kind,'obj-'+key)+'</g>').join('')+'</svg><div class="cont-labels"></div><div class="cont-count" dir="rtl"></div></div>'));
+        const q=sel=>sk.stage.querySelector(sel);this.q=q;this.worlds=Object.fromEntries(worldNames.map(w=>[w,q('.cont-world-'+w)]));
+        this.sit=q('.cont-sit');this.stand=q('.cont-stand');this.bend=q('.cont-bend');this.chair=q('.cont-chair');this.body=q('.cont-body');this.eyes=q('.contperson-eyes');this.mouth=q('.contperson-mouth');this.standEyes=q('.contstanding-eyes');this.bendEyes=q('.contbending-eyes');
+        this.objects=Object.fromEntries([...objects].map(([key])=>[key,q('[data-object="'+key+'"]')]));
+        this.labels=shots.map((shot,i)=>(shot.labels||[]).map((label,k)=>{const el=sk.h('<div class="cont-label '+(label.kind||'cool')+'" dir="rtl">'+R.cEsc(label.text)+'</div>');el.style.maxWidth=(label.width||900)+'px';q('.cont-labels').append(el);return el;}));
+        this.current=-1;
+      },
+      render(t){
+        let index=shots.findIndex(s=>t<s.end);if(index<0)index=shots.length-1;
+        const shot=shots[index],previous=shots[Math.max(0,index-1)],local=t-shot.start,u=index===0?1:ease(clamp(local/(shot.transition||1.0)));
+        const world=shot.world||'room',lastWorld=previous.world||'room';
+        for(const [name,el]of Object.entries(this.worlds)){const o=name===world?(lastWorld===world?1:u):(name===lastWorld?1-u:0);el.style.opacity=o;el.style.display=o>0?'':'none';}
+        const character=shot.character||{},oldChar=previous.character||{};
+        const x=lerp(oldChar.x??310,character.x??310,u),y=lerp(oldChar.y??742,character.y??742,u),scale=lerp(oldChar.s??1,character.s??1,u);
+        const humanWorld=w=>w!=='mat'&&w!=='bed'&&w!=='torso';
+        const personOpacity=lerp(humanWorld(lastWorld)?(oldChar.o??1):0,humanWorld(world)?(character.o??1):0,u);
+        const sit=lerp(!oldChar.pose||oldChar.pose==='sit'?1:0,!character.pose||character.pose==='sit'?1:0,u);
+        const stand=lerp(oldChar.pose==='stand'?1:0,character.pose==='stand'?1:0,u),bend=lerp(oldChar.pose==='bend'?1:0,character.pose==='bend'?1:0,u);
+        this.chair.setAttribute('transform','translate('+(x-500*scale)+' '+(y-742*scale)+') scale('+scale+')');this.chair.style.opacity=personOpacity*(world==='path'?0:sit);
+        this.sit.setAttribute('transform','translate('+x+' '+y+') scale('+scale+')');this.sit.style.opacity=personOpacity*sit;
+        this.stand.setAttribute('transform','translate('+x+' '+(y+118*scale)+') scale('+scale+')');this.stand.style.opacity=personOpacity*stand;
+        this.bend.setAttribute('transform','translate('+x+' '+(y+118*scale)+') scale('+scale+')');this.bend.style.opacity=personOpacity*bend;
+        let breath=.5+.08*Math.sin(t*Math.PI/2.5);
+        for(const phase of spec.breathing||[]){if(t>=phase.start&&t<=phase.end){breath=lerp(phase.from,phase.to,(1-Math.cos(Math.PI*clamp((t-phase.start)/(phase.end-phase.start))))/2);break;}}
+        this.body.setAttribute('transform','scale(1 '+(1+.012*breath)+')');R.blink(this.eyes,t,.8);R.blink(this.standEyes,t,1.2);R.blink(this.bendEyes,t,1.2);
+        const mood=lerp(oldChar.mood??.3,character.mood??.3,u);this.mouth.setAttribute('d','M-10 26 Q2 '+(26+mood*12)+' 14 26');
+        const prevObjects=new Map((index===0?[]:previous.objects||[]).map(p=>[p.key,p])),curObjects=new Map((shot.objects||[]).map(p=>[p.key,p]));
+        for(const [key,el]of Object.entries(this.objects)){
+          const now=curObjects.get(key),before=prevObjects.get(key);if(!now&&!before){el.style.display='none';continue;}
+          const target=now||before,source=before||now,delay=now?.at||0;
+          const p=ease(clamp((local-delay)/.85));
+          let opacity=now?lerp(before?(before.o??1):0,now.o??1,p):(before.o??1)*(1-p);
+          if(opacity<.001){el.style.display='none';continue;}el.style.display='inline';el.style.opacity=opacity;
+          const ox=lerp(source.x,target.x,p),oy=lerp(source.y+(before?0:28),target.y,p),os=lerp(source.s??1,target.s??1,p),rot=lerp(source.r||0,target.r||0,p);
+          el.setAttribute('transform','translate('+ox+' '+oy+') rotate('+rot+') scale('+os+')');
+          const id='obj-'+key,kind=target.kind,inner=selector=>el.querySelector('.'+id+selector);
+          if(kind==='voice'){const warm=lerp(source.warm||0,target.warm||0,p);inner('-warm').style.opacity=warm;inner('-grey').style.opacity=1-warm;inner('-mouth').setAttribute('d','M-2 6 Q10 '+(-3+17*warm)+' 22 6');}
+          if(kind==='battery')R.setBattery(inner('-fill'),lerp(source.level??.5,target.level??.5,p));
+          if(kind==='compass')inner('-needle').setAttribute('transform','rotate('+lerp(source.angle||0,target.angle||0,p)+')');
+          if(kind==='tracker')for(let k=0;k<3;k++)inner('-stone'+k).style.fill=k===(target.step||0)?'var(--accent)':'';
+          if(kind==='radio'){inner('-knob0').setAttribute('transform','rotate('+lerp(source.a0||0,target.a0||0,p)+')');inner('-knob1').setAttribute('transform','rotate('+lerp(source.a1||0,target.a1||0,p)+')');}
+          if(kind==='breath'){const strength=target.still?0:breath;inner('-core').setAttribute('transform','scale('+(0.68+.32*strength)+')');inner('-ring').setAttribute('transform','scale('+(0.75+.35*strength)+')');}
+          if(kind==='toy'){const broken=lerp(source.broken||0,target.broken||0,p);inner('-l').setAttribute('transform','translate('+(-32*broken)+' 0) rotate('+(-12*broken)+')');inner('-r').setAttribute('transform','translate('+(32*broken)+' 0) rotate('+(12*broken)+')');inner('-wh').setAttribute('transform','translate('+(58+88*broken)+' '+(-16+8*broken)+') rotate('+(120*broken)+')');}
+          if(kind==='child'){const mood=lerp(source.mood??-.6,target.mood??-.6,p);inner('-mouth').setAttribute('d','M-12 30 Q0 '+(30+mood*16)+' 12 30');inner('-tears').style.opacity=clamp(-mood);}
+          if(kind==='road')for(let k=0;k<4;k++){const phase=(t*(target.speed||95)+k*190)%760-380;inner('-car'+k).setAttribute('transform','translate('+phase+' '+(k%2?-47:47)+')');inner('-car'+k).style.opacity=clamp((380-Math.abs(phase))/60);}
+          if(kind==='chess')for(let k=0;k<8;k++){const motion=(target.battle||0)*Math.sin(t*1.5+k)*28;inner('-piece'+k).setAttribute('transform','translate('+(-180+(k%4)*120+motion)+' '+((k<4?-130:130)-motion)+')');}
+          if(kind==='kettle')inner('-steam').setAttribute('transform','translate(0 '+(-6*Math.sin(t*2))+')');
+        }
+        if(this.current!==index){for(const group of this.labels)for(const el of group)el.style.display='none';this.current=index;}
+        (shot.labels||[]).forEach((label,k)=>{const el=this.labels[index][k],at=label.at||0,fade=clamp((local-at)/.45);el.style.display=fade>0?'':'none';el.style.opacity=fade;R.place(el,label.x??540,(label.y??80)+(1-kit.eo(fade))*18);});
+        const count=this.q('.cont-count');let countWord='';for(const phase of spec.counts||[]){if(t>=phase.start&&t<phase.end)for(const word of phase.words)if(t>=word.at)countWord=word.text;}count.textContent=countWord;count.style.display=countWord?'':'none';R.place(count,540,100);
+        const wave=this.q('.cont-seawave');if(wave)wave.setAttribute('d',R.wavePath(0,650,1080,36,1.8,-t*.5));
+        for(let stone=0;stone<R.PATH.length;stone++){const top=this.q('.contpath-st'+stone+'-top');if(top)top.style.fill=stone<(shot.pathLit||0)?'var(--accent)':'';}
+        const lung=this.q('.conttorso-lung');if(lung){lung.setAttribute('transform','translate(540 650) scale('+(0.92+.1*breath)+') translate(-540 -650)');this.q('.conttorso-dia').setAttribute('transform','translate(0 '+(24*breath)+')');this.q('.conttorso-belly').setAttribute('transform','translate('+(10*breath)+' 0)');}
+        const matHand=this.q('.contmat-armR');if(matHand)R.handOn(matHand,.8,breath);
+        const matEyes=this.q('.contmat-eyes');if(matEyes)R.blink(matEyes,t,.8);
+      }
+    });
+  }
+});
+
+window.CAPTIONS = false;</script>
+<script>{
+R.continuous(kit,{"id":"S53","idea":"A conversation can need more time and small adaptations. Ruth tries ways to stay connected that fit her communication today.","sound_off":"A fast-moving conversation resembles joining a busy road. The pace then slows: time, clarification, a quieter one-to-one setting and preparation become options. A familiar person waits and the connection remains.","shots":[{"description":"Ruth wants to join a conversation with familiar people.","objects":[{"kind":"friend","key":"friend","x":720,"y":860,"s":0.8},{"kind":"friendB","key":"friendB","x":920,"y":860,"s":0.8},{"kind":"message","key":"message","x":760,"y":300,"s":0.8}],"labels":[{"text":"רוצים להשתתף בשיחה","x":540,"y":80,"kind":"cool","width":900,"at":3.352}],"character":{"mood":-0.1},"start":0.0,"end":8.85},{"description":"A busy road visualises the spoken comparison, while Ruth remains outside the metaphor.","objects":[{"kind":"road","key":"road","x":740,"y":360,"s":0.7,"speed":150}],"labels":[{"text":"להשתלב בכביש מהיר","x":540,"y":80,"kind":"cool","width":900,"at":1.302}],"start":8.85,"end":14.12},{"description":"The same flow slows, giving an incoming contribution more room.","objects":[{"kind":"road","key":"road","x":740,"y":360,"s":0.7,"speed":55},{"kind":"clock","key":"clock","x":790,"y":700,"s":0.75}],"labels":[{"text":"יותר זמן כדי לעבד את מה שנאמר","x":540,"y":80,"kind":"cool","width":900,"at":4.795}],"start":14.12,"end":23.87},{"description":"Listening and energy cues show some of the effort surrounding a crowded conversation.","objects":[{"kind":"ear","key":"ear","x":680,"y":350,"s":0.85},{"kind":"battery","key":"battery","x":890,"y":500,"s":0.8,"level":0.35}],"labels":[{"text":"קושי בדיבור, עייפות","x":540,"y":80,"kind":"cool","width":900,"at":0.33},{"text":"שיחה עמוסה ורועשת","x":540,"y":930,"kind":"warm","width":900,"at":2.485}],"character":{"mood":-0.2},"start":23.87,"end":38.66},{"description":"The difficult effort is acknowledged; Ruth is not blamed and the connection is still present.","objects":[{"kind":"friend","key":"friend","x":810,"y":860,"s":0.8},{"kind":"voice","key":"voice","x":760,"y":300,"s":1.7,"warm":1}],"labels":[{"text":"זה לא אומר שאתם עושים משהו לא נכון","x":540,"y":80,"kind":"cool","width":900,"at":4.117}],"start":38.66,"end":49.79},{"description":"Time and a one-to-one conversation become possible adaptations.","objects":[{"kind":"friend","key":"friend","x":810,"y":860,"s":0.8},{"kind":"clock","key":"clock","x":760,"y":300,"s":0.8}],"labels":[{"text":"התאמות קטנות","x":540,"y":80,"kind":"cool","width":900,"at":5.197}],"character":{"mood":0.3},"start":49.79,"end":62.27},{"description":"A friend remains present and unhurried while the clock gives room for an answer.","objects":[{"kind":"friend","key":"friend","x":810,"y":860,"s":0.8},{"kind":"clock","key":"clock","x":760,"y":300,"s":1}],"labels":[{"text":"לקחת קצת יותר זמן","x":540,"y":80,"kind":"cool","width":900,"at":2.734},{"text":"לא חייבים לענות מיד","x":540,"y":930,"kind":"warm","width":900,"at":4.426}],"start":62.27,"end":72.59},{"description":"The actual clarification phrases appear as two choices above the same conversation.","objects":[{"kind":"friend","key":"friend","x":810,"y":860,"s":0.8},{"kind":"message","key":"message","x":740,"y":680,"s":0.65}],"labels":[{"text":"אפשר לחזור על זה?","x":540,"y":80,"kind":"cool","width":900,"at":2.455},{"text":"רק לוודא שהבנתי נכון...","x":760,"y":230,"kind":"cool","width":540,"at":5.666}],"start":72.59,"end":88.9},{"description":"The crowded context becomes one familiar person in the quiet room.","objects":[{"kind":"friend","key":"friend","x":810,"y":860,"s":0.8},{"kind":"ear","key":"ear","x":760,"y":300,"s":0.8}],"labels":[{"text":"מקום שקט יותר או מפגש עם אדם אחד","x":540,"y":80,"kind":"cool","width":900,"at":4.733}],"start":88.9,"end":97.32},{"description":"An open notebook and one message prepare a starting point before the meeting.","objects":[{"kind":"book","key":"book","x":740,"y":430,"s":1.1},{"kind":"message","key":"message","x":820,"y":720,"s":0.65}],"labels":[{"text":"להתכונן קצת מראש","x":540,"y":80,"kind":"cool","width":900,"at":1.43}],"start":97.32,"end":109.95},{"description":"Breath, body and a hand cue offer the small ways of settling mentioned in the narration.","objects":[{"kind":"breath","key":"breath","x":850,"y":360,"s":0.65},{"kind":"body","key":"body","x":650,"y":360,"s":0.65},{"kind":"hand","key":"hand","x":750,"y":650,"s":0.7}],"labels":[{"text":"קצת יותר מיושבים בתוך המפגש","x":540,"y":80,"kind":"cool","width":900,"at":2.924}],"start":109.95,"end":123.31},{"description":"The familiar person waits; time is given rather than taken over.","objects":[{"kind":"friend","key":"friend","x":810,"y":860,"s":0.8},{"kind":"clock","key":"clock","x":760,"y":300,"s":0.85}],"labels":[{"text":"לתת עוד זמן לענות, לא למהר ולא להפריע","x":540,"y":80,"kind":"cool","width":900,"at":5.443}],"start":123.31,"end":135.77},{"description":"A warm voice acknowledges that adaptations can feel frustrating or artificial at first.","objects":[{"kind":"voice","key":"voice","x":760,"y":300,"s":1.7,"warm":1},{"kind":"rain","key":"rain","x":800,"y":550,"s":0.7}],"labels":[{"text":"מתסכל בהתחלה","x":540,"y":80,"kind":"cool","width":900,"at":2.179},{"text":"אולי אפילו קצת מלאכותי","x":540,"y":930,"kind":"warm","width":900,"at":3.18}],"character":{"mood":-0.1},"start":135.77,"end":144.44},{"description":"The familiar conversation remains; one small adaptation is enough to try.","objects":[{"kind":"friend","key":"friend","x":810,"y":860,"s":0.8},{"kind":"message","key":"message","x":760,"y":300,"s":0.8}],"labels":[{"text":"להישאר חלק מהשיחה והקשר","x":540,"y":80,"kind":"cool","width":900,"at":6.095}],"character":{"mood":0.5},"start":144.44,"end":155.38},{"description":"A modest check mark invites trying, without presenting a guaranteed outcome.","objects":[{"kind":"check","key":"check","x":760,"y":400,"s":0.9},{"kind":"friend","key":"friend","x":810,"y":860,"s":0.8}],"labels":[{"text":"אולי שווה גם לכם לנסות...","x":540,"y":80,"kind":"cool","width":900,"at":4.364}],"character":{"mood":0.4},"start":155.38,"end":162.41},{"description":"Different options remain available; no single correct arrangement is enforced.","objects":[{"kind":"clock","key":"clock","x":880,"y":320,"s":0.65},{"kind":"ear","key":"ear","x":700,"y":320,"s":0.65},{"kind":"book","key":"book","x":700,"y":650,"s":0.65}],"labels":[{"text":"אין דרך אחת נכונה","x":540,"y":80,"kind":"cool","width":900,"at":0.33}],"start":162.41,"end":168.8},{"description":"Ruth stays connected with one familiar person through the open doorway.","objects":[{"kind":"friend","key":"friend","x":810,"y":860,"s":0.8},{"kind":"heart","key":"heart","x":760,"y":300,"s":0.8}],"labels":[{"text":"לנסות דברים קטנים","x":540,"y":80,"kind":"cool","width":900,"at":2.673},{"text":"להישאר מחוברים","x":540,"y":930,"kind":"warm","width":900,"at":5.382}],"world":"roomOpen","character":{"mood":0.6},"start":168.8,"end":176.06}],"acts":[[1,5,"A conversation that takes effort"],[6,10,"Time and small adaptations"],[11,13,"Settle and receive time"],[14,17,"Stay connected in your way"]],"breathing":[],"counts":[]});
+
+}</script>
+
+<script>
+const SCENES = {"v": 1, "width": 1080, "height": 1080, "fps": 30, "background": "#F3EEE4", "scenes": [{"id": "continuous-s53", "dur": 176.06}]};
+const stage = document.getElementById('stage');
+const live = [];
+let start = 0;
+for (const s of SCENES.scenes) {
+  const def = kit.defs.find((d) => d[0] === s.id);
+  const box = document.createElement('div'); box.className = 'scene'; stage.append(box);
+  const sk = Object.assign({}, kit, { stage: box, dur: s.dur, start });
+  if (def[1].init) def[1].init(sk);
+  live.push({ id: s.id, start, dur: s.dur, box, def: def[1], sk });
+  start += s.dur;
+}
+window.DURATION = start;
+let shown = null;
+window.renderAt = (T) => {
+  let cur = live[live.length - 1];
+  for (const sc of live) if (T < sc.start + sc.dur) { cur = sc; break; }
+  if (shown !== cur) { if (shown) shown.box.style.display = 'none'; cur.box.style.display = 'block'; shown = cur; }
+  cur.def.render.call(cur.def, T - cur.start, cur.sk);
+  return cur.id;
+};
+window.renderAt(0);
+</script></body></html>

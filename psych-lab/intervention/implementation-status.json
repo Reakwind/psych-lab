@@ -1,0 +1,76 @@
+{
+  "status": "working prototype ready; source media incomplete",
+  "verified_at": "2026-11-01T21:41:21.995922+00:00",
+  "preview_url": "http://127.0.0.1:63684/?view=intervention&day=1",
+  "sessions": 87,
+  "choice_groups": 9,
+  "question_cards": 60,
+  "action_cards": 16,
+  "thought_bank_entries": 203,
+  "unique_practice_recordings": 4,
+  "unavailable_scheduled_practice_recordings": [
+    "PS-CONT-067",
+    "PS-CONT-070",
+    "PS-CONT-071",
+    "PS-CONT-074",
+    "PS-CONT-103",
+    "PS-CONT-104",
+    "PS-CONT-105",
+    "PS-CONT-106"
+  ],
+  "unavailable_library_only_recordings": [
+    "PS-CONT-066",
+    "PS-CONT-069",
+    "PS-CONT-077",
+    "PS-CONT-078",
+    "PS-CONT-110"
+  ],
+  "other_source_gaps": {
+    "PS-CONT-047": "ID conflict; source video retained for inspection, held out of breathing flow",
+    "PS-CONT-010": "Patient-story video not supplied",
+    "DA-CONT-063": "Optional light-stretch video not supplied"
+  },
+  "current_product_clips_used_for_sessions": [
+    8,
+    28
+  ],
+  "original_lab_films_preserved": 51,
+  "checks": {
+    "sequence_tests_passed": 11,
+    "media_http_heads_passed": 58,
+    "range_checks_passed": 6,
+    "browser_paths": [
+      "S03 video then trailer then breathing",
+      "S33 exactly one chosen method",
+      "S04 full eight-thought round with feedback",
+      "S11 topic, both questions, hints, next card, feedback and completion",
+      "S51 all Pleasant Moment stages and completion",
+      "S06 source audio playback",
+      "S08 and S28 current product video playback",
+      "note-taking pauses media and measurement",
+      "favorites survive navigation and reload",
+      "390 x 844 breathing view",
+      "in-app preview, session drawer, review drawer and close controls"
+    ]
+  },
+  "human_end_to_end_timing_trials": "not yet performed; the prototype is ready for the user to begin",
+  "screenshots": [
+    "preview-ready.png",
+    "preview-mobile.png"
+  ],
+  "scheduled_recording_status": {
+    "status": "not_yet_recorded",
+    "confirmed_by": "project owner",
+    "confirmed_on": "2026-11-02",
+    "ids": [
+      "PS-CONT-067",
+      "PS-CONT-070",
+      "PS-CONT-071",
+      "PS-CONT-074",
+      "PS-CONT-103",
+      "PS-CONT-104",
+      "PS-CONT-105",
+      "PS-CONT-106"
+    ]
+  }
+}

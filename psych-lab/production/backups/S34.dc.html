@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>מפגש 34: הדב הלבן</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+<link rel="stylesheet" href="scene.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="app" dir="rtl" lang="he" style="--font-display: 'Rubik', system-ui, sans-serif; --font-body: 'Rubik', system-ui, sans-serif">
+<audio ref="{{setAudio}}" src="{{audioSrc}}" preload="auto" onTimeUpdate="{{onTime}}" onEnded="{{onEnded}}"></audio>
+
+
+<div class="topbar">
+  <sc-if value="{{standalone}}" hint-placeholder-val="{{ true }}"><a class="back" href="Ruth.dc.html"><span class="icon">arrow_forward</span>למסלול</a></sc-if>
+  <sc-if value="{{embedded}}" hint-placeholder-val="{{ false }}"><button class="icon-btn" onClick="{{exit}}" aria-label="סגירה"><span class="icon">close</span></button></sc-if>
+  <span class="topbar-title"></span>
+  <span class="where">מפגש {{meta.session}}</span>
+</div>
+
+<sc-if value="{{isIntro}}" hint-placeholder-val="{{ true }}">
+<div class="screen" style="padding-top: 8px; gap: 20px">
+  <div class="card card-white" style="padding: 0; overflow: hidden">
+    <dc-import name="Scene" kind="{{first.kind}}" a="{{first.a}}" b="{{first.b}}" items="{{first.items}}" hint-size="342px,360px"></dc-import>
+  </div>
+  <div class="stack" style="gap: 6px">
+    <h1 class="t-headline">{{meta.title}}</h1>
+    <div class="row" style="gap: 8px; flex-wrap: wrap">
+      <span class="pill"><span class="icon icon-s">record_voice_over</span>{{meta.who}}</span>
+      <span class="pill"><span class="icon icon-s">schedule</span>{{meta.mins}} דקות</span>
+    </div>
+  </div>
+  <div class="grow"></div>
+  <div class="seg">
+    <button class="{{voiceCls}}" onClick="{{toggleVoice}}" aria-pressed="{{voicePressed}}"><span class="icon icon-s">{{voiceIcon}}</span>קול</button>
+    <button class="{{ccCls}}" onClick="{{toggleCc}}" aria-pressed="{{ccPressed}}"><span class="icon icon-s">closed_caption</span>כתוביות</button>
+  </div>
+  <button class="btn btn-filled btn-l btn-block" onClick="{{start}}"><span class="icon icon-fill">play_arrow</span>מתחילים</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isPlay}}" hint-placeholder-val="{{ false }}">
+<div class="screen" style="padding-top: 4px; gap: 12px">
+  <div key="{{sceneKey}}" class="card card-white" style="padding: 0; overflow: hidden; flex-shrink: 0; animation: enter .45s var(--ease-emph)">
+    <dc-import name="Scene" kind="{{cur.kind}}" a="{{cur.a}}" b="{{cur.b}}" items="{{cur.items}}" paused="{{scenePaused}}" hint-size="342px,360px"></dc-import>
+  </div>
+  <div class="stack" style="gap: 0; margin-top: -6px; flex-shrink: 0">
+    <div class="seekwrap">
+      <input class="seek" type="range" min="0" max="{{total}}" step="0.1" value="{{tNow}}" onChange="{{onSeek}}" aria-label="מיקום בהקלטה" aria-valuetext="{{timeText}}" style="--p: {{seekPct}}">
+      <sc-for list="{{ticks}}" as="tk" hint-placeholder-count="12"><span class="seektick" style="inset-inline-start: {{tk.pos}}; background: {{tk.bg}}"></span></sc-for>
+    </div>
+    <div class="row" style="gap: 6px; min-height: 48px">
+      <span class="where" dir="ltr" style="white-space: nowrap">{{elapsed}} / {{totalText}}</span>
+      <span class="where" style="white-space: nowrap">· חלק {{partNo}} מתוך {{partCount}}</span>
+      <span class="grow"></span>
+      <span class="pill" title="{{srcLabel}}" aria-label="{{srcLabel}}" style="height: 30px; padding: 0 8px"><span class="icon" style="font-size: 18px">{{srcIcon}}</span></span>
+      <button class="chip" onClick="{{cycleSpeed}}" aria-label="מהירות {{speedText}}" style="height: 48px; min-width: 76px; justify-content: center; gap: 4px"><span class="icon icon-s">speed</span><span dir="ltr">{{speedText}}</span></button>
+    </div>
+  </div>
+  <div class="grow scroll">
+    <sc-if value="{{cc}}" hint-placeholder-val="{{ true }}">
+      <p class="t-body" style="font-size: 20px; line-height: 30px">{{cur.t}}</p>
+    </sc-if>
+  </div>
+  <div class="row" style="justify-content: center; gap: 24px; flex-shrink: 0">
+    <button class="icon-btn icon-btn-tonal" onClick="{{prev}}" aria-label="החלק הקודם" disabled="{{atFirst}}"><span class="icon">arrow_forward</span></button>
+    <button class="play-btn {{playCls}}" onClick="{{toggle}}" aria-label="{{playLabel}}"><span class="icon icon-xl icon-fill {{playMirror}}">{{playIcon}}</span></button>
+    <button class="icon-btn icon-btn-tonal" onClick="{{next}}" aria-label="החלק הבא"><span class="icon">arrow_back</span></button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{isEnd}}" hint-placeholder-val="{{ false }}">
+<div class="screen center" style="justify-content: center; gap: 22px">
+  <div class="art" style="width: 200px; height: 200px; animation: pop .7s var(--ease-emph)">
+    <div class="layer shape shape-sunny" style="width: 200px; height: 200px; background: var(--tertiary-container)"></div>
+    <div class="layer shape shape-cookie9" style="width: 120px; height: 120px; background: var(--primary)"></div>
+    <span class="glyph icon icon-xxl icon-fill" style="color: var(--on-primary)">check</span>
+  </div>
+  <h2 class="t-headline">סיימתם את המפגש</h2>
+  <div class="grow"></div>
+  <sc-if value="{{embedded}}" hint-placeholder-val="{{ false }}">
+    <button class="btn btn-filled btn-l btn-block" onClick="{{finish}}">המשך<span class="icon">arrow_back</span></button>
+    <button class="btn btn-tonal btn-block" onClick="{{replay}}"><span class="icon">replay</span>שוב</button>
+  </sc-if>
+  <sc-if value="{{standalone}}" hint-placeholder-val="{{ true }}">
+    <div class="btn-group" style="width: 100%">
+      <button class="btn btn-tonal" onClick="{{replay}}"><span class="icon">replay</span>שוב</button>
+      <a class="btn btn-outlined" href="Ruth.dc.html" style="text-decoration: none">למסלול</a>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"voice":{"editor":"boolean","default":true},"captions":{"editor":"boolean","default":true},"rate":{"editor":"range","min":0.6,"max":1.2,"step":0.05,"default":0.9},"onExit":{"editor":null},"onDone":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  script() {
+    return {
+      audio: '/_blob/c1071585b2eb26ffd559f1ba05a6e021', times: [[0.0,12.71],[12.71,17.53],[17.53,34.59],[34.59,50.15],[50.15,60.45],[60.45,68.09],[68.09,74.76],[74.76,84.39],[84.39,98.75],[98.75,111.24],[111.24,123.49],[123.49,130.72],[130.72,139.97],[139.97,148.81],[148.81,167.41],[167.41,174.46]],
+      session: 34, title: 'הדב הלבן', who: 'נירה', mins: 3, next: 'S35.dc.html',
+      scenes: [
+        { t: 'בואו ננסה משהו קטן. בדקה הקרובה, נסו לא לחשוב על דב לבן. אל תדמיינו אותו. אל תחשבו איך הוא נראה...', kind: 'bear', a: 'לא חושבים על דב לבן', hold: 2.5 },
+        { t: 'איך הולך? כנראה שהדב הלבן כבר שם.', kind: 'bear', a: 'הנה הוא שוב' },
+        { t: 'וזה בדיוק הרעיון מאחורי מה שנקרא "אפקט הדב הלבן״: כשאנחנו מנסים בכוח לא לחשוב על משהו, המחשבה הזאת יכולה דווקא לחזור ולתפוס יותר מקום. וזה כמובן לא באמת קשור לדב לבן, כחול או ירוק.', kind: 'quote', a: 'אפקט הדב הלבן', b: 'blue' },
+        { t: 'בחיים שלנו יש מחשבות, רגשות וזיכרונות שהיינו שמחים פשוט להרחיק. דאגה שלא מרפה, מחשבה שמטרידה אותנו, עצב, כעס או פחד שהיינו מעדיפים לא להרגיש.', kind: 'clouds', items: ['דאגה שלא מרפה', 'מחשבה מטרידה', 'עצב', 'פחד'] },
+        { t: 'זה טבעי לנסות לגרום להם להיעלם. אבל לפעמים, ככל שאנחנו נאבקים בהם יותר, הם דווקא תופסים יותר מתשומת הלב שלנו.', kind: 'switch', a: 'on', items: ['נאבקים', 'מרפים'] },
+        { t: 'וגם אם נצליח איכשהו לא לחשוב עליהם לקצת זמן, הם פשוט יצופו מחדש, ויתקעו שם שוב.', kind: 'bear', a: 'צף שוב' },
+        { t: 'אז מה אפשר לעשות במקום? אפשר לחשוב על שני כפתורים, כמו ברדיו.', kind: 'dials', items: ['עוצמת החוויה', 'הנכונות לחוות'] },
+        { t: 'הכפתור הראשון הוא עוצמת החוויה. כמה חזקה המחשבה, כמה חזק הרגש, כמה הוא נוכח עכשיו.', kind: 'wave', a: 'anxiety', items: ['כמה זה חזק', '', ''] },
+        { t: 'זה בדרך כלל הכפתור שהכי מתחשק לנו לסובב: להוריד את החרדה. להחליש את המחשבה. לגרום לה להיעלם. אבל ברוב המקרים על הכפתור הזה אין לנו שליטה ישירה.', kind: 'dials', items: ['עוצמת החוויה', 'הנכונות לחוות'] },
+        { t: 'ויש כפתור נוסף: הנכונות לחוות. במקום לנסות להעלים את המחשבה או הרגש, אפשר לשים לב שהם שם, ולא לנסות מיד לשנות אותם.', kind: 'switch', a: 'off', items: ['נאבקים', 'מרפים'] },
+        { t: 'זה לא אומר שאנחנו אוהבים את מה שאנחנו מרגישים. וזה גם לא אומר שאנחנו רוצים שהדאגה, הרגש הלא נעים, או המחשבה שמטרידה אותנו ישארו.', kind: 'person', a: 'calm' },
+        { t: 'רק שאנחנו מסכימים שהם יהיו שם. הם לא חייבים להיעלם כדי שאנחנו נוכל להמשיך.', kind: 'bus', a: 'ממשיכים בדרך', items: ['דאגה', 'מחשבה מטרידה'] },
+        { t: 'ככל שאנחנו מתרגלים את הנכונות הזאת, המחשבה או הרגש יכולים עדיין להיות שם, אבל הם כבר לא יתפסו את כל הבמה.', kind: 'bear', a: 'הוא שם, וזה בסדר' },
+        { t: 'את היכולת הזאת אפשר לתרגל בהדרגה גם דרך התרגולים באפליקציה: מיינדפולנס, נשימה וחמלה עצמית.', kind: 'practices', items: ['spa|מיינדפולנס', 'air|נשימה', 'favorite|חמלה עצמית'] },
+        { t: 'אז בפעם הבאה שמגיעה מחשבה או תחושה שהייתם ממש רוצים לגרש, תיזכרו לרגע בדב הלבן. במקום לשאול רק: ״איך אני גורם לזה להיעלם?" אפשר לנסות לשאול: "האם אני יכול לתת לזה להיות כאן כרגע, בלי להיאבק?"', kind: 'bear', a: 'אפשר לתת לזה להיות כאן?' },
+        { t: 'הדב הלבן אולי עדיין יהיה שם. אבל הוא לא חייב להחליט מה תעשו עכשיו.', kind: 'heart', a: 'אתם מחליטים' }
+      ]
+    };
+  }
+  constructor(props) {
+    super(props);
+    this.state = { screen: 'intro', i: 0, playing: false, voiceOn: null, ccOn: null };
+    this.token = 0;
+    this.heVoice = null;
+    this.S = this.script();
+  }
+  componentDidMount() {
+    try {
+      const pick = () => { const vs = window.speechSynthesis.getVoices(); this.heVoice = vs.find((v) => /^(he|iw)/i.test(v.lang)) || null; this.forceUpdate(); };
+      pick();
+      window.speechSynthesis.addEventListener('voiceschanged', pick);
+      this.unpick = () => window.speechSynthesis.removeEventListener('voiceschanged', pick);
+    } catch (e) { this.heVoice = null; }
+  }
+  componentWillUnmount() { this.stop(); if (this.unpick) this.unpick(); }
+  voiceOn() { return this.state.voiceOn ?? (this.props.voice ?? true); }
+  stop() { this.token += 1; this.spanEnd = null; clearTimeout(this.timer); clearTimeout(this.backup); try { window.speechSynthesis.cancel(); } catch (e) {} try { if (this.audio) this.audio.pause(); } catch (e) {} }
+  speed() { return this.state.speed ?? ((this.props.rate ?? 0.9) / 0.9); }
+  seekTo(t) {
+    const times = this.S.times;
+    if (!times || !times.length) return;
+    let i = times.findIndex((sp) => t < sp[1] - 0.05);
+    if (i < 0) i = times.length - 1;
+    this.play(i, Math.max(times[i][0], Math.min(t, times[i][1] - 0.1)));
+  }
+  play(i, from) {
+    this.stop();
+    const tok = this.token;
+    const sc = this.S.scenes[i];
+    this.setState({ screen: 'play', i, playing: true });
+    const words = sc.t.split(/\s+/).length;
+    const hold = (sc.hold || 0) * 1000;
+    const done = () => {
+      if (tok !== this.token) return;
+      this.timer = setTimeout(() => {
+        if (tok !== this.token) return;
+        if (i < this.S.scenes.length - 1) this.play(i + 1);
+        else { this.stop(); this.setState({ screen: 'end', playing: false }); }
+      }, 700 + hold);
+    };
+    const span = this.S.times && this.S.times[i];
+    if (this.voiceOn() && this.audio && this.S.audio && span) {
+      try {
+        const a = this.audio;
+        a.playbackRate = this.speed();
+        a.currentTime = from != null ? from : span[0];
+        this.setState({ t: a.currentTime });
+        this.spanEnd = span[1];
+        this.part = i;
+        this.done = done;
+        const p = a.play();
+        if (p && p.then) p.then(() => { if (tok === this.token) this.setState({ src: 'rec' }); }, (err) => { if (tok === this.token) { this.spanEnd = null; this.setState({ src: 'none', srcErr: String(err && err.name || err) }); this.timer = setTimeout(() => done(), Math.max(2500, words * 430)); } });
+        this.backup = setTimeout(done, (span[1] - (from != null ? from : span[0])) * 1000 / a.playbackRate + 8000);
+        return;
+      } catch (e) {}
+    }
+    if (span) this.setState({ t: span[0] });
+    if (this.voiceOn() && this.heVoice) {
+      try {
+        const u = new SpeechSynthesisUtterance(sc.t);
+        u.voice = this.heVoice; u.lang = this.heVoice.lang;
+        u.rate = 0.9 * this.speed() * (sc.rate ? sc.rate / 0.9 : 1);
+        u.onend = done; u.onerror = done;
+        window.speechSynthesis.speak(u);
+        this.setState({ src: 'tts' });
+        this.backup = setTimeout(done, words * 900 + 6000);
+        return;
+      } catch (e) {}
+    }
+    this.setState({ src: 'none' });
+    this.timer = setTimeout(() => done(), Math.max(2500, words * 430 / (sc.rate ? sc.rate / 0.9 : 1) / this.speed()));
+  }
+  renderVals() {
+    const s = this.state;
+    const n = this.S.scenes.length;
+    const cur = Object.assign({ a: '', b: '', items: [] }, this.S.scenes[Math.min(s.i, n - 1)]);
+    const first = Object.assign({ a: '', b: '', items: [] }, this.S.scenes[0]);
+    const voice = this.voiceOn();
+    const cc = s.ccOn ?? (this.props.captions ?? true);
+    const times = this.S.times || [];
+    const total = times.length ? times[times.length - 1][1] : 0;
+    const tNow = s.t || 0;
+    const spd = this.speed();
+    const fmt = (x) => Math.floor(x / 60) + ':' + String(Math.floor(x % 60)).padStart(2, '0');
+    const endSpan = () => {
+      if (this.spanEnd == null || !this.audio) return;
+      const a = this.audio;
+      if (a.currentTime < this.spanEnd - 0.05 && !a.ended) return;
+      // the recording has its own pauses, so it plays straight on into the next part
+      const j = this.part + 1;
+      if (j < times.length && !a.ended) {
+        this.part = j;
+        this.spanEnd = times[j][1];
+        clearTimeout(this.backup);
+        this.setState({ i: j });
+        return;
+      }
+      this.stop();
+      this.setState({ screen: 'end', playing: false });
+    };
+    return {
+      setAudio: (el) => { this.audio = el; },
+      audioSrc: this.S.audio || '',
+      onTime: () => { if (this.audio && !this.scrubbing && this.spanEnd != null) this.setState({ t: this.audio.currentTime }); endSpan(); },
+      onEnded: endSpan,
+      total: total, tNow: Math.min(total, tNow), seekPct: (total ? Math.min(100, tNow / total * 100) : 0).toFixed(2) + '%',
+      elapsed: fmt(tNow), totalText: fmt(total), timeText: fmt(tNow) + ' מתוך ' + fmt(total),
+      ticks: times.slice(1).map((sp) => ({ pos: (total ? sp[0] / total * 100 : 0).toFixed(2) + '%', bg: sp[0] <= tNow ? 'rgba(255,255,255,.9)' : 'var(--outline)' })),
+      onSeek: (e) => { const v = Number(e.target.value); this.scrubbing = true; this.setState({ t: v }); clearTimeout(this.seekT); this.seekT = setTimeout(() => { this.scrubbing = false; this.seekTo(v); }, 220); },
+      speedText: (Math.round(spd * 100) / 100) + '×',
+      cycleSpeed: () => { const list = [0.75, 1, 1.25, 1.5]; const k = list.findIndex((x) => Math.abs(x - spd) < 0.01); const nx = list[(k + 1) % list.length]; this.setState({ speed: nx }); try { if (this.audio) this.audio.playbackRate = nx; } catch (e) {} },
+      srcLabel: s.src === 'rec' ? 'הקלטה' : s.src === 'tts' ? 'קול מחשב' : s.src === 'none' ? 'כתוביות בלבד' : 'טוען', srcIcon: s.src === 'rec' ? 'graphic_eq' : s.src === 'tts' ? 'computer' : s.src === 'none' ? 'closed_caption' : 'hourglass_empty',
+      meta: Object.assign({}, this.S, { mins: total ? Math.max(1, Math.round(total / 60)) : this.S.mins }), cur, first, cc,
+      scenePaused: !s.playing,
+      isIntro: s.screen === 'intro', isPlay: s.screen === 'play', isEnd: s.screen === 'end',
+      embedded: !!this.props.onDone, standalone: !this.props.onDone,
+      exit: () => { this.stop(); if (this.props.onExit) this.props.onExit(); },
+      finish: () => { this.stop(); if (this.props.onDone) this.props.onDone(); },
+      partNo: s.i + 1, partCount: n,
+      // a run of identical pictures keeps one key, so a breathing pacer runs on instead of restarting each part
+      sceneKey: 'sc' + (() => { const same = (x, y) => x.kind === y.kind && (x.a || '') === (y.a || '') && (x.b || '') === (y.b || '') && JSON.stringify(x.items || []) === JSON.stringify(y.items || []); let k = Math.min(s.i, n - 1); while (k > 0 && same(this.S.scenes[k - 1], this.S.scenes[k])) k -= 1; return k; })(),
+      segs: this.S.scenes.map((_, k) => ({ bg: k < s.i ? 'var(--primary)' : k === s.i ? 'var(--secondary)' : 'var(--surface-highest)', label: 'חלק ' + (k + 1), go: () => this.play(k) })),
+      atFirst: s.i === 0,
+      start: () => this.play(0),
+      replay: () => this.play(0),
+      prev: () => this.play(Math.max(0, s.i - 1)),
+      next: () => (s.i < n - 1 ? this.play(s.i + 1) : (this.stop(), this.setState({ screen: 'end', playing: false }))),
+      toggle: () => (s.playing ? (this.stop(), this.setState({ playing: false })) : this.play(s.i)),
+      playIcon: s.playing ? 'pause' : 'play_arrow', playMirror: '', playCls: s.playing ? 'is-playing' : '',
+      playLabel: s.playing ? 'השהיה' : 'המשך',
+      toggleVoice: () => this.setState({ voiceOn: !voice }),
+      voiceCls: voice ? 'is-selected' : '', voicePressed: voice ? 'true' : 'false', voiceIcon: voice ? 'volume_up' : 'volume_off',
+      toggleCc: () => this.setState({ ccOn: !cc }),
+      ccCls: cc ? 'is-selected' : '', ccPressed: cc ? 'true' : 'false'
+    };
+  }
+}
+</script>
+</body>
+</html>

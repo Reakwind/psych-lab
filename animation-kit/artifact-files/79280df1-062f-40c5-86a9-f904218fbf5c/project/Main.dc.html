@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>A day in the program</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;family=Google+Sans+Flex:opsz,wght,ROND@6..144,400..700,0..100&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="app">
+
+<sc-if value="{{isToday}}" hint-placeholder-val="{{ true }}">
+<div class="screen" style="padding-top: 56px; gap: 20px">
+  <div class="row" style="justify-content: space-between">
+    <h1 class="t-headline">Good morning, Ruth</h1>
+    <span class="art" style="width: 52px; height: 52px">
+      <span class="layer shape shape-cookie9" style="width: 52px; height: 52px; background: var(--primary-container)"></span>
+      <span class="glyph t-label" style="color: var(--on-primary-container)">RA</span>
+    </span>
+  </div>
+  <div class="card card-primary" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; position: relative; overflow: hidden">
+    <div class="art" style="position: absolute; right: -36px; top: -30px; width: 190px; height: 190px">
+      <div class="layer shape shape-sunny spin-slow" style="width: 190px; height: 190px; background: #8FD6CA"></div>
+      <div class="layer shape shape-cookie9" style="width: 110px; height: 110px; background: var(--primary)"></div>
+      <span class="glyph icon icon-xl icon-fill" style="color: var(--on-primary)">psychology</span>
+    </div>
+    <span class="pill" style="align-self: flex-start; background: rgba(255,255,255,.6); color: var(--on-primary-container)">Session 8 · 5 minutes</span>
+    <h2 class="t-headline-s" style="max-width: 200px">Balancing thoughts</h2>
+    <button class="btn btn-filled btn-l btn-block" onClick="{{startDay}}"><span class="icon icon-fill">play_arrow</span>Start</button>
+  </div>
+  <div class="stack">
+    <button class="list-row" onClick="{{startDay}}"><span class="list-lead lead-video"><span class="icon">play_circle</span></span><span class="list-text"><span class="list-title">Balancing thoughts</span><span class="list-sub">Video · 3 minutes</span></span><span class="icon muted">chevron_right</span></button>
+    <button class="list-row"><span class="list-lead lead-game"><span class="icon">sports_esports</span></span><span class="list-text"><span class="list-title">Inner Voice</span><span class="list-sub">Game · 2 minutes</span></span><span class="icon muted">chevron_right</span></button>
+  </div>
+  <div class="row" style="gap: 10px; justify-content: center">
+    <sc-for list="{{week}}" as="d" hint-placeholder-count="7">
+      <span class="stack center" style="gap: 4px">
+        <span class="shape {{d.shape}}" style="width: 30px; height: 30px; background: {{d.bg}}"></span>
+        <span class="t-label-s muted">{{d.label}}</span>
+      </span>
+    </sc-for>
+  </div>
+</div>
+<nav class="navbar">
+  <button class="nav-item is-active"><span class="nav-ind"><span class="icon">today</span></span>Today</button>
+  <button class="nav-item"><span class="nav-ind"><span class="icon">local_library</span></span>Library</button>
+  <button class="nav-item"><span class="nav-ind"><span class="icon">eco</span></span>Progress</button>
+</nav>
+</sc-if>
+
+<sc-if value="{{isSettle}}" hint-placeholder-val="{{ false }}">
+<div class="topbar"><button class="icon-btn" onClick="{{restart}}" aria-label="Close"><span class="icon">close</span></button><span class="topbar-title"></span><span class="topbar-spacer"></span></div>
+<div class="screen center" style="justify-content: center; gap: 40px">
+  <div class="art" style="width: 260px; height: 260px">
+    <div class="layer shape shape-cookie9 spin-slow" style="width: 260px; height: 260px; background: var(--primary-container)"></div>
+    <div class="layer shape shape-circle" style="width: 190px; height: 190px; background: var(--primary); animation: breathe 8s var(--ease) infinite"></div>
+    <span class="glyph icon icon-xxl" style="color: var(--on-primary)">air</span>
+  </div>
+  <div class="stack center" style="gap: 12px">
+    <h2 class="t-headline">One easy breath</h2>
+    <p class="t-body-l muted">As you breathe out, your shoulders may soften a little.</p>
+  </div>
+  <button class="btn btn-filled btn-l btn-block" onClick="{{toActivity}}">I'm ready</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isActivity}}" hint-placeholder-val="{{ false }}">
+<div class="topbar">
+  <button class="icon-btn" onClick="{{restart}}" aria-label="Close"><span class="icon">close</span></button>
+  <span class="topbar-title">Balancing thoughts</span>
+  <button class="icon-btn" onClick="{{skipToEnd}}" aria-label="Skip to end (lab)"><span class="icon">fast_forward</span></button>
+</div>
+<div class="screen" style="gap: 24px">
+  <div class="card card-inverse" style="height: 230px; padding: 0; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center">
+    <div class="art" style="width: 200px; height: 200px">
+      <div class="layer shape shape-clover spin-slow" style="width: 200px; height: 200px; background: #3E5F90"></div>
+      <div class="layer shape shape-circle" style="width: 96px; height: 96px; background: #D8E2FF"></div>
+      <span class="glyph icon icon-xl" style="color: #3E5F90">cloud</span>
+    </div>
+    <span class="pill" style="position: absolute; left: 14px; bottom: 14px; background: rgba(0,0,0,.45); color: #fff"><span class="icon icon-s">closed_caption</span>Captions on</span>
+  </div>
+  <p class="t-body muted" style="text-align: center">“I notice I'm having the thought that I'm failing.”</p>
+  <div class="stack" style="gap: 8px">
+    <div class="progress"><div style="width: {{progressPct}}"></div></div>
+    <div class="row t-label-s muted" style="justify-content: space-between"><span>{{elapsed}}</span><span>3:00</span></div>
+  </div>
+  <div class="row" style="justify-content: center; gap: 28px">
+    <button class="icon-btn icon-btn-tonal" aria-label="Back 10 seconds"><span class="icon">replay_10</span></button>
+    <button class="play-btn {{playCls}}" onClick="{{togglePlay}}" aria-label="{{playLabel}}"><span class="icon icon-xl icon-fill">{{playIcon}}</span></button>
+    <button class="icon-btn icon-btn-tonal" aria-label="Forward 10 seconds"><span class="icon">forward_10</span></button>
+  </div>
+  <div class="grow"></div>
+  <button class="btn btn-filled btn-block" onClick="{{toReflect}}" disabled="{{notWatched}}">Continue</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isReflectQ}}" hint-placeholder-val="{{ false }}">
+<div class="topbar">
+  <button class="icon-btn" onClick="{{backQ}}" aria-label="Back"><span class="icon">arrow_back</span></button>
+  <span class="topbar-title">Reflect</span>
+  <sc-if value="{{allowSkip}}" hint-placeholder-val="{{ true }}"><button class="btn btn-text" onClick="{{toKeep}}">Skip</button></sc-if>
+  <sc-if value="{{noSkip}}" hint-placeholder-val="{{ false }}"><span class="topbar-spacer"></span></sc-if>
+</div>
+<div class="steps"><sc-for list="{{qSteps}}" as="st" hint-placeholder-count="3"><span class="step {{st}}"></span></sc-for></div>
+<div class="screen" style="padding-top: 24px; gap: 20px" key="{{qKey}}">
+  <h2 class="t-headline-s">{{question.text}}</h2>
+  <div class="stack">
+    <sc-for list="{{options}}" as="o" hint-placeholder-count="4">
+      <button class="choice {{o.cls}}" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}"><span class="ind"><span class="icon icon-s">check</span></span>{{o.label}}</button>
+    </sc-for>
+  </div>
+  <sc-if value="{{hasFeedback}}" hint-placeholder-val="{{ false }}">
+    <div class="feedback"><span class="icon icon-fill">auto_awesome</span><span>{{feedback}}</span></div>
+  </sc-if>
+  <div class="grow"></div>
+  <button class="btn btn-filled btn-block" onClick="{{nextQ}}" disabled="{{noPick}}">Continue</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isReflectText}}" hint-placeholder-val="{{ false }}">
+<div class="topbar">
+  <button class="icon-btn" onClick="{{toActivityBack}}" aria-label="Back"><span class="icon">arrow_back</span></button>
+  <span class="topbar-title">Take a moment</span>
+  <sc-if value="{{allowSkip}}" hint-placeholder-val="{{ true }}"><button class="btn btn-text" onClick="{{toKeep}}">Skip</button></sc-if>
+  <sc-if value="{{noSkip}}" hint-placeholder-val="{{ false }}"><span class="topbar-spacer"></span></sc-if>
+</div>
+<div class="screen center" style="justify-content: center; gap: 32px">
+  <div class="art" style="width: 150px; height: 150px">
+    <div class="layer shape shape-flower spin-slow" style="width: 150px; height: 150px; background: var(--tertiary-container)"></div>
+    <span class="glyph icon icon-xl" style="color: var(--on-tertiary-container)">forum</span>
+  </div>
+  <h2 class="t-headline-s">What would you say to a friend who had that thought?</h2>
+  <div class="progress" style="width: 100%"><div style="width: {{thinkPct}}; background: var(--secondary)"></div></div>
+</div>
+<div style="padding: 0 24px 24px"><button class="btn btn-filled btn-block" onClick="{{toKeep}}" disabled="{{thinking}}">{{thinkLabel}}</button></div>
+</sc-if>
+
+<sc-if value="{{isBridge}}" hint-placeholder-val="{{ false }}">
+<div class="topbar"><span class="topbar-spacer"></span><span class="topbar-title"></span><span class="topbar-spacer"></span></div>
+<div class="screen center" style="justify-content: center; gap: 32px">
+  <div class="art" style="width: 200px; height: 200px">
+    <div class="layer shape shape-cookie4 spin-slow" style="width: 200px; height: 200px; background: var(--cat-game-c)"></div>
+    <span class="glyph icon icon-xxl" style="color: var(--cat-game)">sports_esports</span>
+  </div>
+  <div class="stack center" style="gap: 10px">
+    <h2 class="t-headline-s">Also this session: practise it as a game</h2>
+    <p class="t-body-l muted">Spot the thought. Pick a kinder one.</p>
+  </div>
+</div>
+<div style="padding: 0 24px 24px"><button class="btn btn-filled btn-block" onClick="{{toKeep}}">Continue</button></div>
+</sc-if>
+
+<sc-if value="{{isKeep}}" hint-placeholder-val="{{ false }}">
+<div class="topbar">
+  <button class="icon-btn" onClick="{{toBridgeBack}}" aria-label="Back"><span class="icon">arrow_back</span></button>
+  <span class="topbar-title">Keep</span>
+  <span class="topbar-spacer"></span>
+</div>
+<div class="screen" style="padding-top: 16px; gap: 20px">
+  <div class="stack" style="gap: 6px">
+    <h2 class="t-headline-s">Keep any of these?</h2>
+    <span class="row t-label-s muted" style="gap: 6px"><span class="icon icon-s">local_library</span>Saved to your Library · {{keptCount}} of 3</span>
+  </div>
+  <div class="stack">
+    <sc-for list="{{keepItems}}" as="k" hint-placeholder-count="4">
+      <button class="choice {{k.cls}}" onClick="{{k.toggle}}" aria-pressed="{{k.pressed}}" disabled="{{k.locked}}"><span class="ind ind-box"><span class="icon icon-s">check</span></span>{{k.label}}</button>
+    </sc-for>
+  </div>
+  <div class="grow"></div>
+  <div class="btn-group">
+    <button class="btn btn-outlined" onClick="{{toDone}}">Not now</button>
+    <button class="btn btn-filled" onClick="{{toDone}}">Save</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{isDone}}" hint-placeholder-val="{{ false }}">
+<div class="screen center" style="padding-top: 64px; gap: 22px">
+  <div class="art" style="width: 220px; height: 220px; animation: pop .7s var(--ease-emph)">
+    <div class="layer shape shape-sunny spin-slow" style="width: 220px; height: 220px; background: var(--tertiary-container)"></div>
+    <div class="layer shape shape-cookie9" style="width: 130px; height: 130px; background: var(--primary)"></div>
+    <span class="glyph icon icon-xxl icon-fill" style="color: var(--on-primary)">check</span>
+  </div>
+  <h2 class="t-headline">Done for today</h2>
+  <div class="card card-tertiary row" style="padding: 18px 20px; text-align: left; gap: 14px">
+    <span class="icon icon-l icon-fill">favorite</span>
+    <span class="t-body">A step toward <strong>{{motivation}}</strong></span>
+  </div>
+  <sc-if value="{{hasSaved}}" hint-placeholder-val="{{ false }}">
+    <span class="pill pill-primary"><span class="icon icon-s">bookmark</span>{{savedLine}}</span>
+  </sc-if>
+  <div class="grow"></div>
+  <button class="list-row" onClick="{{restart}}"><span class="list-lead lead-video"><span class="icon">directions_bus</span></span><span class="list-text"><span class="list-sub">Next session</span><span class="list-title">The bus driver metaphor</span></span><span class="icon muted">replay</span></button>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"reflectionStyle":{"editor":"enum","options":["questions","text + think-gate"],"default":"questions","section":"Reflection"},"questionCount":{"editor":"int","min":1,"max":3,"default":3,"section":"Reflection"},"thinkSeconds":{"editor":"int","min":0,"max":15,"default":6,"unit":"s","section":"Reflection"},"allowSkip":{"editor":"boolean","default":true,"section":"Reflection"},"motivation":{"editor":"enum","options":["staying independent","moving more steadily","speaking with confidence","staying close to the people I love","feeling more like myself"],"default":"staying independent","section":"Personal"},"videoSeconds":{"editor":"int","min":3,"max":30,"default":8,"unit":"s","section":"Lab"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { screen: 'today', progress: 0, playing: false, q: 0, picked: null, fb: '', think: 0, kept: [] };
+  }
+  componentDidMount() { this.timer = setInterval(() => this.tick(), 200); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  tick() {
+    const s = this.state;
+    if (s.screen === 'activity' && s.playing) {
+      const p = Math.min(1, s.progress + 0.2 / (this.props.videoSeconds ?? 8));
+      this.setState({ progress: p, playing: p < 1 });
+    } else if (s.screen === 'reflectText' && s.think < 30) {
+      this.setState({ think: s.think + 0.2 });
+    }
+  }
+  go(screen) { this.setState({ screen }); }
+  questions() {
+    const shared = ['That one is very common. Noticing it is the first step.', 'Many people know that one. Naming it loosens its grip.', 'A thought can make sense without being useful.'];
+    const kind = ['That’s a kind, workable response. Offer it to yourself too.', 'That’s the voice we’ll practise strengthening.', 'Balanced, not forced-positive. Exactly.'];
+    return [
+      { text: 'Which thought hooks you most?', options: [
+        { label: '“This won’t help”', fb: shared }, { label: '“I’m failing”', fb: shared },
+        { label: '“If I can’t do it properly, why bother”', fb: shared }, { label: '“A few minutes doesn’t count”', fb: shared }] },
+      { text: 'What would you tell a friend with that thought?', options: [
+        { label: '“It makes sense you feel that way”', fb: kind }, { label: '“Small steps still count”', fb: kind },
+        { label: '“Just try the first minute”', fb: kind }, { label: 'I’m not sure yet', fb: ['That’s fine. You’ll practise this in the game.'] }] },
+      { text: 'How did the video land?', options: [
+        { label: 'Helpful', fb: ['Glad it helped. These ideas come back this week.'] },
+        { label: 'Somewhat', fb: ['Thanks. Some ideas click later, in practice.'] },
+        { label: 'Not for me', fb: ['Thanks for saying. The practices may suit you better.'] }] }
+    ];
+  }
+  renderVals() {
+    const s = this.state;
+    const style = this.props.reflectionStyle ?? 'questions';
+    const n = Math.max(1, Math.min(3, this.props.questionCount ?? 3));
+    const qs = this.questions().slice(0, n);
+    const question = qs[Math.min(s.q, qs.length - 1)];
+    const thinkSecs = this.props.thinkSeconds ?? 6;
+    const thinking = s.think < thinkSecs;
+    const watched = s.progress >= 1;
+    const secs = Math.round(180 * s.progress);
+    const keepLabels = ['“I’m having the thought that…”', 'Balanced, not perfectly positive', 'The step doesn’t need the thought gone', 'What would I tell a friend?'];
+    const full = s.kept.length >= 3;
+    const allowSkip = this.props.allowSkip ?? true;
+    const dayNames = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+    return {
+      isToday: s.screen === 'today', isSettle: s.screen === 'settle', isActivity: s.screen === 'activity',
+      isReflectQ: s.screen === 'reflectQ', isBridge: s.screen === 'bridge', isReflectText: s.screen === 'reflectText',
+      isKeep: s.screen === 'keep', isDone: s.screen === 'done',
+      allowSkip, noSkip: !allowSkip,
+      motivation: this.props.motivation ?? 'staying independent',
+      week: dayNames.map((label, i) => ({ label, shape: i < 2 ? 'shape-flower' : 'shape-circle', bg: i < 2 ? '#2B6A62' : (i === 2 ? '#8FD6CA' : '#DDE4E1') })),
+      startDay: () => this.go('settle'),
+      toActivity: () => this.setState({ screen: 'activity', playing: true, progress: 0 }),
+      togglePlay: () => this.setState({ playing: !s.playing && s.progress < 1 }),
+      skipToEnd: () => this.setState({ progress: 1, playing: false }),
+      playLabel: s.playing ? 'Pause' : 'Play', playIcon: s.playing ? 'pause' : (watched ? 'replay' : 'play_arrow'), playCls: s.playing ? 'is-playing' : '',
+      progressPct: Math.round(s.progress * 100) + '%',
+      elapsed: Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0'),
+      notWatched: !watched,
+      toReflect: () => this.setState({ screen: style === 'questions' ? 'reflectQ' : 'reflectText', q: 0, picked: null, fb: '', think: 0 }),
+      toActivityBack: () => this.go('activity'),
+      qSteps: qs.map((_, i) => (i < s.q ? 'is-done' : i === s.q ? 'is-current' : '')),
+      qKey: 'q' + s.q,
+      question,
+      options: question.options.map((o, i) => ({
+        label: o.label, pressed: s.picked === i ? 'true' : 'false', cls: s.picked === i ? 'is-selected' : '',
+        pick: () => this.setState({ picked: i, fb: o.fb[Math.floor(Math.random() * o.fb.length)] })
+      })),
+      hasFeedback: s.fb !== '', feedback: s.fb,
+      noPick: s.picked === null,
+      nextQ: () => (s.q < qs.length - 1 ? this.setState({ q: s.q + 1, picked: null, fb: '' }) : this.go('bridge')),
+      backQ: () => (s.q > 0 ? this.setState({ q: s.q - 1, picked: null, fb: '' }) : this.go('activity')),
+      thinking,
+      thinkPct: Math.round(Math.min(1, thinkSecs === 0 ? 1 : s.think / thinkSecs) * 100) + '%',
+      thinkLabel: thinking ? 'Take a few seconds…' : 'Continue',
+      toKeep: () => this.go('keep'),
+      toBridgeBack: () => this.go(style === 'questions' ? 'bridge' : 'reflectText'),
+      keptCount: s.kept.length,
+      keepItems: keepLabels.map((label, i) => {
+        const on = s.kept.includes(i);
+        return {
+          label, pressed: on ? 'true' : 'false', locked: full && !on, cls: on ? 'is-selected' : '',
+          toggle: () => this.setState({ kept: on ? s.kept.filter((x) => x !== i) : s.kept.concat([i]) })
+        };
+      }),
+      toDone: () => this.go('done'),
+      hasSaved: s.kept.length > 0,
+      savedLine: s.kept.length + (s.kept.length === 1 ? ' idea' : ' ideas') + ' kept',
+      restart: () => this.setState({ screen: 'today', progress: 0, playing: false, q: 0, picked: null, fb: '', think: 0, kept: [] })
+    };
+  }
+}
+</script>
+</body>
+</html>

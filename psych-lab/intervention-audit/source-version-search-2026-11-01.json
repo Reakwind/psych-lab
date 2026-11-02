@@ -1,0 +1,918 @@
+{
+  "checked_at": "2026-11-01",
+  "scope": "Remepy SharePoint and OneDrive accessible through the connected account; tenant-wide keyword search plus direct folder browsing and current file/version checks. This is not an exhaustive inspection of every tenant file.",
+  "findings": [
+    "Protocol.xlsx is a later detailed full-app weekly schedule (revision 22.0, 8 Oct 2026), but an explicit supersession of the Product draft was not found.",
+    "The current Product daily-schedule workbook is revision 5.0, modified 1 Nov 2026. Both sheets still explicitly label all values as draft placeholders.",
+    "psychological program V0.xlsx is actively maintained despite its filename: latest revision 154.0, 1 Nov 2026. Its core session timeline matches the local CSV previously compared.",
+    "The latest dedicated May psychology specification found is revision 329.0, 6 Aug 2026. Itay's onboarding document says changes have since been made and links List Psych PD.xlsx as the detailed asset list.",
+    "List Psych PD.xlsx is revision 286.0, 26 Oct 2026. Its first sheet includes app day 1 onboarding without Mindset and Welcome on app day 2; this is a different numbering scheme from psychology session IDs.",
+    "The 31 Oct device description specifies about 30 minutes daily. During the logged medication window it recommends Practice, then Play, then Mindset; otherwise Mindset, Play, Practice. Users can choose any incomplete section.",
+    "The heavy-speech entries in Protocol.xlsx total 31 minutes on schedule days 1, 3, 5 and 7; 30 minutes on days 2, 4 and 6.",
+    "Newer implementation material includes Psychology context pages (1 Nov), Psychology audio items trailers (31 Oct), and prepages_month1 activities (28 Oct). These supplement the earlier spec rather than proving an approved replacement.",
+    "No changes made to the intervention, source files, videos, or Lab journey."
+  ],
+  "sources": {
+    "current-daily": {
+      "title": "pd_daily_protocol_schedule_active.xlsx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Product/_layouts/15/Doc.aspx?sourcedoc=%7B66D20A27-1916-4A01-B782-BC8E270C7DC3%7D&file=pd_daily_protocol_schedule_active.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!pKw7_gk7VEKnZHtcqCyIQ22zLQEFYXZGvQbB-ttlhBrhHkPj4XTkTp06BCmi1Rlq/items/01K27KXRJHBLJGMFQZAFFLPAV4RYTQY7OD",
+      "updated_at": "2026-11-01T17:59:59Z"
+    },
+    "onboarding": {
+      "title": "Therapeutics team onboarding -Itay.docx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Product/_layouts/15/Doc.aspx?sourcedoc=%7BFA010969-9C65-466B-9355-9CE858B77242%7D&file=Therapeutics+team+onboarding+-Itay.docx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!pKw7_gk7VEKnZHtcqCyIQ22zLQEFYXZGvQbB-ttlhBrhHkPj4XTkTp06BCmi1Rlq/items/01K27KXRLJBEA7UZM4NNDJGVM45BMLO4SC",
+      "updated_at": "2026-11-01T10:58:23Z"
+    },
+    "protocol-workbook": {
+      "title": "Protocol.xlsx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/_layouts/15/Doc.aspx?sourcedoc=%7B651294CD-A6CE-4998-8F32-1000975F5CE9%7D&file=Protocol.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!m0PyaK-Kh0yL1qB4AjW_gp6HfNqHsLhOuznIK4-kRTsTo1N2O8KmSrgCHAyAdxm2/items/01JDTXIOONSQJGLTVGTBEY6MQQACLV6XHJ",
+      "updated_at": "2026-10-08T15:30:06Z"
+    },
+    "activities-duration": {
+      "title": "Activities frequency and duration.xlsx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/_layouts/15/Doc.aspx?sourcedoc=%7B48C66A67-6A75-40AC-BA87-3D0189A8694D%7D&file=Activities+frequency+and+duration.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!m0PyaK-Kh0yL1qB4AjW_gp6HfNqHsLhOuznIK4-kRTsTo1N2O8KmSrgCHAyAdxm2/items/01JDTXIOLHNLDEQ5LKVRALVBZ5AGE2Q2KN",
+      "updated_at": "2026-08-25T15:40:32Z"
+    },
+    "device-description": {
+      "title": "3.2.R PD-002 Device Description.docx",
+      "url": "https://remepyhealth.sharepoint.com/sites/RegulationandQuality/_layouts/15/Doc.aspx?sourcedoc=%7BECB8B7F1-78A8-422C-B175-08FAEBFA15DC%7D&file=3.2.R+PD-002+Device+Description.docx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!BrElAbOiu02k8uHU0E9fY7NP6Y_GywtImrFYGTrNOF2tfywlMvEbQK0O7eKr0RG1/items/01BUE67KHRW64OZKDYFRBLC5II7LV7UFO4",
+      "updated_at": "2026-10-31T19:51:14Z"
+    },
+    "list-psych": {
+      "title": "List Psych PD.xlsx",
+      "url": "https://remepyhealth-my.sharepoint.com/personal/nira_remepy_com/_layouts/15/Doc.aspx?sourcedoc=%7BD22A2563-58C7-4B72-8351-0BD5D93AF0EA%7D&file=List+Psych+PD.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!HCE0-uvV5EWw9y7caLHpb4MnaPhI6GBFppvoHfH91HKbipRBT4QTQKIZfiJgP1C9/items/01F3RWTB3DEUVNFR2YOJFYGUIL2XMTV4HK",
+      "updated_at": "2026-10-26T05:52:06Z"
+    },
+    "psych-context": {
+      "title": "Psychology context pages.xlsx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/_layouts/15/Doc.aspx?sourcedoc=%7BC3D9D25B-BCAF-4EA6-A4C8-3512A0CF959D%7D&file=Psychology+context+pages.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!m0PyaK-Kh0yL1qB4AjW_gp6HfNqHsLhOuznIK4-kRTsTo1N2O8KmSrgCHAyAdxm2/items/01JDTXIOK32LM4HL54UZHKJSBVCKQM7FM5",
+      "updated_at": "2026-11-01T13:29:45Z"
+    },
+    "psych-audio-trailers": {
+      "title": "Psychology audio items trailers.xlsx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/_layouts/15/Doc.aspx?sourcedoc=%7B143D2840-1188-490B-949D-2A4197A12839%7D&file=Psychology+audio+items+trailers.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!m0PyaK-Kh0yL1qB4AjW_gp6HfNqHsLhOuznIK4-kRTsTo1N2O8KmSrgCHAyAdxm2/items/01JDTXIOKAFA6RJCARBNEZJHJKIGL2CKBZ",
+      "updated_at": "2026-10-31T17:12:09Z"
+    },
+    "psych-prepages-month1": {
+      "title": "prepages_month1 activities.xlsx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/_layouts/15/Doc.aspx?sourcedoc=%7B730D3988-38D7-45B2-80D8-5833C3B5432F%7D&file=prepages_month1+activities.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!m0PyaK-Kh0yL1qB4AjW_gp6HfNqHsLhOuznIK4-kRTsTo1N2O8KmSrgCHAyAdxm2/items/01JDTXIOMIHEGXHVZYWJCYBWCYGPB3KQZP",
+      "updated_at": "2026-10-28T12:43:41Z"
+    },
+    "eagle-items": {
+      "title": "Eagle Items list - Therapeutics.xlsx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/_layouts/15/Doc.aspx?sourcedoc=%7BE4DC3A95-3BFD-4DB7-B85C-51EE938C3E9E%7D&file=Eagle+Items+list+-+Therapeutics.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!m0PyaK-Kh0yL1qB4AjW_gp6HfNqHsLhOuznIK4-kRTsTo1N2O8KmSrgCHAyAdxm2/items/01JDTXIOMVHLOOJ7J3W5G3QXCR52JYYPU6",
+      "updated_at": "2026-09-16T07:22:07Z"
+    },
+    "content-inventory": {
+      "title": "Content inventory.xlsx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/_layouts/15/Doc.aspx?sourcedoc=%7BA5CF9FDE-F9D5-423B-83D7-CA2C8081D6DD%7D&file=Content+inventory.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!m0PyaK-Kh0yL1qB4AjW_gp6HfNqHsLhOuznIK4-kRTsTo1N2O8KmSrgCHAyAdxm2/items/01JDTXIOO6T7H2LVPZHNBIHV6KFSAIDVW5",
+      "updated_at": "2026-10-22T08:59:28Z"
+    },
+    "eagle-first-month": {
+      "title": "Eagle 1st month.xlsx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/_layouts/15/Doc.aspx?sourcedoc=%7BBBA50CC1-85ED-46A5-AF13-81ED5138D5F4%7D&file=Eagle+1st+month.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!m0PyaK-Kh0yL1qB4AjW_gp6HfNqHsLhOuznIK4-kRTsTo1N2O8KmSrgCHAyAdxm2/items/01JDTXIOOBBSS3X3MFUVDK6E4B5VITRVPU",
+      "updated_at": "2026-11-01T14:57:39Z"
+    },
+    "sync-sept24": {
+      "title": "Eagle Sync Sept 24.pptx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/_layouts/15/Doc.aspx?sourcedoc=%7B3AB21F2F-6C8E-47B6-84CD-DD03D3D476E1%7D&file=Eagle+Sync+Sept+24.pptx&action=edit&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!m0PyaK-Kh0yL1qB4AjW_gp6HfNqHsLhOuznIK4-kRTsTo1N2O8KmSrgCHAyAdxm2/items/01JDTXIOJPD6ZDVDTMWZDYJTO5APJ5I5XB",
+      "updated_at": "2026-09-24T12:58:15Z"
+    },
+    "homepage-protocol": {
+      "title": "Homepage-Protocol-Screens_filled.xlsx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/_layouts/15/Doc.aspx?sourcedoc=%7B51A7BF5B-3A39-4039-B3EF-56567C18AACC%7D&file=Homepage-Protocol-Screens_filled.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!m0PyaK-Kh0yL1qB4AjW_gp6HfNqHsLhOuznIK4-kRTsTo1N2O8KmSrgCHAyAdxm2/items/01JDTXIOK3X6TVCOJ2HFALH32WKZ6BRKWM",
+      "updated_at": "2026-10-08T04:47:14Z"
+    },
+    "content-metadata": {
+      "title": "PD Content Metadata (Active).xlsx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Product/_layouts/15/Doc.aspx?sourcedoc=%7BACEEF74B-AE4F-4AAD-AE3B-894202F77FEC%7D&file=PD+Content+Metadata+%28Active%29.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!pKw7_gk7VEKnZHtcqCyIQ22zLQEFYXZGvQbB-ttlhBrhHkPj4XTkTp06BCmi1Rlq/items/01K27KXRKL67XKYT5OVVFK4O4JIIBPO77M",
+      "updated_at": "2026-11-01T12:23:02Z"
+    },
+    "epic-mapping": {
+      "title": "epic_feature_mapping.xlsx",
+      "url": "https://remepyhealth.sharepoint.com/sites/Product/_layouts/15/Doc.aspx?sourcedoc=%7B5EB3F9C5-E6D0-4DB7-A0EB-2788A1424C3B%7D&file=epic_feature_mapping.xlsx&action=default&mobileredirect=true&web=1",
+      "document_id": "https://graph.microsoft.com/v1.0/drives/b!pKw7_gk7VEKnZHtcqCyIQ22zLQEFYXZGvQbB-ttlhBrhHkPj4XTkTp06BCmi1Rlq/items/01K27KXROF7GZV5UHGW5G2B2ZHRCQUETB3",
+      "updated_at": "2026-11-01T15:39:11Z"
+    }
+  },
+  "versions": {
+    "daily-schedule": {
+      "latest": [
+        {
+          "id": "5.0",
+          "last_modified_date_time": "2026-11-01T17:59:59Z",
+          "publication": null,
+          "size": 20046
+        },
+        {
+          "id": "4.0",
+          "last_modified_date_time": "2026-08-27T15:21:04Z",
+          "publication": null,
+          "size": 23921
+        },
+        {
+          "id": "3.0",
+          "last_modified_date_time": "2026-08-25T21:04:40Z",
+          "publication": null,
+          "size": 20981
+        },
+        {
+          "id": "2.0",
+          "last_modified_date_time": "2026-08-20T15:06:15Z",
+          "publication": null,
+          "size": 20011
+        },
+        {
+          "id": "1.0",
+          "last_modified_date_time": "2026-08-20T15:01:58Z",
+          "publication": null,
+          "size": 20011
+        }
+      ],
+      "returned_count": 5,
+      "more": false
+    },
+    "psychology-timeline": {
+      "latest": [
+        {
+          "id": "154.0",
+          "last_modified_date_time": "2026-11-01T10:09:25Z",
+          "publication": null,
+          "size": 805044
+        },
+        {
+          "id": "153.0",
+          "last_modified_date_time": "2026-11-01T09:54:37Z",
+          "publication": null,
+          "size": 804721
+        },
+        {
+          "id": "152.0",
+          "last_modified_date_time": "2026-10-30T00:01:40Z",
+          "publication": null,
+          "size": 806620
+        },
+        {
+          "id": "151.0",
+          "last_modified_date_time": "2026-10-28T08:24:49Z",
+          "publication": null,
+          "size": 806519
+        },
+        {
+          "id": "150.0",
+          "last_modified_date_time": "2026-10-26T10:59:29Z",
+          "publication": null,
+          "size": 806712
+        }
+      ],
+      "returned_count": 154,
+      "more": false
+    },
+    "psychology-spec": {
+      "latest": [
+        {
+          "id": "329.0",
+          "last_modified_date_time": "2026-08-06T15:56:54Z",
+          "publication": null,
+          "size": 1527083
+        },
+        {
+          "id": "328.0",
+          "last_modified_date_time": "2026-07-26T16:47:45Z",
+          "publication": null,
+          "size": 1514321
+        },
+        {
+          "id": "327.0",
+          "last_modified_date_time": "2026-07-26T12:46:03Z",
+          "publication": null,
+          "size": 1525295
+        },
+        {
+          "id": "326.0",
+          "last_modified_date_time": "2026-07-15T11:51:01Z",
+          "publication": null,
+          "size": 1532748
+        },
+        {
+          "id": "325.0",
+          "last_modified_date_time": "2026-07-15T11:25:25Z",
+          "publication": null,
+          "size": 1531835
+        }
+      ],
+      "returned_count": 200,
+      "more": true
+    },
+    "protocol-workbook": {
+      "latest": [
+        {
+          "id": "22.0",
+          "last_modified_date_time": "2026-10-08T15:30:06Z",
+          "publication": null,
+          "size": 19275
+        },
+        {
+          "id": "21.0",
+          "last_modified_date_time": "2026-09-24T06:17:23Z",
+          "publication": null,
+          "size": 19470
+        },
+        {
+          "id": "20.0",
+          "last_modified_date_time": "2026-09-23T19:48:44Z",
+          "publication": null,
+          "size": 18983
+        },
+        {
+          "id": "19.0",
+          "last_modified_date_time": "2026-09-23T18:55:35Z",
+          "publication": null,
+          "size": 18974
+        },
+        {
+          "id": "18.0",
+          "last_modified_date_time": "2026-09-23T15:28:24Z",
+          "publication": null,
+          "size": 18820
+        }
+      ],
+      "returned_count": 22,
+      "more": false
+    },
+    "list-psych": {
+      "latest": [
+        {
+          "id": "286.0",
+          "last_modified_date_time": "2026-10-26T05:52:06Z",
+          "publication": null,
+          "size": 56523
+        },
+        {
+          "id": "285.0",
+          "last_modified_date_time": "2026-10-25T14:31:04Z",
+          "publication": null,
+          "size": 58285
+        },
+        {
+          "id": "284.0",
+          "last_modified_date_time": "2026-10-22T06:42:12Z",
+          "publication": null,
+          "size": 58093
+        },
+        {
+          "id": "283.0",
+          "last_modified_date_time": "2026-10-19T18:25:57Z",
+          "publication": null,
+          "size": 56544
+        },
+        {
+          "id": "282.0",
+          "last_modified_date_time": "2026-10-19T12:33:37Z",
+          "publication": null,
+          "size": 56536
+        }
+      ],
+      "returned_count": 200,
+      "more": true
+    }
+  },
+  "searches": [
+    {
+      "query": "\"pd_daily_protocol_schedule_active.xlsx\"",
+      "scope": "All accessible SharePoint and OneDrive",
+      "result_count": 1,
+      "error": false
+    },
+    {
+      "query": "\"psychological program\"",
+      "scope": "All accessible SharePoint and OneDrive",
+      "result_count": 29,
+      "error": false
+    },
+    {
+      "query": "\"Psycological therapy specification\"",
+      "scope": "All accessible SharePoint and OneDrive",
+      "result_count": 5,
+      "error": false
+    },
+    {
+      "query": "\"PD\" \"protocol\"",
+      "scope": "All accessible SharePoint and OneDrive",
+      "result_count": 29,
+      "error": false
+    },
+    {
+      "query": "\"List Psych PD\"",
+      "scope": "tenant-wide",
+      "result_count": 1,
+      "error": false
+    },
+    {
+      "query": "\"psychological program V0\"",
+      "scope": "tenant-wide",
+      "result_count": 1,
+      "error": false
+    },
+    {
+      "query": "\"psychological\" \"timeline\"",
+      "scope": "tenant-wide",
+      "result_count": 62,
+      "error": false
+    },
+    {
+      "query": "\"PD\" \"schedule\"",
+      "scope": "tenant-wide",
+      "result_count": 71,
+      "error": false
+    },
+    {
+      "query": "\"daily protocol\"",
+      "scope": "tenant-wide",
+      "result_count": 99,
+      "error": false
+    },
+    {
+      "query": "\"psychological therapy\"",
+      "scope": "tenant-wide",
+      "result_count": 45,
+      "error": false
+    },
+    {
+      "query": "\"List Psych\"",
+      "scope": "tenant-wide",
+      "result_count": 2,
+      "error": false
+    },
+    {
+      "query": "\"Psych\" \"PD\" filetype:xlsx",
+      "scope": "tenant-wide",
+      "result_count": 10,
+      "error": false
+    },
+    {
+      "query": "\"Protocol\" \"Mindset\"",
+      "scope": "tenant-wide",
+      "result_count": 100,
+      "error": false
+    },
+    {
+      "query": "\"psychological program V1\"",
+      "scope": "tenant-wide",
+      "result_count": 0,
+      "error": false
+    },
+    {
+      "query": "\"psychological program\" filetype:xlsx",
+      "scope": "tenant-wide",
+      "result_count": 0,
+      "error": false
+    },
+    {
+      "query": "\"Psycological\" filetype:docx",
+      "scope": "tenant-wide",
+      "result_count": 5,
+      "error": false
+    },
+    {
+      "query": "\"Psych trailer scripts\"",
+      "scope": "tenant-wide",
+      "result_count": 0,
+      "error": false
+    },
+    {
+      "query": "\"PD\" \"day generator\"",
+      "scope": "tenant-wide",
+      "result_count": 0,
+      "error": false
+    },
+    {
+      "query": "\"psychological program\"",
+      "scope": "tenant-wide",
+      "result_count": 47,
+      "error": false
+    },
+    {
+      "query": "\"Psycological therapy specification\"",
+      "scope": "tenant-wide",
+      "result_count": 5,
+      "error": false
+    },
+    {
+      "query": "\"pd_daily_protocol_schedule\"",
+      "scope": "tenant-wide",
+      "result_count": 0,
+      "error": false
+    },
+    {
+      "query": "\"Protocol.xlsx\"",
+      "scope": "tenant-wide",
+      "result_count": 4,
+      "error": false
+    }
+  ],
+  "folder_checks": {
+    "product-pd": {
+      "count": 4,
+      "has_more": false,
+      "error": false,
+      "files": [
+        {
+          "name": "pd_daily_protocol_schedule_active.xlsx",
+          "modified": "2026-11-01T17:59:59Z"
+        }
+      ]
+    },
+    "product-pd-other": {
+      "count": 21,
+      "has_more": false,
+      "error": false,
+      "files": [
+        {
+          "name": "Dopapp_feedback_June24.xlsx",
+          "modified": "2024-06-28T09:10:04Z"
+        },
+        {
+          "name": "epic_feature_mapping.xlsx",
+          "modified": "2026-11-01T15:39:11Z"
+        },
+        {
+          "name": "Exercise Completion Screen Examples.xlsx",
+          "modified": "2026-06-08T08:31:57Z"
+        },
+        {
+          "name": "Guy Doron.docx",
+          "modified": "2024-11-06T11:25:43Z"
+        },
+        {
+          "name": "Parpar app summary.pptx",
+          "modified": "2024-10-13T12:22:09Z"
+        },
+        {
+          "name": "PD Steps Completions.pptx",
+          "modified": "2026-06-07T13:44:43Z"
+        },
+        {
+          "name": "Strategies for Navigating the Hebb-Williams Maze in Blindfold Mode.docx",
+          "modified": "2024-11-20T12:12:22Z"
+        },
+        {
+          "name": "User survey butterfly.pdf",
+          "modified": "2026-01-30T22:20:03Z"
+        },
+        {
+          "name": "נוהל מוניטורינג פרקינסון.docx",
+          "modified": "2024-07-19T15:17:08Z"
+        },
+        {
+          "name": "שאלון משוב על השימוש באפליקציה.csv.zip",
+          "modified": "2026-01-30T22:19:45Z"
+        }
+      ]
+    },
+    "therapeutics-psych": {
+      "count": 14,
+      "has_more": false,
+      "error": false,
+      "files": [
+        {
+          "name": "Acceptability and feasibility randomised controlled trial of a digital mental health intervention for people with Parkinsons (PACT)- trial protocol.pdf",
+          "modified": "2026-03-13T15:58:33Z"
+        },
+        {
+          "name": "bennell2017+Internet+Delivered+Exercise+Knee+OA.pdf",
+          "modified": "2026-03-16T12:59:28Z"
+        },
+        {
+          "name": "cbt_therapist_manual_25_11_2021.pdf",
+          "modified": "2026-02-25T14:42:57Z"
+        },
+        {
+          "name": "Cognitive behavioral therapy for Parkinson's - Davis Phinney Foundation.pdf",
+          "modified": "2026-02-25T14:46:39Z"
+        },
+        {
+          "name": "Factors Associated With Exercise Behavior in People With Parkinson Disease.pdf",
+          "modified": "2026-03-13T16:07:19Z"
+        },
+        {
+          "name": "Helping People With Parkinson Disease Build Exercise Self-Efficacy.pdf",
+          "modified": "2026-03-13T16:16:27Z"
+        },
+        {
+          "name": "Mindfulness and Parkinson's _ Parkinson's UK.pdf",
+          "modified": "2026-03-13T16:01:22Z"
+        },
+        {
+          "name": "Motivation Matters- Elucidating Factors Driving Exercise in People With Parkinson Disease.pdf",
+          "modified": "2026-03-13T16:12:21Z"
+        },
+        {
+          "name": "Psycological therapy specification- May 2026 - Copy.docx",
+          "modified": "2026-05-10T12:27:56Z"
+        },
+        {
+          "name": "Psycological therapy specification- May 2026.docx",
+          "modified": "2026-08-06T15:56:54Z"
+        },
+        {
+          "name": "ptj_100_2_205.pdf",
+          "modified": "2026-03-13T15:55:15Z"
+        },
+        {
+          "name": "The British Pyschological Society evided based guidance - Psychological interventions for people with Huntingtons, Parkinsons, motor neurone disease, multiple sclerosis.pdf",
+          "modified": "2026-03-13T15:54:04Z"
+        }
+      ]
+    },
+    "therapeutics-protocol": {
+      "count": 20,
+      "has_more": false,
+      "error": false,
+      "files": [
+        {
+          "name": "Activities frequency and duration.xlsx",
+          "modified": "2026-08-25T15:40:32Z"
+        },
+        {
+          "name": "Base-unit IDs Lanes.xlsx",
+          "modified": "2026-07-01T10:00:28Z"
+        },
+        {
+          "name": "DopApp – Protocol & Behavioral Goals.docx",
+          "modified": "2026-02-03T12:28:59Z"
+        },
+        {
+          "name": "Eagle Items list - Therapeutics.xlsx",
+          "modified": "2026-09-16T07:22:07Z"
+        },
+        {
+          "name": "Educational Content Bundle Plan.xlsx",
+          "modified": "2026-06-09T14:02:01Z"
+        },
+        {
+          "name": "Main therapeutic concepts for the protocol.docx",
+          "modified": "2026-02-25T15:36:57Z"
+        },
+        {
+          "name": "Non-Compliance Escalation Frame work.docx",
+          "modified": "2026-10-01T13:13:53Z"
+        },
+        {
+          "name": "Optional interactions with users.xlsx",
+          "modified": "2026-05-06T11:08:13Z"
+        },
+        {
+          "name": "Outline for PD Therapeutics Protocol.docx",
+          "modified": "2025-10-21T09:33:58Z"
+        },
+        {
+          "name": "PD protocol flow.pptx",
+          "modified": "2026-04-05T09:14:14Z"
+        },
+        {
+          "name": "PD Protocol Rules.pptx",
+          "modified": "2026-03-31T06:58:43Z"
+        },
+        {
+          "name": "Protocol.xlsx",
+          "modified": "2026-10-08T15:30:06Z"
+        },
+        {
+          "name": "Recommendations for users on how to consume contents.docx",
+          "modified": "2026-03-31T15:27:57Z"
+        },
+        {
+          "name": "Recommended Dosage Allocation for a Multidisciplinary Parkin.docx",
+          "modified": "2026-02-03T12:14:17Z"
+        },
+        {
+          "name": "Required features for the modules.docx",
+          "modified": "2026-05-20T09:58:43Z"
+        },
+        {
+          "name": "Study_Coordinator_Dashboard_Requirements.docx",
+          "modified": "2026-08-20T08:50:34Z"
+        },
+        {
+          "name": "Substitutions table.xlsx",
+          "modified": "2026-08-12T12:51:58Z"
+        },
+        {
+          "name": "Summary screens table.docx",
+          "modified": "2026-08-02T08:24:44Z"
+        },
+        {
+          "name": "Therapeutic priorities for features.xlsx",
+          "modified": "2026-06-07T18:00:34Z"
+        },
+        {
+          "name": "UPDRS pt2 tracking table.xlsx",
+          "modified": "2026-03-10T14:07:57Z"
+        }
+      ]
+    },
+    "product-modules": {
+      "count": 11,
+      "has_more": false,
+      "error": false,
+      "files": []
+    },
+    "therapeutics-content": {
+      "count": 25,
+      "has_more": false,
+      "error": false,
+      "files": [
+        {
+          "name": "Book.xlsx",
+          "modified": "2026-09-23T06:21:02Z"
+        },
+        {
+          "name": "Book1.xlsx",
+          "modified": "2026-10-20T08:54:51Z"
+        },
+        {
+          "name": "Content - Status.docx",
+          "modified": "2026-10-25T09:35:46Z"
+        },
+        {
+          "name": "Content inventory.xlsx",
+          "modified": "2026-10-22T08:59:28Z"
+        },
+        {
+          "name": "core concepts for messaging - work in progress.docx",
+          "modified": "2026-06-15T07:40:32Z"
+        },
+        {
+          "name": "Modules content status.xlsx",
+          "modified": "2026-07-21T08:01:39Z"
+        },
+        {
+          "name": "Morning_and_music_prepages.xlsx",
+          "modified": "2026-10-14T08:35:58Z"
+        },
+        {
+          "name": "naming things.xlsx",
+          "modified": "2026-09-16T14:06:25Z"
+        },
+        {
+          "name": "רשימת עריכות.docx",
+          "modified": "2026-09-15T09:32:06Z"
+        },
+        {
+          "name": "שאלון לטסטימוניאלז.docx",
+          "modified": "2026-07-07T14:59:18Z"
+        }
+      ]
+    },
+    "therapeutics-overall": {
+      "count": 30,
+      "has_more": false,
+      "error": false,
+      "files": [
+        {
+          "name": "Apps intervetions all.xlsx",
+          "modified": "2025-09-21T08:20:39Z"
+        },
+        {
+          "name": "Creating new content.docx",
+          "modified": "2025-06-05T14:34:46Z"
+        },
+        {
+          "name": "Delivering Multidisciplinary Rehabilitation Care in Parkinson’s Disease An International Consensus Statement.pdf",
+          "modified": "2025-05-01T12:52:16Z"
+        },
+        {
+          "name": "DopApp User experience.pptx",
+          "modified": "2026-02-10T12:04:48Z"
+        },
+        {
+          "name": "Eagle Sync Sept 24.pptx",
+          "modified": "2026-09-24T12:58:15Z"
+        },
+        {
+          "name": "Gaps in converting the 12 weeks plan to chronic use.docx",
+          "modified": "2026-06-25T11:37:54Z"
+        },
+        {
+          "name": "General principles and recommendations.docx",
+          "modified": "2025-06-26T14:45:24Z"
+        },
+        {
+          "name": "Guiding principles of the program.docx",
+          "modified": "2025-05-15T14:24:12Z"
+        },
+        {
+          "name": "High level therapeutic requirements - device description excerpts.docx",
+          "modified": "2025-07-29T16:42:18Z"
+        },
+        {
+          "name": "High level therapeutic requirements for the Phase 3 PD App.docx",
+          "modified": "2026-01-01T10:04:01Z"
+        },
+        {
+          "name": "Intervention Blueprint.docx",
+          "modified": "2025-11-03T11:34:06Z"
+        },
+        {
+          "name": "milestones.xlsx",
+          "modified": "2025-11-09T23:09:26Z"
+        },
+        {
+          "name": "Module Specifications Docs.docx",
+          "modified": "2025-11-18T18:39:24Z"
+        },
+        {
+          "name": "PD - Structure of Phase 3 app.docx",
+          "modified": "2025-03-19T13:27:56Z"
+        },
+        {
+          "name": "PD clinical v2.pptx",
+          "modified": "2025-01-06T16:46:02Z"
+        },
+        {
+          "name": "PD Management of symptoms and other topics.docx",
+          "modified": "2025-02-20T16:54:43Z"
+        },
+        {
+          "name": "PD Podcast - relevent episodes.docx",
+          "modified": "2025-02-18T14:26:38Z"
+        },
+        {
+          "name": "PD protocol HL desc.pptx",
+          "modified": "2026-03-30T13:32:39Z"
+        },
+        {
+          "name": "PD protocol HL.pptx",
+          "modified": "2026-03-19T09:30:46Z"
+        },
+        {
+          "name": "PD rehabillitation specialists.docx",
+          "modified": "2025-06-17T09:06:44Z"
+        },
+        {
+          "name": "Social interaction.docx",
+          "modified": "2026-02-16T06:42:09Z"
+        },
+        {
+          "name": "Themes in PD program.docx",
+          "modified": "2025-11-03T11:33:55Z"
+        },
+        {
+          "name": "הגיגים על תוכנית טיפולית ארוכה.docx",
+          "modified": "2025-02-27T18:15:02Z"
+        },
+        {
+          "name": "מדידה באפליקציה שאלות שינה כאב ועוד.docx",
+          "modified": "2025-02-27T15:47:45Z"
+        },
+        {
+          "name": "ניסוי יונה מחשבות ותחילת עבודה.docx",
+          "modified": "2025-02-27T16:01:43Z"
+        }
+      ]
+    },
+    "product-psych": {
+      "count": 0,
+      "has_more": false,
+      "error": false,
+      "files": []
+    },
+    "psych-content-new-all": {
+      "count": 123,
+      "has_more": false,
+      "error": false,
+      "files": [
+        {
+          "name": "activities prepages_S29-87_activities.xlsx",
+          "modified": "2026-10-13T10:17:34Z"
+        },
+        {
+          "name": "cardversation questions.xlsx",
+          "modified": "2026-10-08T16:35:23Z"
+        },
+        {
+          "name": "context and pre pages.xlsx",
+          "modified": "2026-10-08T06:58:23Z"
+        },
+        {
+          "name": "Fronatl - SP - CONT - 001.mp4",
+          "modified": "2026-10-15T07:27:28Z"
+        },
+        {
+          "name": "inner voice workout.xlsx",
+          "modified": "2026-09-30T20:32:07Z"
+        },
+        {
+          "name": "mindful_moments_copy.xlsx",
+          "modified": "2026-10-20T07:25:19Z"
+        },
+        {
+          "name": "pre pages for educational.xlsx",
+          "modified": "2026-10-13T10:17:34Z"
+        },
+        {
+          "name": "prepages_month1 activities.xlsx",
+          "modified": "2026-10-28T12:43:41Z"
+        },
+        {
+          "name": "psych prepages_S29-87_videos.xlsx",
+          "modified": "2026-10-13T10:17:34Z"
+        },
+        {
+          "name": "psych tips.xlsx",
+          "modified": "2026-10-07T10:09:16Z"
+        },
+        {
+          "name": "Psychology audio items trailers.xlsx",
+          "modified": "2026-10-31T17:12:09Z"
+        },
+        {
+          "name": "Psychology context pages.xlsx",
+          "modified": "2026-11-01T13:29:45Z"
+        },
+        {
+          "name": "self care as a practice.docx",
+          "modified": "2026-09-24T09:20:03Z"
+        },
+        {
+          "name": "taking action.docx",
+          "modified": "2026-09-02T08:42:37Z"
+        },
+        {
+          "name": "איך לתקשר עם אחרים על פרקינסון.docx",
+          "modified": "2026-09-02T04:59:18Z"
+        },
+        {
+          "name": "אינטרו לנשימה קוהרנטית.docx",
+          "modified": "2026-08-28T09:10:15Z"
+        },
+        {
+          "name": "אינטרו לתרגול - כמו שאני.docx",
+          "modified": "2026-08-29T12:00:03Z"
+        },
+        {
+          "name": "אנחה פיזיולוגית.docx",
+          "modified": "2026-08-28T09:08:40Z"
+        },
+        {
+          "name": "להבין את מעגל ההתמודדות עם קושי - סופי.docx",
+          "modified": "2026-08-26T08:36:16Z"
+        },
+        {
+          "name": "להבין את מעגל ההתמודדות עם קושי.docx",
+          "modified": "2026-08-25T13:43:30Z"
+        },
+        {
+          "name": "מעקב צילומים  אריאל.xlsx",
+          "modified": "2026-10-07T08:47:08Z"
+        },
+        {
+          "name": "מעקב תסריטים נירה.xlsx",
+          "modified": "2026-08-27T12:09:51Z"
+        },
+        {
+          "name": "עזבו אותי ממיינדסט.docx",
+          "modified": "2026-08-27T11:14:17Z"
+        },
+        {
+          "name": "פרומפטר אריאל.docx",
+          "modified": "2026-09-02T05:14:43Z"
+        },
+        {
+          "name": "שאלות למטופלים.docx",
+          "modified": "2026-08-17T19:42:57Z"
+        }
+      ]
+    },
+    "psych-content-all": {
+      "count": 111,
+      "has_more": false,
+      "error": false,
+      "files": []
+    }
+  },
+  "excerpts": {
+    "onboarding": "Therapeutics team onboarding 2026 (updated Oct 26 for Itay)\nPeople to meet: \nTopic\nRelevant links / documents\nCompany overview\nCompany deck\nRemepy organization chart (not 100% accurate but a good start 😊)\nHiBOB-> Org-> Club view\nRemepy published papers\niScience- 007\nScientific Reports -007\nNPJ Digital Medicine -008\nBrain communications - PD\nNPJ Parkinson’s Disease\nPD Device Description\n3.2.R PD-002 Device Description.docx\nThis is the current version of the device description for PD. It is still work-in-progress. \ni don’t think you need this high level intro to PD but just in case – here is a high level overview - PD Overview and Links.docx\nPD psychological program\nPsycological therapy specification- May 2026.docx\nthere were changes in this program but it is still a good place to start. The detailed list of PD psych assets is here:\nList Psych PD.xlsx\nPD app install\nThis is an app for testing, so there are glitches and bugs, but you can still learn a lot from it (and provide feedback). \nShahar Har Nesher can help you with the installation, or you can try yourself - \n🍎 iOS - TestFligh",
+    "daily_schedule": ",Daily Protocol: Heavy-Speech Schedule (DRAFT - all values are placeholders),Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9\n0,Pre-filled from the current draft schedule (FigJam snapshot). Edit any cell; this is a working copy.,,,,,,,,,\n1,Day = schedule day (this 7-day pattern repeats each week) · Section = Play/Practice/Mindset · Order = sequence within the section · Duration = target minutes · Rounds = games only.,,,,,,,,,\n2,\"Rounds:  Orchestra = 2 min/round, TipTap = 1 min/round (rounds x length fill the duration). Maze rounds left blank (it self-manages). All other activities: no rounds.\",,,,,,,,,\n3,\"Speech pair rule: on a Heavy speech day the two speech exercises (vocal exercise, then Reading) run back-to-back with no break between them.\",,,,,,,,,\n4,,,,,,,,,,\n5,Day,Section,Order,Activity,Duration (min),Rounds,,,,\n6,1,Play,1,Orchestra,2,1,,,,\n7,1,Practice,1,PT,15,,,,,\n8,1,Practice,2,Sustained Phonation,4,,,,,\n9,1,Practice,3,Reading,4,,,,,\n10,1,Mindset,1,Psychology,3,,,,,switch lived experience with psy\n11,2,Play,1,Maze,10,,,,,\n12,2,Practice,1,OT,10,,,,,\n13,2,Practice,2,Dance,6,,,,,\n14,2,Mindset,1,Psychology,3,,,,,\n15,2,Mindset,2,Lived experience,1,,,,,\n16,3,Play,1,TipTap,3,3,,,,\n17,3,Practice,1,PT,15,,,,,\n18,3,Practice,2,Pitch Glides,4,,,,,\n19,3,Practice,3,Reading,4,,,,,\n20,3,Mindset,1,Psychology,3,,,,,\n21,3,Mindset,2,Lived experience,1,,,,,\n22,4,Play,1,Maze,10,,,,,\n23,4,Practice,1,OT,10,,,,,\n24,4,Practice,2,Dance,5,,,,,\n25,4,Mindset,1,Psychology,3,,,,,\n26,4,Mindset,2,Lived experience,2,,,,,\n27,5,Play,1,TipTap,3,3,,,,\n28,5,Practice,1,PT,15,,,,,\n29,5,Practice,2,Sustained Phonation,4,,,,,\n30,5,Practice,3,Reading,4,,,,,\n31,5,Mindset,1,Psychology,3,,,,,\n32,5,Mindset,2,Lived experience,1,,,,,\n33,6,Play,1,Maze,10,,,,,\n34,6,Practice,1,OT,10,,,,,\n35,6,Practice,2,Dance,5,,,,,\n36,6,Mindset,1,Psychology,3,,,,,\n37,6,Mindset,2,Lived experience,2,,,,,\n38,7,Play,1,Orchestra,4,2,,,,\n39,7,Practice,1,PT,15,,,,,\n40,7,Practice,2,Pitch Glides,4,,,,,\n41,7,Practice,3,Reading,4,,,,,\n42,7,Mindset,1,Psychology,3,,,,,\n\f,Daily Protocol: Light-Speech Schedule (DRAFT - all values are placeholders),Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5\n0,Pre-filled from the current draft schedule (FigJam snapshot). Edit any cell; this is a working copy.,,,,,\n1,Day = schedule day (this 7-day pattern repeats each week) · Section = Play/Practice/Mindset · Order = sequence within the section · Duration = target minutes · Rounds = games only.,,,,,\n2,\"Rounds:  Orchestra = 2 min/round, TipTap = 1 min/round (rounds x length fill the duration). Maze rounds left blank (it self-manages). All other activities: no rounds.\",,,,,\n3,\"Speech pair rule: on a Heavy speech day the two speech exercises (vocal exercise, then Reading) run back-to-back with no break between them.\",,,,,\n4,,,,,,\n5,Day,Section,Order,Activity,Duration (min),Rounds\n6,1,Play,1,Orchestra,8,4\n7,1,Practice,1,PT,15,\n8,1,Mindset,1,Psychology,3,\n9,2,Play,1,Maze,10,\n10,2,Practice,1,OT,10,\n11,2,Practice,2,Dance,6,\n12,2,Mindset,1,Psychology,3,\n13,2,Mindset,2,Lived experience,1,\n14,3,Play,1,TipTap,5,5\n15,3,Practice,1,PT,15,\n16,3,Practice,2,Reading,5,\n17,3,Mindset,1,Psychology,3,\n18,3,Mindset,2,Lived experience,1,\n19,4,Play,1,Maze,10,\n20,4,Practice,1,OT,10,\n21,4,Practice,2,Dance,5,\n22,4,Mindset,1,Psychology,3,\n23,4,Mindset,2,Lived experience,2,\n24,5,Play,1,TipTap,5,5\n25,5,Practice,1,PT,15,\n26,5,Practice,2,Reading,5,\n27,5,Mindset,1,Psychology,3,\n28,5,Mindset,2,Lived experience,1,\n29,6,Play,1,Maze,10,\n30,6,Practice,1,OT,10,\n31,6,Practice,2,Dance,5,\n32,6,Mindset,1,Psychology,3,\n33,6,Mindset,2,Lived experience,2,\n34,7,Play,1,Orchestra,10,5\n35,7,Practice,1,PT,15,\n36,7,Mindset,1,Psychology,3,\n",
+    "protocol": ",Light speech week,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8\n0,,,,,,,,,\n1,Day,Activity,Duration (min),Rounds,Time since med (min),Category,,Day,Total minutes\n2,Day 1,PT practice,15,,30-150,Practice,,Day 1,25\n3,,TipTap,5,4,30-150,Play,,Day 2,30\n4,,Lived experience,2,, ,Mindset,,Day 4,30\n5,,Mindset ,3,, ,Mindset,,Day 3,30\n6,Day 2,OT practice,10,,30-150,Practice,,Day 5,30\n7,,Dance practice,6,,30-150,Practice,,Day 6,30\n8,,Maze play,10,,30-150,Play,,Day 7,23\n9,,Lived experience,1,, ,Mindset,,,\n10,,Mindset,3,, ,Mindset,,,\n11,Day 3,PT practice,15,,30-150,Practice,,,\n12,,Speech Reading,5,1 (rounds are built into the exercise - pending usability tests),30-150,Practice,,,\n13,,Orchestra,5,4,30-150,Play,,,\n14,,Lived experience,2,, ,Mindset,,,\n15,,Mindset ,3,, ,Mindset,,,\n16,Day 4,OT practice,10,,30-150,Practice,,,\n17,,Dance practice,5,,30-150,Practice,,,\n18,,Maze play,10,,30-150,Play,,,\n19,,Lived experience,2,, ,Mindset,,,\n20,,Mindset,3,, ,Mindset,,,\n21,Day 5,PT practice,15,,30-150,Practice,,,\n22,,Speech Reading,5,1 (rounds are built into the exercise - pending usability tests),30-150,Practice,,,\n23,,TipTap,5,4,30-150,Play,,,\n24,,Lived experience,2,, ,Mindset,,,\n25,,Mindset,3,, ,Mindset,,,\n26,Day 6,OT practice,10,,30-150,Practice,,,\n27,,Dance practice,5,,30-150,Practice,,,\n28,,Maze play,10,,30-150,Play,,,\n29,,Lived experience,2,, ,Mindset,,,\n30,,Mindset,3,, ,Mindset,,,\n31,Day 7,PT practice,15,,30-150,Practice,,,\n32,,Orchestra,5,4,30-150,Play,,,\n33,,Lived experience,2,, ,Mindset,,,\n34,,Mindset,3,, ,Mindset,,,\n\f,Heavy speech week,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5\n0,,,,,,\n1,Day,Activity,Duration (min),Rounds,Time since med (min),Category\n2,Day 1,PT practice,15,,30-150,Practice\n3,,Sustained P,3,1 (rounds are built into the exercise - pending usability tests),30-150,Practice\n4,,Reading,5,1 (rounds are built into the exercise - pending usability tests),30-150,Practice\n5,,TipTap,3,2,30-150,Play\n6,,Lived experience,2,, ,Mindset\n7,,Mindset ,3,, ,Mindset\n8,Day 2,OT practice,10,,30-150,Practice\n9,,Dance practice,6,,30-150,Practice\n10,,Maze play,10,,30-150,Play\n11,,Lived experience,1,, ,Mindset\n12,,Mindset,3,, ,Mindset\n13,Day 3,PT practice,15,,30-150,Practice\n14,,Pitch glides,3,1 (rounds are built into the exercise - pending usability tests),30-150,Practice\n15,,Reading,5,1 (rounds are built into the exercise - pending usability tests),30-150,Practice\n16,,Orchestra,3,2,30-150,Play\n17,,Lived experience,2,, ,Mindset\n18,,Mindset,3,, ,Mindset\n19,Day 4,OT practice,10,,30-150,Practice\n20,,Dance practice,5,,30-150,Practice\n21,,Maze play,10,,30-150,Play\n22,,Lived experience,2,, ,Mindset\n23,,Mindset ,3,, ,Mindset\n24,Day 5,PT practice,15,,30-150,Practice\n25,,Sustained P,3,1 (rounds are built into the exercise - pending usability tests),30-150,Practice\n26,,Reading,5,1 (rounds are built into the exercise - pending usability tests),30-150,Practice\n27,,TipTap,3,2,30-150,Play\n28,,Lived experience,2,, ,Mindset\n29,,Mindset,3,, ,Mindset\n30,Day 6,OT practice,10,,30-150,Practice\n31,,Dance practice,5,,30-150,Practice\n32,,Maze play,10,,30-150,Play\n33,,Lived experience,2,, ,Mindset\n34,,Mindset,3,, ,Mindset\n35,Day 7,PT practice,15,,30-150,Practice\n36,,Pitch glides ,3,1 (rounds are built into the exercise - pending usability tests),30-150,Practice\n37,,Reading,5,1 (rounds are built into the exercise - pending usability tests),30-150,Practice\n38,,Orchestra,3,2,30-150,Play\n39,,Lived experience,2,, ,Mindset\n40,,Mindset,3,, ,Mindset\n\f,Unnamed: 0,Unnamed: 1,Trailers,Content,Non Video Content,Copy,Unnamed: 6\n0,Practice,PT,A1+B1,A1+B1 * 3 Levels,,PM Ready,\n1,,OT,A1+B1+C1,A1+B1+C1 * 3 Levels,,Michal C,\n2,,Dance,,12 Videos,,,\n3,,Sustained P.,1,,,Noam C,\n4,,Pitch Glides,1,,,Noam C,\n5,,Reading,1,,Ready,Noam C,\n6,,,,,,,\n7,Play,Maze,1,,Ready,Ready,\n8,,Tiptap,1,,,Michal C,\n9,,Orchestra,1,,Missing 40 Songs,Michal C,\n10,,,,,,,\n11,Mindset,Lived Experience,,28 Videos,,Yaara,Gilad Y + patients\n12,,Mindset Videos,,15 Videos,,,\n13,,Mindset Audio,,,,,\n14,,Card game,1,,15,,\n15,,Inner Voice,1,,15,,\n16,,Mindful Moments,1,,15,,\n17,,,,,,,\n18,Orientation,,,6 Videos,,,\n",
+    "device_daily_overview": "is information is used by the app to identify the mobility & balance practice workout difficulty levels (e.g., ‘Base’, ‘Active’, ‘Max’) that are presented as available options to the user prior to each workout (further described in Section 6.3.3). Users who report a history of falls are not presented with the Max difficulty level.\nSetting Reminder for a Morning Routine – An optional set up of a daily notification reminder that will prompt the user to complete the guided morning routine practice from the library. The morning routing is further described in Section 6.4.4.\nDaily Overview – Practice / Play / Mindset Screen (Day 2+)\nThe daily overview can be accessed from a tile on the home screen or from the navigation bar. Beginning on the user’s second full day of treatment, it presents the day’s activities organized into category sections for Practice, Play, and Mindset, each displaying the approximate time needed to complete and progress. The app recommends an activity category for the user to start with, based on the timing of their last logged IR CD/LD medication dose. Within the IR CD/LD dosing window, Practice is recommended first, followed by Play, then Mindset. Outside the IR CD/LD dosing window, or when no dose has been logged, Mindset is recommended first followed by Play, then Practice. As section categories are completed, the next incomplete category section is recommended. \nRegardless of the recommended activity, the user can proceed with any incomplete activity section at any time. If a user attempts to complete Practice activities outside of their logged medication window (i.e., 30-150 minutes after IR CD/LD intake), the app presents the user with a non-blocking notice suggesting a different incomplete activity alternative from the daily overview (e.g., Play, Mindset); if no alternative activity remains available, the notice is still presented to inform the user of the timing. For Play activities, the screen preceding the activity always displays text indicating that the activity is recommended to be performed within the IR CD/LD dosing window. These recommendations are intended to support performance of physical and cognitive activities during periods of anticipated therapeutic benefit from IR CD/LD, while also mitigating potential risks associated with physical training during an “off” state (e.g., fall risk).\nFigure X.   Example Daily Overview Screens\nAs the user completes activities, they are shown brief transition and celebratory 'complet",
+    "device_mindset": "starting.\n“Mindset”\nThe Mindset category includes four types of activities: informational videos, breathing exercises, audio activations, and gamified activations.\nInformational videos introduce the user to specific topics and provide practical guidance and strategies for managing the everyday and emotional challenges of living with Parkinson’s disease. Breathing exercises offer guided instruction in four techniques: box breathing, belly breathing, physiological sigh, and coherent breathing. Audio activations are audio-only sessions that guide the user through mindfulness, relaxation and reflection practices including grounding, guided imagery, and progressive muscle relaxation (PMR). In-the-moment relaxation tools, body scan, awareness of breath, observing thoughts, self-compassion, and self-affirmation. Gamified activations are interactive mini-“games” such as: reflection activation, which prompts the user to bring to mind something they are grateful for, a pleasant experience, or a value-based action and then presents a series of on-screen reflection questions for self-directed contemplation without requiring user input; inner voice, which presents sentences the user must choose to embrace or reject, with feedback on  their selection (for example – motivating and unmotivating sentences, balanced and unbalanced thoughts); and mirror card game, in which the user either selects a topic or has one selected automatically (\"Choose for me\") and then receives a set of cards, each containing two questions for personal reflection.\nFigure X.   Example Mindset Activity: Breathing Exercise\nFigure X.   Example Mindset Activity: Reflection Activation Game\nFigure X.   Example Mindset Activity: Inner Voice\nFigure X.   Example Mindset Activity: Mirror Card Game\nActivities are initially delivered in a predetermined sequence. As the user progresses and is introduced to the available tools and activations, the program transitions to a choice-based model in which the user selects from thematic categories based on personal relevance. These categories include topics such as ‘Take a breather’, ‘Relaxation’, ‘Mindfulness’, ‘Self-Care’, ‘Flexible Thinking’, ‘Attention & Emotional Balance’, ‘Cultivating calm’, ‘Meaningful action’, and ‘In the moment’. Each category presents a curated grouping of activities, tailored to the theme of that category. This progressive structure is designed to first familiarize the user with the full range of available techniques and then empower them to direct their own practice based on individual needs and preferences.\nBefore each activity, the user sees an introductory page that introduces the activity and provides any guidance needed ahead of performing the activity (e.g. find a comfortable spot, consider using headphones). \nAdditional App Features\nPersonalized Messages & Reminders\nTo promote engagement with the PD-002 treatment protocol, the PD-002 app includes a multimodal messaging system that delivers personalized messages to the user in-app as well as reminders via phone notifications and text messages, and a weekly email. \nIn-app messages, phone notifications, text messages, and email are all generated using generative intelligence (GenAI) systems that utilize a fixed prompt and versioned LLM to personalize",
+    "trailer_activity_mapping": ",Activity ID,Activity Name,Activity Type,Trailer,Trailer activity ID\n0,PS-CONT-058,Grounding,Audio,Grounding introduction _ trailer,PS-CONT-034\n1,PS-CONT-060,Observing thoughts,Audio,Observing thoughts introduction (trailer) ,PS-CONT-037\n2,PS-CONT-065,Guided imagery for relaxation,Audio,Relaxation and guided imagery introduction _trailer,PS-CONT-035\n3,PS-CONT-067,PMR,Audio,Relaxation and guided imagery introduction _trailer,PS-CONT-035\n4,PS-CONT-068,Guided imagery safe place,Audio,Relaxation and guided imagery introduction _trailer,PS-CONT-035\n5,PS-CONT-070,Awareness of breath,Audio,Awareness of breath and body scan introduction (mindfulness intro)_ trailer,PS-CONT-036\n6,PS-CONT-071,Body scan,Audio,Awareness of breath and body scan introduction (mindfulness intro)_ trailer,PS-CONT-036\n7,PS-CONT-074,Moment of self-compassion,Audio,A moment of self compassion _ trailer,PS-CONT-039\n8,PS-CONT-103,I am enough,Audio,l am enough_ trailer,PS-CONT-108\n9,PS-CONT-104,One-Breath Reset,Audio,In the moment tools introduction,PS-CONT-049\n10,PS-CONT-105,Soften One Place,Audio,In the moment tools introduction,PS-CONT-049\n11,PS-CONT-106,Three Anchors,Audio,In the moment tools introduction,PS-CONT-049\n12,PS-CONT-066,Guided Imagery - Nighttime relaxation,Audio,Relaxation and guided imagery introduction _trailer,PS-CONT-035\n13,PS-CONT-069,guided imagery - nighttime safe place ,Audio,Relaxation and guided imagery introduction _trailer,PS-CONT-035\n14,PS-CONT-077,Nighttime body scan ,Audio,Awareness of breath and body scan introduction (mindfulness intro)_ trailer,PS-CONT-036\n15,PS-CONT-078,Nighttime attention to hand and feet ,Audio,Awareness of breath and body scan introduction (mindfulness intro)_ trailer,PS-CONT-036\n16,PS-CONT-110,A Moment of Self-Compassion – Loving Kindness Version,Audio,A moment of self compassion _ trailer,PS-CONT-039\n\f,Activity ID,Activity Name,Activity Type,Trailer,Trailer activity ID\n0,PS-ACT-001,Belly Breathing,Activity,Belly breathing introduction_ trailer ,PS-CONT-030\n1,PS-ACT-002,Inner voice ,Activity,Inner voice - onboarding,PS-CONT-045\n2,PS-ACT-003,Grounding,Activity,Grounding introduction _ trailer,PS-CONT-034\n3,PS-ACT-004,Card game,Activity,Card game introduction ,PS-CONT-046\n4,PS-ACT-005,Box breathing,Activity,Box breathing introduction _ trailer ,PS-CONT-031\n5,PS-ACT-006,Take a breather (choice activity),Activity,Breathing exercises intro,PS-CONT-047\n6,PS-ACT-007,Mindfulness (choice activity),Activity,Mindfulness practice intro,PS-CONT-013\n7,PS-ACT-008,In the moment (choice activity),Activity,In the moment tools introduction,PS-CONT-049\n8,PS-ACT-009,Mindful moment (pleasant experience),Activity,Exploring a pleasant experience introduction  _ trailer,PS-CONT-038\n9,PS-ACT-010,Mindful moment (gratitude),Activity,A moment of gratitude_trailer,PS-CONT-107\n10,PS-ACT-011,Mindful moment (this matters),Activity,Taking action (trailer),PS-CONT-109\n11,PS-ACT-012,Relaxation (choice activity),Activity,Relaxation and guided imagery introduction _trailer,PS-CONT-035\n12,PS-ACT-013,Self care (choice activity),Activity,Self-care as a practice ,PS-CONT-019\n13,PS-ACT-014,Flexible thinking (choice activity),Activity,Cultivating flexible thinking intro _ trailer,PS-CONT-040\n14,PS-ACT-015,Attention and emotional balance (choice activity),Activity,Strengthening attention and emotional balance intro _ trailer,PS-CONT-041\n15,PS-ACT-016,Cultivating calm (choice activity),Activity,Cultivating calm in the body intro_ trailer,PS-CONT-042\n16,PS-ACT-017,Meaningful action (choice activity),Activity,Cultivating meaningful action intro_ trailer,PS-CONT-043\n17,PS-ACT-019,Physiological sigh,Activity,Physiological sigh introduction _ trailer ,PS-CONT-033\n18,PS-ACT-020,Coherent breathing,Activity,Coherent breathing introduction _ trailer ,PS-CONT-032\n"
+  }
+}

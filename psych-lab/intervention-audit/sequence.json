@@ -1,0 +1,2033 @@
+[
+  {
+    "session": 1,
+    "week_if_daily": 1,
+    "activities": [
+      {
+        "Session": "1",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-001",
+        "Activity Name": "Welcome ",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S01",
+        "title": "מפגש 1: ברוכים הבאים",
+        "seconds": 123.9,
+        "url": "http://127.0.0.1:63684/?session=S01&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 123.9,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 2,
+    "week_if_daily": 1,
+    "activities": [
+      {
+        "Session": "2",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-002",
+        "Activity Name": "Apathy explained",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S02",
+        "title": "מפגש 2: אפתיה – כשקשה להתחיל",
+        "seconds": 179.4,
+        "url": "http://127.0.0.1:63684/?session=S02&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 179.4,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 3,
+    "week_if_daily": 1,
+    "activities": [
+      {
+        "Session": "3",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-003",
+        "Activity Name": "Practicing with Parkinson's",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      },
+      {
+        "Session": "3",
+        "Activity # ": "2",
+        "Activity ID": "PS-ACT-001",
+        "Activity Name": "Belly breathing",
+        "Activity Type": "Breathing activity",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S03a",
+        "title": "מפגש 3: תרגול עם פרקינסון",
+        "seconds": 228.033,
+        "url": "http://127.0.0.1:63684/?session=S03a&tab=animation"
+      },
+      {
+        "id": "S03b",
+        "title": "מפגש 3: נשימה בטנית",
+        "seconds": 241.133,
+        "url": "http://127.0.0.1:63684/?session=S03b&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 469.166,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 4,
+    "week_if_daily": 1,
+    "activities": [
+      {
+        "Session": "4",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-002",
+        "Activity Name": "Inner Voice",
+        "Activity Type": "Game",
+        "Information page ID": "",
+        "Parameter": "motivation",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S04",
+        "title": "מפגש 4: הקול הפנימי",
+        "seconds": 107.533,
+        "url": "http://127.0.0.1:63684/?session=S04&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 107.533,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 5,
+    "week_if_daily": 1,
+    "activities": [
+      {
+        "Session": "5",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-004",
+        "Activity Name": "Pacing including battery analogy and planned rests",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S05",
+        "title": "מפגש 5: ניהול אנרגיה ואנלוגיית הבטריה",
+        "seconds": 194.867,
+        "url": "http://127.0.0.1:63684/?session=S05&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 194.867,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 6,
+    "week_if_daily": 1,
+    "activities": [
+      {
+        "Session": "6",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-003",
+        "Activity Name": "Grounding",
+        "Activity Type": "Audio",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S06",
+        "title": "מפגש 6: מבוא לקרקוע",
+        "seconds": 127.2,
+        "url": "http://127.0.0.1:63684/?session=S06&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 127.2,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 7,
+    "week_if_daily": 1,
+    "activities": [
+      {
+        "Session": "7",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-005",
+        "Activity Name": "Thoughts are not facts",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S07",
+        "title": "מפגש 7: מחשבות הן לא עובדות",
+        "seconds": 228.767,
+        "url": "http://127.0.0.1:63684/?session=S07&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 228.767,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 8,
+    "week_if_daily": 2,
+    "activities": [
+      {
+        "Session": "8",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-029",
+        "Activity Name": "Balancing thoughts",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      },
+      {
+        "Session": "8",
+        "Activity # ": "2",
+        "Activity ID": "PS-ACT-002",
+        "Activity Name": "Inner Voice",
+        "Activity Type": "Game",
+        "Information page ID": "Info-ivw-gme-01",
+        "Parameter": "Unbalanced and balanced thoughts",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S08",
+        "title": "מפגש 8: איזון מחשבות",
+        "seconds": 144.6,
+        "url": "http://127.0.0.1:63684/?session=S08&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 144.6,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 9,
+    "week_if_daily": 2,
+    "activities": [
+      {
+        "Session": "9",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-006",
+        "Activity Name": "The bus driver metaphor",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S09",
+        "title": "מפגש 9: מטאפורת נהג האוטובוס",
+        "seconds": 184.433,
+        "url": "http://127.0.0.1:63684/?session=S09&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 184.433,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 10,
+    "week_if_daily": 2,
+    "activities": [
+      {
+        "Session": "10",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-060",
+        "Activity Name": "Observing thoughts",
+        "Activity Type": "Audio",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S10",
+        "title": "מפגש 10: התבוננות במחשבות",
+        "seconds": 118.367,
+        "url": "http://127.0.0.1:63684/?session=S10&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 118.367,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 11,
+    "week_if_daily": 2,
+    "activities": [
+      {
+        "Session": "11",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-004",
+        "Activity Name": "Cards game",
+        "Activity Type": "Game",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S11",
+        "title": "מפגש 11: קלפי שיחה",
+        "seconds": 125.0,
+        "url": "http://127.0.0.1:63684/?session=S11&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 125.0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 12,
+    "week_if_daily": 2,
+    "activities": [
+      {
+        "Session": "12",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-007",
+        "Activity Name": "Share the journey",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S12",
+        "title": "מפגש 12: לשתף מישהו קרוב בדרך",
+        "seconds": 137.2,
+        "url": "http://127.0.0.1:63684/?session=S12&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 137.2,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 13,
+    "week_if_daily": 2,
+    "activities": [
+      {
+        "Session": "13",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-001",
+        "Activity Name": "Belly breathing",
+        "Activity Type": "Breathing activity",
+        "Information page ID": "Info-brt-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 14,
+    "week_if_daily": 2,
+    "activities": [
+      {
+        "Session": "14",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-008",
+        "Activity Name": "Stress, Anxiety and calming the body",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S14",
+        "title": "מפגש 14: מתח, חרדה והרגעת הגוף",
+        "seconds": 169.8,
+        "url": "http://127.0.0.1:63684/?session=S14&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 169.8,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 15,
+    "week_if_daily": 3,
+    "activities": [
+      {
+        "Session": "15",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-047",
+        "Activity Name": "Breathing exercise intro",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      },
+      {
+        "Session": "15",
+        "Activity # ": "2",
+        "Activity ID": "PS-ACT-005",
+        "Activity Name": "Box breathing",
+        "Activity Type": "Breathing activity",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S15",
+        "title": "מפגש 15: נשימת קופסה",
+        "seconds": 190.8,
+        "url": "http://127.0.0.1:63684/?session=S15&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 190.8,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 16,
+    "week_if_daily": 3,
+    "activities": [
+      {
+        "Session": "16",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-009",
+        "Activity Name": "Struggle switch metaphor",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S16",
+        "title": "מפגש 16: מתג המאבק",
+        "seconds": 192.1,
+        "url": "http://127.0.0.1:63684/?session=S16&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 192.1,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 17,
+    "week_if_daily": 3,
+    "activities": [
+      {
+        "Session": "17",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-065",
+        "Activity Name": "Guided imagery for relaxation",
+        "Activity Type": "Audio",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S17",
+        "title": "מפגש 17: הרפיה ודמיון מודרך",
+        "seconds": 189.4,
+        "url": "http://127.0.0.1:63684/?session=S17&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 189.4,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 18,
+    "week_if_daily": 3,
+    "activities": [
+      {
+        "Session": "18",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-010",
+        "Activity Name": "No One Right Way: Patient stories with self-regulation",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 19,
+    "week_if_daily": 3,
+    "activities": [
+      {
+        "Session": "19",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-048",
+        "Activity Name": "Relaxation before sleep",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S19",
+        "title": "מפגש 19: הרפיה לקראת השינה",
+        "seconds": 177.333,
+        "url": "http://127.0.0.1:63684/?session=S19&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 177.333,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 20,
+    "week_if_daily": 3,
+    "activities": [
+      {
+        "Session": "20",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-003",
+        "Activity Name": "Grounding",
+        "Activity Type": "Audio",
+        "Information page ID": "Info-grd-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 21,
+    "week_if_daily": 3,
+    "activities": [
+      {
+        "Session": "21",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-067",
+        "Activity Name": "PMR",
+        "Activity Type": "Audio",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer"
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 22,
+    "week_if_daily": 4,
+    "activities": [
+      {
+        "Session": "22",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-002",
+        "Activity Name": "Inner Voice",
+        "Activity Type": "Game",
+        "Information page ID": "Info-ivw-gme-02",
+        "Parameter": "Relaxation",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 23,
+    "week_if_daily": 4,
+    "activities": [
+      {
+        "Session": "23",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-049",
+        "Activity Name": "In the moment tools introduction",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S23",
+        "title": "מפגש 23: כלים לרגע",
+        "seconds": 252.1,
+        "url": "http://127.0.0.1:63684/?session=S23&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 252.1,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 24,
+    "week_if_daily": 4,
+    "activities": [
+      {
+        "Session": "24",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-068",
+        "Activity Name": "Guided imagery safe place",
+        "Activity Type": "Audio",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer"
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 25,
+    "week_if_daily": 4,
+    "activities": [
+      {
+        "Session": "25",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-011",
+        "Activity Name": "Getting the most from practice",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S25",
+        "title": "מפגש 25: איך להפיק יותר מהתרגול",
+        "seconds": 227.1,
+        "url": "http://127.0.0.1:63684/?session=S25&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 227.1,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 26,
+    "week_if_daily": 4,
+    "activities": [
+      {
+        "Session": "26",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-004",
+        "Activity Name": "Cards game",
+        "Activity Type": "Game",
+        "Information page ID": "Info-crd-gme-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 27,
+    "week_if_daily": 4,
+    "activities": [
+      {
+        "Session": "27",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-012",
+        "Activity Name": "Wind down routines",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S27",
+        "title": "מפגש 27: שגרת ערב לקראת השינה",
+        "seconds": 173.8,
+        "url": "http://127.0.0.1:63684/?session=S27&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 173.8,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 28,
+    "week_if_daily": 4,
+    "activities": [
+      {
+        "Session": "28",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-013",
+        "Activity Name": "Mindfulness practice intro",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S28",
+        "title": "מפגש 28: מבוא לתשומת לב לנשימה ולסריקת גוף",
+        "seconds": 192.7,
+        "url": "http://127.0.0.1:63684/?session=S28&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 192.7,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 29,
+    "week_if_daily": 5,
+    "activities": [
+      {
+        "Session": "29",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-070",
+        "Activity Name": "Awareness of breath",
+        "Activity Type": "Audio",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S29",
+        "title": "מפגש 29: תשומת לב לנשימה וסריקת גוף",
+        "seconds": 160.3,
+        "url": "http://127.0.0.1:63684/?session=S29&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 160.3,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 30,
+    "week_if_daily": 5,
+    "activities": [
+      {
+        "Session": "30",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-014",
+        "Activity Name": "Neuroplasticity in the context of mindfulness",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S30",
+        "title": "מפגש 30: מיינדפולנס ונוירופלסטיות",
+        "seconds": 189.3,
+        "url": "http://127.0.0.1:63684/?session=S30&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 189.3,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 31,
+    "week_if_daily": 5,
+    "activities": [
+      {
+        "Session": "31",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-071",
+        "Activity Name": "Body scan",
+        "Activity Type": "Audio",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 32,
+    "week_if_daily": 5,
+    "activities": [
+      {
+        "Session": "32",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-072",
+        "Activity Name": "How to talk about my Parkinson's",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S32",
+        "title": "מפגש 32: איך לתקשר עם אחרים על פרקינסון",
+        "seconds": 190.7,
+        "url": "http://127.0.0.1:63684/?session=S32&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 190.7,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 33,
+    "week_if_daily": 5,
+    "activities": [
+      {
+        "Session": "33",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-006",
+        "Activity Name": "Take a breather",
+        "Activity Type": "Choice activity",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S33a",
+        "title": "מפגש 33: אנחה פיזיולוגית/ אנחת רווחה",
+        "seconds": 197.333,
+        "url": "http://127.0.0.1:63684/?session=S33a&tab=animation"
+      },
+      {
+        "id": "S33b",
+        "title": "מפגש 33: נשימה קוהרנטית",
+        "seconds": 205.233,
+        "url": "http://127.0.0.1:63684/?session=S33b&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 402.566,
+    "timing_note": "S33a/S33b are alternative options, not automatically consecutive."
+  },
+  {
+    "session": 34,
+    "week_if_daily": 5,
+    "activities": [
+      {
+        "Session": "34",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-015",
+        "Activity Name": "The white bear metaphor",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S34",
+        "title": "מפגש 34: הדב הלבן",
+        "seconds": 174.467,
+        "url": "http://127.0.0.1:63684/?session=S34&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 174.467,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 35,
+    "week_if_daily": 5,
+    "activities": [
+      {
+        "Session": "35",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-016",
+        "Activity Name": "Mindfulness in everyday life",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S35",
+        "title": "מפגש 35: מיינדפולנס בחיי היום יום",
+        "seconds": 114.2,
+        "url": "http://127.0.0.1:63684/?session=S35&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 114.2,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 36,
+    "week_if_daily": 6,
+    "activities": [
+      {
+        "Session": "36",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-004",
+        "Activity Name": "Cards game",
+        "Activity Type": "Game",
+        "Information page ID": "Info-crd-gme-02",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 37,
+    "week_if_daily": 6,
+    "activities": [
+      {
+        "Session": "37",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-017",
+        "Activity Name": "Chess board metaphor",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S37",
+        "title": "מפגש 37: מטאפורת השחמט",
+        "seconds": 188.633,
+        "url": "http://127.0.0.1:63684/?session=S37&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 188.633,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 38,
+    "week_if_daily": 6,
+    "activities": [
+      {
+        "Session": "38",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-007",
+        "Activity Name": "Mindfulness",
+        "Activity Type": "Choice activity",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer"
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 39,
+    "week_if_daily": 6,
+    "activities": [
+      {
+        "Session": "39",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-002",
+        "Activity Name": "Inner Voice",
+        "Activity Type": "Game",
+        "Information page ID": "Info-ivw-gme-03",
+        "Parameter": "Mindfulness",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 40,
+    "week_if_daily": 6,
+    "activities": [
+      {
+        "Session": "40",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-006",
+        "Activity Name": "Take a breather",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-brt-grp-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 41,
+    "week_if_daily": 6,
+    "activities": [
+      {
+        "Session": "41",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-008",
+        "Activity Name": "In the moment ",
+        "Activity Type": "Choice activity",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer"
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 42,
+    "week_if_daily": 6,
+    "activities": [
+      {
+        "Session": "42",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-018",
+        "Activity Name": "Self care overview",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S42",
+        "title": "מפגש 42: מבוא ללדאוג לעצמי",
+        "seconds": 152.0,
+        "url": "http://127.0.0.1:63684/?session=S42&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 152.0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 43,
+    "week_if_daily": 7,
+    "activities": [
+      {
+        "Session": "43",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-009",
+        "Activity Name": "Mindful moment - Pleasant Experience",
+        "Activity Type": "Game",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S43",
+        "title": "מפגש 43: להתבונן בחוויה נעימה",
+        "seconds": 213.8,
+        "url": "http://127.0.0.1:63684/?session=S43&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 213.8,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 44,
+    "week_if_daily": 7,
+    "activities": [
+      {
+        "Session": "44",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-019",
+        "Activity Name": "Self care as practice",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S44",
+        "title": "מפגש 44: לעשות דברים שעושים לנו טוב",
+        "seconds": 182.5,
+        "url": "http://127.0.0.1:63684/?session=S44&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 182.5,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 45,
+    "week_if_daily": 7,
+    "activities": [
+      {
+        "Session": "45",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-074",
+        "Activity Name": "Moment of self compassion",
+        "Activity Type": "Audio",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S45",
+        "title": "מפגש 45: רגע של חמלה עצמית",
+        "seconds": 112.1,
+        "url": "http://127.0.0.1:63684/?session=S45&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 112.1,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 46,
+    "week_if_daily": 7,
+    "activities": [
+      {
+        "Session": "46",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-010",
+        "Activity Name": "Mindful moment - Gratitude",
+        "Activity Type": "Game",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S46",
+        "title": "מפגש 46: רגע של הכרת תודה",
+        "seconds": 109.5,
+        "url": "http://127.0.0.1:63684/?session=S46&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 109.5,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 47,
+    "week_if_daily": 7,
+    "activities": [
+      {
+        "Session": "47",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-002",
+        "Activity Name": "Inner Voice",
+        "Activity Type": "Game",
+        "Information page ID": "Info-ivw-gme-04",
+        "Parameter": "Compassion & validation",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 48,
+    "week_if_daily": 7,
+    "activities": [
+      {
+        "Session": "48",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-020",
+        "Activity Name": "Self validation",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S48",
+        "title": "מפגש 48: תיקוף עצמי",
+        "seconds": 194.867,
+        "url": "http://127.0.0.1:63684/?session=S48&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 194.867,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 49,
+    "week_if_daily": 7,
+    "activities": [
+      {
+        "Session": "49",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-021",
+        "Activity Name": "“I am enough”: Confidence, embarrassment, and social participation - combined with patient stories",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S49",
+        "title": "מפגש 49: כמו שאני, זה טוב מספיק",
+        "seconds": 215.5,
+        "url": "http://127.0.0.1:63684/?session=S49&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 215.5,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 50,
+    "week_if_daily": 8,
+    "activities": [
+      {
+        "Session": "50",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-004",
+        "Activity Name": "Cards game",
+        "Activity Type": "Game",
+        "Information page ID": "Info-crd-gme-03",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 51,
+    "week_if_daily": 8,
+    "activities": [
+      {
+        "Session": "51",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-009",
+        "Activity Name": "Mindful moment - Pleasant Experience",
+        "Activity Type": "Game",
+        "Information page ID": "Info-mm-gme-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 52,
+    "week_if_daily": 8,
+    "activities": [
+      {
+        "Session": "52",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-012",
+        "Activity Name": "Relaxation",
+        "Activity Type": "Choice activity",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer"
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 53,
+    "week_if_daily": 8,
+    "activities": [
+      {
+        "Session": "53",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-022",
+        "Activity Name": "Finding your way to stay connected",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S53",
+        "title": "מפגש 53: למצוא את הדרך שלכם להישאר מחוברים",
+        "seconds": 176.067,
+        "url": "http://127.0.0.1:63684/?session=S53&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 176.067,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 54,
+    "week_if_daily": 8,
+    "activities": [
+      {
+        "Session": "54",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-103",
+        "Activity Name": "I am enough",
+        "Activity Type": "Audio",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-?"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S54",
+        "title": "מפגש 54: כמו שאני, זה טוב מספיק – הכנה לתרגול",
+        "seconds": 91.7,
+        "url": "http://127.0.0.1:63684/?session=S54&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 91.7,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 55,
+    "week_if_daily": 8,
+    "activities": [
+      {
+        "Session": "55",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-008",
+        "Activity Name": "In the moment ",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-mmt-gme-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 56,
+    "week_if_daily": 8,
+    "activities": [
+      {
+        "Session": "56",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-023",
+        "Activity Name": "Values and meaningful action",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S56",
+        "title": "מפגש 56: ערכים ופעולה משמעותית",
+        "seconds": 147.733,
+        "url": "http://127.0.0.1:63684/?session=S56&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 147.733,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 57,
+    "week_if_daily": 9,
+    "activities": [
+      {
+        "Session": "57",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-024",
+        "Activity Name": "Compass metaphor",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S57",
+        "title": "מפגש 57: מטאפורת המצפן",
+        "seconds": 156.8,
+        "url": "http://127.0.0.1:63684/?session=S57&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 156.8,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 58,
+    "week_if_daily": 9,
+    "activities": [
+      {
+        "Session": "58",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-109",
+        "Activity Name": "Mindful moment - This matters",
+        "Activity Type": "Game",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S58",
+        "title": "מפגש 58: רגע, זה חשוב לי",
+        "seconds": 93.767,
+        "url": "http://127.0.0.1:63684/?session=S58&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 93.767,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 59,
+    "week_if_daily": 9,
+    "activities": [
+      {
+        "Session": "59",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-007",
+        "Activity Name": "Mindfulness",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-mnd-grp-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 60,
+    "week_if_daily": 9,
+    "activities": [
+      {
+        "Session": "60",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-025",
+        "Activity Name": "Role changes",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S60",
+        "title": "מפגש 60: שינויים בתפקידים שלנו",
+        "seconds": 150.9,
+        "url": "http://127.0.0.1:63684/?session=S60&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 150.9,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 61,
+    "week_if_daily": 9,
+    "activities": [
+      {
+        "Session": "61",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-013",
+        "Activity Name": "Self-care",
+        "Activity Type": "Choice activity",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-?"
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 62,
+    "week_if_daily": 9,
+    "activities": [
+      {
+        "Session": "62",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-002",
+        "Activity Name": "Inner voice ",
+        "Activity Type": "Game",
+        "Information page ID": "Info-ivw-gme-05",
+        "Parameter": "Labels",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 63,
+    "week_if_daily": 9,
+    "activities": [
+      {
+        "Session": "63",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-026",
+        "Activity Name": "Understanding the discomfort cycle",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S63",
+        "title": "מפגש 63: להבין את מעגל ההתמודדות עם קושי",
+        "seconds": 130.933,
+        "url": "http://127.0.0.1:63684/?session=S63&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 130.933,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 64,
+    "week_if_daily": 10,
+    "activities": [
+      {
+        "Session": "64",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-014",
+        "Activity Name": "Flexible thinking",
+        "Activity Type": "Choice activity",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S64",
+        "title": "מפגש 64: טיפוח חשיבה גמישה",
+        "seconds": 126.8,
+        "url": "http://127.0.0.1:63684/?session=S64&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 126.8,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 65,
+    "week_if_daily": 10,
+    "activities": [
+      {
+        "Session": "65",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-027",
+        "Activity Name": "Uninvited guest metaphor",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S65",
+        "title": "מפגש 65: מטאפורת האורח הלא מוזמן",
+        "seconds": 150.3,
+        "url": "http://127.0.0.1:63684/?session=S65&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 150.3,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 66,
+    "week_if_daily": 10,
+    "activities": [
+      {
+        "Session": "66",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-015",
+        "Activity Name": "Attention & emotional balance",
+        "Activity Type": "Choice activity",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S66",
+        "title": "מפגש 66: מבוא לחיזוק הקשב והאיזון הרגשי",
+        "seconds": 103.7,
+        "url": "http://127.0.0.1:63684/?session=S66&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 103.7,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 67,
+    "week_if_daily": 10,
+    "activities": [
+      {
+        "Session": "67",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-006",
+        "Activity Name": "Take a breather",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-brt-grp-02",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 68,
+    "week_if_daily": 10,
+    "activities": [
+      {
+        "Session": "68",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-012",
+        "Activity Name": "Relaxation",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-rlx-grp-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 69,
+    "week_if_daily": 10,
+    "activities": [
+      {
+        "Session": "69",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-008",
+        "Activity Name": "In the moment ",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-mmt-gme-02",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 70,
+    "week_if_daily": 10,
+    "activities": [
+      {
+        "Session": "70",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-016",
+        "Activity Name": "Cultivating calm",
+        "Activity Type": "Choice activity",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S70",
+        "title": "מפגש 70: להרגיע את הגוף",
+        "seconds": 90.1,
+        "url": "http://127.0.0.1:63684/?session=S70&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 90.1,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 71,
+    "week_if_daily": 11,
+    "activities": [
+      {
+        "Session": "71",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-010",
+        "Activity Name": "Mindful moment - Gratitude",
+        "Activity Type": "Game",
+        "Information page ID": "Info-mm-gme-03",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 72,
+    "week_if_daily": 11,
+    "activities": [
+      {
+        "Session": "72",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-004",
+        "Activity Name": "Cards game",
+        "Activity Type": "Game",
+        "Information page ID": "Info-crd-gme-04",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 73,
+    "week_if_daily": 11,
+    "activities": [
+      {
+        "Session": "73",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-017",
+        "Activity Name": "Meaningful action",
+        "Activity Type": "Choice activity",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": "Trailer-V"
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S73",
+        "title": "מפגש 73: מבוא לפעולה משמעותית",
+        "seconds": 111.1,
+        "url": "http://127.0.0.1:63684/?session=S73&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 111.1,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 74,
+    "week_if_daily": 11,
+    "activities": [
+      {
+        "Session": "74",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-002",
+        "Activity Name": "Inner Voice",
+        "Activity Type": "Game",
+        "Information page ID": "Info-ivw-gme-06",
+        "Parameter": "Flexible thinking",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 75,
+    "week_if_daily": 11,
+    "activities": [
+      {
+        "Session": "75",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-009",
+        "Activity Name": "Mindful moment - Pleasant Experience",
+        "Activity Type": "Game",
+        "Information page ID": "Info-mm-gme-02",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 76,
+    "week_if_daily": 11,
+    "activities": [
+      {
+        "Session": "76",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-028",
+        "Activity Name": "putting it all together - Notice - steady - choose - step - recognize",
+        "Activity Type": "Video",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [
+      {
+        "id": "S76",
+        "title": "מפגש 76: לשים לב → להתייצב → לבחור → לעשות צעד → לפרגן לעצמנו",
+        "seconds": 185.0,
+        "url": "http://127.0.0.1:63684/?session=S76&tab=animation"
+      }
+    ],
+    "all_available_video_seconds": 185.0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 77,
+    "week_if_daily": 11,
+    "activities": [
+      {
+        "Session": "77",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-012",
+        "Activity Name": "Relaxation",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-rlx-grp-02",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 78,
+    "week_if_daily": 12,
+    "activities": [
+      {
+        "Session": "78",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-006",
+        "Activity Name": "Take a breather",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-brt-grp-03",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 79,
+    "week_if_daily": 12,
+    "activities": [
+      {
+        "Session": "79",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-013",
+        "Activity Name": "Self-care",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-sc-grp-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 80,
+    "week_if_daily": 12,
+    "activities": [
+      {
+        "Session": "80",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-007",
+        "Activity Name": "Mindfulness",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-mnd-grp-02",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 81,
+    "week_if_daily": 12,
+    "activities": [
+      {
+        "Session": "81",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-109",
+        "Activity Name": "Mindful moment - This matters",
+        "Activity Type": "Game",
+        "Information page ID": "Info-mm-gme-04",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 82,
+    "week_if_daily": 12,
+    "activities": [
+      {
+        "Session": "82",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-008",
+        "Activity Name": "In the moment ",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-mmt-gme-03",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 83,
+    "week_if_daily": 12,
+    "activities": [
+      {
+        "Session": "83",
+        "Activity # ": "1",
+        "Activity ID": "PS-CONT-103",
+        "Activity Name": "I am enough",
+        "Activity Type": "Audio",
+        "Information page ID": "",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 84,
+    "week_if_daily": 12,
+    "activities": [
+      {
+        "Session": "84",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-014",
+        "Activity Name": "Flexible thinking",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-flx-grp-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 85,
+    "week_if_daily": 13,
+    "activities": [
+      {
+        "Session": "85",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-015",
+        "Activity Name": "Attention & emotional balance",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-att-grp-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 86,
+    "week_if_daily": 13,
+    "activities": [
+      {
+        "Session": "86",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-016",
+        "Activity Name": "Cultivating calm",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-cc-grp-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  },
+  {
+    "session": 87,
+    "week_if_daily": 13,
+    "activities": [
+      {
+        "Session": "87",
+        "Activity # ": "1",
+        "Activity ID": "PS-ACT-017",
+        "Activity Name": "Meaningful action",
+        "Activity Type": "Choice activity",
+        "Information page ID": "Info-ma-grp-01",
+        "Parameter": "",
+        "Comments": ""
+      }
+    ],
+    "lab_videos": [],
+    "all_available_video_seconds": 0,
+    "timing_note": "Additional practice and interaction time is not measured."
+  }
+]

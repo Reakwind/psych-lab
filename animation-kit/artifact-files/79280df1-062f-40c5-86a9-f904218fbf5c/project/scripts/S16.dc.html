@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>מפגש 16: מתג המאבק</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="app" dir="rtl" lang="he" style="--font-display: 'Rubik', system-ui, sans-serif; --font-body: 'Rubik', system-ui, sans-serif">
+
+<div class="topbar">
+  <sc-if value="{{standalone}}" hint-placeholder-val="{{ true }}"><a class="back" href="Ruth.dc.html"><span class="icon">arrow_forward</span>למסלול</a></sc-if>
+  <sc-if value="{{embedded}}" hint-placeholder-val="{{ false }}"><button class="icon-btn" onClick="{{exit}}" aria-label="סגירה"><span class="icon">close</span></button></sc-if>
+  <span class="topbar-title"></span>
+  <span class="where">מפגש 16</span>
+</div>
+
+<!-- one video element for the whole board: picture and Nira's voice in one file -->
+<div style="padding: 4px 24px 0; flex-shrink: 0; display: {{videoDisplay}}">
+  <div class="card card-white" style="padding: 0; overflow: hidden; position: relative; width: 342px; height: 342px">
+    <video ref="{{setVideo}}" src="/_blob/5d213456946e96be22fac41a76c16b26" preload="auto" playsinline="{{yes}}" onTimeUpdate="{{onTime}}" onEnded="{{onEnded}}" onPlay="{{onPlay}}" onPause="{{onPause}}" style="width: 342px; height: 342px; display: block; object-fit: cover"></video>
+  </div>
+</div>
+
+<sc-if value="{{isIntro}}" hint-placeholder-val="{{ true }}">
+<div class="screen" style="padding-top: 18px; gap: 18px">
+  <div class="stack" style="gap: 6px">
+    <h1 class="t-headline">מתג המאבק</h1>
+    <div class="row" style="gap: 8px; flex-wrap: wrap">
+      <span class="pill"><span class="icon icon-s">record_voice_over</span>אריאל</span>
+      <span class="pill"><span class="icon icon-s">schedule</span>3 דקות</span>
+    </div>
+  </div>
+  <div class="grow"></div>
+  <div class="seg">
+    <button class="{{voiceCls}}" onClick="{{toggleVoice}}" aria-pressed="{{voicePressed}}"><span class="icon icon-s">{{voiceIcon}}</span>קול</button>
+    <button class="{{ccCls}}" onClick="{{toggleCc}}" aria-pressed="{{ccPressed}}"><span class="icon icon-s">closed_caption</span>כתוביות</button>
+  </div>
+  <button class="btn btn-filled btn-l btn-block" onClick="{{start}}"><span class="icon icon-fill">play_arrow</span>מתחילים</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isPlay}}" hint-placeholder-val="{{ false }}">
+<div class="screen" style="padding-top: 8px; gap: 10px">
+  <div class="stack" style="gap: 0; flex-shrink: 0">
+    <div class="seekwrap">
+      <input class="seek" type="range" min="0" max="{{total}}" step="0.1" value="{{tNow}}" onChange="{{onSeek}}" aria-label="מיקום בסרטון" aria-valuetext="{{timeText}}" style="--p: {{seekPct}}">
+    </div>
+    <div class="row" style="gap: 6px; min-height: 44px">
+      <span class="where" dir="ltr" style="white-space: nowrap">{{elapsed}} / {{totalText}}</span>
+      <span class="grow"></span>
+      <button class="chip" onClick="{{toggleVoice}}" aria-pressed="{{voicePressed}}" aria-label="קול" style="height: 44px; min-width: 56px; justify-content: center"><span class="icon icon-s">{{voiceIcon}}</span></button>
+      <button class="chip {{speedCls}}" onClick="{{toggleSpeeds}}" aria-expanded="{{speedsOpen}}" aria-label="מהירות {{speedText}}" style="height: 44px; min-width: 76px; justify-content: center; gap: 4px"><span class="icon icon-s">speed</span><span dir="ltr">{{speedText}}</span></button>
+    </div>
+    <sc-if value="{{showSpeeds}}" hint-placeholder-val="{{ false }}">
+      <div class="row" role="group" aria-label="מהירות ניגון" style="gap: 6px; justify-content: space-between; padding-top: 4px" dir="ltr">
+        <sc-for list="{{speeds}}" as="sp" hint-placeholder-count="7"><button class="chip {{sp.cls}}" onClick="{{sp.pick}}" aria-pressed="{{sp.pressed}}" style="height: 44px; min-width: 0; flex: 1 1 0; padding: 0; justify-content: center; font-size: 16px">{{sp.label}}</button></sc-for>
+      </div>
+    </sc-if>
+  </div>
+  <div class="grow scroll">
+    <sc-if value="{{cc}}" hint-placeholder-val="{{ true }}">
+      <p class="t-body" style="font-size: 20px; line-height: 30px; margin: 0">{{line}}</p>
+    </sc-if>
+  </div>
+  <div class="row" style="justify-content: center; gap: 24px; flex-shrink: 0">
+    <button class="icon-btn icon-btn-tonal" onClick="{{back10}}" aria-label="10 שניות אחורה"><span class="icon">replay_10</span></button>
+    <button class="play-btn {{playCls}}" onClick="{{toggle}}" aria-label="{{playLabel}}"><span class="icon icon-xl icon-fill">{{playIcon}}</span></button>
+    <button class="icon-btn icon-btn-tonal" onClick="{{fwd10}}" aria-label="10 שניות קדימה"><span class="icon">forward_10</span></button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{isEnd}}" hint-placeholder-val="{{ false }}">
+<div class="screen center" style="justify-content: center; gap: 22px">
+  <div class="art" style="width: 200px; height: 200px; animation: pop .7s var(--ease-emph)">
+    <div class="layer shape shape-sunny" style="width: 200px; height: 200px; background: var(--tertiary-container)"></div>
+    <div class="layer shape shape-cookie9" style="width: 120px; height: 120px; background: var(--primary)"></div>
+    <span class="glyph icon icon-xxl icon-fill" style="color: var(--on-primary)">check</span>
+  </div>
+  <h2 class="t-headline">סיימתם את המפגש</h2>
+  <div class="grow"></div>
+  <sc-if value="{{embedded}}" hint-placeholder-val="{{ false }}">
+    <button class="btn btn-filled btn-l btn-block" onClick="{{finish}}">המשך<span class="icon">arrow_back</span></button>
+    <button class="btn btn-tonal btn-block" onClick="{{replay}}"><span class="icon">replay</span>שוב</button>
+  </sc-if>
+  <sc-if value="{{standalone}}" hint-placeholder-val="{{ true }}">
+    <div class="btn-group" style="width: 100%">
+      <button class="btn btn-tonal" onClick="{{replay}}"><span class="icon">replay</span>שוב</button>
+      <a class="btn btn-outlined" href="Ruth.dc.html" style="text-decoration: none">למסלול</a>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"voice":{"editor":"boolean","default":true},"captions":{"editor":"boolean","default":true},"onExit":{"editor":null},"onDone":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { screen: 'intro', t: 0, playing: false, voiceOn: null, ccOn: null, speed: 1, speedsOpen: false };
+  }
+  // the narration's parts, for captions: start and end in seconds, and the line as Nira says it
+  times() { return [[0.0, 8.6], [8.6, 18.73], [18.73, 25.54], [25.54, 36.84], [36.84, 44.37], [44.37, 50.78], [50.78, 54.43], [54.43, 59.23], [59.23, 66.6], [66.6, 76.89], [76.89, 89.81], [89.81, 96.08], [96.08, 105.09], [105.09, 119.43], [119.43, 132.39], [132.39, 138.02], [138.02, 141.65], [141.65, 149.0], [149.0, 162.13], [162.13, 170.81], [170.81, 185.24], [185.24, 192.06]]; }
+  lines() { return ["כשמשהו לא נעים קורה לנו, מאוד טבעי שננסה להיאבק בו. אבל לפעמים עצם המאבק רק מוסיף קושי.", "יש מושג שמשתמשים בו הרבה בטיפול בגישת ACT וקוראים לו מתג המאבק. אני אוהב אותו כי הוא עוזר להבין בדיוק את המצב הזה.", "ההזמנה היא לדמיין שיש לנו מתג שנדלק כשאנחנו מתחילים להיאבק במה שקורה לנו.", "נניח שיש לכם אירוע חשוב בו אתם רוצים להיות במיטבכם. אבל ביום האירוע אתם מתעוררים עייפים, חסרי אנרגיה או עם סימפטומים חזקים מהרגיל.", "במצב כזה, יכולה להתעורר חרדה: מה אם זה יחמיר? איך אצליח לעבור את היום?", "ואליה יכולים להצטרף גם תסכול וכעס על הגוף, על כך שהוא לא משתף פעולה.", "קליק.", "זה היה מתג המאבק שלכם, וברגע זה הוא נדלק.", "עכשיו אתם לא חווים רק את הקושי הגופני והחרדה. נוספו גם התסכול והכעס.", "ואז אולי מגיעה עוד מחשבה, כמו: \"מה אם לא אסתדר בכוחות עצמי, מה אם ירחמו עלי? אני לא רוצה להיות מעמסה על כולם.\"", "כך לאט לאט, ולפעמים מהר מהר, משהו שהתחיל כקושי מסויים, הולך ונהיה מטריד יותר. הוא תופס יותר מקום במחשבות ודורש יותר מאמץ ואנרגיה.", "העניין הוא שכשיש בעיה שאפשר לפתור, המאמץ לשנות אותה יכול לעזור.", "אבל כשאנחנו מפנים את כל המאמץ הזה כלפי מה שאנחנו מרגישים בפנים, ומנסים בכוח לגרום לו להיעלם, קורה לפעמים ההפך.", "אי אפשר פשוט לפקוד על לחץ, פחד, תסכול, עייפות, או רעד לעבור. המאבק בהם יכול להוסיף עוד מתח, לתפוס עוד מקום ולהשאיר אותנו עם פחות משאבים להפנות למה שחשוב לנו.", "האמת היא שאני לא יודע איך פשוט מכבים את המתג הזה. אין פעולה אחת שאפשר לעשות ומיד להפסיק להיאבק. זה מנגנון אנושי וטבעי שקורה לכולנו, שוב ושוב.", "אבל אנחנו כן יכולים ללמוד לזהות כשהמתג נדלק ולשאול את עצמנו", "היה כאן קליק?", "אם נגלה שכן, לא חייבים מיד לעשות עם זה משהו, ובטח שלא להתחיל להיאבק גם במאבק.", "אפשר להתחיל מלשים לב, ולנסות לפנות לעצמנו ממקום קצת יותר מבין ורך: אני נאבק עכשיו. זה הגיוני. קשה לי, ואני רוצה שהקושי הזה יעבור.", "ומשם אפשר לשאול: מה אני צריך עכשיו? מה יכול לעזור לי להתמודד עם הרגע הזה קצת יותר בקלות?", "אנחנו לא מחפשים שינוי גדול. אולי רק לרכך את המאבק בחמישה אחוזים. לעשות תנועה קטנה מהניסיון להיפטר ממה שאנחנו מרגישים, לכיוון של תמיכה בעצמנו בזמן שאנחנו מרגישים אותו.", "לפעמים גם התנועה הקטנה הזאת יכולה לפנות לנו מעט מרחב ולתת לנו רגע לנשום."]; }
+  componentWillUnmount() { try { if (this.video) this.video.pause(); } catch (e) {} }
+  voiceOn() { return this.state.voiceOn ?? (this.props.voice ?? true); }
+  play(from) {
+    const v = this.video;
+    if (!v) return;
+    if (from != null) v.currentTime = from;
+    v.muted = !this.voiceOn();
+    v.playbackRate = this.state.speed;
+    const p = v.play();
+    if (p && p.catch) p.catch(() => this.setState({ playing: false }));
+    this.setState({ screen: 'play' });
+  }
+  renderVals() {
+    const s = this.state;
+    const times = this.times(), lines = this.lines();
+    const total = times[times.length - 1][1];
+    const t = Math.min(total, s.t);
+    let k = times.findIndex((sp) => t < sp[1]);
+    if (k < 0) k = times.length - 1;
+    const voice = this.voiceOn();
+    const cc = s.ccOn ?? (this.props.captions ?? true);
+    const fmt = (x) => Math.floor(x / 60) + ':' + String(Math.floor(x % 60)).padStart(2, '0');
+    const seekTo = (x) => { if (this.video) this.video.currentTime = Math.max(0, Math.min(total - 0.05, x)); this.setState({ t: x }); };
+    return {
+      yes: true,
+      embedded: !!this.props.onDone, standalone: !this.props.onDone,
+      exit: () => { try { this.video.pause(); } catch (e) {} if (this.props.onExit) this.props.onExit(); },
+      finish: () => { if (this.props.onDone) this.props.onDone(); },
+      setVideo: (el) => { this.video = el; if (el) el.muted = !voice; },
+      onTime: () => { if (this.video) this.setState({ t: this.video.currentTime }); },
+      onEnded: () => this.setState({ screen: 'end', playing: false }),
+      onPlay: () => this.setState({ playing: true }),
+      onPause: () => this.setState({ playing: false }),
+      isIntro: s.screen === 'intro', isPlay: s.screen === 'play', isEnd: s.screen === 'end',
+      videoDisplay: s.screen === 'end' ? 'none' : 'block',
+      start: () => this.play(0),
+      replay: () => this.play(0),
+      toggle: () => (s.playing ? this.video.pause() : this.play()),
+      back10: () => seekTo(t - 10), fwd10: () => seekTo(t + 10),
+      total, tNow: t, seekPct: (t / total * 100).toFixed(2) + '%',
+      onSeek: (e) => seekTo(Number(e.target.value)),
+      elapsed: fmt(t), totalText: fmt(total), timeText: fmt(t) + ' מתוך ' + fmt(total),
+      line: lines[k], cc,
+      playIcon: s.playing ? 'pause' : 'play_arrow', playCls: s.playing ? 'is-playing' : '', playLabel: s.playing ? 'השהיה' : 'המשך',
+      toggleVoice: () => { const on = !voice; if (this.video) this.video.muted = !on; this.setState({ voiceOn: on }); },
+      voiceCls: voice ? 'is-selected' : '', voicePressed: voice ? 'true' : 'false', voiceIcon: voice ? 'volume_up' : 'volume_off',
+      toggleCc: () => this.setState({ ccOn: !cc }), ccCls: cc ? 'is-selected' : '', ccPressed: cc ? 'true' : 'false',
+      speedText: s.speed + '×',
+      toggleSpeeds: () => this.setState({ speedsOpen: !s.speedsOpen }), showSpeeds: s.speedsOpen, speedsOpen: s.speedsOpen ? 'true' : 'false', speedCls: s.speedsOpen ? 'is-selected' : '',
+      speeds: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2].map((x) => ({ label: x + '×', pressed: x === s.speed ? 'true' : 'false', cls: x === s.speed ? 'is-selected' : '',
+        pick: () => { if (this.video) this.video.playbackRate = x; this.setState({ speed: x, speedsOpen: false }); } }))
+    };
+  }
+}
+</script>
+</body>
+</html>

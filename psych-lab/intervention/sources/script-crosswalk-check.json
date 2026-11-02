@@ -1,0 +1,92 @@
+[
+  {
+    "content_id": "PS-CONT-001",
+    "lab_clip": "S01",
+    "token_overlap": 0.973
+  },
+  {
+    "content_id": "PS-CONT-002",
+    "lab_clip": "S02",
+    "token_overlap": 0.974
+  },
+  {
+    "content_id": "PS-CONT-003",
+    "lab_clip": "S03a",
+    "token_overlap": 0.949
+  },
+  {
+    "content_id": "PS-CONT-004",
+    "lab_clip": "S05",
+    "token_overlap": 0.946
+  },
+  {
+    "content_id": "PS-CONT-005",
+    "lab_clip": "S07",
+    "token_overlap": 0.975
+  },
+  {
+    "content_id": "PS-CONT-006",
+    "lab_clip": "S09",
+    "token_overlap": 0.928
+  },
+  {
+    "content_id": "PS-CONT-007",
+    "lab_clip": "S12",
+    "token_overlap": 0.964
+  },
+  {
+    "content_id": "PS-CONT-008",
+    "lab_clip": "S14",
+    "token_overlap": 0.931
+  },
+  {
+    "content_id": "PS-CONT-009",
+    "lab_clip": "S16",
+    "token_overlap": 0.927
+  },
+  {
+    "content_id": "PS-CONT-011",
+    "lab_clip": "S25",
+    "token_overlap": 0.909
+  },
+  {
+    "content_id": "PS-CONT-012",
+    "lab_clip": "S27",
+    "token_overlap": 1.0
+  },
+  {
+    "content_id": "PS-CONT-013",
+    "lab_clip": "S28",
+    "token_overlap": 0.192
+  },
+  {
+    "content_id": "PS-CONT-029",
+    "lab_clip": "S08",
+    "token_overlap": 0.158
+  },
+  {
+    "content_id": "PS-CONT-030",
+    "lab_clip": "S03b",
+    "token_overlap": 0.935
+  },
+  {
+    "content_id": "PS-CONT-034",
+    "lab_clip": "S06",
+    "token_overlap": 0.984
+  },
+  {
+    "content_id": "PS-CONT-045",
+    "lab_clip": "S04",
+    "token_overlap": 0.944
+  },
+  {
+    "content_id": "PS-CONT-048",
+    "lab_clip": "S19",
+    "token_overlap": 0.973
+  },
+  {
+    "content_id": "PS-CONT-049",
+    "lab_clip": "S23",
+    "token_overlap": 0.893
+  }
+]

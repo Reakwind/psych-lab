@@ -1,0 +1,4 @@
+.frt-top { fill:#5E86AE } .frt-top-dk { fill:#4A6E94 } .frt-hair { fill:#4A3A30 } .frt-hair-dk { fill:#33281F } .frt-pants { fill:color-mix(in srgb, var(--second) 82%, #5E86AE) }
+.frc-top { fill:#D98B73 } .frc-top-dk { fill:#BE6F58 } .frc-hair { fill:#2E2A28 } .frc-hair-dk { fill:#1F1C1B } .frc-pants { fill:color-mix(in srgb, var(--second) 82%, #D98B73) }
+.art { transition:none }
+.dark { fill:var(--second); fill-rule:evenodd }

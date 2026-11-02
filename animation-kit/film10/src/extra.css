@@ -1,0 +1,2 @@
+.inside { fill:color-mix(in srgb, var(--ground) 40%, white) }
+.oi-bl path, .og2-bl path, .ok-bl path { vector-effect:non-scaling-stroke; stroke-width:6px }

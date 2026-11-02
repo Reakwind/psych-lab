@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Scene gallery</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+<link rel="stylesheet" href="scene.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div dir="ltr" style="width: 2984px; box-sizing: border-box; padding: 48px; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 40px 24px; background: var(--surface); font-family: 'Rubik', sans-serif">
+  <sc-for list="{{scenes}}" as="s" hint-placeholder-count="58">
+    <div class="stack" style="gap: 10px">
+      <div class="card card-white" style="padding: 0; overflow: hidden">
+        <dc-import name="Scene" kind="{{s.kind}}" a="{{s.a}}" b="{{s.b}}" items="{{s.items}}" hint-size="342px,360px"></dc-import>
+      </div>
+      <span class="t-title-s" style="font-family: 'Rubik', sans-serif">{{s.kind}}</span>
+    </div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2984,"height":3460}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const S = (kind, a, b, items) => ({ kind, a: a || '', b: b || '', items: items || [] });
+    return {
+      scenes: [
+        S('hello', 'שלום'), S('person', 'calm'), S('person', 'heavy'), S('person', 'think', 'אולי זה לא יעזור...'),
+        S('belly', 'נושמים לבטן'), S('box'), S('wave', 'anxiety', '', ['שיא', 'דועך', 'מתחיל']), S('wave', 'breath'),
+        S('scale', '', '', ['המאמץ', 'התמורה']), S('steps', '', '1', ['נועלים נעליים', 'יוצאים מהדלת', 'הולכים']), S('cycle', '', '0', ['פחות פעולה', 'פחות סיפוק', 'פחות מוטיבציה']), S('battery', 'drain', 'האנרגיה יורדת'),
+        S('battery', 'charge', 'מנוחה מטעינה'), S('clouds', '', '', ['זה לא יעזור', 'אני עייפה', 'מה יהיה מחר?']), S('bus', 'אני נוהגת', '', ['פחד', 'עייפות', 'ביקורת']), S('cards', 'מה הצחיק אותך השבוע?'),
+        S('together', '', '', ['איך עבר היום?', 'דווקא טוב']), S('switch', 'toggle', '', ['מאבק', 'שחרור']), S('landscape', 'lake'), S('landscape', 'safe'),
+        S('night'), S('tools', '', '', ['air|נשימה אחת', 'spa|לרכך מקום אחד', 'anchor|שלושה עוגנים']), S('brain'), S('bear', 'לא לחשוב על דוב לבן'),
+        S('chess', 'אני הלוח'), S('compass', 'משפחה'), S('garden', 'רגעים קטנים', 'water'), S('heart', 'חמלה עצמית'),
+        S('door'), S('scan'), S('ground', 'כפות הרגליים על הרצפה'), S('quote', 'צעד קטן הוא עדיין צעד', 'amber'),
+        S('list', '', '', ['air|שואפים דרך האף', 'timer|מקצרים את העצירות', 'tune|מתאימים לעצמכם']), S('phone', 'אני לא מספיקה כלום'), S('birds', 'ציפורים בשמיים'), S('hand', 'כף יד שמאל'),
+        S('clock', 'ערב', 'night'), S('road', 'משתלבים בתנועה'), S('party', '', '', ['כמה טוב שבאת']), S('dials', 'low-high', '', ['עוצמת החוויה', 'הנכונות לחוות']),
+        S('trail', 'שביל שנוצר בהליכה'), S('comfort', '', '', ['זה בסדר להיות עצוב']), S('questions', '', '', ['מה אני מרגישה עכשיו?', 'מה חשוב לי כאן?', 'מה הצעד הבא?']), S('stack', '', '', ['קפה של בוקר', 'תרופות', 'שלוש נשימות']),
+        S('steps', '', '2', ['לשים לב', 'להתייצב', 'לבחור', 'לעשות צעד', 'לפרגן']),
+        S('posture', 'מה שנוח לכם', '', ['יושבים', 'נשענים', 'שוכבים']), S('tremor', 'וזה בסדר'), S('day', '', '', ['coffee|קפה של בוקר', 'directions_walk|הליכה', 'bedtime|לפני השינה']), S('split', 'משימה גדולה', '', ['חלק קטן', 'הפסקה', 'עוד חלק']),
+        S('orbit', '', '', ['chair|הכיסא', 'front_hand|הידיים', 'hearing|הצלילים', 'visibility|מה שרואים']), S('wander', 'מה נאכל הערב?', 'חוזרים לנשימה'), S('fork', 'מה עושים עכשיו?', '', ['יוצאים', 'נחים', 'דוחים']), S('spotlight', 'הקושי', '', ['favorite|אנשים סביבנו', 'bolt|נחישות', 'explore|סקרנות']),
+        S('selftalk', 'שוב לא הצלחתי!', 'זה באמת לא פשוט'), S('practices', '', '', ['air|נשימה', 'self_improvement|מיינדפולנס', 'spa|הרפיה', 'landscape|דמיון מודרך']), S('evidence', 'נמצא במחקרים', '', ['מצב רגשי', 'איכות חיים', 'התמודדות עם מתח']), S('load'),
+        S('pocket', 'מיומנויות כיס', '', ['front_hand|שחרור', 'anchor|עוגנים', 'air|נשימה'])
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

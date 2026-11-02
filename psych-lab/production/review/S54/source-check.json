@@ -1,0 +1,126 @@
+{
+  "sid": "S54",
+  "errors": [],
+  "checks": [
+    {
+      "part": 1,
+      "sample": 1,
+      "time": 2.4684000000000004,
+      "overflow": []
+    },
+    {
+      "part": 1,
+      "sample": 2,
+      "time": 8.751600000000002,
+      "overflow": []
+    },
+    {
+      "part": 2,
+      "sample": 1,
+      "time": 13.057,
+      "overflow": []
+    },
+    {
+      "part": 2,
+      "sample": 2,
+      "time": 17.733,
+      "overflow": []
+    },
+    {
+      "part": 3,
+      "sample": 1,
+      "time": 21.4928,
+      "overflow": []
+    },
+    {
+      "part": 3,
+      "sample": 2,
+      "time": 26.3872,
+      "overflow": []
+    },
+    {
+      "part": 4,
+      "sample": 1,
+      "time": 31.097399999999997,
+      "overflow": []
+    },
+    {
+      "part": 4,
+      "sample": 2,
+      "time": 38.1926,
+      "overflow": []
+    },
+    {
+      "part": 5,
+      "sample": 1,
+      "time": 43.1536,
+      "overflow": []
+    },
+    {
+      "part": 5,
+      "sample": 2,
+      "time": 48.6864,
+      "overflow": []
+    },
+    {
+      "part": 6,
+      "sample": 1,
+      "time": 51.812599999999996,
+      "overflow": []
+    },
+    {
+      "part": 6,
+      "sample": 2,
+      "time": 54.2374,
+      "overflow": []
+    },
+    {
+      "part": 7,
+      "sample": 1,
+      "time": 57.973,
+      "overflow": []
+    },
+    {
+      "part": 7,
+      "sample": 2,
+      "time": 65.057,
+      "overflow": []
+    },
+    {
+      "part": 8,
+      "sample": 1,
+      "time": 69.64840000000001,
+      "overflow": []
+    },
+    {
+      "part": 8,
+      "sample": 2,
+      "time": 74.2516,
+      "overflow": []
+    },
+    {
+      "part": 9,
+      "sample": 1,
+      "time": 78.4778,
+      "overflow": []
+    },
+    {
+      "part": 9,
+      "sample": 2,
+      "time": 84.6322,
+      "overflow": []
+    },
+    {
+      "part": 10,
+      "sample": 1,
+      "time": 88.0664,
+      "overflow": []
+    },
+    {
+      "part": 10,
+      "sample": 2,
+      "time": 90.6536,
+      "overflow": []
+    }
+  ]
+}

@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>המסע של רות</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../ui.css">
+<link rel="stylesheet" href="scene.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="app" dir="rtl" lang="he" style="--font-display: 'Rubik', system-ui, sans-serif; --font-body: 'Rubik', system-ui, sans-serif">
+
+<!-- ============ היום: צעד אחד ברור ============ -->
+<sc-if value="{{isToday}}" hint-placeholder-val="{{ true }}">
+<div class="screen scroll" style="padding-top: 48px; gap: 18px">
+  <div class="stack" style="gap: 4px">
+    <span class="where">מפגש {{cur}} מתוך {{last}}</span>
+    <h1 class="t-headline">שלום, רות</h1>
+  </div>
+  <div class="progress" role="img" aria-label="{{doneCount}} מתוך {{last}} מפגשים הושלמו"><div style="width: {{pct}}"></div></div>
+
+  <sc-if value="{{showMissed}}" hint-placeholder-val="{{ false }}">
+    <div class="card card-tertiary row" style="padding: 18px 20px; gap: 14px; align-items: flex-start">
+      <span class="icon icon-l icon-fill">waving_hand</span>
+      <div class="stack" style="gap: 2px">
+        <span class="t-title-s">טוב שחזרת</span>
+        <span class="t-body" style="font-size: 17px; line-height: 24px">המקום שלך שמור. ממשיכים בדיוק מכאן.</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{todayOpen}}" hint-placeholder-val="{{ true }}">
+    <div class="card card-primary elev-1" style="padding: 22px; display: flex; flex-direction: column; gap: 16px; position: relative; overflow: hidden">
+      <div class="art" style="position: absolute; left: -36px; top: -30px; width: 150px; height: 150px; opacity: .9">
+        <div class="layer shape shape-sunny spin-slow" style="width: 150px; height: 150px; background: #8FD6CA"></div>
+      </div>
+      <span class="pill" style="align-self: flex-start; position: relative; background: rgba(255,255,255,.7); color: var(--on-primary-container)">היום · מפגש {{cur}}</span>
+      <h2 class="t-headline-s" style="position: relative; max-width: 240px">{{today.title}}</h2>
+      <ol class="stack" style="gap: 8px; margin: 0; padding: 0; list-style: none; position: relative">
+        <sc-for list="{{today.steps}}" as="p" hint-placeholder-count="2">
+          <li class="row" style="gap: 12px; align-items: center">
+            <span class="list-lead {{p.lead}}" style="width: 40px; height: 40px; border-radius: 12px"><span class="icon icon-s">{{p.icon}}</span></span>
+            <span class="stack" style="gap: 0"><span style="font-size: 17px; line-height: 22px; font-weight: 600">{{p.title}}</span><span class="t-label-s" style="opacity: .8">{{p.sub}}</span></span>
+          </li>
+        </sc-for>
+      </ol>
+      <button class="btn btn-filled btn-l btn-block" onClick="{{startToday}}" style="position: relative"><span class="icon icon-fill">play_arrow</span>מתחילים</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{todayDone}}" hint-placeholder-val="{{ false }}">
+    <div class="card card-primary elev-1 stack center" style="padding: 26px 22px; gap: 14px; text-align: center">
+      <div class="art" style="width: 96px; height: 96px">
+        <div class="layer shape shape-cookie9" style="width: 96px; height: 96px; background: var(--primary)"></div>
+        <span class="glyph icon icon-xl icon-fill" style="color: var(--on-primary)">check</span>
+      </div>
+      <h2 class="t-headline-s">המפגש של היום הושלם</h2>
+      <span class="t-body" style="font-size: 17px; line-height: 24px">{{stepLine}}</span>
+    </div>
+    <sc-if value="{{hasNext}}" hint-placeholder-val="{{ true }}">
+      <div class="stack" style="gap: 8px">
+        <span class="where">הבא בתור</span>
+        <button class="list-row" onClick="{{goNext}}"><span class="list-lead {{next.lead}}"><span class="icon">{{next.icon}}</span></span><span class="list-text"><span class="list-title">{{next.title}}</span><span class="list-sub">מפגש {{next.s}} · אפשר לקפוץ קדימה</span></span><span class="icon muted mirror-rtl">chevron_right</span></button>
+      </div>
+    </sc-if>
+  </sc-if>
+</div>
+</sc-if>
+
+<!-- ============ המסע: כל המפגשים לפי סדר הציר ============ -->
+<sc-if value="{{isJourney}}" hint-placeholder-val="{{ false }}">
+<div class="topbar" style="padding-inline: 24px">
+  <div class="stack" style="gap: 0">
+    <span class="where">{{doneCount}} מתוך {{last}} הושלמו</span>
+    <span class="t-title">המסע שלך</span>
+  </div>
+</div>
+<div class="screen scroll" style="padding-top: 8px; gap: 6px">
+  <sc-if value="{{hasEarlier}}" hint-placeholder-val="{{ true }}">
+    <button class="btn btn-tonal btn-block" onClick="{{showEarlier}}" style="flex-shrink: 0; margin-bottom: 6px"><span class="icon">expand_less</span>הצגת מפגשים 1 עד {{earlierTo}}</button>
+  </sc-if>
+  <sc-for list="{{journey}}" as="d" hint-placeholder-count="8">
+    <button class="list-row" onClick="{{d.open}}" disabled="{{d.locked}}" aria-current="{{d.current}}" style="min-height: 76px; padding: 10px 12px; flex-shrink: 0; background: {{d.bg}}; opacity: {{d.opacity}}">
+      <span class="list-lead {{d.lead}}" style="width: 48px; height: 48px; border-radius: 50%"><span class="icon {{d.iconFill}}">{{d.icon}}</span></span>
+      <span class="list-text"><span class="list-title" style="font-size: 17px; line-height: 22px">{{d.title}}</span><span class="list-sub">{{d.sub}}</span></span>
+      <span class="icon muted mirror-rtl">{{d.trail}}</span>
+    </button>
+  </sc-for>
+</div>
+</sc-if>
+
+<!-- ============ תצוגה מקדימה של מפגש (מתוך המסע) ============ -->
+<sc-if value="{{isPreview}}" hint-placeholder-val="{{ false }}">
+<div class="topbar">
+  <button class="back" onClick="{{toJourney}}"><span class="icon mirror-rtl">arrow_back</span>למסע</button>
+  <span class="topbar-title"></span>
+  <span class="topbar-spacer"></span>
+</div>
+<div class="screen" style="padding-top: 8px; gap: 20px">
+  <div class="stack" style="gap: 6px">
+    <span class="where">מפגש {{pv.s}} · {{pv.status}}</span>
+    <h2 class="t-headline">{{pv.title}}</h2>
+  </div>
+  <ol class="stack" style="gap: 10px; margin: 0; padding: 0; list-style: none">
+    <sc-for list="{{pv.steps}}" as="p" hint-placeholder-count="2">
+      <li class="card card-low row" style="padding: 14px 16px; gap: 14px; align-items: center">
+        <span class="list-lead {{p.lead}}"><span class="icon">{{p.icon}}</span></span>
+        <span class="stack" style="gap: 0"><span class="t-title-s">{{p.title}}</span><span class="t-label-s muted">{{p.sub}}</span></span>
+      </li>
+    </sc-for>
+  </ol>
+  <div class="grow"></div>
+  <button class="btn btn-filled btn-l btn-block" onClick="{{pv.start}}"><span class="icon icon-fill">{{pv.ctaIcon}}</span>{{pv.cta}}</button>
+</div>
+</sc-if>
+
+<!-- ============ ספרייה: תרגולים ושיעורים שכבר פגשת ============ -->
+<sc-if value="{{isLibrary}}" hint-placeholder-val="{{ false }}">
+<div class="topbar" style="padding-inline: 24px">
+  <div class="stack" style="gap: 0">
+    <span class="where">לתרגל מתי שרוצים</span>
+    <span class="t-title">ספרייה</span>
+  </div>
+</div>
+<div class="screen scroll" style="padding-top: 8px; gap: 10px">
+  <sc-if value="{{libEmpty}}" hint-placeholder-val="{{ false }}">
+    <p class="t-body muted">תרגולים ושיעורים מהמפגשים שלך יופיעו כאן.</p>
+  </sc-if>
+  <sc-if value="{{hasPractices}}" hint-placeholder-val="{{ true }}">
+    <span class="where">תרגולים</span>
+    <sc-for list="{{practices}}" as="p" hint-placeholder-count="4">
+      <button class="list-row" onClick="{{p.open}}" style="flex-shrink: 0"><span class="list-lead {{p.lead}}"><span class="icon">{{p.icon}}</span></span><span class="list-text"><span class="list-title">{{p.title}}</span><span class="list-sub">{{p.sub}}</span></span><span class="icon muted">play_arrow</span></button>
+    </sc-for>
+  </sc-if>
+  <sc-if value="{{hasLessons}}" hint-placeholder-val="{{ true }}">
+    <span class="where" style="margin-top: 10px">שיעורים</span>
+    <sc-for list="{{lessons}}" as="p" hint-placeholder-count="4">
+      <button class="list-row" onClick="{{p.open}}" style="flex-shrink: 0"><span class="list-lead {{p.lead}}"><span class="icon">{{p.icon}}</span></span><span class="list-text"><span class="list-title">{{p.title}}</span><span class="list-sub">{{p.sub}}</span></span><span class="icon muted">play_arrow</span></button>
+    </sc-for>
+  </sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{showNav}}" hint-placeholder-val="{{ true }}">
+<nav class="navbar">
+  <button class="nav-item {{navToday}}" onClick="{{toToday}}"><span class="nav-ind"><span class="icon">today</span></span>היום</button>
+  <button class="nav-item {{navJourney}}" onClick="{{toJourney}}"><span class="nav-ind"><span class="icon">route</span></span>המסע</button>
+  <button class="nav-item {{navLibrary}}" onClick="{{toLibrary}}"><span class="nav-ind"><span class="icon">local_library</span></span>ספרייה</button>
+</nav>
+</sc-if>
+
+<!-- ============ רצף המפגש: נשימה, כל חלק, סיום ============ -->
+<sc-if value="{{isSettle}}" hint-placeholder-val="{{ false }}">
+<div class="topbar"><button class="icon-btn" onClick="{{exitFlow}}" aria-label="סגירה"><span class="icon">close</span></button><span class="topbar-title muted">{{flowLabel}}</span><span class="topbar-spacer"></span></div>
+<div class="steps"><sc-for list="{{stepBar}}" as="st" hint-placeholder-count="4"><span class="step {{st}}"></span></sc-for></div>
+<div class="screen center" style="justify-content: center; gap: 28px">
+  <div class="art" style="width: 220px; height: 220px">
+    <div class="layer shape shape-cookie9 spin-slow" style="width: 220px; height: 220px; background: var(--primary-container)"></div>
+    <div class="layer shape shape-circle" style="width: 120px; height: 120px; background: var(--primary); animation: breathe 8s var(--ease) infinite"></div>
+    <span class="glyph icon icon-xxl" style="color: var(--on-primary)">air</span>
+  </div>
+  <div class="stack center" style="gap: 10px; text-align: center">
+    <h2 class="t-headline">נשימה אחת רגועה</h2>
+    <p class="t-body-l muted">נושמים פנימה בעדינות, ומוציאים את האוויר לאט.</p>
+  </div>
+</div>
+<div style="padding: 0 24px 24px"><button class="btn btn-filled btn-l btn-block" onClick="{{nextStep}}">אפשר להתחיל</button></div>
+</sc-if>
+
+<sc-if value="{{isMotivation}}" hint-placeholder-val="{{ false }}">
+<div class="topbar"><button class="icon-btn" onClick="{{exitFlow}}" aria-label="סגירה"><span class="icon">close</span></button><span class="topbar-title muted">{{flowLabel}}</span><span class="topbar-spacer"></span></div>
+<div class="steps"><sc-for list="{{stepBar}}" as="st" hint-placeholder-count="4"><span class="step {{st}}"></span></sc-for></div>
+<div class="screen scroll" style="padding-top: 20px; gap: 16px">
+  <div class="stack" style="gap: 6px">
+    <h2 class="t-headline-s">מה הכי חשוב לך עכשיו?</h2>
+    <p class="t-body muted">בחרו דבר אחד. אין בחירה נכונה או לא נכונה, והיא יכולה להשתנות עם הזמן.</p>
+  </div>
+  <div class="stack" style="gap: 10px">
+    <sc-for list="{{motives}}" as="m" hint-placeholder-count="8">
+      <button class="choice {{m.cls}}" onClick="{{m.pick}}" aria-pressed="{{m.pressed}}" style="flex-shrink: 0"><span class="ind"><span class="icon icon-s">check</span></span><span class="icon c-primary">{{m.icon}}</span>{{m.label}}</button>
+    </sc-for>
+  </div>
+</div>
+<div style="padding: 12px 24px 24px"><button class="btn btn-filled btn-block" onClick="{{nextStep}}" disabled="{{noMotive}}">המשך</button></div>
+</sc-if>
+
+<sc-if value="{{isNone}}" hint-placeholder-val="{{ false }}">
+<div class="topbar"><button class="icon-btn" onClick="{{exitFlow}}" aria-label="סגירה"><span class="icon">close</span></button><span class="topbar-title muted">{{flowLabel}}</span><span class="topbar-spacer"></span></div>
+<div class="steps"><sc-for list="{{stepBar}}" as="st" hint-placeholder-count="4"><span class="step {{st}}"></span></sc-for></div>
+<div class="screen center" style="justify-content: center; gap: 20px; text-align: center">
+  <div class="art" style="width: 180px; height: 180px">
+    <div class="layer shape {{part.shape}}" style="width: 180px; height: 180px; background: {{part.tint}}"></div>
+    <span class="glyph icon icon-xxl" style="color: {{part.ink}}">{{part.icon}}</span>
+  </div>
+  <div class="stack center" style="gap: 8px">
+    <h2 class="t-headline-s">{{part.title}}</h2>
+    <span class="pill">{{part.sub}}</span>
+  </div>
+  <div class="note"><span class="icon c-primary">info</span>החלק הזה עדיין לא נמצא באב־הטיפוס.</div>
+</div>
+<div style="padding: 0 24px 24px"><button class="btn btn-filled btn-block" onClick="{{nextStep}}">המשך</button></div>
+</sc-if>
+
+<sc-if value="{{isDone}}" hint-placeholder-val="{{ false }}">
+<div class="screen center" style="padding-top: 72px; gap: 22px; text-align: center">
+  <div class="art" style="width: 200px; height: 200px; animation: pop .7s var(--ease-emph)">
+    <div class="layer shape shape-sunny spin-slow" style="width: 200px; height: 200px; background: var(--tertiary-container)"></div>
+    <div class="layer shape shape-cookie9" style="width: 120px; height: 120px; background: var(--primary)"></div>
+    <span class="glyph icon icon-xxl icon-fill" style="color: var(--on-primary)">check</span>
+  </div>
+  <div class="stack center" style="gap: 8px">
+    <h2 class="t-headline">{{doneTitle}}</h2>
+    <p class="t-body-l muted">תודה שהקדשתם את הזמן הזה לעצמכם.</p>
+  </div>
+  <div class="card card-tertiary row" style="padding: 18px 20px; gap: 14px; text-align: start">
+    <span class="icon icon-l icon-fill">favorite</span>
+    <span class="t-body">{{stepLine}}</span>
+  </div>
+  <div class="grow"></div>
+  <button class="btn btn-filled btn-l btn-block" onClick="{{finishFlow}}">{{doneCta}}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isPart}}" hint-placeholder-val="{{ false }}">
+<div key="{{partKey}}" style="position: absolute; inset: 0">
+<sc-if value="{{emb.S01}}" hint-placeholder-val="{{ false }}"><dc-import name="S01" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S02}}" hint-placeholder-val="{{ false }}"><dc-import name="S02" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S03a}}" hint-placeholder-val="{{ false }}"><dc-import name="S03a" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S03b}}" hint-placeholder-val="{{ false }}"><dc-import name="S03b" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S04}}" hint-placeholder-val="{{ false }}"><dc-import name="S04" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S05}}" hint-placeholder-val="{{ false }}"><dc-import name="S05" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S06}}" hint-placeholder-val="{{ false }}"><dc-import name="S06" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S07}}" hint-placeholder-val="{{ false }}"><dc-import name="S07" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S08}}" hint-placeholder-val="{{ false }}"><dc-import name="S08" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S09}}" hint-placeholder-val="{{ false }}"><dc-import name="S09" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S10}}" hint-placeholder-val="{{ false }}"><dc-import name="S10" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S11}}" hint-placeholder-val="{{ false }}"><dc-import name="S11" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S12}}" hint-placeholder-val="{{ false }}"><dc-import name="S12" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S14}}" hint-placeholder-val="{{ false }}"><dc-import name="S14" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S15}}" hint-placeholder-val="{{ false }}"><dc-import name="S15" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S16}}" hint-placeholder-val="{{ false }}"><dc-import name="S16" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S17}}" hint-placeholder-val="{{ false }}"><dc-import name="S17" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S19}}" hint-placeholder-val="{{ false }}"><dc-import name="S19" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S23}}" hint-placeholder-val="{{ false }}"><dc-import name="S23" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S25}}" hint-placeholder-val="{{ false }}"><dc-import name="S25" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S27}}" hint-placeholder-val="{{ false }}"><dc-import name="S27" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S28}}" hint-placeholder-val="{{ false }}"><dc-import name="S28" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S29}}" hint-placeholder-val="{{ false }}"><dc-import name="S29" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S30}}" hint-placeholder-val="{{ false }}"><dc-import name="S30" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S32}}" hint-placeholder-val="{{ false }}"><dc-import name="S32" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S33a}}" hint-placeholder-val="{{ false }}"><dc-import name="S33a" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S33b}}" hint-placeholder-val="{{ false }}"><dc-import name="S33b" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S34}}" hint-placeholder-val="{{ false }}"><dc-import name="S34" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S35}}" hint-placeholder-val="{{ false }}"><dc-import name="S35" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S37}}" hint-placeholder-val="{{ false }}"><dc-import name="S37" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S42}}" hint-placeholder-val="{{ false }}"><dc-import name="S42" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S43}}" hint-placeholder-val="{{ false }}"><dc-import name="S43" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S44}}" hint-placeholder-val="{{ false }}"><dc-import name="S44" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S45}}" hint-placeholder-val="{{ false }}"><dc-import name="S45" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S46}}" hint-placeholder-val="{{ false }}"><dc-import name="S46" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S48}}" hint-placeholder-val="{{ false }}"><dc-import name="S48" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S49}}" hint-placeholder-val="{{ false }}"><dc-import name="S49" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S53}}" hint-placeholder-val="{{ false }}"><dc-import name="S53" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S54}}" hint-placeholder-val="{{ false }}"><dc-import name="S54" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S56}}" hint-placeholder-val="{{ false }}"><dc-import name="S56" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S57}}" hint-placeholder-val="{{ false }}"><dc-import name="S57" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S58}}" hint-placeholder-val="{{ false }}"><dc-import name="S58" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S60}}" hint-placeholder-val="{{ false }}"><dc-import name="S60" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S63}}" hint-placeholder-val="{{ false }}"><dc-import name="S63" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S64}}" hint-placeholder-val="{{ false }}"><dc-import name="S64" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S65}}" hint-placeholder-val="{{ false }}"><dc-import name="S65" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S66}}" hint-placeholder-val="{{ false }}"><dc-import name="S66" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S70}}" hint-placeholder-val="{{ false }}"><dc-import name="S70" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S73}}" hint-placeholder-val="{{ false }}"><dc-import name="S73" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S76}}" hint-placeholder-val="{{ false }}"><dc-import name="S76" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.S99}}" hint-placeholder-val="{{ false }}"><dc-import name="S99" on-exit="{{exitFlow}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.Breathing}}" hint-placeholder-val="{{ false }}"><dc-import name="Breathing" technique="{{technique}}" first-time="{{no}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.InnerVoice}}" hint-placeholder-val="{{ false }}"><dc-import name="InnerVoice" theme="{{theme}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.Choice}}" hint-placeholder-val="{{ false }}"><dc-import name="Choice" activity="{{activity}}" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+<sc-if value="{{emb.Cards}}" hint-placeholder-val="{{ false }}"><dc-import name="Cards" on-done="{{partDone}}" hint-size="390px,844px"></dc-import></sc-if>
+</div>
+<div class="steps" aria-hidden="true" style="position: absolute; top: 4px; left: 0; right: 0; pointer-events: none"><sc-for list="{{stepBar}}" as="st" hint-placeholder-count="4"><span class="step {{st}}" style="height: 5px"></span></sc-for></div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startSession":{"editor":"int","min":1,"max":87,"default":1,"section":"Where Ruth is"},"missedSessions":{"editor":"enum","options":["0","1","3","7"],"default":"0","section":"Where Ruth is"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const start = Math.max(1, Math.min(87, props.startSession ?? 1));
+    const missed = Number(props.missedSessions ?? '0');
+    const done = {};
+    for (let s = 1; s < start - missed; s += 1) done[s] = true;
+    this.state = { tab: 'today', cur: start, done, todayDone: false, flow: null, pv: null, earlier: false, motive: null, missed: missed > 0 };
+  }
+  // the timeline CSV: session, activity ID, name, type, parameter
+  rows() {
+    return [[1,'PS-CONT-001','Welcome','Video',''],[2,'PS-CONT-002','Apathy explained','Video',''],[3,'PS-CONT-003','Practicing with Parkinson’s','Video',''],[3,'PS-ACT-001','Belly breathing','Breathing activity',''],[4,'PS-ACT-002','Inner Voice','Game','motivation'],[5,'PS-CONT-004','Pacing including battery analogy and planned rests','Video',''],[6,'PS-ACT-003','Grounding','Audio',''],[7,'PS-CONT-005','Thoughts are not facts','Video',''],[8,'PS-CONT-029','Balancing thoughts','Video',''],[8,'PS-ACT-002','Inner Voice','Game','Unbalanced and balanced thoughts'],[9,'PS-CONT-006','The bus driver metaphor','Video',''],[10,'PS-CONT-060','Observing thoughts','Audio',''],[11,'PS-ACT-004','Cards game','Game',''],[12,'PS-CONT-007','Share the journey','Video',''],[13,'PS-ACT-001','Belly breathing','Breathing activity',''],[14,'PS-CONT-008','Stress, Anxiety and calming the body','Video',''],[15,'PS-CONT-047','Breathing exercise intro','Video',''],[15,'PS-ACT-005','Box breathing','Breathing activity',''],[16,'PS-CONT-009','Struggle switch metaphor','Video',''],[17,'PS-CONT-065','Guided imagery for relaxation','Audio',''],[18,'PS-CONT-010','No One Right Way: Patient stories with self-regulation','Video',''],[19,'PS-CONT-048','Relaxation before sleep','Video',''],[20,'PS-ACT-003','Grounding','Audio',''],[21,'PS-CONT-067','PMR','Audio',''],[22,'PS-ACT-002','Inner Voice','Game','Relaxation'],[23,'PS-CONT-049','In the moment tools introduction','Video',''],[24,'PS-CONT-068','Guided imagery safe place','Audio',''],[25,'PS-CONT-011','Getting the most from practice','Video',''],[26,'PS-ACT-004','Cards game','Game',''],[27,'PS-CONT-012','Wind down routines','Video',''],[28,'PS-CONT-013','Mindfulness practice intro','Video',''],[29,'PS-CONT-070','Awareness of breath','Audio',''],[30,'PS-CONT-014','Neuroplasticity in the context of mindfulness','Video',''],[31,'PS-CONT-071','Body scan','Audio',''],[32,'PS-CONT-072','How to talk about my Parkinson’s','Video',''],[33,'PS-ACT-006','Take a breather','Choice activity',''],[34,'PS-CONT-015','The white bear metaphor','Video',''],[35,'PS-CONT-016','Mindfulness in everyday life','Video',''],[36,'PS-ACT-004','Cards game','Game',''],[37,'PS-CONT-017','Chess board metaphor','Video',''],[38,'PS-ACT-007','Mindfulness','Choice activity',''],[39,'PS-ACT-002','Inner Voice','Game','Mindfulness'],[40,'PS-ACT-006','Take a breather','Choice activity',''],[41,'PS-ACT-008','In the moment','Choice activity',''],[42,'PS-CONT-018','Self care overview','Video',''],[43,'PS-ACT-009','Mindful moment - Pleasant Experience','Game',''],[44,'PS-CONT-019','Self care as practice','Video',''],[45,'PS-CONT-074','Moment of self compassion','Audio',''],[46,'PS-ACT-010','Mindful moment - Gratitude','Game',''],[47,'PS-ACT-002','Inner Voice','Game','Compassion & validation'],[48,'PS-CONT-020','Self validation','Video',''],[49,'PS-CONT-021','“I am enough”: Confidence, embarrassment, and social participation - combined with patient stories','Video',''],[50,'PS-ACT-004','Cards game','Game',''],[51,'PS-ACT-009','Mindful moment - Pleasant Experience','Game',''],[52,'PS-ACT-012','Relaxation','Choice activity',''],[53,'PS-CONT-022','Finding your way to stay connected','Video',''],[54,'PS-CONT-103','I am enough','Audio',''],[55,'PS-ACT-008','In the moment','Choice activity',''],[56,'PS-CONT-023','Values and meaningful action','Video',''],[57,'PS-CONT-024','Compass metaphor','Video',''],[58,'PS-CONT-109','Mindful moment - This matters','Game',''],[59,'PS-ACT-007','Mindfulness','Choice activity',''],[60,'PS-CONT-025','Role changes','Video',''],[61,'PS-ACT-013','Self-care','Choice activity',''],[62,'PS-ACT-002','Inner voice','Game','Labels'],[63,'PS-CONT-026','Understanding the discomfort cycle','Video',''],[64,'PS-ACT-014','Flexible thinking','Choice activity',''],[65,'PS-CONT-027','Uninvited guest metaphor','Video',''],[66,'PS-ACT-015','Attention & emotional balance','Choice activity',''],[67,'PS-ACT-006','Take a breather','Choice activity',''],[68,'PS-ACT-012','Relaxation','Choice activity',''],[69,'PS-ACT-008','In the moment','Choice activity',''],[70,'PS-ACT-016','Cultivating calm','Choice activity',''],[71,'PS-ACT-010','Mindful moment - Gratitude','Game',''],[72,'PS-ACT-004','Cards game','Game',''],[73,'PS-ACT-017','Meaningful action','Choice activity',''],[74,'PS-ACT-002','Inner Voice','Game','Flexible thinking'],[75,'PS-ACT-009','Mindful moment - Pleasant Experience','Game',''],[76,'PS-CONT-028','putting it all together - Notice - steady - choose - step - recognize','Video',''],[77,'PS-ACT-012','Relaxation','Choice activity',''],[78,'PS-ACT-006','Take a breather','Choice activity',''],[79,'PS-ACT-013','Self-care','Choice activity',''],[80,'PS-ACT-007','Mindfulness','Choice activity',''],[81,'PS-CONT-109','Mindful moment - This matters','Game',''],[82,'PS-ACT-008','In the moment','Choice activity',''],[83,'PS-CONT-103','I am enough','Audio',''],[84,'PS-ACT-014','Flexible thinking','Choice activity',''],[85,'PS-ACT-015','Attention & emotional balance','Choice activity',''],[86,'PS-ACT-016','Cultivating calm','Choice activity',''],[87,'PS-ACT-017','Meaningful action','Choice activity','']];
+  }
+  // the scripts docx: which session and activity each animated script belongs to
+  scripts() {
+    return {
+      '1|PS-CONT-001': ['S01'], '2|PS-CONT-002': ['S02'], '3|PS-CONT-003': ['S03a'], '3|PS-ACT-001': ['S03b'], '4|PS-ACT-002': ['S04'],
+      '5|PS-CONT-004': ['S05'], '6|PS-ACT-003': ['S06'], '7|PS-CONT-005': ['S07'], '8|PS-CONT-029': ['S08'], '9|PS-CONT-006': ['S09'],
+      '10|PS-CONT-060': ['S10'], '11|PS-ACT-004': ['S11'], '12|PS-CONT-007': ['S12'], '14|PS-CONT-008': ['S14'], '15|PS-ACT-005': ['S15'],
+      '16|PS-CONT-009': ['S16'], '17|PS-CONT-065': ['S17'], '19|PS-CONT-048': ['S19'], '23|PS-CONT-049': ['S23'], '25|PS-CONT-011': ['S25'],
+      '27|PS-CONT-012': ['S27'], '28|PS-CONT-013': ['S28'], '29|PS-CONT-070': ['S29'], '30|PS-CONT-014': ['S30'], '31|PS-CONT-071': ['S29'],
+      '32|PS-CONT-072': ['S32'], '33|PS-ACT-006': ['S33a', 'S33b'], '34|PS-CONT-015': ['S34'], '35|PS-CONT-016': ['S35'], '37|PS-CONT-017': ['S37'],
+      '42|PS-CONT-018': ['S42'], '43|PS-ACT-009': ['S43'], '44|PS-CONT-019': ['S44'], '45|PS-CONT-074': ['S45'], '46|PS-ACT-010': ['S46'],
+      '48|PS-CONT-020': ['S48'], '49|PS-CONT-021': ['S49'], '53|PS-CONT-022': ['S53'], '54|PS-CONT-103': ['S54'], '56|PS-CONT-023': ['S56'],
+      '57|PS-CONT-024': ['S57'], '58|PS-CONT-109': ['S58'], '60|PS-CONT-025': ['S60'], '63|PS-CONT-026': ['S63'], '64|PS-ACT-014': ['S64'],
+      '65|PS-CONT-027': ['S65'], '66|PS-ACT-015': ['S66'], '70|PS-ACT-016': ['S70'], '73|PS-ACT-017': ['S73'], '76|PS-CONT-028': ['S76']
+    };
+  }
+  // each script's own title, as written in the scripts docx
+  scriptTitles() {
+    return {'S01': 'ברוכים הבאים', 'S02': 'אפתיה – כשקשה להתחיל', 'S03a': 'תרגול עם פרקינסון', 'S03b': 'נשימה בטנית', 'S04': 'הקול הפנימי', 'S05': 'ניהול אנרגיה ואנלוגיית הבטריה', 'S06': 'מבוא לקרקוע', 'S07': 'מחשבות הן לא עובדות', 'S08': 'איזון מחשבות', 'S09': 'מטאפורת נהג האוטובוס', 'S10': 'התבוננות במחשבות', 'S11': 'קלפי שיחה', 'S12': 'לשתף מישהו קרוב בדרך', 'S14': 'מתח, חרדה והרגעת הגוף', 'S15': 'נשימת קופסה', 'S16': 'מתג המאבק', 'S17': 'הרפיה ודמיון מודרך', 'S19': 'הרפיה לקראת השינה', 'S23': 'כלים לרגע', 'S25': 'איך להפיק יותר מהתרגול', 'S27': 'שגרת ערב לקראת השינה', 'S28': 'מבוא לתשומת לב לנשימה ולסריקת גוף', 'S29': 'תשומת לב לנשימה וסריקת גוף', 'S30': 'מיינדפולנס ונוירופלסטיות', 'S32': 'איך לתקשר עם אחרים על פרקינסון', 'S33a': 'אנחה פיזיולוגית/ אנחת רווחה', 'S33b': 'נשימה קוהרנטית', 'S34': 'הדב הלבן', 'S35': 'מיינדפולנס בחיי היום יום', 'S37': 'מטאפורת השחמט', 'S42': 'מבוא ללדאוג לעצמי', 'S43': 'להתבונן בחוויה נעימה', 'S44': 'לעשות דברים שעושים לנו טוב', 'S45': 'רגע של חמלה עצמית', 'S46': 'רגע של הכרת תודה', 'S48': 'תיקוף עצמי', 'S49': 'כמו שאני, זה טוב מספיק', 'S53': 'למצוא את הדרך שלכם להישאר מחוברים', 'S54': 'כמו שאני, זה טוב מספיק – הכנה לתרגול', 'S56': 'ערכים ופעולה משמעותית', 'S57': 'מטאפורת המצפן', 'S58': 'רגע, זה חשוב לי', 'S60': 'שינויים בתפקידים שלנו', 'S63': 'להבין את מעגל ההתמודדות עם קושי', 'S64': 'טיפוח חשיבה גמישה', 'S65': 'מטאפורת האורח הלא מוזמן', 'S66': 'מבוא לחיזוק הקשב והאיזון הרגשי', 'S70': 'להרגיע את הגוף', 'S73': 'מבוא לפעולה משמעותית', 'S76': 'לשים לב → להתייצב → לבחור → לעשות צעד → לפרגן לעצמנו'};
+  }
+  // Hebrew name of each timeline activity: a script's title where one exists, otherwise a translation of the CSV name
+  names() {
+    return {
+      'PS-CONT-001': 'ברוכים הבאים', 'PS-CONT-002': 'אפתיה – כשקשה להתחיל', 'PS-CONT-003': 'תרגול עם פרקינסון', 'PS-ACT-001': 'נשימה בטנית',
+      'PS-ACT-002': 'הקול הפנימי', 'PS-CONT-004': 'ניהול אנרגיה ואנלוגיית הבטריה', 'PS-ACT-003': 'קרקוע', 'PS-CONT-005': 'מחשבות הן לא עובדות',
+      'PS-CONT-029': 'איזון מחשבות', 'PS-CONT-006': 'מטאפורת נהג האוטובוס', 'PS-CONT-060': 'התבוננות במחשבות', 'PS-ACT-004': 'קלפי שיחה',
+      'PS-CONT-007': 'לשתף מישהו קרוב בדרך', 'PS-CONT-008': 'מתח, חרדה והרגעת הגוף', 'PS-CONT-047': 'מבוא לתרגילי נשימה', 'PS-ACT-005': 'נשימת קופסה',
+      'PS-CONT-009': 'מתג המאבק', 'PS-CONT-065': 'הרפיה ודמיון מודרך', 'PS-CONT-010': 'אין דרך אחת נכונה: סיפורים אישיים', 'PS-CONT-048': 'הרפיה לקראת השינה',
+      'PS-CONT-067': 'הרפיית שרירים הדרגתית', 'PS-CONT-049': 'כלים לרגע', 'PS-CONT-068': 'דמיון מודרך: מקום בטוח', 'PS-CONT-011': 'איך להפיק יותר מהתרגול',
+      'PS-CONT-012': 'שגרת ערב לקראת השינה', 'PS-CONT-013': 'מבוא לתשומת לב לנשימה ולסריקת גוף', 'PS-CONT-070': 'תשומת לב לנשימה',
+      'PS-CONT-014': 'מיינדפולנס ונוירופלסטיות', 'PS-CONT-071': 'סריקת גוף', 'PS-CONT-072': 'איך לתקשר עם אחרים על פרקינסון', 'PS-ACT-006': 'לקחת רגע לנשום',
+      'PS-CONT-015': 'הדב הלבן', 'PS-CONT-016': 'מיינדפולנס בחיי היום יום', 'PS-CONT-017': 'מטאפורת השחמט', 'PS-ACT-007': 'מיינדפולנס',
+      'PS-ACT-008': 'כלים לרגע', 'PS-CONT-018': 'מבוא ללדאוג לעצמי', 'PS-ACT-009': 'להתבונן בחוויה נעימה', 'PS-CONT-019': 'לעשות דברים שעושים לנו טוב',
+      'PS-CONT-074': 'רגע של חמלה עצמית', 'PS-ACT-010': 'רגע של הכרת תודה', 'PS-CONT-020': 'תיקוף עצמי', 'PS-CONT-021': 'כמו שאני, זה טוב מספיק',
+      'PS-ACT-012': 'הרפיה', 'PS-CONT-022': 'למצוא את הדרך שלכם להישאר מחוברים', 'PS-CONT-103': 'כמו שאני, זה טוב מספיק – תרגול',
+      'PS-CONT-023': 'ערכים ופעולה משמעותית', 'PS-CONT-024': 'מטאפורת המצפן', 'PS-CONT-109': 'רגע, זה חשוב לי', 'PS-CONT-025': 'שינויים בתפקידים שלנו',
+      'PS-ACT-013': 'לדאוג לעצמי', 'PS-CONT-026': 'להבין את מעגל ההתמודדות עם קושי', 'PS-ACT-014': 'חשיבה גמישה', 'PS-CONT-027': 'מטאפורת האורח הלא מוזמן',
+      'PS-ACT-015': 'קשב ואיזון רגשי', 'PS-ACT-016': 'להרגיע את הגוף', 'PS-ACT-017': 'פעולה משמעותית', 'PS-CONT-028': 'לשים לב → להתייצב → לבחור → לעשות צעד → לפרגן לעצמנו'
+    };
+  }
+  // the interactive practice boards and the activities they actually support
+  practice(r) {
+    const iv = { 'motivation': 'Motivation (S4)', 'Unbalanced and balanced thoughts': 'Balanced thoughts (S8)', 'Relaxation': 'Relaxation (S22)', 'Mindfulness': 'Mindfulness (S39)', 'Compassion & validation': 'Compassion & validation (S47)', 'Labels': 'Labels (S62)' };
+    if (r[1] === 'PS-ACT-001') return { board: 'Breathing', technique: 'Belly breathing' };
+    if (r[1] === 'PS-ACT-005') return { board: 'Breathing', technique: 'Box breathing' };
+    if (r[1] === 'PS-ACT-002') return { board: 'InnerVoice', theme: iv[r[4]] || 'Mixed (Unit 12)' };
+    if (r[1] === 'PS-ACT-004') return { board: 'Cards' };
+    if (r[1] === 'PS-ACT-006') return { board: 'Choice', activity: 'Take a breather' };
+    if (r[1] === 'PS-ACT-008') return { board: 'Choice', activity: 'In the moment' };
+    if (r[1] === 'PS-ACT-012') return { board: 'Choice', activity: 'Relaxation' };
+    return null;
+  }
+  // spec: a practice comes with its intro the first time; afterwards straight to the practice
+  parts(r, firstAt, look) {
+    const sc = this.scripts();
+    const titles = this.scriptTitles();
+    const name = this.names()[r[1]] || r[2];
+    const kind = { 'Video': 'סרטון', 'Audio': 'הקלטה', 'Game': 'משחק', 'Breathing activity': 'תרגול נשימה', 'Choice activity': 'בחירת תרגול' }[r[3]];
+    const prac = this.practice(r);
+    const own = sc[r[0] + '|' + r[1]] || (prac ? null : sc[firstAt + '|' + r[1]]);
+    const base = Object.assign({ technique: '', theme: '', activity: '' }, look);
+    const out = (own || []).map((b) => Object.assign({}, base, { board: b, title: titles[b] || name, sub: prac ? 'מבוא' : kind }));
+    if (prac) out.push(Object.assign({}, base, prac, { title: name, sub: 'תרגול', icon: prac.board === 'Breathing' ? 'air' : base.icon }));
+    if (!out.length) out.push(Object.assign({}, base, { board: '', title: name, sub: kind }));
+    return out;
+  }
+  model() {
+    if (this.cache) return this.cache;
+    const look = {
+      'Video': { icon: 'play_circle', lead: 'lead-video', tint: '#D8E2FF', ink: '#3E5F90', shape: 'shape-cookie9' },
+      'Audio': { icon: 'headphones', lead: 'lead-audio', tint: '#B3EFE4', ink: '#2B6A62', shape: 'shape-flower' },
+      'Game': { icon: 'sports_esports', lead: 'lead-game', tint: '#FFDEA3', ink: '#7A5900', shape: 'shape-sunny' },
+      'Breathing activity': { icon: 'air', lead: 'lead-breath', tint: '#E1E59A', ink: '#5B5F1E', shape: 'shape-cookie4' },
+      'Choice activity': { icon: 'touch_app', lead: 'lead-choice', tint: '#FFD7F3', ink: '#7C4F73', shape: 'shape-clover' }
+    };
+    const names = this.names();
+    const rows = this.rows();
+    const firstAt = {};
+    rows.forEach((r) => { if (!(r[1] in firstAt)) firstAt[r[1]] = r[0]; });
+    const sessions = {};
+    rows.forEach((r) => {
+      const s = (sessions[r[0]] = sessions[r[0]] || { s: r[0], rows: [], parts: [] });
+      s.rows.push(r);
+      this.parts(r, firstAt[r[1]], look[r[3]]).forEach((p) => s.parts.push(p));
+    });
+    Object.keys(sessions).forEach((k) => {
+      const s = sessions[k];
+      s.title = (names[s.rows[0][1]] || s.rows[0][2]) + (s.rows.length > 1 ? ' ועוד ' + (s.rows.length - 1) : '');
+      s.look = look[s.rows[0][3]];
+    });
+    // library: practices skip their intro, lessons replay the lesson
+    const lib = rows.map((r) => {
+      const prac = this.practice(r);
+      const ps = this.parts(r, firstAt[r[1]], look[r[3]]).filter((p) => p.board);
+      const part = prac ? ps[ps.length - 1] : ps[0];
+      return { s: r[0], id: r[1], lesson: r[3] === 'Video', part, title: names[r[1]] || r[2] };
+    }).filter((x) => x.part);
+    this.cache = { sessions, last: rows[rows.length - 1][0], lib };
+    return this.cache;
+  }
+  motives() {
+    return [
+      { label: 'לשמור על עצמאות', icon: 'home' },
+      { label: 'לנוע בביטחון', icon: 'directions_walk' },
+      { label: 'לדבר בביטחון', icon: 'record_voice_over' },
+      { label: 'להיות קרוב למשפחה ולחברים', icon: 'diversity_3' },
+      { label: 'להיות שם בשביל אחרים', icon: 'volunteer_activism' },
+      { label: 'ליהנות מהדברים שעושים לי טוב', icon: 'palette' },
+      { label: 'להרגיש רוגע', icon: 'spa' },
+      { label: 'להרגיש כמו עצמי', icon: 'face' }
+    ];
+  }
+  // a flow is the ordered steps of one session (or one library item)
+  startFlow(s, mode, parts) {
+    const steps = [{ kind: 'settle' }];
+    parts.forEach((p, k) => {
+      steps.push({ kind: p.board ? 'part' : 'none', part: p });
+      if (mode !== 'library' && s === 1 && k === 0) steps.push({ kind: 'motivation' });
+    });
+    steps.push({ kind: 'done' });
+    this.setState({ flow: { s, mode, steps, i: 0, from: this.state.tab } });
+  }
+  renderVals() {
+    const st = this.state;
+    const M = this.model();
+    const last = M.last;
+    const cur = st.cur;
+    const ses = (s) => M.sessions[s];
+    const status = (s) => (st.done[s] ? 'done' : s === cur ? (st.todayDone ? 'done' : 'today') : s < cur ? 'missed' : 'later');
+    const statusText = { done: 'הושלם', today: 'היום', missed: 'עוד לא בוצע', later: 'בהמשך' };
+    const doneCount = Object.keys(st.done).length + (st.todayDone && !st.done[cur] ? 1 : 0);
+    const motive = st.motive === null ? null : this.motives()[st.motive];
+    const stepLine = motive ? 'עוד צעד בשביל: ' + motive.label + '.' : 'כל מפגש הוא צעד פעיל בשמירה על הבריאות שלכם.';
+    const stepRow = (p) => ({ title: p.title, sub: p.sub, icon: p.icon, lead: p.lead });
+    const sessionSteps = (s) => ses(s).parts.map(stepRow).concat(s === 1 ? [{ title: 'בוחרים מה חשוב לך', sub: 'בחירה אחת', icon: 'favorite', lead: 'lead-choice' }] : []);
+    const today = ses(cur);
+    const nextS = cur < last ? ses(cur + 1) : null;
+
+    const fl = st.flow;
+    const step = fl ? fl.steps[fl.i] : null;
+    const embedKey = step && step.kind === 'part' ? step.part.board : '';
+    const emb = {};
+    if (embedKey) emb[embedKey] = true;
+    const nextStep = () => this.setState({ flow: Object.assign({}, fl, { i: Math.min(fl.steps.length - 1, fl.i + 1) }) });
+    const from = st.earlier ? 1 : Math.max(1, cur - 3);
+    const seenUpTo = (x) => st.done[x.s] || x.s < cur || (x.s === cur && st.todayDone);
+    const libSeen = {};
+    const libItems = M.lib.filter((x) => seenUpTo(x) && !libSeen[x.id] && (libSeen[x.id] = true)).map((x) => Object.assign({}, x.part, {
+      title: x.title, lesson: x.lesson, open: () => this.startFlow(x.s, 'library', [x.part])
+    }));
+    const pvS = st.pv ? ses(st.pv) : null;
+    const pvStatus = st.pv ? status(st.pv) : 'later';
+
+    return {
+      yes: true, no: false,
+      cur, last, doneCount, pct: Math.round(doneCount / last * 100) + '%',
+      isToday: !fl && st.tab === 'today', isJourney: !fl && st.tab === 'journey', isLibrary: !fl && st.tab === 'library', isPreview: !fl && st.tab === 'preview',
+      showNav: !fl && st.tab !== 'preview',
+      navToday: st.tab === 'today' ? 'is-active' : '', navJourney: st.tab === 'journey' ? 'is-active' : '', navLibrary: st.tab === 'library' ? 'is-active' : '',
+      toToday: () => this.setState({ tab: 'today' }), toJourney: () => this.setState({ tab: 'journey', earlier: false }), toLibrary: () => this.setState({ tab: 'library' }),
+
+      // today
+      showMissed: st.missed && !st.todayDone,
+      todayOpen: !st.todayDone, todayDone: st.todayDone,
+      today: { title: today.title, steps: sessionSteps(cur) },
+      startToday: () => this.startFlow(cur, 'session', today.parts),
+      stepLine,
+      hasNext: !!nextS,
+      next: nextS ? { s: nextS.s, title: nextS.title, icon: nextS.look.icon, lead: nextS.look.lead } : { s: '', title: '', icon: '', lead: '' },
+      goNext: () => { const done = Object.assign({}, st.done); done[cur] = true; this.setState({ cur: cur + 1, done, todayDone: false, missed: false }); },
+
+      // journey
+      hasEarlier: from > 1, earlierTo: from - 1, showEarlier: () => this.setState({ earlier: true }),
+      journey: Object.keys(M.sessions).map(Number).filter((s) => s >= from).map((s) => {
+        const S = ses(s), stt = status(s), here = s === cur;
+        return {
+          title: S.title, sub: 'מפגש ' + s + ' · ' + statusText[stt],
+          icon: stt === 'done' ? 'check' : stt === 'later' ? 'lock' : S.look.icon, iconFill: stt === 'done' ? 'icon-fill' : '',
+          lead: stt === 'later' ? '' : stt === 'done' ? 'lead-audio' : S.look.lead,
+          bg: here ? 'var(--primary-container)' : 'transparent', opacity: stt === 'later' ? '.6' : '1',
+          locked: stt === 'later', current: here ? 'step' : 'false', trail: stt === 'later' ? '' : 'chevron_right',
+          open: () => this.setState({ tab: 'preview', pv: s })
+        };
+      }),
+
+      // session preview
+      pv: pvS ? {
+        s: pvS.s, title: pvS.title, status: statusText[pvStatus], steps: sessionSteps(pvS.s),
+        cta: pvStatus === 'done' ? 'לעשות שוב' : 'מתחילים', ctaIcon: pvStatus === 'done' ? 'replay' : 'play_arrow',
+        start: () => this.startFlow(pvS.s, pvS.s === cur && !st.todayDone ? 'session' : 'replay', pvS.parts)
+      } : { s: '', title: '', status: '', steps: [], cta: '', ctaIcon: '', start: () => {} },
+
+      // library
+      practices: libItems.filter((x) => !x.lesson), lessons: libItems.filter((x) => x.lesson),
+      hasPractices: libItems.some((x) => !x.lesson), hasLessons: libItems.some((x) => x.lesson), libEmpty: !libItems.length,
+
+      // flow
+      isSettle: !!step && step.kind === 'settle', isMotivation: !!step && step.kind === 'motivation',
+      isNone: !!step && step.kind === 'none', isPart: !!step && step.kind === 'part', isDone: !!step && step.kind === 'done',
+      flowLabel: fl ? (fl.mode === 'library' ? 'ספרייה' : 'מפגש ' + fl.s) : '',
+      stepBar: fl ? fl.steps.slice(0, -1).map((_, k) => (k < fl.i ? 'is-done' : k === fl.i ? 'is-current' : '')) : [],
+      part: step && step.part ? step.part : { title: '', sub: '', icon: '', tint: '', ink: '', shape: '' },
+      partKey: fl ? 'p' + fl.s + '-' + fl.i : 'p',
+      emb,
+      technique: step && step.part ? step.part.technique : '', theme: step && step.part ? step.part.theme : '', activity: step && step.part ? step.part.activity : '',
+      nextStep, partDone: nextStep,
+      exitFlow: () => this.setState({ flow: null }),
+      motives: this.motives().map((m, k) => ({ label: m.label, icon: m.icon, cls: st.motive === k ? 'is-selected' : '', pressed: st.motive === k ? 'true' : 'false', pick: () => this.setState({ motive: k }) })),
+      noMotive: st.motive === null,
+      doneTitle: fl && fl.mode === 'library' ? 'התרגול הושלם' : fl ? 'מפגש ' + fl.s + ' הושלם' : '',
+      doneCta: fl && fl.mode === 'library' ? 'חזרה לספרייה' : 'חזרה להיום',
+      finishFlow: () => {
+        if (fl.mode === 'session') this.setState({ flow: null, tab: 'today', todayDone: true, missed: false });
+        else if (fl.mode === 'replay') { const done = Object.assign({}, st.done); done[fl.s] = true; this.setState({ flow: null, tab: 'journey', done }); }
+        else this.setState({ flow: null, tab: 'library' });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

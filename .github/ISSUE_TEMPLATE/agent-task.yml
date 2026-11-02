@@ -1,0 +1,23 @@
+name: Agent task
+description: A bounded task for one autonomous agent and one PR
+title: '[task] '
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome and acceptance criteria
+      description: What should change, and how will completion be demonstrated?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Owned paths
+      description: Exact files or directory prefixes ending in /. Split shared-file work into a separate integrator task.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources and constraints
+      description: Preserve authored clinical content; identify any required source or media changes.

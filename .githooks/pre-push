@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+root=$(git rev-parse --show-toplevel)
+input=$(cat)
+printf '%s\n' "$input" | python3 "$root/scripts/agent_safety.py" pre-push "$@"
+# Keep Git LFS uploads active when using custom repository hooks.
+printf '%s\n' "$input" | git lfs pre-push "$@"

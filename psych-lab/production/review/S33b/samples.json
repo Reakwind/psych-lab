@@ -1,0 +1,278 @@
+[
+  {
+    "part": 1,
+    "sample": 1,
+    "time": 2.374,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/001-1.png"
+  },
+  {
+    "part": 1,
+    "sample": 2,
+    "time": 8.416,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/001-2.png"
+  },
+  {
+    "part": 2,
+    "sample": 1,
+    "time": 13.621,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/002-1.png"
+  },
+  {
+    "part": 2,
+    "sample": 2,
+    "time": 20.829,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/002-2.png"
+  },
+  {
+    "part": 3,
+    "sample": 1,
+    "time": 24.672,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/003-1.png"
+  },
+  {
+    "part": 3,
+    "sample": 2,
+    "time": 27.248,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/003-2.png"
+  },
+  {
+    "part": 4,
+    "sample": 1,
+    "time": 30.533,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/004-1.png"
+  },
+  {
+    "part": 4,
+    "sample": 2,
+    "time": 36.317,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/004-2.png"
+  },
+  {
+    "part": 5,
+    "sample": 1,
+    "time": 40.077,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/005-1.png"
+  },
+  {
+    "part": 5,
+    "sample": 2,
+    "time": 43.863,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/005-2.png"
+  },
+  {
+    "part": 6,
+    "sample": 1,
+    "time": 47.746,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/006-1.png"
+  },
+  {
+    "part": 6,
+    "sample": 2,
+    "time": 53.844,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/006-2.png"
+  },
+  {
+    "part": 7,
+    "sample": 1,
+    "time": 57.692,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/007-1.png"
+  },
+  {
+    "part": 7,
+    "sample": 2,
+    "time": 61.388,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/007-2.png"
+  },
+  {
+    "part": 8,
+    "sample": 1,
+    "time": 66.78,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/008-1.png"
+  },
+  {
+    "part": 8,
+    "sample": 2,
+    "time": 76.81,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/008-2.png"
+  },
+  {
+    "part": 9,
+    "sample": 1,
+    "time": 83.366,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/009-1.png"
+  },
+  {
+    "part": 9,
+    "sample": 2,
+    "time": 90.024,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/009-2.png"
+  },
+  {
+    "part": 10,
+    "sample": 1,
+    "time": 96.402,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/010-1.png"
+  },
+  {
+    "part": 10,
+    "sample": 2,
+    "time": 105.978,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/010-2.png"
+  },
+  {
+    "part": 11,
+    "sample": 1,
+    "time": 111.881,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/011-1.png"
+  },
+  {
+    "part": 11,
+    "sample": 2,
+    "time": 117.329,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/011-2.png"
+  },
+  {
+    "part": 12,
+    "sample": 1,
+    "time": 122.154,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/012-1.png"
+  },
+  {
+    "part": 12,
+    "sample": 2,
+    "time": 128.986,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/012-2.png"
+  },
+  {
+    "part": 13,
+    "sample": 1,
+    "time": 133.439,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/013-1.png"
+  },
+  {
+    "part": 13,
+    "sample": 2,
+    "time": 137.941,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/013-2.png"
+  },
+  {
+    "part": 14,
+    "sample": 1,
+    "time": 140.81,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/014-1.png"
+  },
+  {
+    "part": 14,
+    "sample": 2,
+    "time": 143.61,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/014-2.png"
+  },
+  {
+    "part": 15,
+    "sample": 1,
+    "time": 145.81,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/015-1.png"
+  },
+  {
+    "part": 15,
+    "sample": 2,
+    "time": 148.61,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/015-2.png"
+  },
+  {
+    "part": 16,
+    "sample": 1,
+    "time": 150.81,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/016-1.png"
+  },
+  {
+    "part": 16,
+    "sample": 2,
+    "time": 153.61,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/016-2.png"
+  },
+  {
+    "part": 17,
+    "sample": 1,
+    "time": 155.81,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/017-1.png"
+  },
+  {
+    "part": 17,
+    "sample": 2,
+    "time": 158.61,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/017-2.png"
+  },
+  {
+    "part": 18,
+    "sample": 1,
+    "time": 160.81,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/018-1.png"
+  },
+  {
+    "part": 18,
+    "sample": 2,
+    "time": 163.61,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/018-2.png"
+  },
+  {
+    "part": 19,
+    "sample": 1,
+    "time": 166.096,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/019-1.png"
+  },
+  {
+    "part": 19,
+    "sample": 2,
+    "time": 169.624,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/019-2.png"
+  },
+  {
+    "part": 20,
+    "sample": 1,
+    "time": 171.481,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/020-1.png"
+  },
+  {
+    "part": 20,
+    "sample": 2,
+    "time": 172.679,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/020-2.png"
+  },
+  {
+    "part": 21,
+    "sample": 1,
+    "time": 174.901,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/021-1.png"
+  },
+  {
+    "part": 21,
+    "sample": 2,
+    "time": 179.359,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/021-2.png"
+  },
+  {
+    "part": 22,
+    "sample": 1,
+    "time": 184.137,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/022-1.png"
+  },
+  {
+    "part": 22,
+    "sample": 2,
+    "time": 191.843,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/022-2.png"
+  },
+  {
+    "part": 23,
+    "sample": 1,
+    "time": 197.145,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/023-1.png"
+  },
+  {
+    "part": 23,
+    "sample": 2,
+    "time": 202.935,
+    "file": "/Users/itay.cohen/Projects/Psych trailer scripts review/psych-lab/production/review/S33b/encoded/023-2.png"
+  }
+]

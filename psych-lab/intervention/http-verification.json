@@ -1,0 +1,237 @@
+{
+  "http_media_checked": [
+    {
+      "url": "/intervention/media/PS-CONT-013.mp4",
+      "bytes": 22758130
+    },
+    {
+      "url": "/intervention/media/PS-CONT-029.mp4",
+      "bytes": 14002119
+    },
+    {
+      "url": "/intervention/media/PS-CONT-047.mp4",
+      "bytes": 21226202
+    },
+    {
+      "url": "/intervention/media/grounding.mp3",
+      "bytes": 1848716
+    },
+    {
+      "url": "/intervention/media/imagery.mp3",
+      "bytes": 4668812
+    },
+    {
+      "url": "/intervention/media/observing.mp3",
+      "bytes": 3876812
+    },
+    {
+      "url": "/intervention/media/safeplace.mp3",
+      "bytes": 4176620
+    },
+    {
+      "url": "/media/voice-over/mp4/S01-animated.mp4",
+      "bytes": 6762560
+    },
+    {
+      "url": "/media/voice-over/mp4/S02-animated.mp4",
+      "bytes": 10168269
+    },
+    {
+      "url": "/media/voice-over/mp4/S03a-animated.mp4",
+      "bytes": 11810666
+    },
+    {
+      "url": "/media/voice-over/mp4/S03b-animated.mp4",
+      "bytes": 11794502
+    },
+    {
+      "url": "/media/voice-over/mp4/S04-animated.mp4",
+      "bytes": 5659070
+    },
+    {
+      "url": "/media/voice-over/mp4/S05-animated.mp4",
+      "bytes": 7218355
+    },
+    {
+      "url": "/media/voice-over/mp4/S06-animated.mp4",
+      "bytes": 6467405
+    },
+    {
+      "url": "/media/voice-over/mp4/S07-animated.mp4",
+      "bytes": 8111324
+    },
+    {
+      "url": "/media/voice-over/mp4/S08-animated.mp4",
+      "bytes": 6147522
+    },
+    {
+      "url": "/media/voice-over/mp4/S09-animated.mp4",
+      "bytes": 12249472
+    },
+    {
+      "url": "/media/voice-over/mp4/S10-animated.mp4",
+      "bytes": 7932221
+    },
+    {
+      "url": "/media/voice-over/mp4/S11-animated.mp4",
+      "bytes": 10188525
+    },
+    {
+      "url": "/media/voice-over/mp4/S12-animated.mp4",
+      "bytes": 7236682
+    },
+    {
+      "url": "/media/voice-over/mp4/S14-animated.mp4",
+      "bytes": 11702290
+    },
+    {
+      "url": "/media/voice-over/mp4/S15-animated.mp4",
+      "bytes": 11534421
+    },
+    {
+      "url": "/media/voice-over/mp4/S16-animated.mp4",
+      "bytes": 11593166
+    },
+    {
+      "url": "/media/voice-over/mp4/S17-animated.mp4",
+      "bytes": 10451183
+    },
+    {
+      "url": "/media/voice-over/mp4/S19-animated.mp4",
+      "bytes": 6094762
+    },
+    {
+      "url": "/media/voice-over/mp4/S23-animated.mp4",
+      "bytes": 8766887
+    },
+    {
+      "url": "/media/voice-over/mp4/S25-animated.mp4",
+      "bytes": 9714761
+    },
+    {
+      "url": "/media/voice-over/mp4/S27-animated.mp4",
+      "bytes": 8361439
+    },
+    {
+      "url": "/media/voice-over/mp4/S28-animated.mp4",
+      "bytes": 9760342
+    },
+    {
+      "url": "/media/voice-over/mp4/S29-animated.mp4",
+      "bytes": 9812370
+    },
+    {
+      "url": "/media/voice-over/mp4/S30-animated.mp4",
+      "bytes": 10315657
+    },
+    {
+      "url": "/media/voice-over/mp4/S32-animated.mp4",
+      "bytes": 10109318
+    },
+    {
+      "url": "/media/voice-over/mp4/S33a-animated.mp4",
+      "bytes": 8416365
+    },
+    {
+      "url": "/media/voice-over/mp4/S33b-animated.mp4",
+      "bytes": 8566082
+    },
+    {
+      "url": "/media/voice-over/mp4/S34-animated.mp4",
+      "bytes": 6226046
+    },
+    {
+      "url": "/media/voice-over/mp4/S35-animated.mp4",
+      "bytes": 3921870
+    },
+    {
+      "url": "/media/voice-over/mp4/S37-animated.mp4",
+      "bytes": 6373875
+    },
+    {
+      "url": "/media/voice-over/mp4/S42-animated.mp4",
+      "bytes": 7553442
+    },
+    {
+      "url": "/media/voice-over/mp4/S43-animated.mp4",
+      "bytes": 14911187
+    },
+    {
+      "url": "/media/voice-over/mp4/S44-animated.mp4",
+      "bytes": 10051792
+    },
+    {
+      "url": "/media/voice-over/mp4/S45-animated.mp4",
+      "bytes": 8333157
+    },
+    {
+      "url": "/media/voice-over/mp4/S46-animated.mp4",
+      "bytes": 7915740
+    },
+    {
+      "url": "/media/voice-over/mp4/S48-animated.mp4",
+      "bytes": 6853312
+    },
+    {
+      "url": "/media/voice-over/mp4/S49-animated.mp4",
+      "bytes": 7024288
+    },
+    {
+      "url": "/media/voice-over/mp4/S53-animated.mp4",
+      "bytes": 5985447
+    },
+    {
+      "url": "/media/voice-over/mp4/S54-animated.mp4",
+      "bytes": 3315665
+    },
+    {
+      "url": "/media/voice-over/mp4/S56-animated.mp4",
+      "bytes": 5564796
+    },
+    {
+      "url": "/media/voice-over/mp4/S57-animated.mp4",
+      "bytes": 4896911
+    },
+    {
+      "url": "/media/voice-over/mp4/S58-animated.mp4",
+      "bytes": 5078591
+    },
+    {
+      "url": "/media/voice-over/mp4/S60-animated.mp4",
+      "bytes": 7030224
+    },
+    {
+      "url": "/media/voice-over/mp4/S63-animated.mp4",
+      "bytes": 8132035
+    },
+    {
+      "url": "/media/voice-over/mp4/S64-animated.mp4",
+      "bytes": 7928780
+    },
+    {
+      "url": "/media/voice-over/mp4/S65-animated.mp4",
+      "bytes": 12271383
+    },
+    {
+      "url": "/media/voice-over/mp4/S66-animated.mp4",
+      "bytes": 8124464
+    },
+    {
+      "url": "/media/voice-over/mp4/S70-animated.mp4",
+      "bytes": 5361754
+    },
+    {
+      "url": "/media/voice-over/mp4/S73-animated.mp4",
+      "bytes": 7538791
+    },
+    {
+      "url": "/media/voice-over/mp4/S76-animated.mp4",
+      "bytes": 11427936
+    },
+    {
+      "url": "/media/voice-over/mp4/S99-animated.mp4",
+      "bytes": 4842763
+    }
+  ],
+  "range_checks": 6
+}

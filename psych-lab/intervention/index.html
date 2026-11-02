@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Psych Lab · Full intervention</title>
+<link rel="stylesheet" href="/intervention/style.css">
+</head>
+<body>
+<header class="lab-header"><a href="/">Parkinson’s Psych Lab</a><span>Full intervention</span><span class="grow"></span><a href="/?session=S01&tab=animation">Videos & storyboards</a></header>
+<div class="workspace">
+  <aside class="navigator" aria-label="Psychology sessions">
+    <div class="nav-heading"><button class="small nav-toggle" id="close-index" style="float:right" aria-label="Close sessions">Close</button><h1>The whole journey</h1><p>87 psychology sessions</p></div>
+    <div class="nav-tools"><input type="search" id="session-search" placeholder="Find a session…" aria-label="Find a session"><select id="week-filter" aria-label="Filter by week"><option value="all">All weeks</option></select></div>
+    <nav id="session-list" aria-label="Session index"></nav>
+    <div class="nav-bottom"><span id="review-count">Your review is saved on this device.</span><button id="show-sources">Sources & assumptions</button></div>
+  </aside>
+  <main class="preview-area">
+    <div class="preview-toolbar"><button class="small nav-toggle" id="toggle-index">Sessions</button><div class="mode-tabs" role="tablist" aria-label="Preview mode"><button data-mode="experience" role="tab" aria-selected="true">Experience</button><button data-mode="library" role="tab" aria-selected="false">Library</button><button data-mode="log" role="tab" aria-selected="false">Review log</button></div><span class="grow"></span><button class="small" id="toggle-review" aria-expanded="true">Review panel</button></div>
+    <div id="stage" class="stage"><div id="phone" class="phone" lang="he" dir="rtl" aria-label="Patient experience"><div class="phone-loading">טוענים את המסע…</div></div></div>
+  </main>
+  <aside id="review-panel" class="review-panel" aria-label="Review and timing">
+    <div class="review-head"><span id="session-id">S01</span><span class="grow"></span><span id="app-day"></span><button id="close-review" class="small review-close" aria-label="Close review panel">Close</button></div>
+    <h2 id="review-title"></h2>
+    <p class="review-caption" id="review-type"></p>
+    <section class="timing-block" aria-label="Timing comparison"><h3>Content time</h3><div id="content-time" class="big-time"></div><p id="time-explanation"></p><div class="budget-bar" aria-hidden="true"><div id="budget-other"></div><div id="budget-psych"></div></div><div id="daily-time"></div><p class="fine-print">Plus reading, choices, and transitions. The app-day comparison uses planned allocations, not measured production app time.</p>
+      <div class="compare-fields"><label>Speech plan<select id="speech-plan" aria-label="Speech plan"><option value="heavy">Heavy speech</option><option value="light">Light speech</option></select></label><label>Cycle day<select id="cycle-day" aria-label="Cycle day"></select></label></div>
+    </section>
+    <section class="review-settings"><label>Introduction scenario<select id="intro-mode" aria-label="Introduction scenario"><option value="timeline">As scheduled</option><option value="first">First encounter</option><option value="repeat">Repeat practice / skip trailers</option></select></label><p class="fine-print">Changing the scenario restarts the preview. Review controls do not change the sourced program.</p></section>
+    <section class="run-block"><div class="section-heading"><h3>This run</h3><span id="run-clock">0:00</span></div><p id="run-state">Start in the phone to measure the experience.</p><div class="review-actions"><button id="review-next" class="small" disabled>Next screen</button><button id="review-finish-media" class="small" disabled>Finish media / timer</button></div><p class="fine-print">Jumping, scrubbing, or simulating marks a run as accelerated. It does not count as a complete timing test.</p><ol id="step-list"></ol></section>
+    <section id="source-gaps" class="source-gaps"></section>
+    <section class="notes"><h3>How does this feel?</h3><div class="flag-buttons"><button data-flag="Too long" aria-pressed="false">Too long</button><button data-flag="Unclear" aria-pressed="false">Unclear</button><button data-flag="Works well" aria-pressed="false">Works well</button></div><textarea id="review-note" rows="4" placeholder="Where did it drag? What would you revisit?" aria-label="Notes for this session"></textarea><span id="save-state" class="fine-print">Saved locally</span></section>
+    <button id="export-notes" class="export-button">Export review</button>
+  </aside>
+</div>
+<dialog id="sources-dialog"><div class="dialog-heading"><h2>Sources & prototype decisions</h2><button id="close-sources" aria-label="Close sources">×</button></div><p>The session sequence is preserved. Proposed copy, missing media, and implementation choices are identified here so they can be reviewed separately from the clinical content.</p><h3>What is connected</h3><div id="source-stats"></div><h3>Review assumptions</h3><ul id="assumptions"></ul><h3>Source documents</h3><div id="source-links"></div><h3>Missing source assets</h3><div id="all-gaps"></div></dialog>
+<div id="announcement" class="sr-only" aria-live="polite"></div>
+<script type="module" src="/intervention/app.mjs"></script>
+</body>
+</html>

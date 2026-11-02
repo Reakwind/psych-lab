@@ -1,0 +1,1219 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#F3EEE4;overflow:hidden}
+#stage{position:relative;width:1080px;height:1080px;overflow:hidden;background:#F3EEE4;--sans:'Rubik',system-ui,sans-serif}
+.scene{position:absolute;inset:0;display:none}</style>
+<style>#stage { --ground:#F3EEE4; --main:#2B6A62; --second:#1F2A33; --accent:#E8A33D; color:var(--second); font-family:var(--sans, system-ui, sans-serif) }
+.ground { position:absolute; inset:0; background:radial-gradient(110% 80% at 50% 30%, var(--ground), color-mix(in srgb, var(--ground) 90%, var(--accent))) }
+.words { position:absolute; margin:0; display:flex; flex-direction:column; gap:16px; direction:rtl } .words > * { margin:0 }
+.line { font-family:var(--display, var(--sans, system-ui, sans-serif)); font-size:54px; line-height:1.15; font-weight:600 } .sub { font-size:30px }
+.tag { position:absolute; left:0; top:0; padding:10px 24px; border-radius:999px; background:color-mix(in srgb, var(--ground) 40%, white); color:var(--second); font-size:32px; font-weight:600; direction:rtl; white-space:nowrap; box-shadow:0 10px 24px -10px rgba(0,0,0,.25) }
+.tag-warm { background:color-mix(in srgb, var(--accent) 22%, var(--ground)) }
+.tag-cool { background:color-mix(in srgb, var(--main) 16%, var(--ground)) }
+.art { position:absolute; inset:0; width:100%; height:100%; overflow:visible }
+.cap { position:absolute; left:40px; right:40px; bottom:28px; padding:16px 26px; border-radius:22px; background:color-mix(in srgb, var(--second) 82%, transparent); color:var(--ground); font-size:27px; line-height:1.4; direction:rtl; text-align:center }
+.wall-lo { fill:color-mix(in srgb, var(--ground) 90%, var(--second)) }
+.floor { fill:color-mix(in srgb, var(--accent) 30%, var(--ground)) } .floor-dk { fill:color-mix(in srgb, var(--accent) 40%, var(--second) 12%) }
+.ink { fill:none; stroke:var(--second); stroke-width:5; stroke-linecap:round; stroke-linejoin:round }
+.skin { fill:color-mix(in srgb, var(--accent) 38%, var(--ground)) } .skin-dk { fill:color-mix(in srgb, var(--accent) 55%, var(--ground)) }
+.hair { fill:color-mix(in srgb, var(--second) 28%, var(--ground)) } .hair-dk { fill:color-mix(in srgb, var(--second) 42%, var(--ground)) }
+.knit { fill:var(--main) } .knit-dk { fill:color-mix(in srgb, var(--main) 72%, var(--second)) } .knit-lt { fill:color-mix(in srgb, var(--main) 70%, var(--ground)) }
+.skirt { fill:color-mix(in srgb, var(--second) 75%, var(--main)) }
+.chair { fill:color-mix(in srgb, var(--accent) 45%, var(--ground)) } .chair-dk { fill:color-mix(in srgb, var(--accent) 62%, var(--second) 14%) }
+.wood { fill:color-mix(in srgb, var(--accent) 48%, var(--second) 22%) } .wood-lt { fill:color-mix(in srgb, var(--accent) 40%, var(--ground)) }
+.glass { fill:color-mix(in srgb, var(--main) 22%, var(--ground)) } .leaf { fill:var(--main) } .leaf-lt { fill:color-mix(in srgb, var(--main) 65%, var(--ground)) }
+.slate { fill:color-mix(in srgb, var(--second) 55%, var(--ground)) } .slate-dk { fill:color-mix(in srgb, var(--second) 75%, var(--ground)) }
+.amber { fill:var(--accent) } .amber-dk { fill:color-mix(in srgb, var(--accent) 75%, var(--second)) } .amber-lt { fill:color-mix(in srgb, var(--accent) 45%, var(--ground)) }
+.metal { fill:color-mix(in srgb, var(--second) 80%, var(--ground)) }
+.shade { fill:rgba(0,0,0,.12) } .light { fill:color-mix(in srgb, var(--ground) 30%, white) }.sky { fill:color-mix(in srgb, var(--main) 14%, var(--ground)) } .hill-far { fill:color-mix(in srgb, var(--main) 30%, var(--ground)) } .hill-near { fill:color-mix(in srgb, var(--main) 45%, var(--ground)) }
+.grass { fill:color-mix(in srgb, var(--main) 58%, var(--ground)) } .stone { fill:color-mix(in srgb, var(--accent) 22%, var(--ground)) } .stone-dk { fill:color-mix(in srgb, var(--accent) 30%, var(--second)) } .stone-lit { fill:var(--accent) }
+.pack { fill:color-mix(in srgb, var(--accent) 60%, var(--second)) } .pack-dk { fill:color-mix(in srgb, var(--accent) 42%, var(--second)) } .pack-lt { fill:color-mix(in srgb, var(--accent) 70%, var(--ground)) }
+.weight { fill:color-mix(in srgb, var(--second) 60%, var(--ground)) } .weight-dk { fill:color-mix(in srgb, var(--second) 78%, var(--ground)) }
+.nira-skin { fill:color-mix(in srgb, color-mix(in srgb, var(--accent) 55%, var(--ground)) 82%, var(--second)) } .nira-skin-dk { fill:color-mix(in srgb, color-mix(in srgb, var(--accent) 60%, var(--ground)) 70%, var(--second)) }
+.nira-hair { fill:color-mix(in srgb, var(--second) 82%, var(--accent)) } .nira-hair-dk { fill:var(--second) } .nira-top { fill:var(--accent) } .nira-top-dk { fill:color-mix(in srgb, var(--accent) 78%, var(--second)) } .nira-pants { fill:color-mix(in srgb, var(--second) 82%, var(--main)) }
+
+.ariel-top { fill:#4E7FAA } .ariel-top-dk { fill:#3D6890 } .ariel-pants { fill:color-mix(in srgb, var(--second) 85%, #4E7FAA) } .ariel-hair { fill:#5B4034 } .ariel-scr { fill:color-mix(in srgb, #4E7FAA 22%, var(--ground)) }
+.mat { fill:color-mix(in srgb, var(--main) 32%, var(--ground)) } .cushion { fill:color-mix(in srgb, var(--accent) 40%, var(--ground)) }
+.voice-grey { fill:color-mix(in srgb, var(--second) 22%, var(--ground)) } .voice-warm { fill:color-mix(in srgb, var(--accent) 52%, var(--ground)) }
+.thought { position:absolute; left:0; top:0; width:600px; box-sizing:border-box; padding:30px 38px; border-radius:34px; font-size:40px; line-height:1.3; font-weight:600; text-align:center; direction:rtl; color:var(--second); background:color-mix(in srgb, var(--second) 14%, var(--ground)); border:5px solid var(--second); box-shadow:0 18px 30px -16px rgba(0,0,0,.35) }
+.thought.kind { background:color-mix(in srgb, var(--accent) 30%, var(--ground)) }
+.thought.heavy { background:color-mix(in srgb, var(--second) 52%, var(--ground)); color:var(--ground) }
+.btn { position:absolute; left:0; top:0; padding:16px 34px; border-radius:999px; font-size:34px; font-weight:600; direction:rtl; white-space:nowrap; border:4px solid var(--second); color:var(--second); background:color-mix(in srgb, var(--second) 12%, var(--ground)) }
+.btn.keep { background:color-mix(in srgb, var(--accent) 34%, var(--ground)) }
+.count { position:absolute; left:0; top:0; font-size:64px; font-weight:700; color:var(--second); direction:rtl; white-space:nowrap }
+.struck { --s:0 } .struck::after { content:''; position:absolute; left:16px; right:16px; top:50%; height:5px; margin-top:-2px; border-radius:3px; background:#C0392B; transform:scaleX(var(--s)); transform-origin:100% 50% }
+.thought.sm { width:440px; font-size:34px; padding:24px 30px }
+.thought.xs { width:420px; font-size:33px; padding:20px 24px; border-width:4px; border-radius:28px }
+.fra-top { fill:color-mix(in srgb, var(--main) 55%, #9CC5A1) } .fra-top-dk { fill:color-mix(in srgb, var(--main) 75%, #9CC5A1) } .fra-hair { fill:#6B4E3D } .fra-hair-dk { fill:#4E382B } .fra-pants { fill:color-mix(in srgb, var(--second) 80%, var(--main)) }
+.frb-top { fill:#B07AA1 } .frb-top-dk { fill:#8E5F82 } .frb-hair { fill:#8A8F99 } .frb-hair-dk { fill:#6C7280 } .frb-pants { fill:color-mix(in srgb, var(--second) 85%, #B07AA1) }
+.frg-top { fill:color-mix(in srgb, var(--second) 25%, var(--ground)) } .frg-top-dk { fill:color-mix(in srgb, var(--second) 35%, var(--ground)) } .frg-hair { fill:color-mix(in srgb, var(--second) 50%, var(--ground)) } .frg-hair-dk { fill:color-mix(in srgb, var(--second) 60%, var(--ground)) } .frg-pants { fill:color-mix(in srgb, var(--second) 45%, var(--ground)) }
+.tag-red { background:color-mix(in srgb, #D96C6C 26%, var(--ground)) }
+.order { position:absolute; left:0; top:0; box-sizing:border-box; padding:20px 30px; border-radius:20px; font-size:36px; font-weight:700; direction:rtl; white-space:nowrap; color:var(--ground); background:color-mix(in srgb, var(--second) 70%, var(--ground)); border:5px solid var(--second); box-shadow:0 14px 24px -12px rgba(0,0,0,.4) }
+</style></head><body><div id="stage"></div>
+<script>
+const clamp01 = (x) => Math.max(0, Math.min(1, x));
+const kit = {
+  clamp01, seg: (t, a, b) => clamp01((t - a) / (b - a)), lerp: (a, b, p) => a + (b - a) * p,
+  eo: (x) => 1 - Math.pow(1 - x, 3), ei: (x) => x * x * x,
+  eio: (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2),
+  eob: (x, s = 1.4) => { const c3 = s + 1; return 1 + c3 * Math.pow(x - 1, 3) + s * Math.pow(x - 1, 2); },
+  breathe: (t, a = 0.012, p = 3.2) => 1 + a * Math.sin(2 * Math.PI * t / p),
+  h: (s) => { const d = document.createElement('div'); d.innerHTML = s.trim(); return d.firstElementChild; },
+  css: (txt) => { const st = document.createElement('style'); st.textContent = txt; document.getElementById('stage').append(st); },
+  defs: [], scene(id, o) { kit.defs.push([id, o]); },
+};
+</script>
+<script>// Ruth's living room, Ruth herself, the spark and the scale: drawn once, reused by every scene so the world never changes between cuts.
+// Stage is 1080 square. Effort sits on the RIGHT pan (where a Hebrew reader starts), reward on the LEFT.
+window.CAPTIONS = true; // review captions; set false before exporting for the app, which shows its own
+window.R = {
+  PIV: [540, 175], ARM: 290,
+  room(o) {
+    o = o || {};
+    let s = '<rect class="wall-lo" x="0" y="650" width="1080" height="210"/><rect class="shade" x="0" y="646" width="1080" height="6"/>' +
+      '<rect class="floor" x="0" y="860" width="1080" height="220"/><rect class="floor-dk" x="0" y="860" width="1080" height="12"/>' +
+      '<path class="floor-dk" opacity=".35" d="M0 940 H1080 V946 H0Z M0 1020 H1080 V1026 H0Z"/>' +
+      '<rect class="wood-lt" x="62" y="322" width="246" height="236" rx="14"/><rect class="glass" x="80" y="340" width="210" height="200" rx="6"/>' +
+      '<path class="light" opacity=".7" d="M100 520 L170 360 H200 L130 520Z"/><path class="wood-lt" d="M182 340 h8 v200 h-8Z M80 436 h210 v8 h-210Z"/>' +
+      '<rect class="wood" x="52" y="552" width="266" height="16" rx="8"/>' +
+      '<path class="knit-lt" d="M248 300 C276 380 262 470 300 590 L320 590 L322 300Z"/>';
+    if (o.clock) s += '<g class="' + o.clock + '"><circle class="light" cx="540" cy="250" r="52"/><circle class="ink" cx="540" cy="250" r="52"/><circle class="metal" cx="540" cy="250" r="6"/></g>';
+    if (o.open) s += '<rect class="amber-lt" x="820" y="450" width="190" height="410" rx="6"/><path class="light" opacity=".8" d="M820 860 L1010 860 L1080 1080 L700 1080Z"/><path class="wood" d="M820 450 L760 476 L760 860 L820 860Z"/>';
+    else s += '<rect class="wood" x="820" y="450" width="190" height="410" rx="6"/><rect class="wood-lt" opacity=".55" x="848" y="482" width="134" height="150" rx="6"/><rect class="wood-lt" opacity=".55" x="848" y="660" width="134" height="170" rx="6"/><circle class="amber" cx="846" cy="668" r="10"/>';
+    if (o.shoes !== false) s += '<g class="' + (o.shoes || 'shoes') + '">' + R.shoe(726, 858) + R.shoe(772, 860) + '</g>';
+    if (o.plant !== false) s += R.plant();
+    return s;
+  },
+  shoe(x, y) { return '<path class="slate-dk" d="M' + x + ' ' + y + ' q0 -26 22 -28 q14 0 18 12 l20 6 q10 4 8 10 Z"/><rect class="light" opacity=".5" x="' + (x + 6) + '" y="' + (y - 3) + '" width="56" height="3"/>'; },
+  plant() {
+    return '<g class="plant"><ellipse class="shade" cx="130" cy="862" rx="62" ry="10"/>' +
+      '<path class="leaf" d="M130 770 C90 720 70 690 64 640 C100 660 122 700 130 770Z M130 770 C150 700 180 670 214 650 C206 700 172 740 130 770Z M130 770 C120 700 124 650 140 600 C156 650 150 710 130 770Z"/>' +
+      '<path class="leaf-lt" d="M130 770 C108 730 96 700 92 668 C116 690 126 724 130 770Z"/>' +
+      '<path class="amber-dk" d="M84 770 H176 L164 860 H96Z"/><rect class="amber" x="78" y="764" width="104" height="22" rx="6"/></g>';
+  },
+  chair() {
+    return '<ellipse class="shade" cx="520" cy="864" rx="230" ry="16"/><rect class="chair-dk" x="352" y="820" width="18" height="42" rx="6"/><rect class="chair-dk" x="670" y="820" width="18" height="42" rx="6"/>' +
+      '<path class="chair" d="M360 820 V600 Q360 552 410 552 H630 Q680 552 680 600 V820Z"/><path class="chair-dk" opacity=".45" d="M630 552 Q680 552 680 600 V820 H640 V600 Q640 566 630 552Z"/>' +
+      '<rect class="chair" x="318" y="690" width="78" height="140" rx="34"/><rect class="chair" x="644" y="690" width="78" height="140" rx="34"/>' +
+      '<rect class="chair-dk" x="380" y="736" width="280" height="90" rx="26"/>';
+  },
+  // Ruth, drawn around a local origin. pose: sit (origin = hips on the seat), stand / step / water (origin = between the feet), bend (origin = feet).
+  ruth(id, pose) {
+    const head = '<g class="' + id + '-head"><path class="hair-dk" d="M-58 -10 C-66 -70 -30 -102 4 -100 C44 -98 66 -66 58 -6 C56 18 44 30 36 34 L-40 34 C-52 26 -56 12 -58 -10Z"/>' +
+      '<ellipse class="skin" cx="0" cy="-4" rx="44" ry="50"/><path class="hair" d="M-48 -16 C-48 -72 -6 -92 24 -84 C52 -76 58 -44 52 -22 C30 -44 -6 -54 -48 -16Z"/>' +
+      '<g class="' + id + '-eyes"><circle class="metal" cx="-16" cy="-2" r="5"/><circle class="metal" cx="18" cy="-2" r="5"/></g>' +
+      '<circle class="ink" style="stroke-width:3.5" cx="-16" cy="-2" r="15"/><circle class="ink" style="stroke-width:3.5" cx="18" cy="-2" r="15"/><path class="ink" style="stroke-width:3.5" d="M-1 -4 h4"/>' +
+      '<ellipse class="skin-dk" opacity=".6" cx="-26" cy="20" rx="9" ry="5"/><ellipse class="skin-dk" opacity=".6" cx="30" cy="20" rx="9" ry="5"/>' +
+      '<path class="ink ' + id + '-mouth" style="stroke-width:4" d="M-10 26 Q2 32 14 26"/></g>';
+    const torso = '<path class="knit" d="M-72 0 C-78 -60 -74 -120 -56 -150 Q-30 -168 0 -168 Q30 -168 56 -150 C74 -120 78 -60 72 0Z"/>' +
+      '<path class="knit-dk" opacity=".55" d="M30 -166 Q56 -152 62 -120 C72 -70 74 -30 72 0 H40 C46 -60 44 -120 30 -166Z"/><path class="light" opacity=".85" d="M-16 -168 L0 -120 L16 -168Z"/>' +
+      '<circle class="knit-lt" cx="0" cy="-100" r="5"/><circle class="knit-lt" cx="0" cy="-70" r="5"/><circle class="knit-lt" cx="0" cy="-40" r="5"/>';
+    const neck = '<rect class="skin-dk" x="-14" y="-186" width="28" height="24" rx="8"/>';
+    if (pose === 'sit') {
+      return '<g class="' + id + '-ruth"><path class="skirt" d="M-66 -6 C-30 -16 70 -14 118 4 L126 40 C80 52 -40 50 -70 34Z"/>' +
+        '<path class="skin" d="M96 30 h26 l6 84 h-26Z M60 34 h26 l4 82 h-26Z"/><path class="slate-dk" d="M58 112 h40 q14 0 16 12 h-56Z M96 110 h40 q14 0 16 12 h-56Z"/>' +
+        torso.replace(/0Z"/, '0Z"') + neck + '<g transform="translate(0 -218)">' + head + '</g>' +
+        '<path class="knit" d="M-66 -140 C-92 -90 -80 -40 -30 -10 L-10 -30 C-46 -50 -52 -96 -40 -128Z"/><path class="knit" d="M66 -140 C92 -90 84 -40 40 -12 L22 -30 C52 -50 56 -96 42 -128Z"/>' +
+        '<ellipse class="skin" cx="-12" cy="-22" rx="20" ry="14"/><ellipse class="skin" cx="22" cy="-24" rx="20" ry="14"/></g>';
+    }
+    const legs = pose === 'step' ? '<path class="skin" d="M-36 -200 l24 0 l-30 196 h-24Z M12 -200 l24 0 l36 192 h-24Z"/>' + R.shoe(-74, 2).replace('slate-dk', 'slate-dk') + R.shoe(40, 2)
+      : '<path class="skin" d="M-34 -200 h26 l-2 196 h-26Z M8 -200 h26 l2 196 h-26Z"/>' + R.shoe(-48, 2) + R.shoe(0, 2);
+    const arms = pose === 'water'
+      ? '<path class="knit" d="M-60 -330 C-84 -280 -82 -230 -70 -196 L-50 -200 C-60 -240 -58 -280 -42 -316Z"/><path class="knit" d="M58 -330 C96 -320 128 -300 150 -270 L134 -254 C112 -280 88 -296 52 -300Z"/>' +
+        '<g class="' + id + '-can"><path class="main-can glass" d="M130 -272 h70 l-6 64 h-58Z"/><path class="ink" style="stroke-width:4" d="M200 -258 L246 -236 M140 -272 q30 -30 54 0"/><rect class="knit-dk" x="130" y="-276" width="70" height="10" rx="4"/></g>'
+      : '<path class="knit" d="M-60 -330 C-84 -280 -82 -230 -70 -196 L-50 -200 C-60 -240 -58 -280 -42 -316Z"/><path class="knit" d="M60 -330 C84 -280 82 -230 70 -196 L50 -200 C60 -240 58 -280 42 -316Z"/><ellipse class="skin" cx="-62" cy="-192" rx="14" ry="16"/><ellipse class="skin" cx="62" cy="-192" rx="14" ry="16"/>';
+    const body = '<g transform="translate(0 -200)"><path class="skirt" d="M-64 -40 L64 -40 L80 40 L-80 40Z"/>' + torso.replace(/-168/g, '-168') + '</g>';
+    const lean = pose === 'bend' ? ' transform="rotate(24 0 -200)"' : '';
+    return '<g class="' + id + '-ruth"><ellipse class="shade" cx="0" cy="4" rx="80" ry="10"/>' + legs + '<g' + lean + '>' + body.replace('translate(0 -200)', 'translate(0 -200)') +
+      '<g transform="translate(0 -200)">' + neck.replace('-186', '-186') + '</g><g transform="translate(0 -418)">' + head + '</g>' + arms + '</g></g>';
+  },
+  spark(id) {
+    return '<g class="' + id + '-spark"><circle class="' + id + '-ring ink" style="stroke-width:4;stroke-dasharray:10 12" r="40"/>' +
+      '<circle class="' + id + '-glow amber-lt" r="64" opacity=".5"/><path class="' + id + '-star amber" d="M0 -46 C6 -12 12 -6 46 0 C12 6 6 12 0 46 C-6 12 -12 6 -46 0 C-12 -6 -6 -12 0 -46Z"/></g>';
+  },
+  scale(id, right, left) {
+    const pan = (k, items) => '<g class="' + id + '-pan' + k + '"><path class="ink" style="stroke-width:3" d="M0 0 L-92 150 M0 0 L92 150"/>' + (items || '') +
+      '<path class="' + (k === 'R' ? 'slate' : 'amber') + '" d="M-110 150 H110 Q100 196 0 198 Q-100 196 -110 150Z"/><path class="' + (k === 'R' ? 'slate-dk' : 'amber-dk') + '" d="M-110 150 H110 Q108 160 104 166 H-104 Q-108 160 -110 150Z"/></g>';
+    return '<g class="' + id + '-scale"><path class="metal" d="M532 175 h16 l10 150 h-36Z"/><rect class="metal" x="496" y="320" width="88" height="16" rx="8"/>' +
+      pan('R', right) + pan('L', left) +
+      '<g class="' + id + '-beam"><rect class="metal" x="240" y="166" width="600" height="18" rx="9"/><circle class="amber" cx="540" cy="175" r="16"/><circle class="metal" cx="540" cy="175" r="7"/></g></g>';
+  },
+  // effort blocks and reward tokens, drawn relative to a pan's hang point
+  block(cls, x, w, h, y) { y = y == null ? 150 : y; return '<g class="' + cls + '"><rect class="slate-dk" x="' + (x - w / 2) + '" y="' + (y - h) + '" width="' + w + '" height="' + h + '" rx="10"/><rect class="slate" x="' + (x - w / 2 + 6) + '" y="' + (y - h + 6) + '" width="' + (w - 12) + '" height="' + (h / 2 - 6) + '" rx="6"/></g>'; },
+  token(cls, kind, x, r) {
+    const c = '<g class="' + cls + '"><g transform="translate(' + x + ' ' + (150 - r) + ')">';
+    if (kind === 'heart') return c + '<path class="amber-dk" d="M0 ' + (r * .8) + ' C' + (-r * 1.3) + ' 0 ' + (-r * .7) + ' ' + (-r * 1.1) + ' 0 ' + (-r * .4) + ' C' + (r * .7) + ' ' + (-r * 1.1) + ' ' + (r * 1.3) + ' 0 0 ' + (r * .8) + 'Z"/></g></g>';
+    if (kind === 'talk') return c + '<path class="light" d="M' + (-r) + ' ' + (-r * .7) + ' h' + (2 * r) + ' v' + (r * 1.2) + ' h' + (-r) + ' l' + (-r * .5) + ' ' + (r * .5) + ' v' + (-r * .5) + ' h' + (-r * .5) + 'Z"/><circle class="metal" cx="' + (-r * .4) + '" cy="' + (-r * .1) + '" r="' + (r * .12) + '"/><circle class="metal" cx="0" cy="' + (-r * .1) + '" r="' + (r * .12) + '"/><circle class="metal" cx="' + (r * .4) + '" cy="' + (-r * .1) + '" r="' + (r * .12) + '"/></g></g>';
+    if (kind === 'compass') return c + '<circle class="leaf-lt" r="' + r + '"/><circle class="ink" style="stroke-width:4" r="' + r + '"/><path class="amber-dk" d="M0 ' + (-r * .75) + ' L' + (r * .22) + ' 0 L0 ' + (r * .75) + ' L' + (-r * .22) + ' 0Z"/></g></g>';
+    return c + '<circle class="amber-lt" r="' + r + '"/><circle class="amber" r="' + (r * .55) + '"/></g></g>';
+  },
+
+  // the scale lives in a thought bubble above Ruth: a soft cloud behind it keeps the room quiet
+  cloud(cls) {
+    return '<g class="' + cls + '"><path class="shade" transform="translate(0 10)" d="M130 520 C60 520 36 446 80 404 C26 360 48 262 126 252 C114 150 220 96 300 126 C352 50 474 40 540 82 C606 40 730 50 780 126 C862 96 968 150 956 252 C1034 262 1054 360 1000 404 C1044 446 1020 520 950 520Z"/>' +
+      '<path class="light" opacity=".92" d="M130 520 C60 520 36 446 80 404 C26 360 48 262 126 252 C114 150 220 96 300 126 C352 50 474 40 540 82 C606 40 730 50 780 126 C862 96 968 150 956 252 C1034 262 1054 360 1000 404 C1044 446 1020 520 950 520Z"/></g>';
+  },
+  // Ruth's head in side profile, facing right, with the top of the skull cut away to show the brain.
+  // Inside sits the "spark-maker": a light bulb wired into the brain. Classes: p-brain, p-nerves, p-bulb, plus R.spark(p) parts.
+  profile(p) {
+    const skull = 'M246 520 C226 330 360 170 540 168 C700 166 812 262 826 398 C832 452 818 496 842 540 L874 600 C882 616 872 628 856 630 L842 632 C848 646 846 660 836 666 C842 678 838 694 824 700 C826 734 808 760 776 764 C720 790 640 800 580 788 C500 772 430 740 384 700 C310 640 254 590 246 520Z';
+    return '<rect width="1080" height="1080" style="fill:color-mix(in srgb, var(--main) 14%, var(--ground))"/>' +
+      '<circle cx="540" cy="520" r="470" style="fill:color-mix(in srgb, var(--ground) 70%, white)"/>' +
+      '<path class="skin" d="' + skull + '"/>' +
+      '<path class="skin-dk" opacity=".55" d="M384 700 C310 640 254 590 246 520 C244 470 250 420 262 380 C290 540 370 660 500 730 C580 770 690 772 776 764 C720 790 640 800 580 788 C500 772 430 740 384 700Z"/>' +
+      // ear and the arm of her glasses
+      '<path class="skin-dk" d="M470 520 C430 500 404 540 414 590 C422 630 452 652 482 640 C474 600 476 560 470 520Z"/><path class="ink" style="stroke-width:4;opacity:.5" d="M452 548 C436 566 440 604 458 620"/>' +
+      '<path class="ink" style="stroke-width:9" d="M470 530 L760 512"/>' +
+      // hair: a soft grey bob over the back and top of the head
+      '<path class="hair" d="M232 560 C200 360 330 150 540 140 C700 132 820 220 846 360 C780 300 700 280 640 300 C520 260 400 330 360 470 C340 560 360 660 410 720 C330 720 250 660 232 560Z"/>' +
+      '<path class="hair-dk" opacity=".55" d="M232 560 C220 470 236 390 270 320 C270 450 300 580 380 700 C320 690 250 640 232 560Z"/>' +
+      '<path class="ink" style="stroke-width:4;opacity:.18" d="M300 300 C340 250 400 220 470 210 M280 420 C300 360 340 320 400 290 M700 200 C760 220 800 260 820 310"/>' +
+      // face: brow, eye behind the lens, glasses, mouth and cheek
+      '<path class="ink" style="stroke-width:8" d="M748 464 C770 452 796 452 814 462"/>' +
+      '<ellipse class="' + p + '-eye metal" cx="790" cy="512" rx="9" ry="10"/>' +
+      '<ellipse class="light" opacity=".28" cx="786" cy="514" rx="44" ry="40"/><ellipse class="ink" style="stroke-width:8" cx="786" cy="514" rx="44" ry="40"/>' +
+      '<path class="ink" style="stroke-width:6" d="M806 690 C820 692 830 690 836 684"/>' +
+      '<ellipse class="skin-dk" opacity=".6" cx="740" cy="600" rx="34" ry="20"/>' +
+      // the cutaway: skull rim, a dark cavity, and the brain inside
+      '<g class="' + p + '-cut"><clipPath id="' + p + '-clip"><ellipse cx="510" cy="370" rx="218" ry="166"/></clipPath>' +
+      '<ellipse cx="510" cy="370" rx="234" ry="182" style="fill:color-mix(in srgb, var(--ground) 55%, white)"/>' +
+      '<ellipse cx="510" cy="370" rx="218" ry="166" style="fill:color-mix(in srgb, var(--second) 78%, var(--main))"/>' +
+      '<g clip-path="url(#' + p + '-clip)"><g transform="translate(510 368) scale(.93) translate(-530 -380)"><g class="' + p + '-brain">' +
+      '<path class="amber-lt" d="M330 410 C318 320 390 240 490 232 C570 222 660 252 706 316 C738 360 734 418 708 446 C716 480 690 506 654 500 C632 528 578 532 548 510 C516 532 462 530 444 504 C404 518 352 502 346 466 C332 452 328 432 330 410Z"/>' +
+      '<path class="amber-lt" style="fill:color-mix(in srgb, var(--accent) 52%, var(--ground))" d="M372 470 C352 492 360 528 392 538 C424 548 456 534 462 512 C430 520 396 504 372 470Z"/>' +
+      '<path class="amber-dk" opacity=".45" d="M548 510 C556 540 552 570 540 590 L520 590 C526 566 526 536 514 512Z"/>' +
+      '<path style="fill:none;stroke:color-mix(in srgb, var(--accent) 70%, var(--second));stroke-width:5;stroke-linecap:round;opacity:.55" d="M392 330 C420 300 460 296 488 318 C510 290 556 286 584 306 M620 290 C650 300 676 326 684 356 M360 400 C392 384 430 392 448 420 C470 396 510 396 530 418 M560 380 C596 360 640 370 664 400 M440 470 C470 452 506 458 520 482 M590 452 C620 440 652 450 668 472 M380 486 C398 496 424 500 444 494 M392 520 C410 526 430 526 446 520"/>' +
+      '</g>' +
+      '<path class="' + p + '-nerves" style="fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;stroke-dasharray:2 16" d="M528 360 C480 330 430 320 392 330 M548 360 C590 320 640 310 680 330 M520 400 C470 420 430 440 404 470 M556 404 C600 420 640 440 664 464"/>' +
+      // the spark-maker: a light bulb wired into the brain
+      '<g class="' + p + '-bulb"><ellipse class="shade" cx="540" cy="452" rx="40" ry="8"/>' +
+      '<path class="metal" d="M516 404 h48 v14 h-48Z M520 420 h40 v10 h-40Z M526 432 h28 v12 h-28Z"/>' +
+      '<circle cx="540" cy="354" r="58" style="fill:color-mix(in srgb, var(--ground) 40%, white);opacity:.9"/>' +
+      '<path class="ink" style="stroke-width:5" d="M498 394 C474 372 470 334 492 312 C520 284 564 286 588 314 C608 340 604 374 582 394 L564 404 L516 404Z"/>' +
+      '<g transform="translate(540 352) scale(.62)">' + R.spark(p) + '</g>' +
+      '<path class="ink" style="stroke-width:3;opacity:.45" d="M528 404 L530 376 M552 404 L550 376"/></g></g></g>' +
+      '<ellipse cx="510" cy="370" rx="234" ry="182" style="fill:none;stroke:var(--second);stroke-width:6;opacity:.85"/></g>';
+  },
+  refs(kit, id, names) { const o = {}; for (const n of names) o[n] = kit.stage.querySelector('.' + id + '-' + n); return o; },
+  // tilt the beam by deg (positive: effort side down); pans hang straight with a little swing
+  setScale(r, deg, swing) {
+    const [px, py] = R.PIV, a = deg * Math.PI / 180, c = Math.cos(a) * R.ARM, s = Math.sin(a) * R.ARM, w = swing || 0;
+    r.beam.setAttribute('transform', 'rotate(' + deg + ' ' + px + ' ' + py + ')');
+    r.panR.setAttribute('transform', 'translate(' + (px + c) + ' ' + (py + s) + ') rotate(' + w + ')');
+    r.panL.setAttribute('transform', 'translate(' + (px - c) + ' ' + (py - s) + ') rotate(' + w + ')');
+    return { R: [px + c, py + s + 200], L: [px - c, py - s + 200] };
+  },
+  place(el, x, y, o) { el.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,0)'; if (o != null) el.style.opacity = o; },
+  blink(eyes, t, off) { const p = ((t + (off || 0)) % 4.1); eyes.setAttribute('transform', p > 3.95 ? 'translate(0 -2) scale(1 .15)' : ''); },
+  caption(kit, text) { if (window.CAPTIONS) kit.stage.append(kit.h('<p class="cap">' + text + '</p>')); },
+  // ---- session 1: the path, the backpack, Nira, the tools ----
+  PATH: [[540, 1000, 130], [462, 880, 104], [560, 790, 86], [496, 716, 70], [562, 656, 58], [516, 606, 48], [566, 566, 40], [532, 534, 32], [560, 508, 26], [544, 488, 20], [556, 472, 16]],
+  stone(cls, x, y, r) {
+    return '<g class="' + cls + '"><ellipse class="stone-dk" cx="' + x + '" cy="' + (y + r * 0.1) + '" rx="' + r + '" ry="' + (r * 0.4) + '"/><ellipse class="stone ' + cls + '-top" cx="' + x + '" cy="' + y + '" rx="' + (r * 0.96) + '" ry="' + (r * 0.34) + '"/>' +
+      '<ellipse class="light" opacity=".45" cx="' + (x - r * 0.25) + '" cy="' + (y - r * 0.1) + '" rx="' + (r * 0.4) + '" ry="' + (r * 0.1) + '"/></g>';
+  },
+  land(p, o) {
+    o = o || {};
+    let s = '<rect class="sky" width="1080" height="1080"/>' +
+      '<circle class="' + p + '-sun" cx="' + (o.sunX || 820) + '" cy="' + (o.sunY || 300) + '" r="70" style="fill:var(--accent);opacity:' + (o.sun ? 1 : 0) + '"/>' +
+      '<path class="hill-far" d="M0 470 C180 410 360 448 540 440 C730 430 900 392 1080 446 V1080 H0Z"/>' +
+      '<path class="hill-near" d="M0 600 C220 556 470 600 720 578 C880 566 980 556 1080 584 V1080 H0Z"/>' +
+      '<path class="grass" d="M0 780 C260 740 560 770 820 750 C930 742 1010 744 1080 756 V1080 H0Z"/>' +
+      '<g class="' + p + '-tufts"><path class="hill-near" d="M120 840 l10 -30 l8 30 l10 -24 l6 24Z M900 860 l10 -30 l8 30 l10 -24 l6 24Z M260 980 l10 -30 l8 30 l10 -24 l6 24Z M820 1000 l10 -30 l8 30 l10 -24 l6 24Z"/></g>';
+    R.PATH.forEach(([x, y, r], k) => { s += R.stone(p + '-st' + k, x, y, r); });
+    return s;
+  },
+  // a backpack worn by a front-facing figure: the bag shows behind her, the straps in front
+  BAG: [170, 1060],
+  PILE: [[118, 958], [196, 964], [156, 928], [232, 932]],
+  weight() { return '<ellipse class="shade" cx="0" cy="34" rx="46" ry="10"/><ellipse class="weight-dk" cx="0" cy="6" rx="44" ry="34"/><ellipse class="weight" cx="0" cy="0" rx="42" ry="32"/><ellipse class="light" opacity=".35" cx="-12" cy="-12" rx="14" ry="6"/>'; },
+  bagDown(id) { return '<g class="' + id + '-bagdown" transform="translate(' + R.BAG[0] + ' ' + R.BAG[1] + ') rotate(6) scale(.8)">' + R.packBehind(id) + '</g>'; },
+  pile(id) { return '<g class="' + id + '-pile">' + R.PILE.map(([x, y]) => '<g transform="translate(' + x + ' ' + y + ') scale(.6)">' + R.weight() + '</g>').join('') + '</g>'; },
+  packBehind(id) {
+    return '<g class="' + id + '-pack"><rect class="pack-dk" x="-112" y="-424" width="224" height="238" rx="46"/><rect class="pack" x="-104" y="-430" width="208" height="226" rx="42"/><rect class="pack-lt" opacity=".5" x="-80" y="-422" width="160" height="40" rx="18"/></g>';
+  },
+  straps(id) {
+    return '<g class="' + id + '-straps"><path class="pack-dk" d="M-58 -368 C-66 -330 -66 -290 -60 -246 L-44 -246 C-48 -290 -48 -330 -40 -366Z M58 -368 C66 -330 66 -290 60 -246 L44 -246 C48 -290 48 -330 40 -366Z"/></g>';
+  },
+  // the same bag seen through: a soft outline over her body with the four heavy stones inside
+  packX(id) {
+    const w = (k, x, y) => '<g class="' + id + '-w' + k + '"><ellipse class="weight-dk" cx="' + x + '" cy="' + (y + 6) + '" rx="40" ry="32"/><ellipse class="weight" cx="' + x + '" cy="' + y + '" rx="38" ry="30"/><ellipse class="light" opacity=".35" cx="' + (x - 12) + '" cy="' + (y - 10) + '" rx="14" ry="6"/></g>';
+    return '<g class="' + id + '-xray"><rect x="-104" y="-370" width="208" height="226" rx="42" style="fill:color-mix(in srgb, var(--ground) 30%, white);opacity:.8"/>' +
+      '<rect x="-104" y="-370" width="208" height="226" rx="42" style="fill:none;stroke:var(--second);stroke-width:5;stroke-dasharray:14 10"/>' +
+      w(0, -48, -310) + w(1, 48, -310) + w(2, -48, -216) + w(3, 48, -216) + '</g>';
+  },
+  // Ruth seen from behind, walking up the path, her backpack on her back
+  ruthBack(id, step) {
+    const legs = step ? '<path class="skin" d="M-36 -200 l24 0 l-14 196 h-24Z M12 -200 l24 0 l20 192 h-24Z"/>' + R.shoe(-62, 2) + R.shoe(20, 0)
+      : '<path class="skin" d="M-34 -200 h26 l-2 196 h-26Z M8 -200 h26 l2 196 h-26Z"/>' + R.shoe(-48, 2) + R.shoe(0, 2);
+    return '<g class="' + id + '-ruth"><ellipse class="shade" cx="0" cy="4" rx="80" ry="10"/>' + legs +
+      '<path class="skirt" d="M-64 -240 L64 -240 L80 -160 L-80 -160Z"/>' +
+      '<path class="knit" d="M-72 -200 C-78 -260 -74 -320 -56 -350 Q-30 -368 0 -368 Q30 -368 56 -350 C74 -320 78 -260 72 -200Z"/>' +
+      '<path class="knit" d="M-60 -330 C-84 -280 -82 -230 -70 -196 L-50 -200 C-60 -240 -58 -280 -42 -316Z M60 -330 C84 -280 82 -230 70 -196 L50 -200 C60 -240 58 -280 42 -316Z"/>' +
+      '<ellipse class="skin" cx="-62" cy="-192" rx="14" ry="16"/><ellipse class="skin" cx="62" cy="-192" rx="14" ry="16"/>' +
+      '<g transform="translate(0 -418)"><ellipse class="skin-dk" cx="-46" cy="0" rx="10" ry="16"/><ellipse class="skin-dk" cx="46" cy="0" rx="10" ry="16"/>' +
+      '<path class="hair-dk" d="M-50 10 C-60 -60 -30 -96 0 -96 C30 -96 60 -60 50 10 C40 34 -40 34 -50 10Z"/><path class="hair" d="M-44 0 C-50 -56 -24 -86 0 -86 C24 -86 50 -56 44 0 C30 18 -30 18 -44 0Z"/>' +
+      '<path class="ink" style="stroke-width:3;opacity:.3" d="M-10 -80 C-14 -50 -14 -20 -10 6 M14 -78 C18 -50 18 -22 14 4"/></g>' +
+      '<g class="' + id + '-pack"><rect class="pack-dk" x="-84" y="-372" width="168" height="196" rx="38"/><rect class="pack" x="-78" y="-378" width="156" height="186" rx="34"/>' +
+      '<rect class="pack-dk" x="-58" y="-300" width="116" height="74" rx="20"/><rect class="pack-lt" opacity=".6" x="-58" y="-372" width="116" height="30" rx="14"/></g></g>';
+  },
+  // Nira, the psychologist whose voice we hear: drawn like Ruth, but younger, curly dark hair, amber top
+  nira(id, pose) {
+    let s = R.ruth(id, pose || 'stand');
+    s = s.replace(/<circle class="ink" style="stroke-width:3.5"[^>]*r="15"\/>/g, '').replace('<path class="ink" style="stroke-width:3.5" d="M-1 -4 h4"/>', '');
+    s = s.replace(/class="knit-lt"/g, 'class="nira-top-dk"').replace(/class="knit-dk"/g, 'class="nira-top-dk"').replace(/class="knit"/g, 'class="nira-top"')
+      .replace(/class="skirt"/g, 'class="nira-pants"').replace(/class="hair-dk"/g, 'class="nira-hair-dk"').replace(/class="hair"/g, 'class="nira-hair"')
+      .replace(/class="skin-dk"/g, 'class="nira-skin-dk"').replace(/class="skin"/g, 'class="nira-skin"');
+    const curls = '<g class="nira-hair"><circle cx="-40" cy="-62" r="22"/><circle cx="-12" cy="-80" r="24"/><circle cx="20" cy="-78" r="22"/><circle cx="44" cy="-56" r="20"/><circle cx="-54" cy="-30" r="18"/><circle cx="54" cy="-26" r="16"/></g>';
+    return s.replace('<g class="' + id + '-eyes">', curls + '<g class="' + id + '-eyes">');
+  },
+  niraBack(id, step) {
+    return R.ruthBack(id, step).replace(/class="knit"/g, 'class="nira-top"').replace(/class="skirt"/g, 'class="nira-pants"').replace(/class="hair-dk"/g, 'class="nira-hair-dk"').replace(/class="hair"/g, 'class="nira-hair"')
+      .replace(/class="skin-dk"/g, 'class="nira-skin-dk"').replace(/class="skin"/g, 'class="nira-skin"').replace(/<g class="[^"]*-pack">.*?<\/g><\/g>$/, '</g>');
+  },
+  // the five tools of the program, as round badges
+  tool(cls, k, r) {
+    r = r || 56;
+    const fills = ['color-mix(in srgb, var(--main) 30%, var(--ground))', 'color-mix(in srgb, var(--main) 18%, var(--ground))', 'color-mix(in srgb, var(--accent) 30%, var(--ground))', 'color-mix(in srgb, var(--accent) 45%, var(--ground))', 'color-mix(in srgb, var(--main) 42%, var(--ground))'];
+    const g = [
+      '<path class="light" d="M-30 10 C-44 10 -44 -12 -28 -12 C-28 -30 -4 -34 4 -20 C16 -30 34 -20 30 -6 C42 -4 40 14 28 14Z"/><path class="ink" style="stroke-width:5" d="M-30 10 C-44 10 -44 -12 -28 -12 C-28 -30 -4 -34 4 -20 C16 -30 34 -20 30 -6 C42 -4 40 14 28 14 L-30 14"/><path class="ink" style="stroke-width:5" d="M-8 2 q8 -10 16 0"/>',
+      '<path class="ink" style="stroke-width:6" d="M-30 -14 q10 -12 20 0 t20 0 t20 0 M-30 4 q10 -12 20 0 t20 0 t20 0 M-30 22 q10 -12 20 0 t20 0 t20 0"/>',
+      '<path class="light" d="M-34 0 Q0 -30 34 0 Q0 30 -34 0Z"/><path class="ink" style="stroke-width:5" d="M-34 0 Q0 -30 34 0 Q0 30 -34 0Z"/><circle class="metal" r="11"/><circle class="light" cx="4" cy="-4" r="3"/>',
+      '<path class="amber-dk" d="M0 26 C-40 2 -26 -32 0 -12 C26 -32 40 2 0 26Z"/><path class="light" opacity=".55" d="M-16 -12 q6 -6 12 0"/>',
+      '<circle class="ink" style="stroke-width:7" cx="-12" cy="0" r="18"/><circle class="ink" style="stroke-width:7" cx="12" cy="0" r="18"/>'
+    ][k];
+    return '<g class="' + cls + '"><circle class="shade" cy="' + (r * 0.12) + '" r="' + r + '"/><circle r="' + r + '" style="fill:' + fills[k] + ';stroke:var(--second);stroke-width:5"/><g transform="scale(' + (r / 56) + ')">' + g + '</g></g>';
+  },
+
+  // swap a standing figure's hanging arms for two arms that can rotate at the shoulder (id-armL, id-armR)
+  armsFree(markup, id) {
+    return markup.replace(/<path class="(knit|[a-z]+-top)" d="M-60 -330 [^"]*"\/><path class="\1" d="M60 -330 [^"]*"\/><ellipse class="(skin|nira-skin)" cx="-62"[^>]*\/><ellipse class="\2" cx="62"[^>]*\/>/, (m, top, skin) =>
+      '<g class="' + id + '-armL"><path class="' + top + '" d="M-60 -330 C-84 -280 -82 -230 -70 -196 L-50 -200 C-60 -240 -58 -280 -42 -316Z"/><ellipse class="' + skin + '" cx="-62" cy="-192" rx="14" ry="16"/></g>' +
+      '<g class="' + id + '-armR"><path class="' + top + '" d="M60 -330 C84 -280 82 -230 70 -196 L50 -200 C60 -240 58 -280 42 -316Z"/><ellipse class="' + skin + '" cx="62" cy="-192" rx="14" ry="16"/></g>');
+  },
+  // raise both arms by a (0..1); arms swing out and up around the shoulders
+  raise(r, a) {
+    r.armL.setAttribute('transform', 'rotate(' + (a * 150) + ' -52 -326)');
+    r.armR.setAttribute('transform', 'rotate(' + (-a * 150) + ' 52 -326)');
+  },
+
+
+  // ---- sessions 3–4: Ariel, Ruth on the mat, the inner voice, thought cards, the pacer, the day line ----
+  // Ariel, the second guide: Ruth's figure re-dressed — short dark hair and beard, no glasses, blue shirt, trousers
+  ariel(id, pose) {
+    let s = R.ruth(id, pose || 'stand');
+    s = s.replace(/<circle class="ink" style="stroke-width:3.5"[^>]*r="15"\/>/g, '').replace('<path class="ink" style="stroke-width:3.5" d="M-1 -4 h4"/>', '');
+    s = s.replace(/<path class="hair-dk" d="M-58 -10[^"]*"\/>/, '<ellipse class="skin-dk" cx="-44" cy="0" rx="9" ry="14"/><ellipse class="skin-dk" cx="44" cy="0" rx="9" ry="14"/>');
+    s = s.replace(/<path class="hair" d="M-48 -16[^"]*"\/>/, '<path class="ariel-hair" d="M-46 -12 C-54 -62 -20 -86 6 -84 C38 -82 56 -58 46 -12 C40 -34 26 -46 4 -48 C-16 -48 -36 -38 -46 -12Z"/>');
+    s = s.replace('<path class="ink ' + id + '-mouth"', '<path class="ariel-hair" d="M-42 8 C-40 42 -18 58 2 58 C22 58 42 42 42 8 C34 28 22 38 2 38 C-18 38 -34 28 -42 8Z"/><path class="ariel-hair" d="M-18 24 C-8 14 12 14 22 24 C12 21 -8 21 -18 24Z"/><path class="ink ' + id + '-mouth"');
+    s = s.replace('<path class="skin" d="M-34 -200', '<path class="ariel-pants" d="M-34 -200').replace('<path class="skin" d="M-36 -200', '<path class="ariel-pants" d="M-36 -200');
+    s = s.replace(/class="skirt"/g, 'class="ariel-pants"').replace(/class="knit-lt"/g, 'class="ariel-top-dk"').replace(/class="knit-dk"/g, 'class="ariel-top-dk"').replace(/class="knit"/g, 'class="ariel-top"');
+    return s;
+  },
+  // a guide on Ruth's phone screen; who: 'ariel' | 'nira'. Phone centred on (x, y), 74 × 116
+  phone(id, x, y, who) {
+    const fig = who === 'nira' ? R.nira(id + '-g', 'stand') : R.ariel(id + '-g', 'stand');
+    return '<g class="' + id + '-phone"><rect class="metal" x="' + (x - 37) + '" y="' + (y - 58) + '" width="74" height="116" rx="12"/>' +
+      '<clipPath id="' + id + '-scr"><rect x="' + (x - 29) + '" y="' + (y - 48) + '" width="58" height="94" rx="6"/></clipPath>' +
+      '<g clip-path="url(#' + id + '-scr)"><rect class="' + (who === 'nira' ? 'amber-lt' : 'ariel-scr') + '" x="' + (x - 29) + '" y="' + (y - 48) + '" width="58" height="94"/>' +
+      '<g transform="translate(' + x + ' ' + (y + 58) + ') scale(.17)">' + fig + '</g></g></g>';
+  },
+  // the room seen from straight above: floorboards, a mat and a cushion — Ruth lies on it (see ruthTop)
+  overhead(p) {
+    let s = '<rect class="floor" width="1080" height="1080"/>';
+    for (let k = 0; k < 9; k++) s += '<rect class="floor-dk" opacity=".3" x="0" y="' + (k * 130 + 40) + '" width="1080" height="5"/>';
+    s += '<g class="' + p + '-plant"><circle class="shade" cx="972" cy="122" r="108"/><circle class="amber-dk" cx="962" cy="112" r="70"/>' +
+      '<path class="leaf" d="M962 112 L900 30 Q950 40 962 112Z M962 112 L1060 70 Q1040 120 962 112Z M962 112 L1010 200 Q960 190 962 112Z M962 112 L880 160 Q900 110 962 112Z"/><path class="leaf-lt" d="M962 112 L930 40 Q960 60 962 112Z"/></g>';
+    s += '<rect class="shade" x="128" y="356" width="844" height="400" rx="60"/><rect class="' + p + '-mat mat" x="120" y="340" width="844" height="400" rx="60"/>' +
+      '<rect class="mat-dk" opacity=".5" x="150" y="370" width="784" height="340" rx="44" style="fill:none;stroke-width:6;stroke:color-mix(in srgb, var(--main) 50%, var(--ground))"/>' +
+      '<ellipse class="shade" cx="236" cy="552" rx="92" ry="128"/><ellipse class="' + p + '-cushion cushion" cx="226" cy="540" rx="88" ry="124"/><path class="light" opacity=".4" d="M190 450 Q226 430 262 450"/>';
+    return s;
+  },
+  // Ruth lying on her back seen from above: her standing figure turned so her head rests to the left, feet to the right.
+  // The right arm is free (id-armR) so a hand can rest on her belly. Origin = her feet.
+  ruthTop(id) {
+    let s = R.armsFree(R.ruth(id, 'stand'), id).replace('<ellipse class="shade" cx="0" cy="4" rx="80" ry="10"/>', '');
+    return '<g transform="rotate(-90)">' + s + '</g>';
+  },
+  // Ruth's inner voice: a small cloud with a face. Grey (critic) and warm layers cross-fade (id-grey, id-warm).
+  voice(id) {
+    const d = 'M-60 20 C-84 20 -92 -12 -70 -24 C-76 -56 -40 -72 -18 -56 C-6 -84 40 -84 50 -54 C78 -66 100 -36 82 -12 C100 0 92 24 70 24 L-10 24 L-34 48 L-30 24Z';
+    return '<g class="' + id + '-voice"><path class="shade" transform="translate(0 8)" d="' + d + '"/><path class="' + id + '-grey voice-grey" d="' + d + '"/><path class="' + id + '-warm voice-warm" d="' + d + '" opacity="0"/>' +
+      '<g class="' + id + '-eyes"><circle class="metal" cx="-6" cy="-14" r="6"/><circle class="metal" cx="26" cy="-14" r="6"/></g><path class="ink ' + id + '-mouth" style="stroke-width:5" d="M-2 4 Q10 10 22 4"/></g>';
+  },
+  // a centred transform for HTML pieces (thought cards, words): position, scale, rotation, opacity
+  put(el, x, y, s, rot, o) { el.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,-50%) scale(' + (s == null ? 1 : s) + ') rotate(' + (rot || 0) + 'deg)'; if (o != null) el.style.opacity = o; },
+  // the breathing pacer: a soft circle and n count dots below it (id-ring, id-core, id-d0..)
+  pacer(id, n) {
+    let s = '<g class="' + id + '-pacer"><circle class="' + id + '-ring" r="150" style="fill:var(--main);opacity:.12"/><circle class="' + id + '-core" r="110" style="fill:color-mix(in srgb, var(--main) 22%, var(--ground));stroke:var(--main);stroke-width:8"/>';
+    for (let k = 0; k < (n || 5); k++) s += '<circle class="' + id + '-d' + k + '" cx="' + ((k - ((n || 5) - 1) / 2) * 44) + '" cy="200" r="14" style="fill:var(--ground);stroke:var(--second);stroke-width:4"/>';
+    return s + '</g>';
+  },
+  // one day, morning on the right (sun) to evening on the left (moon): an ease curve that lifts after each pill
+  dayLine(id, y, pills) {
+    let s = '<g class="' + id + '-day"><rect class="metal" x="110" y="' + (y - 3) + '" width="860" height="6" rx="3"/>' +
+      '<circle class="amber" cx="1000" cy="' + y + '" r="30"/><path class="slate" d="M84 ' + (y - 30) + ' a30 30 0 1 0 0 60 a40 40 0 0 1 0 -60Z"/>';
+    (pills || []).forEach((x, k) => {
+      s += '<g class="' + id + '-pill' + k + '" transform="translate(' + x + ' ' + (y + 46) + ')"><rect x="-30" y="-14" width="60" height="28" rx="14" style="fill:var(--ground);stroke:var(--second);stroke-width:4"/><path d="M-30 0 a14 14 0 0 1 14 -14 h14 v28 h-14 a14 14 0 0 1 -14 -14Z" style="fill:#D96C6C"/></g>';
+    });
+    s += '<path class="' + id + '-curve" pathLength="1" style="fill:none;stroke:var(--accent);stroke-width:9;stroke-linecap:round" d="M970 ' + (y - 60) + ' C900 ' + (y - 250) + ' 840 ' + (y - 250) + ' 790 ' + (y - 120) + ' C750 ' + (y - 40) + ' 700 ' + (y - 260) + ' 610 ' + (y - 250) + ' C520 ' + (y - 240) + ' 500 ' + (y - 60) + ' 420 ' + (y - 80) + ' C340 ' + (y - 100) + ' 300 ' + (y - 220) + ' 230 ' + (y - 200) + ' C180 ' + (y - 186) + ' 150 ' + (y - 120) + ' 120 ' + (y - 110) + '"/></g>';
+    return s;
+  },
+  // Ruth's upper body in side profile (facing right), the chest cut away: lung, diaphragm, belly front.
+  // Animated parts: id-lung (scale), id-dia (moves down on the in-breath), id-belly (pushes out), id-air (in/out flow)
+  torso(id) {
+    return '<rect width="1080" height="1080" style="fill:color-mix(in srgb, var(--main) 14%, var(--ground))"/><circle cx="540" cy="560" r="470" style="fill:color-mix(in srgb, var(--ground) 70%, white)"/>' +
+      // back and shoulders, cardigan
+      '<path class="knit" d="M330 1080 L330 520 C330 420 380 360 470 350 L560 350 C640 356 690 400 700 470 L712 560 L712 1080Z"/>' +
+      '<g class="' + id + '-belly"><path class="knit" d="M700 520 C760 600 790 700 780 800 C772 880 740 940 712 980 L640 980 L640 520Z"/></g>' +
+      '<path class="knit-dk" opacity=".5" d="M330 520 C330 460 344 410 380 380 C360 450 356 560 370 1080 H330Z"/>' +
+      // neck and head (side view), grey bob, glasses
+      '<rect class="skin-dk" x="510" y="290" width="70" height="80" rx="20"/>' +
+      '<path class="skin" d="M470 220 C470 130 540 90 600 100 C660 110 690 170 684 230 C700 250 706 262 694 270 L690 300 C688 330 660 340 630 338 C580 340 520 320 494 290 C474 270 470 246 470 220Z"/>' +
+      '<path class="hair" d="M450 260 C430 150 500 70 590 76 C660 80 700 130 696 190 C660 150 610 140 570 160 C530 180 510 230 520 300 C490 300 460 290 450 260Z"/>' +
+      '<ellipse class="light" opacity=".28" cx="652" cy="210" rx="30" ry="28"/><ellipse class="ink" style="stroke-width:6" cx="652" cy="210" rx="30" ry="28"/><path class="ink" style="stroke-width:6" d="M622 206 L560 200"/><circle class="metal" cx="658" cy="210" r="6"/>' +
+      '<path class="ink" style="stroke-width:5" d="M664 296 q12 2 20 -6"/>' +
+      // the cutaway window into the chest and belly
+      '<clipPath id="' + id + '-clip"><path d="M400 430 C400 400 430 384 470 384 L600 384 C650 390 676 420 680 470 L690 860 C690 900 660 920 620 920 L460 920 C420 920 400 900 400 860Z"/></clipPath>' +
+      '<path d="M394 424 C394 392 426 376 470 376 L600 376 C656 382 684 416 688 470 L698 860 C698 906 664 928 620 928 L460 928 C416 928 394 906 394 860Z" style="fill:color-mix(in srgb, var(--ground) 55%, white)"/>' +
+      '<g clip-path="url(#' + id + '-clip)"><rect x="380" y="370" width="340" height="580" style="fill:color-mix(in srgb, var(--second) 78%, var(--main))"/>' +
+      '<g class="' + id + '-lung"><path style="fill:#E9A3AE" d="M430 640 C410 560 430 450 500 420 C540 404 600 410 630 450 C660 500 660 590 650 650 C620 680 470 690 430 640Z"/>' +
+      '<path style="fill:none;stroke:#C77985;stroke-width:6;stroke-linecap:round;opacity:.7" d="M540 400 V520 M540 470 C510 500 490 540 480 590 M540 480 C570 510 590 550 600 600"/></g>' +
+      '<g class="' + id + '-dia"><path style="fill:none;stroke:#D9534F;stroke-width:16;stroke-linecap:round" d="M410 720 C450 650 620 640 680 716"/></g>' +
+      '<g class="' + id + '-gut"><path class="amber-lt" opacity=".6" d="M420 780 C430 740 640 730 680 790 L690 920 H410Z"/></g></g>' +
+      '<path d="M394 424 C394 392 426 376 470 376 L600 376 C656 382 684 416 688 470 L698 860 C698 906 664 928 620 928 L460 928 C416 928 394 906 394 860Z" style="fill:none;stroke:var(--second);stroke-width:6;opacity:.85"/>' +
+      '<path class="' + id + '-air" pathLength="1" style="fill:none;stroke:var(--main);stroke-width:10;stroke-linecap:round;stroke-dasharray:.06 .06" d="M880 250 C820 250 760 258 700 270"/>';
+  },
+
+  // the armchair with Ruth seated in it, shifted dx to the side; Ruth's parts are id-head, id-eyes, id-mouth; id-body breathes
+  seated(id, dx) {
+    return '<g transform="translate(' + (dx || 0) + ' 0)">' + R.chair() + '<g transform="translate(500 742)"><g class="' + id + '-body">' + R.ruth(id, 'sit') + '</g></g></g>';
+  },
+  // a big phone filling the frame, for the game screens (screen 440 × 760, centred on x 540)
+  bigPhone(id) {
+    return '<g class="' + id + '-big"><rect class="shade" x="290" y="150" width="520" height="900" rx="64"/><rect class="metal" x="270" y="130" width="540" height="900" rx="64"/>' +
+      '<rect x="300" y="190" width="480" height="790" rx="30" style="fill:color-mix(in srgb, var(--ground) 80%, white)"/><rect class="slate" x="490" y="150" width="100" height="14" rx="7"/></g>';
+  },
+
+  // ---- session 3a props ----
+  // the circle of attention: a soft warm disc with a dashed rim, radius 1 (scale it)
+  attn(id) {
+    return '<g class="' + id + '-attn"><circle r="1" style="fill:var(--accent);opacity:.13"/><circle r="1" style="fill:none;stroke:var(--accent);stroke-width:.022;stroke-dasharray:.06 .05;opacity:.9"/></g>';
+  },
+  // three short wiggle lines beside a trembling hand (animate the group's transform to make them shiver)
+  tremor(id) {
+    return '<g class="' + id + '-trem">' + [0, 1, 2].map((k) => '<path class="ink" style="stroke-width:5;opacity:.7" d="M' + (20 + k * 6) + ' ' + (-26 + k * 26) + ' q8 -8 16 0 t16 0"/>').join('') + '</g>';
+  },
+  // the picture-perfect meditator, as a framed picture (centre 0,0; 260 × 300)
+  perfect(id) {
+    return '<g class="' + id + '-perfect"><rect class="shade" x="-122" y="-140" width="260" height="300" rx="20"/><rect x="-130" y="-150" width="260" height="300" rx="20" style="fill:color-mix(in srgb, var(--ground) 60%, white);stroke:var(--second);stroke-width:6"/>' +
+      '<circle cx="0" cy="-30" r="96" style="fill:color-mix(in srgb, var(--main) 18%, var(--ground))"/>' +
+      '<ellipse class="skin" cx="0" cy="-70" rx="26" ry="30"/><path class="leaf-lt" d="M-34 30 C-36 -10 -24 -36 0 -36 C24 -36 36 -10 34 30Z"/>' +
+      '<path class="ink" style="stroke-width:4" d="M-10 -70 q4 3 8 0 M6 -70 q4 3 8 0"/><path class="slate-dk" d="M-26 -90 C-26 -110 26 -110 26 -90 C14 -100 -14 -100 -26 -90Z"/>' +
+      '<path class="leaf" d="M-76 50 C-40 20 40 20 76 50 C40 62 -40 62 -76 50Z"/><path class="ink" style="stroke-width:5" d="M-30 0 L-58 38 M30 0 L58 38"/></g>';
+  },
+  // a practice-day card with weather: kind 'sun' | 'cloud' | 'mixed' (centre 0,0; 220 × 250)
+  dayCard(id, kind) {
+    const icon = {
+      sun: '<circle class="amber" cx="0" cy="-30" r="46"/>' + [0, 1, 2, 3, 4, 5, 6, 7].map((k) => '<rect class="amber" x="-5" y="-108" width="10" height="20" rx="5" transform="rotate(' + k * 45 + ' 0 -30)"/>').join(''),
+      cloud: '<path class="slate" d="M-62 0 C-84 0 -84 -36 -56 -38 C-56 -70 -10 -82 4 -56 C22 -76 64 -66 62 -34 C88 -32 88 0 62 0Z"/>',
+      mixed: '<circle class="amber" cx="22" cy="-50" r="36"/><path style="fill:color-mix(in srgb, var(--second) 18%, var(--ground))" d="M-70 0 C-90 0 -90 -32 -64 -34 C-64 -62 -24 -72 -12 -48 C4 -66 40 -58 40 -30 C62 -28 62 0 40 0Z"/>',
+    }[kind];
+    return '<g class="' + id + '"><rect class="shade" x="-104" y="-116" width="220" height="250" rx="26"/><rect x="-110" y="-125" width="220" height="250" rx="26" style="fill:color-mix(in srgb, var(--ground) 50%, white);stroke:var(--second);stroke-width:6"/>' + icon + '</g>';
+  },
+  anchor(id) {
+    return '<g class="' + id + '"><circle class="ink" style="stroke-width:10" cx="0" cy="-70" r="18"/><path class="ink" style="stroke-width:12" d="M0 -52 V40 M-30 -20 H30 M-56 0 C-50 40 -20 54 0 54 C20 54 50 40 56 0"/><path class="ink" style="stroke-width:10" d="M-66 10 L-56 -6 L-42 8 M66 10 L56 -6 L42 8"/></g>';
+  },
+  hourglass(id) {
+    return '<g class="' + id + '"><rect class="wood" x="-70" y="-110" width="140" height="18" rx="9"/><rect class="wood" x="-70" y="92" width="140" height="18" rx="9"/>' +
+      '<path d="M-54 -92 H54 C54 -30 12 -14 12 0 C12 14 54 30 54 92 H-54 C-54 30 -12 14 -12 0 C-12 -14 -54 -30 -54 -92Z" style="fill:color-mix(in srgb, var(--ground) 50%, white);stroke:var(--second);stroke-width:6"/>' +
+      '<path class="amber" d="M-36 -64 H36 C30 -36 8 -24 0 -10 C-8 -24 -30 -36 -36 -64Z M-40 86 C-30 50 -10 40 0 34 C10 40 30 50 40 86Z"/></g>';
+  },
+  // a dial with a pointer (id-hand rotates about the centre)
+  dial(id) {
+    return '<g class="' + id + '"><circle class="shade" cx="4" cy="8" r="80"/><circle r="80" style="fill:color-mix(in srgb, var(--ground) 50%, white);stroke:var(--second);stroke-width:8"/>' +
+      [0, 1, 2, 3, 4, 5, 6].map((k) => '<rect class="slate" x="-3" y="-72" width="6" height="16" rx="3" transform="rotate(' + (-90 + k * 30) + ')"/>').join('') +
+      '<g class="' + id + '-hand"><path class="ink" style="stroke-width:10" d="M0 0 V-56"/></g><circle class="amber" r="14"/></g>';
+  },
+  // a reed that bends without breaking: flexibility, as a badge-sized icon
+  reed(id) {
+    return '<g class="' + id + '"><circle class="shade" cy="7" r="56"/><circle r="56" style="fill:color-mix(in srgb, var(--accent) 22%, var(--ground));stroke:var(--second);stroke-width:5"/>' +
+      '<path class="' + id + '-stem" style="fill:none;stroke:var(--main);stroke-width:8;stroke-linecap:round" d="M0 40 C0 10 6 -16 20 -36"/><path class="leaf" d="M20 -36 C34 -40 40 -30 36 -22 C28 -22 22 -28 20 -36Z M4 0 C-14 -6 -22 4 -18 12 C-8 12 0 6 4 0Z"/></g>';
+  },
+  // a small lesson note (paper slip with two lines)
+  note(id) {
+    return '<g class="' + id + '"><rect class="shade" x="-38" y="-24" width="80" height="56" rx="8"/><rect x="-42" y="-30" width="84" height="58" rx="8" style="fill:color-mix(in srgb, var(--accent) 22%, white);stroke:var(--second);stroke-width:4"/>' +
+      '<path class="ink" style="stroke-width:4;opacity:.6" d="M-26 -10 H26 M-26 6 H12"/></g>';
+  },
+  // a drifting thought, as a small cloud balloon with three dots
+  balloon(id) {
+    return '<g class="' + id + '"><path class="shade" transform="translate(0 6)" d="M-56 18 C-76 18 -76 -12 -52 -14 C-50 -42 -12 -50 0 -30 C14 -48 52 -40 50 -12 C72 -10 72 18 52 18Z"/>' +
+      '<path style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:5" d="M-56 18 C-76 18 -76 -12 -52 -14 C-50 -42 -12 -50 0 -30 C14 -48 52 -40 50 -12 C72 -10 72 18 52 18Z"/>' +
+      '<circle class="metal" cx="-18" cy="0" r="6"/><circle class="metal" cx="2" cy="0" r="6"/><circle class="metal" cx="22" cy="0" r="6"/></g>';
+  },
+  bell(id) {
+    return '<g class="' + id + '"><path class="amber" d="M-44 30 C-40 -10 -36 -50 0 -54 C36 -50 40 -10 44 30 L56 44 H-56Z"/><circle class="amber-dk" cx="0" cy="54" r="12"/><path class="ink" style="stroke-width:5;opacity:.6" d="M-74 -20 q-14 20 0 40 M74 -20 q14 20 0 40"/></g>';
+  },
+  calendar(id) {
+    return '<g class="' + id + '"><rect x="-56" y="-50" width="112" height="104" rx="12" style="fill:color-mix(in srgb, var(--ground) 50%, white);stroke:var(--second);stroke-width:5"/><rect class="amber" x="-56" y="-50" width="112" height="28" rx="10"/>' +
+      [0, 1, 2].map((r) => [0, 1, 2].map((c) => '<rect class="slate" x="' + (-36 + c * 28) + '" y="' + (-10 + r * 20) + '" width="16" height="10" rx="3"/>').join('')).join('') + '</g>';
+  },
+  // a wavy breath line as a path: x0..x0+w around y, amplitude, cycles, phase
+  wavePath(x0, y, w, amp, k, ph) {
+    let d = '';
+    for (let i = 0; i <= 80; i++) { const x = x0 + w * i / 80, yy = y - amp * Math.sin((i / 80) * k * 2 * Math.PI + (ph || 0)); d += (i ? ' L' : 'M') + x.toFixed(1) + ' ' + yy.toFixed(1); }
+    return d;
+  },
+
+  // ---- session 3b ----
+  // Ruth lying on the mat seen from above, right hand resting on her belly; returns markup (parts: id-armR, id-eyes, id-mouth)
+  lying(id, p) {
+    return R.overhead(p || id) + '<ellipse class="' + id + '-glow" cx="514" cy="547" rx="70" ry="56" style="fill:var(--main);opacity:0"/>' +
+      '<g transform="translate(770 540) scale(1.25)">' + R.ruthTop(id) + '</g>';
+  },
+  // the hand on the belly; a = 0 (arm at her side) .. 1 (hand on belly); breath b = 0..1 lifts it a little
+  handOn(arm, a, b) { arm.setAttribute('transform', 'rotate(' + (30 * a) + ' 52 -326) translate(' + (-6 * (b || 0)) + ' 0) scale(' + (1 + 0.05 * (b || 0)) + ')'); },
+  // a tension meter (centre-bottom origin): id-fill is the level
+  meter(id) {
+    return '<g class="' + id + '"><rect x="-34" y="-290" width="68" height="290" rx="34" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:6"/>' +
+      '<clipPath id="' + id + '-cl"><rect x="-26" y="-282" width="52" height="274" rx="26"/></clipPath><g clip-path="url(#' + id + '-cl)"><rect class="' + id + '-fill" x="-26" y="-282" width="52" height="274" style="fill:#D96C6C"/></g></g>';
+  },
+  stopSign(id) {
+    return '<g class="' + id + '"><polygon points="-30,-72 30,-72 72,-30 72,30 30,72 -30,72 -72,30 -72,-30" style="fill:#C0392B;stroke:var(--ground);stroke-width:8"/><rect x="-44" y="-10" width="88" height="20" rx="10" style="fill:var(--ground)"/></g>';
+  },
+  // a soft blanket for the overhead view (covers her legs)
+  blanket(id) {
+    return '<g class="' + id + '"><rect x="0" y="-130" width="330" height="260" rx="40" style="fill:color-mix(in srgb, var(--accent) 55%, var(--ground))"/><path style="fill:none;stroke:color-mix(in srgb, var(--accent) 70%, var(--second));stroke-width:6;opacity:.5" d="M40 -130 V130 M110 -130 V130 M180 -130 V130 M250 -130 V130"/></g>';
+  },
+  swirl(id) {
+    return '<path class="' + id + '" style="fill:none;stroke:var(--second);stroke-width:6;stroke-linecap:round;opacity:.7" d="M0 0 C10 -10 22 0 14 12 C4 24 -18 14 -16 -6 C-14 -28 16 -36 32 -16 C46 4 34 34 6 38"/>';
+  },
+
+  // ---- sessions 5–7 ----
+  // an upright battery centred on (0,0), 120 × 200; set its level with R.setBattery(fill, level)
+  battery(id) {
+    return '<g class="' + id + '-bat"><rect class="shade" x="-54" y="-92" width="120" height="200" rx="26"/><rect x="-26" y="-118" width="52" height="26" rx="8" style="fill:var(--second)"/>' +
+      '<rect x="-60" y="-100" width="120" height="200" rx="26" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:8"/>' +
+      '<clipPath id="' + id + '-bc"><rect x="-46" y="-86" width="92" height="172" rx="16"/></clipPath><g clip-path="url(#' + id + '-bc)"><rect class="' + id + '-fill" x="-46" y="-86" width="92" height="172"/></g>' +
+      '<path class="' + id + '-bolt" d="M8 -40 L-18 8 H0 L-8 44 L20 -4 H2Z" style="fill:var(--ground);opacity:0"/></g>';
+  },
+  setBattery(fill, level) {
+    const l = Math.max(0, Math.min(1, level));
+    fill.setAttribute('y', 86 - 172 * l); fill.setAttribute('height', 172 * l);
+    fill.style.fill = l < 0.25 ? '#D96C6C' : l < 0.55 ? 'var(--accent)' : '#6FAE7A';
+  },
+  // two friends of Ruth's, drawn like Nira but in their own colours; look 'a' | 'b'
+  friend(id, look, pose) {
+    return R.nira(id, pose || 'stand').replace(/nira-top-dk/g, 'fr' + look + '-top-dk').replace(/nira-top/g, 'fr' + look + '-top').replace(/nira-hair-dk/g, 'fr' + look + '-hair-dk').replace(/nira-hair/g, 'fr' + look + '-hair').replace(/nira-pants/g, 'fr' + look + '-pants');
+  },
+  clock(id) {
+    return '<g class="' + id + '"><circle class="shade" cx="4" cy="8" r="70"/><circle r="70" style="fill:color-mix(in srgb, var(--ground) 40%, white);stroke:var(--second);stroke-width:8"/>' +
+      [0, 1, 2, 3].map((k) => '<rect class="slate" x="-4" y="-62" width="8" height="14" rx="4" transform="rotate(' + k * 90 + ')"/>').join('') +
+      '<g class="' + id + '-h"><path class="ink" style="stroke-width:10" d="M0 0 V-32"/></g><g class="' + id + '-m"><path class="ink" style="stroke-width:7" d="M0 0 V-50"/></g><circle class="amber" r="9"/></g>';
+  },
+  mug(id) {
+    return '<g class="' + id + '"><path class="ink" style="stroke-width:10" d="M40 -20 q30 0 30 24 q0 24 -30 24"/><rect x="-40" y="-44" width="84" height="92" rx="14" style="fill:color-mix(in srgb, var(--main) 40%, var(--ground));stroke:var(--second);stroke-width:6"/>' +
+      '<path class="' + id + '-steam ink" style="stroke-width:6;opacity:.5" d="M-14 -60 q12 -16 0 -32 M12 -60 q12 -16 0 -32"/></g>';
+  },
+  star(id) {
+    return '<path class="' + id + '" d="M0 -70 L20 -24 L68 -20 L32 12 L42 60 L0 34 L-42 60 L-32 12 L-68 -20 L-20 -24Z" style="fill:var(--accent);stroke:var(--second);stroke-width:6;stroke-linejoin:round"/>';
+  },
+  // small roots growing down from a point (draw them on with stroke-dasharray via id-r)
+  roots(id) {
+    return '<path class="' + id + '-r" pathLength="1" style="fill:none;stroke:color-mix(in srgb, var(--accent) 50%, var(--second));stroke-width:7;stroke-linecap:round" d="M-14 0 C-20 30 -50 40 -70 70 M-14 0 C-10 40 -24 70 -20 100 M14 0 C20 30 50 40 70 70 M14 0 C10 40 24 70 20 100 M-40 40 C-60 46 -76 44 -90 50 M40 40 C60 46 76 44 90 50"/>';
+  },
+  // a drifting thought on a dashed string back to Ruth's head (string drawn by the scene)
+  phoneCall(id) {
+    return '<g class="' + id + '"><rect class="shade" x="-50" y="-90" width="112" height="190" rx="20"/><rect x="-56" y="-98" width="112" height="190" rx="20" style="fill:var(--second)"/>' +
+      '<rect x="-46" y="-84" width="92" height="156" rx="10" style="fill:color-mix(in srgb, var(--ground) 70%, white)"/><circle class="' + id + '-av" cx="0" cy="-36" r="24" style="fill:color-mix(in srgb, var(--main) 30%, var(--ground))"/>' +
+      '<g class="' + id + '-tick"><path class="ink" style="stroke-width:6;stroke:var(--second);opacity:.5" d="M-20 30 L-8 42 L16 18"/></g><rect class="' + id + '-btn" x="-30" y="50" width="60" height="14" rx="7" style="fill:#6FAE7A"/></g>';
+  },
+};</script>
+<script>// Session 17 additions: the imagination bubble (Ruth's own hills, which can turn stormy or blurry), a growing plant and watering drops,
+// a grey statue of Ruth on a plinth, round badges for what relaxation can help with, a pulse line, and small pictures for "what comes up".
+// Repeated from session 14 (film14/src/extra.js) so this film builds on its own: the tension meter, the calm badges, Ruth's room with her in the armchair,
+// tension marks, the scan line, and her mouths; from session 12: lit stones.
+Object.assign(R, {
+  setMeter(fill, level) { const l = Math.max(0, Math.min(1, level)); fill.setAttribute('y', -8 - 274 * l); fill.setAttribute('height', 274 * l); },
+  setG(g, x, y, s, o) { g.setAttribute('transform', 'translate(' + x + ' ' + y + ') scale(' + Math.max(0.001, s == null ? 1 : s) + ')'); if (o != null) g.style.opacity = o; },
+  CB: {
+    relax: ['color-mix(in srgb, var(--main) 18%, var(--ground))', '<path class="ink" style="stroke-width:6" d="M-30 -10 q10 -12 20 0 t20 0 t20 0 M-30 10 q10 -12 20 0 t20 0 t20 0"/><path class="leaf" d="M14 -36 C28 -40 34 -30 30 -22 C22 -22 16 -28 14 -36Z"/>'],
+    imagery: ['#E3D7F3', '<path class="hill-near" d="M-40 26 C-20 0 0 8 10 14 C20 4 30 6 40 20 V30 H-40Z"/><circle class="amber" cx="16" cy="-14" r="11"/><path d="M-36 -2 C-48 -2 -48 -18 -34 -20 C-34 -32 -16 -36 -10 -26 C-2 -32 10 -28 8 -18 C18 -18 18 -2 8 -2Z" style="fill:var(--ground);stroke:var(--second);stroke-width:4"/>'],
+    less: ['#F2D2CC', '<rect x="-30" y="-36" width="22" height="72" rx="11" style="fill:var(--ground);stroke:var(--second);stroke-width:5"/><rect x="-25" y="8" width="12" height="22" rx="6" style="fill:#D96C6C"/><path class="ink" style="stroke-width:7" d="M18 -28 V22 M4 8 L18 24 L32 8"/>'],
+    rest: ['color-mix(in srgb, var(--accent) 45%, var(--ground))', '<path class="chair" d="M-32 24 V-12 Q-32 -24 -20 -24 H20 Q32 -24 32 -12 V24Z" style="stroke:var(--second);stroke-width:4"/><rect class="chair-dk" x="-24" y="2" width="48" height="16" rx="6"/>'],
+    bed: ['color-mix(in srgb, var(--second) 22%, var(--ground))', '<path class="light" d="M-4 -30 a30 30 0 1 0 22 46 a24 24 0 1 1 -22 -46Z" style="stroke:var(--second);stroke-width:5"/><circle class="light" cx="24" cy="-22" r="4"/><circle class="light" cx="30" cy="0" r="3"/>'],
+    pain: ['#F6E0C8', '<g transform="rotate(-35)"><rect x="-40" y="-14" width="80" height="28" rx="14" style="fill:#F2C9A0;stroke:var(--second);stroke-width:5"/><rect x="-14" y="-14" width="28" height="28" style="fill:#E6B48A"/><circle cx="-6" cy="-5" r="2.5" class="metal"/><circle cx="6" cy="5" r="2.5" class="metal"/></g>'],
+  },
+  cbadge(id, kind, r) {
+    const [f, g] = R.CB[kind];
+    return '<g class="' + id + '"><g transform="scale(' + ((r || 56) / 56) + ')"><circle class="shade" cy="7" r="56"/><circle r="56" style="fill:' + f + ';stroke:var(--second);stroke-width:5"/>' + g + '</g></g>';
+  },
+  tense(id) { return '<g class="' + id + '"><path style="fill:none;stroke:#C0392B;stroke-width:6;stroke-linecap:round;stroke-linejoin:round" d="M-110 -170 l12 -14 l8 14 l12 -14 M78 -184 l12 14 l8 -14 l12 14"/></g>'; },
+  scan(id) { return '<g class="' + id + '"><rect x="-14" y="-170" width="28" height="340" rx="14" style="fill:var(--accent);opacity:.25"/><rect x="-3" y="-170" width="6" height="340" rx="3" style="fill:var(--accent)"/></g>'; },
+  litStone(top, p) { top.style.fill = 'color-mix(in srgb, var(--accent) ' + (22 + 78 * p).toFixed(1) + '%, var(--ground))'; },
+  mouthNeutral: 'M-10 26 Q2 32 14 26', mouthHappy: 'M-12 24 Q2 38 16 24', mouthFlat: 'M-10 29 L14 29', mouthSad: 'M-10 31 Q2 25 14 31', mouthO: 'M-4 24 Q2 18 8 24 Q8 34 2 34 Q-4 34 -4 24Z',
+  // Ruth's room with her in the armchair (dx), tension marks in her coordinates, the tension meter at the right
+  roomSeat(id, dx, meter) {
+    return R.room({ plant: false }) + R.seated(id, dx) + '<g transform="translate(' + (500 + dx) + ' 742)">' + R.tense(id + '-tn') + '</g>' +
+      (meter === false ? '' : '<g class="' + id + '-mw" transform="translate(975 860)">' + R.meter(id + '-mt') + '</g>');
+  },
+
+  // ---- the imagination bubble: 380 × 220, centred on 0,0; a trail of two dots down to the left (toward her head)
+  // parts: id-calm (her hills), id-storm (fade in), id-bv (blur: set stdDeviation), id-t0/id-t1 (trail dots)
+  miniLand(id) {
+    let s = '<rect class="sky" x="-200" y="-120" width="400" height="240"/><circle class="amber ' + id + '-sun" cx="92" cy="-46" r="30"/>' +
+      '<path class="hill-far" d="M-200 10 C-120 -24 -40 -6 30 -12 C100 -18 150 -34 200 -14 V120 H-200Z"/><path class="hill-near" d="M-200 50 C-110 28 -20 52 80 40 C140 34 170 30 200 36 V120 H-200Z"/>' +
+      '<path class="grass" d="M-200 82 C-100 70 20 84 120 76 C160 72 180 74 200 76 V120 H-200Z"/>';
+    [[-20, 104, 26], [-34, 86, 20], [-18, 72, 15], [-28, 62, 11], [-20, 54, 8]].forEach(([x, y, r]) => { s += '<ellipse class="stone-dk" cx="' + x + '" cy="' + (y + 2) + '" rx="' + r + '" ry="' + r * 0.4 + '"/><ellipse class="stone" cx="' + x + '" cy="' + y + '" rx="' + r * 0.95 + '" ry="' + r * 0.33 + '"/>'; });
+    return s;
+  },
+  storm() {
+    return '<rect x="-200" y="-120" width="400" height="240" style="fill:#5E6B78"/><path d="M-200 60 C-100 40 0 64 100 50 C150 44 180 44 200 48 V120 H-200Z" style="fill:#46525D"/>' +
+      '<path d="M-90 -10 C-130 -10 -130 -60 -90 -62 C-88 -100 -30 -110 -10 -78 C10 -110 70 -100 66 -60 C110 -60 110 -10 66 -10Z" style="fill:#8A95A1;stroke:var(--second);stroke-width:5"/>' +
+      '<path d="M-6 -6 L-26 34 H-6 L-18 74 L22 22 H0 L14 -6Z" style="fill:#F4D35E;stroke:var(--second);stroke-width:4;stroke-linejoin:round"/>' +
+      '<path style="fill:none;stroke:#B8C4CF;stroke-width:5;stroke-linecap:round" d="M-110 10 l-10 24 M-80 16 l-10 24 M60 10 l-10 24 M90 18 l-10 24 M120 8 l-10 24"/>';
+  },
+  imgBubble(id) {
+    return '<g class="' + id + '"><circle class="' + id + '-t1" cx="-222" cy="172" r="12" style="fill:color-mix(in srgb, var(--ground) 30%, white);stroke:var(--second);stroke-width:5"/>' +
+      '<circle class="' + id + '-t0" cx="-190" cy="132" r="18" style="fill:color-mix(in srgb, var(--ground) 30%, white);stroke:var(--second);stroke-width:5"/>' +
+      '<filter id="' + id + '-blf" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur class="' + id + '-bv" stdDeviation="0"/></filter>' +
+      '<clipPath id="' + id + '-cl"><rect x="-190" y="-110" width="380" height="220" rx="96"/></clipPath>' +
+      '<rect class="shade" x="-184" y="-100" width="380" height="220" rx="96"/><rect x="-190" y="-110" width="380" height="220" rx="96" style="fill:color-mix(in srgb, var(--ground) 30%, white)"/>' +
+      '<g clip-path="url(#' + id + '-cl)"><g class="' + id + '-calm" filter="url(#' + id + '-blf)">' + R.miniLand(id) + '</g><g class="' + id + '-storm" opacity="0">' + R.storm() + '</g></g>' +
+      '<rect x="-190" y="-110" width="380" height="220" rx="96" style="fill:none;stroke:var(--second);stroke-width:6"/></g>';
+  },
+  bubRefs(kit, id) { return R.refs(kit, id, ['calm', 'storm', 'bv', 't0', 't1', 'sun']); },
+  // show: 0..1 grows the bubble out of its trail; storm 0..1; blur in px
+  setBub(r, g, x, y, show, s, storm, blur) {
+    const sh = kit.eob(kit.clamp01(show * 1.25 - 0.25), 1.3);
+    g.setAttribute('transform', 'translate(' + x + ' ' + y + ') scale(' + Math.max(0.001, (s || 1) * sh) + ')');
+    g.style.opacity = show > 0.001 ? 1 : 0;
+    r.storm.setAttribute('opacity', storm || 0);
+    r.bv.setAttribute('stdDeviation', blur || 0);
+  },
+  // a pulse line (an ECG trace) as a path d: x0..x0+w around y; fast = 0..1 (calm to racing); ph scrolls
+  pulseD(x0, y, w, fast, ph) {
+    let d = ''; const n = 120, per = kit.lerp(0.5, 0.22, fast);
+    for (let i = 0; i <= n; i++) {
+      const u = i / n, k = (((u + ph) / per) % 1 + 1) % 1;
+      const v = k < 0.42 ? 0 : k < 0.48 ? -(k - 0.42) / 0.06 * 0.25 : k < 0.52 ? -0.25 + (k - 0.48) / 0.04 * 1.25 : k < 0.56 ? 1.0 - (k - 0.52) / 0.04 * 1.4 : k < 0.6 ? -0.4 + (k - 0.56) / 0.04 * 0.4 : 0;
+      d += (i ? ' L' : 'M') + (x0 + w * u).toFixed(1) + ' ' + (y - 50 * v * kit.lerp(0.7, 1.1, fast)).toFixed(1);
+    }
+    return d;
+  },
+  // the house plant, pot base at 0,0, leaves in id-lv (scale it to grow) and a new leaf id-nl
+  growPlant(id) {
+    return '<g class="' + id + '"><ellipse class="shade" cx="0" cy="2" rx="62" ry="10"/><g class="' + id + '-lv">' +
+      '<path class="leaf" d="M0 -90 C-40 -140 -60 -170 -66 -220 C-30 -200 -8 -160 0 -90Z M0 -90 C20 -160 50 -190 84 -210 C76 -160 42 -120 0 -90Z M0 -90 C-10 -160 -6 -210 10 -260 C26 -210 20 -150 0 -90Z"/>' +
+      '<path class="leaf-lt" d="M0 -90 C-22 -130 -34 -160 -38 -192 C-14 -170 -4 -136 0 -90Z"/>' +
+      '<g class="' + id + '-nl"><path class="leaf-lt" d="M6 -96 C40 -110 64 -140 76 -170 C40 -160 16 -136 6 -96Z" style="stroke:var(--main);stroke-width:3"/></g></g>' +
+      '<path class="amber-dk" d="M-46 -94 H46 L34 0 H-34Z"/><rect class="amber" x="-52" y="-100" width="104" height="22" rx="6"/></g>';
+  },
+  // water drops falling from a spout at 0,0 (animate id-d0..3 along y)
+  drops(id) { return '<g class="' + id + '">' + [0, 1, 2, 3].map((k) => '<path class="' + id + '-d' + k + '" d="M0 -10 C6 0 8 6 0 12 C-8 6 -6 0 0 -10Z" style="fill:#7FB7D9;stroke:var(--second);stroke-width:2"/>').join('') + '</g>'; },
+  // Ruth as a grey statue on a plinth (origin at the plinth's foot)
+  statue(id) {
+    const fig = R.ruth(id, 'stand').replace(/<ellipse class="shade"[^>]*\/>/, '');
+    return '<g class="' + id + '-st"><rect x="-110" y="-70" width="220" height="70" rx="6" style="fill:#C8CCD2;stroke:var(--second);stroke-width:5"/><rect x="-124" y="-84" width="248" height="20" rx="6" style="fill:#B3B8BF;stroke:var(--second);stroke-width:5"/>' +
+      '<g transform="translate(0 -84)" style="filter:grayscale(1) brightness(1.08) contrast(.8)">' + fig + '</g></g>';
+  },
+  xMark(id, r) {
+    return '<g class="' + id + '"><path class="' + id + '-a" pathLength="1" style="fill:none;stroke:#C0392B;stroke-width:16;stroke-linecap:round;stroke-dasharray:1 1" d="M' + (-r) + ' ' + (-r) + ' L' + r + ' ' + r + '"/>' +
+      '<path class="' + id + '-b" pathLength="1" style="fill:none;stroke:#C0392B;stroke-width:16;stroke-linecap:round;stroke-dasharray:1 1" d="M' + r + ' ' + (-r) + ' L' + (-r) + ' ' + r + '"/></g>';
+  },
+  drawOn(p, v) { p.style.strokeDashoffset = 1 - v; p.style.opacity = v > 0.002 ? 1 : 0; },
+  // small round pictures for what comes up: a sensation (warm waves), a memory (a photo of two friends), just the words (lines of text)
+  pic(id, kind) {
+    const ring = '<circle class="shade" cy="7" r="80"/><circle r="80" style="fill:color-mix(in srgb, var(--ground) 30%, white);stroke:var(--second);stroke-width:6"/>';
+    const g = {
+      feel: '<circle r="56" style="fill:var(--accent);opacity:.25"/><circle r="30" class="amber"/><path class="ink" style="stroke-width:6;stroke:var(--accent)" d="M-58 -28 q10 -10 20 0 M38 -28 q10 -10 20 0 M-58 30 q10 -10 20 0 M38 30 q10 -10 20 0"/>',
+      memory: '<g transform="rotate(-6)"><rect x="-52" y="-44" width="104" height="88" rx="6" style="fill:var(--ground);stroke:var(--second);stroke-width:5"/><rect x="-42" y="-34" width="84" height="56" style="fill:color-mix(in srgb, var(--main) 22%, var(--ground))"/>' +
+        '<circle cx="-14" cy="-10" r="11" class="skin"/><path d="M-30 22 q16 -22 32 0Z" class="knit"/><circle cx="16" cy="-8" r="11" style="fill:color-mix(in srgb, color-mix(in srgb, var(--accent) 55%, var(--ground)) 82%, var(--second))"/><path d="M0 22 q16 -22 32 0Z" class="nira-top"/></g>',
+      words: '<path class="ink" style="stroke-width:8" d="M-44 -28 H44 M-44 -4 H30 M-44 20 H40"/><path class="ink" style="stroke-width:8;opacity:.4" d="M-44 44 H10"/>',
+      picture: '<clipPath id="' + id + '-pc"><circle r="74"/></clipPath><g clip-path="url(#' + id + '-pc)"><g transform="scale(.52)">' + R.miniLand(id + 'm') + '</g></g>',
+    }[kind];
+    return '<g class="' + id + '">' + ring + g + '</g>';
+  },
+  // two arcs of sound beside a phone (centre 0,0)
+  sound(id) { return '<g class="' + id + '"><path class="ink" style="stroke-width:6;stroke:var(--main)" d="M10 -18 q12 18 0 36"/><path class="ink" style="stroke-width:6;stroke:var(--main)" d="M26 -32 q22 32 0 64"/></g>'; },
+});
+
+window.CAPTIONS = false;</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// can relaxing be learned? Ruth in her armchair wonders
+kit.scene('g-ask', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.roomSeat('g1', -200) + '</svg>' +
+      '<div class="count g1-q">?</div><div class="tag tag-cool g1-t">מפגש 17 · הרפיה ודמיון מודרך</div><div class="tag tag-warm g1-a">להירגע, זה משהו שאפשר ללמוד לעשות?</div><div class="tag g1-b">התשובה אולי תפתיע אתכם</div><div class="tag tag-red g1-ml">מתח</div></div>'));
+    Object.assign(this, R.refs(kit, 'g1', ['body', 'eyes', 'head', 'mouth', 'tn', 'mt-fill', 'q', 't', 'a', 'b', 'ml']));
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6);
+    this.tn.style.opacity = 0.5 * (0.6 + 0.4 * Math.abs(Math.sin(t * 9)));
+    R.setMeter(this['mt-fill'], 0.6);
+    const q = eo(seg(t, 1.5, 2.0));
+    this.body.setAttribute('transform', 'translate(0 6) scale(1 ' + kit.breathe(t, 0.014, 2.8) + ')');
+    this.head.setAttribute('transform', 'rotate(' + (-10 * q + 8 * eio(seg(t, 5.3, 6.0))) + ' 0 30)');
+    this.mouth.setAttribute('d', t > 5.4 ? R.mouthHappy : R.mouthFlat);
+    R.put(this.q, 420, 360 - 8 * Math.sin(t * 3) * q, 0.7 + 0.3 * eob(seg(t, 1.5, 2.0), 1.6), 10, q * (1 - eo(seg(t, 5.2, 5.6))));
+    R.place(this.t, 540, lerp(54, 40, eo(seg(t, 0.1, 0.5))), eo(seg(t, 0.1, 0.5)) * (1 - eo(seg(t, 1.2, 1.5))));
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 1.46, 1.8))), eo(seg(t, 1.46, 1.8)));
+    R.place(this.b, 540, lerp(124, 112, eo(seg(t, 5.28, 5.6))), eo(seg(t, 5.28, 5.6)));
+    R.place(this.ml, 975, 886, 1);
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// orders don't calm the body: each command slams in, and she only tenses more
+const O = [['עכשיו תפסיק להיות דרוך.', 5.18], ['עכשיו תרפה לגמרי את השרירים.', 7.51], ['עכשיו תירדם.', 10.45]];
+kit.scene('g-orders', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.roomSeat('g2', -200) + '</svg>' +
+      O.map((o, k) => '<div class="order g2-o' + k + '">' + o[0] + '</div>').join('') +
+      '<div class="tag tag-warm g2-p">להירגע, זה משהו שאפשר ללמוד לעשות?</div><div class="tag g2-q">התשובה אולי תפתיע אתכם</div><div class="tag tag-red g2-a">אי אפשר לתת לגוף ולמוח פקודה להירגע</div><div class="tag tag-red g2-ml">מתח</div></div>'));
+    Object.assign(this, R.refs(kit, 'g2', ['body', 'eyes', 'head', 'mouth', 'tn', 'mt-fill', 'p', 'q', 'a', 'ml']));
+    this.o = O.map((o, k) => kit.stage.querySelector('.g2-o' + k));
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6);
+    const n = O.filter(([w, a]) => t >= a).length;
+    const jolt = O.reduce((s, [w, a]) => s + Math.exp(-(t - a) * 8) * (t > a ? 1 : 0), 0);
+    this.tn.style.opacity = Math.min(1, 0.3 + 0.25 * n) * (0.6 + 0.4 * Math.abs(Math.sin(t * 9)));
+    R.setMeter(this['mt-fill'], 0.6 + 0.06 * n + 0.02 * Math.sin(t * 7));
+    this.body.setAttribute('transform', 'translate(' + 4 * Math.sin(t * 50) * jolt + ' ' + (6 + 3 * n) + ') scale(1 ' + kit.breathe(t, 0.014, 2.2) + ')');
+    this.head.setAttribute('transform', 'rotate(' + (-4 + 2 * n) + ' 0 30) translate(0 ' + 2 * n + ')');
+    this.mouth.setAttribute('d', n ? R.mouthFlat : R.mouthNeutral);
+    O.forEach(([w, a], k) => R.put(this.o[k], 600 + (k - 1) * 30, 210 + k * 105, lerp(1.35, 1, eio(seg(t, a, a + 0.25))), k % 2 ? 2 : -2, eo(seg(t, a, a + 0.12))));
+    R.place(this.p, 540, 40, 1 - eo(seg(t, 0.0, 0.4)));
+    R.place(this.q, 540, 112, 1 - eo(seg(t, 0.0, 0.4)));
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 2.6, 3.0))), eo(seg(t, 2.6, 3.0)));
+    R.place(this.ml, 975, 886, 1);
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// you can't order a plant to grow, but you can water it: Ruth waters the plant by her window and it puts out a new leaf; the two calm tools from session 14 appear
+kit.scene('g-plant', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.room({ plant: false }) + '<g transform="translate(150 860)">' + R.growPlant('g3p') + '</g>' +
+      '<g class="g3-rw"><g transform="scale(-1 1)">' + R.ruth('g3', 'water') + '</g></g><g class="g3-dw">' + R.drops('g3d') + '</g>' +
+      '<g class="g3-mw" transform="translate(975 860)">' + R.meter('g3-mt') + '</g>' + R.cbadge('g3-c0', 'relax', 64) + R.cbadge('g3-c1', 'imagery', 64) + '</svg>' +
+      '<div class="order g3-o">עכשיו תירדם.</div><div class="tag tag-red g3-p">אי אפשר לתת לגוף ולמוח פקודה להירגע</div><div class="tag tag-warm g3-a">אבל אפשר לעזור לו!</div><div class="tag tag-cool g3-b">הגוף יודע איך להירגע</div>' +
+      '<div class="tag tag-warm g3-c">לתת לו את התנאים</div><div class="tag g3-d">הרפיה ודמיון מודרך</div><div class="tag tag-red g3-ml">מתח</div></div>'));
+    Object.assign(this, R.refs(kit, 'g3', ['rw', 'dw', 'eyes', 'head', 'mouth', 'can', 'mt-fill', 'c0', 'c1', 'o', 'p', 'a', 'b', 'c', 'd', 'ml']));
+    this.lv = kit.stage.querySelector('.g3p-lv'); this.nl = kit.stage.querySelector('.g3p-nl'); this.dr = [0, 1, 2, 3].map((k) => kit.stage.querySelector('.g3d-d' + k));
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6);
+    // Ruth (facing left) tips her can over the plant; drops fall; the plant lifts and a new leaf unfurls
+    this.rw.setAttribute('transform', 'translate(390 975)');
+    const tip = eio(seg(t, 2.7, 3.4)) * (1 - eio(seg(t, 7.4, 8.0)));
+    this.can.setAttribute('transform', 'rotate(' + (-28 * tip) + ' 140 -270)');
+    this.dw.setAttribute('transform', 'translate(' + (390 - 236) + ' ' + (975 - 226) + ')');
+    this.dr.forEach((d, k) => { const p = ((t * 1.3 + k * 0.25) % 1); d.setAttribute('transform', 'translate(' + (-6 * p) + ' ' + 120 * p + ')'); d.style.opacity = tip > 0.6 && t < 7.4 ? 1 - p * 0.6 : 0; });
+    const grow = eio(seg(t, 5.0, 7.6));
+    this.lv.setAttribute('transform', 'translate(0 -90) scale(' + lerp(0.82, 1.08, grow) + ') translate(0 90)');
+    this.nl.setAttribute('transform', 'translate(6 -96) scale(' + Math.max(0.001, eob(seg(t, 6.0, 7.0), 1.4)) + ') translate(-6 96)');
+    R.setMeter(this['mt-fill'], lerp(0.72, 0.5, eio(seg(t, 5.5, 8.0))));
+    this.head.setAttribute('transform', 'rotate(' + (tip * 6) + ' 0 30)');
+    this.mouth.setAttribute('d', t > 5.5 ? R.mouthHappy : R.mouthNeutral);
+    // the two calm tools from session 14
+    [this.c0, this.c1].forEach((c, k) => R.setG(c, [800, 620][k], 340 + Math.sin(t * 1.4 + k) * 5, 1.1 * eob(seg(t, 8.8 + k * 0.3, 9.3 + k * 0.3), 1.6), eo(seg(t, 8.8 + k * 0.3, 9.0 + k * 0.3))));
+    R.put(this.o, 600, 420, 1, 2, 1 - eo(seg(t, 0.0, 0.5)));
+    R.place(this.p, 540, 40, 1 - eo(seg(t, 0.0, 0.3)));
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 0.33, 0.7))), eo(seg(t, 0.33, 0.7)) * (1 - eo(seg(t, 2.3, 2.6))));
+    R.place(this.b, 540, lerp(54, 40, eo(seg(t, 2.6, 3.0))), eo(seg(t, 2.6, 3.0)) * (1 - eo(seg(t, 8.4, 8.7))));
+    R.place(this.c, 540, lerp(124, 112, eo(seg(t, 5.68, 6.0))), eo(seg(t, 5.68, 6.0)) * (1 - eo(seg(t, 8.4, 8.7))));
+    R.place(this.d, 710, lerp(442, 430, eo(seg(t, 8.81, 9.2))), eo(seg(t, 8.81, 9.2)));
+    R.place(this.ml, 975, 886, 1);
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// common tools for self-regulation; research shows they can help: less stress and anxiety, comfort and rest, sometimes sleep and coping with pain
+const U = [['less', 'להפחית מתח וחרדה', 5.56, 880], ['rest', 'נוחות ומנוחה', 7.55, 670], ['bed', 'בשינה', 11.73, 460], ['pain', 'בהתמודדות עם כאב', 13.2, 230]];
+kit.scene('g-uses', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.roomSeat('g4', -200) + U.map((u, k) => R.cbadge('g4-u' + k, u[0], 56)).join('') + R.cbadge('g4-c0', 'relax', 64) + R.cbadge('g4-c1', 'imagery', 64) + '</svg>' +
+      U.map((u, k) => '<div class="tag ' + (k < 2 ? 'tag-cool' : 'tag-warm') + ' g4-n' + k + '">' + u[1] + '</div>').join('') +
+      '<div class="tag g4-d">הרפיה ודמיון מודרך</div><div class="tag tag-cool g4-a">כלים נפוצים לוויסות עצמי</div><div class="tag tag-warm g4-b">ומחקרים מראים שהם יכולים לעזור</div><div class="tag g4-c">במצבים מסוימים הם עשויים גם לסייע</div><div class="tag tag-red g4-ml">מתח</div></div>'));
+    Object.assign(this, R.refs(kit, 'g4', ['body', 'eyes', 'head', 'mouth', 'tn', 'mt-fill', 'c0', 'c1', 'd', 'a', 'b', 'c', 'ml']));
+    this.u = U.map((u, k) => kit.stage.querySelector('.g4-u' + k)); this.n = U.map((u, k) => kit.stage.querySelector('.g4-n' + k));
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6); this.tn.style.opacity = 0;
+    // the two tools carry over from the plant shot, then step aside for what they can help with
+    const away = eio(seg(t, 2.4, 3.4));
+    [this.c0, this.c1].forEach((c, k) => R.setG(c, [800, 620][k], 340, 1.1 * (1 - away), 1 - away));
+    R.place(this.d, 710, 430, 1 - away);
+    U.forEach(([kind, w, a, x], k) => {
+      R.setG(this.u[k], x, 230 + Math.sin(t * 1.4 + k) * 4, eob(seg(t, a - 0.2, a + 0.3), 1.6), eo(seg(t, a - 0.2, a)));
+      const ty = k === 1 ? 382 : 312; R.place(this.n[k], x, lerp(ty + 12, ty, eo(seg(t, a, a + 0.4))), eo(seg(t, a, a + 0.4)));
+    });
+    R.setMeter(this['mt-fill'], lerp(0.5, 0.28, eio(seg(t, 5.6, 7.0))));
+    this.body.setAttribute('transform', 'scale(1 ' + kit.breathe(t, 0.014, 4.2) + ')');
+    this.head.setAttribute('transform', 'rotate(' + (2 + 3 * Math.sin(t * 0.7)) + ' 0 30)');
+    this.mouth.setAttribute('d', R.mouthHappy);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 0.99, 1.4))), eo(seg(t, 0.99, 1.4)));
+    R.place(this.b, 540, lerp(124, 112, eo(seg(t, 2.83, 3.2))), eo(seg(t, 2.83, 3.2)) * (1 - eo(seg(t, 8.8, 9.1))));
+    R.place(this.c, 540, lerp(124, 112, eo(seg(t, 9.1, 9.5))), eo(seg(t, 9.1, 9.5)));
+    R.place(this.ml, 975, 886, 1);
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// sometimes we follow instructions that help different areas let go of a little tension: a soft line sweeps along Ruth on her mat
+kit.scene('g-scan', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.lying('g5') + '<g class="g5-tg">' +
+      [[330, 470], [330, 620], [560, 450], [560, 640], [800, 480], [800, 610]].map(([x, y], k) => '<path class="g5-t' + k + '" transform="translate(' + x + ' ' + y + ')" style="fill:none;stroke:#C0392B;stroke-width:6;stroke-linecap:round;stroke-linejoin:round" d="M-20 0 l8 -12 l8 12 l8 -12 l8 12"/>').join('') +
+      '</g><rect class="g5-rl" x="150" y="370" width="0" height="340" rx="44" style="fill:var(--main);opacity:.14"/><g class="g5-sw">' + R.scan('g5-sc') + '</g><rect class="g5-veil" width="1080" height="1080" style="fill:var(--ground)"/></svg>' +
+      '<div class="tag tag-cool g5-a">נקשיב להנחיות</div><div class="tag tag-warm g5-b">שיעזרו לאזורים שונים לשחרר מעט מתח</div></div>'));
+    Object.assign(this, R.refs(kit, 'g5', ['eyes', 'mouth', 'armR', 'sw', 'rl', 'veil', 'a', 'b']));
+    this.tg = [0, 1, 2, 3, 4, 5].map((k) => kit.stage.querySelector('.g5-t' + k));
+  },
+  render(t) {
+    this.veil.style.opacity = 1 - eo(seg(t, 0, 0.6));
+    this.eyes.setAttribute('transform', t > 1.2 ? 'translate(0 -2) scale(1 .15)' : '');
+    // the line sweeps from her head to her feet; behind it each area's tension marks fade and a calm tint stays
+    const sx = lerp(260, 1000, eio(seg(t, 2.2, 6.0)));
+    this.sw.setAttribute('transform', 'translate(' + sx + ' 540)'); this.sw.style.opacity = eo(seg(t, 2.0, 2.4)) * (1 - eo(seg(t, 5.9, 6.3)));
+    this.rl.setAttribute('width', Math.max(0, sx - 150) * eo(seg(t, 2.2, 2.6)));
+    this.tg.forEach((p, k) => { const x = [330, 330, 560, 560, 800, 800][k]; p.style.opacity = (0.5 + 0.5 * Math.abs(Math.sin(t * 8 + k))) * eo(seg(t, 0.4, 0.9)) * (1 - eo(seg(t, (x - 260) / 740 * 3.8 + 2.2, (x - 260) / 740 * 3.8 + 2.7))); });
+    R.handOn(this.armR, 0.6, 0.3 + 0.3 * Math.sin(t * 1.4));
+    this.mouth.setAttribute('d', t > 4 ? R.mouthHappy : R.mouthNeutral);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 2.0, 2.4))), eo(seg(t, 2.0, 2.4)));
+    R.place(this.b, 540, lerp(124, 112, eo(seg(t, 3.4, 3.8))), eo(seg(t, 3.4, 3.8)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// sometimes imagination: a pleasant place opens in a bubble over her head, and its warmth reaches her
+kit.scene('g-place', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.roomSeat('g6', -200) + '<circle class="g6-gl" cx="300" cy="620" r="240" style="fill:var(--accent);opacity:0"/>' + R.imgBubble('g6b') + '</svg>' +
+      '<div class="tag tag-cool g6-a">לפעמים נשתמש גם בדמיון</div><div class="tag tag-warm g6-b">נחשוב על מקום נעים</div><div class="tag g6-c">נתחבר לתחושות שקשורות אליו</div><div class="tag tag-red g6-ml">מתח</div></div>'));
+    Object.assign(this, R.refs(kit, 'g6', ['body', 'eyes', 'head', 'mouth', 'tn', 'mt-fill', 'gl', 'a', 'b', 'c', 'ml']));
+    this.bg = kit.stage.querySelector('.g6b'); this.bb = R.bubRefs(kit, 'g6b');
+  },
+  render(t) {
+    this.tn.style.opacity = 0;
+    if (t > 5.4) this.eyes.setAttribute('transform', 'translate(0 -2) scale(1 .15)'); else R.blink(this.eyes, t, 0.6);
+    R.setBub(this.bb, this.bg, 620, 280, eo(seg(t, 1.5, 2.4)), 1, 0, lerp(10, 0, eio(seg(t, 3.0, 4.4))));
+    this.bb.sun.setAttribute('r', 30 + 4 * Math.sin(t * 2));
+    this.gl.style.opacity = 0.18 * eo(seg(t, 5.0, 6.0)) * (0.8 + 0.2 * Math.sin(t * 1.5));
+    R.setMeter(this['mt-fill'], lerp(0.28, 0.2, eio(seg(t, 5.0, 7.0))));
+    this.body.setAttribute('transform', 'scale(1 ' + kit.breathe(t, 0.016, 4.4) + ')');
+    this.head.setAttribute('transform', 'rotate(' + (-6 * eio(seg(t, 1.6, 2.4)) + 8 * eio(seg(t, 5.0, 6.0))) + ' 0 30)');
+    this.mouth.setAttribute('d', R.mouthHappy);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 1.6, 2.0))), eo(seg(t, 1.6, 2.0)) * (1 - eo(seg(t, 3.8, 4.1))));
+    R.place(this.b, 540, lerp(54, 40, eo(seg(t, 4.06, 4.4))), eo(seg(t, 4.06, 4.4)));
+    R.place(this.c, 680, lerp(472, 460, eo(seg(t, 5.02, 5.4))), eo(seg(t, 5.02, 5.4)));
+    R.place(this.ml, 975, 886, 1);
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// inside the head (session 2's cutaway): imagining a place lights some of the same areas that the real thing does
+const SP = [[430, 330], [560, 300], [620, 430], [480, 440]];
+kit.scene('g-brain', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.profile('g7') +
+      SP.map(([x, y], k) => '<circle class="g7-s' + k + '" cx="' + x + '" cy="' + y + '" r="34" style="fill:var(--accent);opacity:0"/>').join('') +
+      '<path class="g7-l1" pathLength="1" style="fill:none;stroke:var(--accent);stroke-width:8;stroke-linecap:round;stroke-dasharray:.04 .05;opacity:0" d="M870 300 C820 300 700 300 620 330"/>' +
+      '<path class="g7-l2" pathLength="1" style="fill:none;stroke:var(--accent);stroke-width:8;stroke-linecap:round;stroke-dasharray:.04 .05;opacity:0" d="M930 720 C880 640 840 560 800 520"/>' +
+      R.imgBubble('g7b') + '<g class="g7-real"><rect class="shade" x="-104" y="-64" width="216" height="140" rx="12"/><rect x="-110" y="-72" width="220" height="144" rx="12" style="fill:color-mix(in srgb, var(--ground) 30%, white);stroke:var(--second);stroke-width:6"/>' +
+      '<clipPath id="g7-rc"><rect x="-96" y="-58" width="192" height="116" rx="6"/></clipPath><g clip-path="url(#g7-rc)"><g transform="scale(.5)">' + R.miniLand('g7r') + '</g></g></g></svg>' +
+      '<div class="tag tag-cool g7-a">זה לא רק רעיון נחמד</div><div class="tag tag-warm g7-b">דמיון יכול להפעיל במח</div><div class="tag g7-c">תהליכים שפועלים גם בחוויה ממשית</div></div>'));
+    Object.assign(this, R.refs(kit, 'g7', ['bulb', 'nerves', 'l1', 'l2', 'real', 'a', 'b', 'c']));
+    this.bg = kit.stage.querySelector('.g7b'); this.bb = R.bubRefs(kit, 'g7b'); this.s = SP.map((p, k) => kit.stage.querySelector('.g7-s' + k));
+  },
+  render(t) {
+    this.bulb.style.opacity = 0;
+    this.nerves.style.strokeDashoffset = -t * 6;
+    // imagined first: a bubble over her head, its line into the brain, the areas light
+    const im = eo(seg(t, 4.6, 5.4)), real = eo(seg(t, 9.0, 9.8));
+    R.setBub(this.bb, this.bg, 880, 190, im, 0.62, 0, 0);
+    this.l1.style.opacity = eo(seg(t, 5.2, 5.6)); this.l1.style.strokeDashoffset = -t * 0.3;
+    this.real.setAttribute('transform', 'translate(940 820) scale(' + Math.max(0.001, eob(seg(t, 9.0, 9.6), 1.4)) + ')'); this.real.style.opacity = real;
+    this.l2.style.opacity = eo(seg(t, 9.5, 9.9)); this.l2.style.strokeDashoffset = -t * 0.3;
+    this.s.forEach((c, k) => { const on = eo(seg(t, 5.6 + k * 0.2, 6.0 + k * 0.2)), pulse = 1 + 0.25 * Math.sin(t * 4 + k) + 0.3 * Math.sin(Math.PI * seg(t, 9.9 + k * 0.1, 10.6 + k * 0.1)); c.style.opacity = 0.55 * on; c.setAttribute('r', 34 * pulse); });
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 0.4, 0.8))), eo(seg(t, 0.4, 0.8)) * (1 - eo(seg(t, 4.8, 5.1))));
+    R.place(this.b, 540, lerp(54, 40, eo(seg(t, 5.13, 5.5))), eo(seg(t, 5.13, 5.5)));
+    R.place(this.c, 540, lerp(992, 980, eo(seg(t, 9.48, 9.8))), eo(seg(t, 9.48, 9.8)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// brain and body respond not only to what happens around us (the window) but also to what we imagine (the bubble)
+kit.scene('g-chain', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.roomSeat('g8', -200) + '<circle class="g8-hg" cx="300" cy="520" r="80" style="fill:var(--accent);opacity:0"/><circle class="g8-bg2" cx="300" cy="660" r="130" style="fill:var(--main);opacity:0"/>' +
+      '<path class="g8-w" pathLength="1" style="fill:none;stroke:var(--accent);stroke-width:10;stroke-linecap:round;stroke-dasharray:1 1" d="M200 440 C230 460 250 470 262 482"/>' +
+      '<path class="g8-i" pathLength="1" style="fill:none;stroke:var(--main);stroke-width:10;stroke-linecap:round;stroke-dasharray:1 1" d="M400 400 C380 430 360 450 345 470"/>' + R.imgBubble('g8b') + '</svg>' +
+      '<div class="tag tag-cool g8-a">המוח והגוף מגיבים</div><div class="tag g8-b">לא רק למה שקורה סביבנו</div><div class="tag tag-warm g8-c">גם למה שאנחנו מעלים בדמיון</div><div class="tag tag-red g8-ml">מתח</div></div>'));
+    Object.assign(this, R.refs(kit, 'g8', ['body', 'eyes', 'head', 'mouth', 'tn', 'mt-fill', 'hg', 'bg2', 'w', 'i', 'a', 'b', 'c', 'ml']));
+    this.bg = kit.stage.querySelector('.g8b'); this.bb = R.bubRefs(kit, 'g8b');
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6); this.tn.style.opacity = 0;
+    R.setMeter(this['mt-fill'], 0.2);
+    // the bubble from before shrinks to wait; a light from the window reaches her head, then the body glows
+    R.setBub(this.bb, this.bg, 620, 280, 1, lerp(1, 0.8, eio(seg(t, 0.2, 1.2))), 0, 0);
+    const hg = Math.max(Math.sin(Math.PI * seg(t, 3.2, 5.2)), Math.sin(Math.PI * seg(t, 8.4, 9.7)));
+    this.hg.style.opacity = 0.35 * hg; this.bg2.style.opacity = 0.2 * Math.max(Math.sin(Math.PI * seg(t, 4.0, 6.0)), Math.sin(Math.PI * seg(t, 8.8, 9.71)));
+    R.drawOn(this.w, eio(seg(t, 5.8, 6.4)) * (1 - eo(seg(t, 7.6, 8.0))));
+    R.drawOn(this.i, eio(seg(t, 8.2, 8.7)));
+    this.body.setAttribute('transform', 'scale(1 ' + kit.breathe(t, 0.016, 4.4) + ')');
+    this.head.setAttribute('transform', 'rotate(' + (t < 7 ? -6 : 6) + ' 0 30)');
+    this.mouth.setAttribute('d', R.mouthHappy);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 3.18, 3.5))), eo(seg(t, 3.18, 3.5)));
+    R.place(this.b, 540, lerp(124, 112, eo(seg(t, 5.82, 6.1))), eo(seg(t, 5.82, 6.1)) * (1 - eo(seg(t, 8.0, 8.3))));
+    R.place(this.c, 540, lerp(124, 112, eo(seg(t, 8.31, 8.6))), eo(seg(t, 8.31, 8.6)));
+    R.place(this.ml, 975, 886, 1);
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// think of something stressful or frightening: the bubble turns stormy, her pulse jumps, her muscles tighten, the meter climbs
+const N = [['הדופק משתנה', 7.94], ['השרירים מתכווצים', 9.01], ['הגוף נעשה דרוך', 11.33]];
+kit.scene('g-scary', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.roomSeat('g9', -200) + R.imgBubble('g9b') +
+      '<path class="g9-pl" style="fill:none;stroke:#C0392B;stroke-width:8;stroke-linecap:round;stroke-linejoin:round"/></svg>' +
+      N.map((n, k) => '<div class="tag tag-red g9-n' + k + '">' + n[0] + '</div>').join('') +
+      '<div class="tag g9-a">אם נחשוב עכשיו על משהו מלחיץ</div><div class="tag tag-red g9-b">עצם המחשבה יכולה לגרום למוח ולגוף להגיב</div><div class="tag tag-red g9-ml">מתח</div></div>'));
+    Object.assign(this, R.refs(kit, 'g9', ['body', 'eyes', 'head', 'mouth', 'tn', 'mt-fill', 'pl', 'a', 'b', 'ml']));
+    this.bg = kit.stage.querySelector('.g9b'); this.bb = R.bubRefs(kit, 'g9b'); this.n = N.map((n, k) => kit.stage.querySelector('.g9-n' + k));
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6);
+    const storm = eio(seg(t, 2.2, 4.2)), pulse = eo(seg(t, 7.8, 8.3)), tight = eio(seg(t, 8.9, 9.6)), on = eio(seg(t, 11.2, 11.9));
+    R.setBub(this.bb, this.bg, 620, 280, 1, 0.8 + 0.2 * eio(seg(t, 0.0, 1.0)), storm, 0);
+    this.pl.setAttribute('d', R.pulseD(470, 560, 320, lerp(0.1, 1, pulse), t * 0.8)); this.pl.style.opacity = pulse;
+    this.tn.style.opacity = tight * (0.6 + 0.4 * Math.abs(Math.sin(t * 9)));
+    R.setMeter(this['mt-fill'], 0.2 + 0.2 * storm + 0.15 * pulse + 0.15 * tight + 0.1 * on + 0.02 * Math.sin(t * 7) * storm);
+    this.body.setAttribute('transform', 'translate(0 ' + (6 * tight) + ') scale(1 ' + kit.breathe(t, 0.014 + 0.01 * storm, lerp(4.4, 1.2, storm)) + ')');
+    this.head.setAttribute('transform', 'rotate(' + (-6 + 4 * tight) + ' 0 30) translate(0 ' + 5 * tight + ')');
+    this.mouth.setAttribute('d', storm > 0.5 ? R.mouthSad : R.mouthNeutral);
+    N.forEach(([w, a], k) => R.place(this.n[k], 650, lerp(642, 630, eo(seg(t, a, a + 0.35))) + k * 76, eo(seg(t, a, a + 0.35))));
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 2.23, 2.6))), eo(seg(t, 2.23, 2.6)) * (1 - eo(seg(t, 5.4, 5.7))));
+    R.place(this.b, 540, lerp(54, 40, eo(seg(t, 5.7, 6.0))), eo(seg(t, 5.7, 6.0)));
+    R.place(this.ml, 975, 886, 1);
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// in the same way, something pleasant and calming moves her the other way
+kit.scene('g-calm', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.roomSeat('g10', -200) + '<circle class="g10-gl" cx="300" cy="620" r="240" style="fill:var(--accent);opacity:0"/>' + R.imgBubble('g10b') +
+      '<path class="g10-pl" style="fill:none;stroke:#C0392B;stroke-width:8;stroke-linecap:round;stroke-linejoin:round"/></svg>' +
+      ['הדופק משתנה', 'השרירים מתכווצים', 'הגוף נעשה דרוך'].map((n, k) => '<div class="tag tag-red g10-n' + k + '">' + n + '</div>').join('') +
+      '<div class="tag tag-red g10-p">עצם המחשבה יכולה לגרום למוח ולגוף להגיב</div><div class="tag tag-cool g10-a">לחשוב ולדמיין משהו נעים ומרגיע</div><div class="tag tag-warm g10-b">משפיעים לכיוון השני</div><div class="tag tag-red g10-ml">מתח</div></div>'));
+    Object.assign(this, R.refs(kit, 'g10', ['body', 'eyes', 'head', 'mouth', 'tn', 'mt-fill', 'gl', 'pl', 'p', 'a', 'b', 'ml']));
+    this.bg = kit.stage.querySelector('.g10b'); this.bb = R.bubRefs(kit, 'g10b'); this.n = [0, 1, 2].map((k) => kit.stage.querySelector('.g10-n' + k));
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6);
+    const clear = eio(seg(t, 1.0, 3.0)), ease = eio(seg(t, 3.0, 5.6));
+    R.setBub(this.bb, this.bg, 620, 280, 1, 1, 1 - clear, 0);
+    this.pl.setAttribute('d', R.pulseD(470, 560, 320, lerp(1, 0.1, ease), t * 0.8)); this.pl.style.opacity = 1 - eo(seg(t, 3.5, 5.0));
+    this.pl.style.stroke = ease > 0.5 ? 'var(--main)' : '#C0392B';
+    this.tn.style.opacity = (1 - ease) * (0.6 + 0.4 * Math.abs(Math.sin(t * 9)));
+    R.setMeter(this['mt-fill'], lerp(0.8, 0.25, ease));
+    this.gl.style.opacity = 0.16 * eo(seg(t, 4.9, 5.8));
+    this.body.setAttribute('transform', 'translate(0 ' + 6 * (1 - ease) + ') scale(1 ' + kit.breathe(t, 0.016, lerp(1.2, 4.4, ease)) + ')');
+    this.head.setAttribute('transform', 'rotate(' + (-2 + 6 * ease) + ' 0 30) translate(0 ' + 5 * (1 - ease) + ')');
+    this.mouth.setAttribute('d', ease > 0.5 ? R.mouthHappy : R.mouthSad);
+    this.n.forEach((n, k) => R.place(n, 650, 630 + k * 76, 1 - eo(seg(t, 0.4 + k * 0.15, 0.8 + k * 0.15))));
+    R.place(this.p, 540, 40, 1 - eo(seg(t, 0.0, 0.3)));
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 0.4, 0.8))), eo(seg(t, 0.4, 0.8)));
+    R.place(this.b, 540, lerp(124, 112, eo(seg(t, 4.96, 5.3))), eo(seg(t, 4.96, 5.3)));
+    R.place(this.ml, 975, 886, 1);
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// with practice the way from tension to relaxation grows familiar: Ruth walks her path again and again, and each time more of it is lit
+kit.scene('g-path', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.land('g11p', { sun: true }) + '<circle class="g11-gl" r="160" style="fill:var(--accent);opacity:.18"/>' +
+      '<g class="g11-rw"><g class="g11-ra">' + R.ruthBack('g11a', false) + '</g><g class="g11-rb">' + R.ruthBack('g11b', true) + '</g></g>' +
+      '<g class="g11-mw" transform="translate(150 980) scale(.8)">' + R.meter('g11-mt') + '</g></svg>' +
+      '<div class="tag tag-red g11-ml">מתח</div><div class="tag tag-cool g11-a">ככל שחוזרים על התרגול</div><div class="tag tag-warm g11-b">הדרך מדריכות להרפיה</div><div class="tag g11-c">יכולה להפוך מוכרת יותר</div>' +
+      '<div class="tag tag-cool g11-d">קל יותר לזהות מתח</div><div class="tag tag-warm g11-e">ולאפשר לחלק ממנו להשתחרר</div></div>'));
+    Object.assign(this, R.refs(kit, 'g11', ['gl', 'rw', 'ra', 'rb', 'mt-fill', 'ml', 'a', 'b', 'c', 'd', 'e']));
+    this.tops = R.PATH.map((p, k) => kit.stage.querySelector('.g11p-st' + k + '-top'));
+  },
+  render(t) {
+    // three walks up the path, each a little further and easier; the stones she has walked stay lit
+    const W = [[0.5, 3.0, 0.15, 3.2], [3.2, 6.6, 0.15, 5.5], [6.8, 11.0, 0.15, 8.6]];
+    let k = 0.15, lit = 0, walking = false;
+    W.forEach(([a, b, k0, k1], j) => { if (t >= a) { const p = seg(t, a, b); k = lerp(k0, k1, eio(p)); walking = p > 0 && p < 1; lit = Math.max(lit, k); } });
+    if (t > 11.0) k = 8.6;
+    const fade = W.some(([a, b]) => t > b - 0.3 && t < b + 0.2 && b < 11) ? 0 : 1;
+    const P = R.PATH, i = Math.max(0, Math.min(P.length - 2, Math.floor(k))), f = k - i;
+    const x = lerp(P[i][0], P[i + 1][0], f), y = lerp(P[i][1], P[i + 1][1], f), r = lerp(P[i][2], P[i + 1][2], f), s = Math.max(0.5, 0.66 * r / 130);
+    const step = walking ? Math.floor(t * 2.2) % 2 : 0, bob = walking ? Math.abs(Math.sin(t * Math.PI * 2.2)) * -5 : 0;
+    this.ra.style.opacity = step ? 0 : 1; this.rb.style.opacity = step ? 1 : 0;
+    this.rw.setAttribute('transform', 'translate(' + x + ' ' + (y + bob) + ') scale(' + s + ')'); this.rw.style.opacity = fade;
+    this.gl.setAttribute('transform', 'translate(' + x + ' ' + (y - 230 * s / 0.66) + ') scale(' + (s / 0.66) + ')'); this.gl.style.opacity = 0.18 * fade;
+    this.tops.forEach((top, j) => R.litStone(top, kit.clamp01(lit - j + 0.6)));
+    R.setMeter(this['mt-fill'], lerp(0.6, 0.35, eio(seg(t, 3.0, 9.0))) - 0.12 * eio(seg(t, 12.0, 13.2)) + 0.12 * Math.sin(Math.PI * seg(t, 9.8, 11.6)));
+    R.place(this.ml, 150, 1000, 1);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 0.64, 1.0))), eo(seg(t, 0.64, 1.0)) * (1 - eo(seg(t, 7.2, 7.5))));
+    R.place(this.b, 540, lerp(124, 112, eo(seg(t, 2.3, 2.7))), eo(seg(t, 2.3, 2.7)) * (1 - eo(seg(t, 7.2, 7.5))));
+    R.place(this.c, 540, lerp(196, 184, eo(seg(t, 4.63, 5.0))), eo(seg(t, 4.63, 5.0)) * (1 - eo(seg(t, 7.2, 7.5))));
+    R.place(this.d, 540, lerp(54, 40, eo(seg(t, 9.97, 10.3))), eo(seg(t, 9.97, 10.3)));
+    R.place(this.e, 540, lerp(124, 112, eo(seg(t, 12.08, 12.4))), eo(seg(t, 12.08, 12.4)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// how we'll practise: comfortable any way — sitting supported, leaning back, or lying down with a cushion and a blanket, eyes closed or open
+kit.scene('g-comfy', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080"><g class="g12-rm">' + R.roomSeat('g12', -200, false) + '<circle class="g12-sp" cx="300" cy="640" r="230" style="fill:var(--main);opacity:0"/></g>' +
+      '<g class="g12-ly">' + R.lying('g12l') + '<g class="g12-bk" transform="translate(860 540)">' + R.blanket('g12-bl') + '</g></g></svg>' +
+      '<div class="tag tag-cool g12-a">קודם כל תעשו שיהיה לכם נוח</div><div class="tag g12-b">לשבת עם תמיכה</div><div class="tag tag-warm g12-c">להישען לאחור</div><div class="tag tag-cool g12-d">או לשכב</div>' +
+      '<div class="tag tag-warm g12-e">כרית או שמיכה</div><div class="tag g12-f">לעצום עיניים</div><div class="tag tag-cool g12-g">או להשאיר אותן פקוחות</div><div class="tag tag-warm g12-h">מה שמרגיש הכי נגיש וקל</div></div>'));
+    Object.assign(this, R.refs(kit, 'g12', ['rm', 'sp', 'body', 'eyes', 'head', 'mouth', 'tn', 'ly', 'bk', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']));
+    this.l = R.refs(kit, 'g12l', ['eyes', 'mouth', 'armR', 'cushion']);
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6); this.tn.style.opacity = 0;
+    const lean = eio(seg(t, 7.6, 8.4)), lie = eio(seg(t, 8.9, 9.7));
+    this.sp.style.opacity = 0.14 * Math.sin(Math.PI * seg(t, 6.4, 7.8));
+    this.body.setAttribute('transform', 'rotate(' + (-7 * lean) + ' 0 0) scale(1 ' + kit.breathe(t, 0.014, 4.2) + ')');
+    this.head.setAttribute('transform', 'rotate(' + (-8 * lean) + ' 0 30)');
+    this.mouth.setAttribute('d', R.mouthHappy);
+    this.rm.style.opacity = 1 - lie; this.ly.style.opacity = lie;
+    // on the mat: the cushion plumps up, the blanket slides over her legs, eyes close, then open
+    const cu = Math.sin(Math.PI * seg(t, 10.9, 11.5));
+    this.l.cushion.setAttribute('transform', 'translate(226 540) scale(' + (1 + 0.12 * cu) + ') translate(-226 -540)');
+    this.bk.setAttribute('transform', 'translate(' + lerp(1200, 640, eio(seg(t, 11.5, 12.3))) + ' 540)');
+    if (t > 12.13 && t < 14.3) this.l.eyes.setAttribute('transform', 'translate(0 -2) scale(1 .15)'); else R.blink(this.l.eyes, t, 0.3);
+    R.handOn(this.l.armR, 0.6, 0.3 + 0.3 * Math.sin(t * 1.4));
+    this.l.mouth.setAttribute('d', R.mouthHappy);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 2.61, 3.0))), eo(seg(t, 2.61, 3.0)) * (1 - eo(seg(t, 8.7, 9.0))));
+    R.place(this.b, 540, lerp(124, 112, eo(seg(t, 6.3, 6.6))), eo(seg(t, 6.3, 6.6)) * (1 - eo(seg(t, 8.7, 9.0))));
+    R.place(this.c, 540, lerp(196, 184, eo(seg(t, 7.6, 7.9))), eo(seg(t, 7.6, 7.9)) * (1 - eo(seg(t, 8.7, 9.0))));
+    R.place(this.d, 540, lerp(54, 40, eo(seg(t, 8.93, 9.3))), eo(seg(t, 8.93, 9.3)) * (1 - eo(seg(t, 14.9, 15.2))));
+    R.place(this.e, 540, lerp(124, 112, eo(seg(t, 10.97, 11.3))), eo(seg(t, 10.97, 11.3)) * (1 - eo(seg(t, 14.9, 15.2))));
+    R.place(this.f, 540, lerp(952, 940, eo(seg(t, 12.13, 12.5))), eo(seg(t, 12.13, 12.5)) * (1 - eo(seg(t, 14.0, 14.3))));
+    R.place(this.g, 540, lerp(952, 940, eo(seg(t, 14.3, 14.6))), eo(seg(t, 14.3, 14.6)));
+    R.place(this.h, 540, lerp(54, 40, eo(seg(t, 15.2, 15.6))), eo(seg(t, 15.2, 15.6)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// no need to be a statue: the stiff grey Ruth is crossed out; the real Ruth, tremor and all, eases and lets her body be as it is
+kit.scene('g-statue', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.room({ plant: false }) + '<g class="g13-sw" transform="translate(300 975) scale(.9)">' + R.statue('g13s') + '</g>' +
+      '<g class="g13-xw" transform="translate(300 600)">' + R.xMark('g13-x', 150) + '</g><circle class="g13-gl" cx="700" cy="700" r="260" style="fill:var(--accent);opacity:0"/>' +
+      '<g class="g13-w"><g class="g13-bd">' + R.ruth('g13', 'stand') + '<g transform="translate(76 -196)">' + R.tremor('g13tr') + '</g></g></g></svg>' +
+      '<div class="tag tag-cool g13-a">לא צריך לנסות להיות כמו פסל</div><div class="tag g13-b">רעד, נוקשות, או הרבה תנועה בגוף</div><div class="tag tag-warm g13-c">אפשר להרפות יחד איתם</div>' +
+      '<div class="tag tag-cool g13-d">לוותר על מאמץ</div><div class="tag tag-warm g13-e">ולתת לגוף להיות כפי שהוא</div></div>'));
+    Object.assign(this, R.refs(kit, 'g13', ['sw', 'x-a', 'x-b', 'xw', 'gl', 'w', 'bd', 'eyes', 'head', 'mouth', 'a', 'b', 'c', 'd', 'e']));
+    this.tr = kit.stage.querySelector('.g13tr-trem');
+  },
+  render(t) {
+    R.blink(this.eyes, t, 0.6);
+    R.drawOn(this['x-a'], eio(seg(t, 2.2, 2.6))); R.drawOn(this['x-b'], eio(seg(t, 2.5, 2.9)));
+    const gone = eio(seg(t, 8.0, 9.0));
+    this.sw.style.opacity = 1 - gone; this.xw.style.opacity = 1 - gone;
+    // the real Ruth: a tremor at her hand, a gentle sway; she settles into it, then moves to the middle
+    const x = lerp(720, 600, gone);
+    this.w.setAttribute('transform', 'translate(' + x + ' 975)');
+    const ease = eio(seg(t, 6.4, 7.6));
+    this.bd.setAttribute('transform', 'rotate(' + (1.6 * Math.sin(t * 1.3) * (0.5 + ease)) + ' 0 0)');
+    this.tr.style.opacity = eo(seg(t, 3.5, 4.0)); this.tr.setAttribute('transform', 'translate(' + 3 * Math.sin(t * 40) + ' 0)');
+    this.gl.setAttribute('cx', x); this.gl.style.opacity = 0.16 * eo(seg(t, 10.2, 11.0)) * (0.8 + 0.2 * Math.sin(t * 1.5));
+    this.head.setAttribute('transform', 'rotate(' + (4 * Math.sin(t * 0.8) * ease) + ' 0 30)');
+    this.mouth.setAttribute('d', t > 6.5 ? R.mouthHappy : R.mouthNeutral);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 0.4, 0.8))), eo(seg(t, 0.4, 0.8)) * (1 - eo(seg(t, 2.6, 2.9))));
+    R.place(this.b, 540, lerp(54, 40, eo(seg(t, 3.1, 3.5))), eo(seg(t, 3.1, 3.5)) * (1 - eo(seg(t, 9.8, 10.1))));
+    R.place(this.c, 540, lerp(124, 112, eo(seg(t, 6.58, 6.9))), eo(seg(t, 6.58, 6.9)) * (1 - eo(seg(t, 9.8, 10.1))));
+    R.place(this.d, 540, lerp(54, 40, eo(seg(t, 10.29, 10.6))), eo(seg(t, 10.29, 10.6)));
+    R.place(this.e, 540, lerp(124, 112, eo(seg(t, 12.59, 12.9))), eo(seg(t, 12.59, 12.9)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// no need to force a clear picture: the bubble stays soft; she just listens and lets her imagination answer
+kit.scene('g-soft', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.roomSeat('g14', -200, false) + '<g transform="translate(296 704) scale(1.1)">' + R.phone('g14ph', 0, 0, 'ariel') + '<g transform="translate(40 0)">' + R.sound('g14-sd') + '</g></g>' + R.imgBubble('g14b') + '</svg>' +
+      '<div class="tag tag-cool g14-a">לא צריך להתאמץ לייצר תמונה ברורה</div><div class="tag g14-b">פשוט מקשיבים להנחיה</div><div class="tag tag-warm g14-c">ונותנים לדמיון להגיב בדרכו</div></div>'));
+    Object.assign(this, R.refs(kit, 'g14', ['body', 'eyes', 'head', 'mouth', 'tn', 'sd', 'a', 'b', 'c']));
+    this.bg = kit.stage.querySelector('.g14b'); this.bb = R.bubRefs(kit, 'g14b');
+  },
+  render(t) {
+    this.tn.style.opacity = 0;
+    if (t > 5.2) this.eyes.setAttribute('transform', 'translate(0 -2) scale(1 .15)'); else R.blink(this.eyes, t, 0.6);
+    // the picture stays soft whatever she does; it settles a little on its own as she listens
+    const try_ = Math.sin(Math.PI * seg(t, 1.6, 3.6));
+    R.setBub(this.bb, this.bg, 620, 280, eo(seg(t, 0.2, 1.0)), 1, 0, 9 - 2.5 * try_ - 3 * eio(seg(t, 6.6, 8.4)));
+    this.sd.style.opacity = t > 4.5 ? 0.4 + 0.6 * Math.abs(Math.sin(t * 5)) : 0;
+    this.body.setAttribute('transform', 'translate(0 ' + 4 * try_ + ') scale(1 ' + kit.breathe(t, 0.016, 4.4) + ')');
+    this.head.setAttribute('transform', 'rotate(' + (-6 + 4 * try_ + 10 * eio(seg(t, 5.0, 5.8))) + ' 0 30)');
+    this.mouth.setAttribute('d', try_ > 0.5 ? R.mouthFlat : R.mouthHappy);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 1.6, 2.0))), eo(seg(t, 1.6, 2.0)));
+    R.place(this.b, 540, lerp(124, 112, eo(seg(t, 4.58, 4.9))), eo(seg(t, 4.58, 4.9)) * (1 - eo(seg(t, 7.2, 7.5))));
+    R.place(this.c, 540, lerp(124, 112, eo(seg(t, 7.5, 7.8))), eo(seg(t, 7.5, 7.8)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// whatever comes up is fine: a picture, a sensation, a memory, or just the words; she listens and breathes
+const K = [['picture', 'תמונה', 1.4, 880], ['feel', 'תחושה', 2.0, 680], ['memory', 'זיכרון', 2.59, 480], ['words', 'או רק המילים עצמן', 3.7, 250]];
+kit.scene('g-whatever', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.roomSeat('g15', -200, false) + '<circle class="g15-gl" cx="300" cy="620" r="240" style="fill:var(--main);opacity:0"/>' +
+      '<g transform="translate(296 704) scale(1.1)">' + R.phone('g15ph', 0, 0, 'ariel') + '</g>' + R.imgBubble('g15b') + K.map((k, j) => R.pic('g15-k' + j, k[0])).join('') + '</svg>' +
+      K.map((k, j) => '<div class="tag ' + (j % 2 ? 'tag-warm' : 'tag-cool') + ' g15-n' + j + '">' + k[1] + '</div>').join('') +
+      '<div class="tag tag-warm g15-p">ונותנים לדמיון להגיב בדרכו</div><div class="tag g15-a">מה שיעלה</div><div class="tag tag-cool g15-b">מקשיבים ונושמים, והמוח עושה את שלו</div></div>'));
+    Object.assign(this, R.refs(kit, 'g15', ['body', 'eyes', 'head', 'mouth', 'tn', 'gl', 'p', 'a', 'b']));
+    this.bg = kit.stage.querySelector('.g15b'); this.bb = R.bubRefs(kit, 'g15b'); this.k = K.map((k, j) => kit.stage.querySelector('.g15-k' + j)); this.n = K.map((k, j) => kit.stage.querySelector('.g15-n' + j));
+  },
+  render(t) {
+    this.tn.style.opacity = 0;
+    if (t > 5.6) this.eyes.setAttribute('transform', 'translate(0 -2) scale(1 .15)'); else R.blink(this.eyes, t, 0.6);
+    // the soft bubble gives way to four small ones, right to left
+    R.setBub(this.bb, this.bg, 620, 280, 1 - eio(seg(t, 0.4, 1.2)), 1, 0, 4);
+    K.forEach(([kind, w, a, x], j) => {
+      R.setG(this.k[j], x, 260 + Math.sin(t * 1.3 + j) * 5, 0.9 * eob(seg(t, a - 0.2, a + 0.3), 1.6), eo(seg(t, a - 0.2, a)));
+      R.place(this.n[j], x, lerp(362, 350, eo(seg(t, a, a + 0.35))), eo(seg(t, a, a + 0.35)));
+    });
+    const br = (1 - Math.cos(2 * Math.PI * Math.max(0, t - 5.5) / 4.2)) / 2;
+    this.gl.style.opacity = 0.14 * eo(seg(t, 5.5, 6.2)) * (0.6 + 0.4 * br);
+    this.body.setAttribute('transform', 'scale(1 ' + (1 + 0.03 * br) + ')');
+    this.head.setAttribute('transform', 'rotate(' + (t > 5.5 ? 4 : -6) + ' 0 30)');
+    this.mouth.setAttribute('d', R.mouthHappy);
+    R.place(this.p, 540, 112, 1 - eo(seg(t, 0.0, 0.3)));
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 0.34, 0.7))), eo(seg(t, 0.34, 0.7)) * (1 - eo(seg(t, 5.2, 5.5))));
+    R.place(this.b, 540, lerp(54, 40, eo(seg(t, 5.51, 5.9))), eo(seg(t, 5.51, 5.9)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// attention wanders (a thought balloon on a string tugs her away, as in session 10); that's part of it; she comes back to her breath and Ariel's voice
+kit.scene('g-drift', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.roomSeat('g16', -200, false) + '<circle class="g16-gl" cx="300" cy="620" r="240" style="fill:var(--main);opacity:0"/>' +
+      '<g transform="translate(296 704) scale(1.1)">' + R.phone('g16ph', 0, 0, 'ariel') + '<g transform="translate(40 0)">' + R.sound('g16-sd') + '</g></g>' +
+      '<path class="g16-str" style="fill:none;stroke:var(--second);stroke-width:4;stroke-dasharray:10 10;opacity:.7"/><g class="g16-bw">' + R.balloon('g16-bl') + '</g></svg>' +
+      '<div class="tag tag-cool g16-p">מקשיבים ונושמים, והמוח עושה את שלו</div><div class="tag g16-a">הקשב שלנו לא יישאר עם ההנחיה כל הזמן</div><div class="tag tag-warm g16-b">וזה ממש חלק מהתרגול</div>' +
+      '<div class="tag tag-cool g16-c">אפשר לחזור לנשימה</div><div class="tag tag-warm g16-d">ולקול של ההנחיה</div></div>'));
+    Object.assign(this, R.refs(kit, 'g16', ['body', 'eyes', 'head', 'mouth', 'tn', 'gl', 'sd', 'str', 'bw', 'p', 'a', 'b', 'c', 'd']));
+  },
+  render(t) {
+    this.tn.style.opacity = 0;
+    const away = eio(seg(t, 0.6, 3.4)), notice = eio(seg(t, 7.0, 7.8)), back = eio(seg(t, 8.6, 10.4));
+    if (t < 0.6 || t > 10.6) this.eyes.setAttribute('transform', 'translate(0 -2) scale(1 .15)'); else R.blink(this.eyes, t, 0.6);
+    // the balloon drifts off to the right, pulling her gaze; she notices; it lets go and drifts away as she returns
+    const bx = lerp(420, 820, away) + 200 * back, by = lerp(430, 260, away) - 140 * back + Math.sin(t * 1.4) * 8;
+    R.setG(this.bw, bx, by, 1.5, eo(seg(t, 0.5, 0.9)) * Math.pow(1 - back, 2));
+    const hx = 320, hy = 440, mx = (hx + bx) / 2, my = Math.max(hy, by) + 50 * (1 - back);
+    this.str.setAttribute('d', 'M' + hx + ' ' + hy + ' Q' + mx + ' ' + my + ' ' + bx + ' ' + (by + 30));
+    this.str.style.opacity = 0.7 * eo(seg(t, 0.5, 0.9)) * (1 - eo(seg(t, 8.6, 9.2)));
+    this.head.setAttribute('transform', 'rotate(' + (-14 * away * (1 - back) + 4 * back) + ' 0 30)');
+    this.mouth.setAttribute('d', notice > 0.5 && back < 0.5 ? R.mouthO : R.mouthHappy);
+    const br = (1 - Math.cos(2 * Math.PI * Math.max(0, t - 10.5) / 4.2)) / 2;
+    this.gl.style.opacity = 0.14 * eo(seg(t, 10.5, 11.0)) * (0.6 + 0.4 * br);
+    this.body.setAttribute('transform', 'scale(1 ' + (1 + 0.03 * br) + ')');
+    this.sd.style.opacity = t > 11.1 ? 0.4 + 0.6 * Math.abs(Math.sin(t * 5)) : 0.3 * (1 - away);
+    R.place(this.p, 540, 40, 1 - eo(seg(t, 0.0, 0.3)));
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 0.4, 0.8))), eo(seg(t, 0.4, 0.8)) * (1 - eo(seg(t, 9.6, 9.9))));
+    R.place(this.b, 540, lerp(124, 112, eo(seg(t, 4.96, 5.3))), eo(seg(t, 4.96, 5.3)) * (1 - eo(seg(t, 9.6, 9.9))));
+    R.place(this.c, 540, lerp(54, 40, eo(seg(t, 10.0, 10.4))), eo(seg(t, 10.0, 10.4)));
+    R.place(this.d, 540, lerp(124, 112, eo(seg(t, 11.18, 11.5))), eo(seg(t, 11.18, 11.5)));
+  },
+});
+
+}</script>
+<script>{
+const { seg, eo, eio, eob, lerp } = kit;
+// a small stop to be kind to ourselves: Ruth on her mat under the blanket, a warm glow, the meter low
+kit.scene('g-pause', {
+  init(kit) {
+    kit.stage.append(kit.h('<div class="ground"><svg class="art" viewBox="0 0 1080 1080">' + R.lying('g17') + '<g transform="translate(640 540)">' + R.blanket('g17-bl') + '</g>' +
+      '<ellipse class="g17-gl" cx="520" cy="545" rx="420" ry="250" style="fill:var(--accent);opacity:0"/><g class="g17-mw" transform="translate(990 900) scale(.7)">' + R.meter('g17-mt') + '</g>' +
+      '<rect class="g17-veil" width="1080" height="1080" style="fill:var(--ground)"/></svg>' +
+      '<div class="tag tag-red g17-ml">מתח</div><div class="tag tag-warm g17-a">עצירה קטנה כדי להיות טובים לעצמנו</div><div class="tag tag-cool g17-b">כמה רגעים של נוחות</div><div class="tag g17-c">להוריד הילוך ולהרפות בקצב שלהם</div></div>'));
+    Object.assign(this, R.refs(kit, 'g17', ['eyes', 'mouth', 'armR', 'gl', 'mt-fill', 'veil', 'ml', 'a', 'b', 'c']));
+  },
+  render(t) {
+    this.veil.style.opacity = 1 - eo(seg(t, 0, 0.6));
+    this.eyes.setAttribute('transform', 'translate(0 -2) scale(1 .15)');
+    const br = (1 - Math.cos(2 * Math.PI * t / 4.8)) / 2;
+    R.handOn(this.armR, 0.6, 0.3 + 0.7 * br);
+    this.gl.style.opacity = (0.08 + 0.06 * br) * eo(seg(t, 1.0, 2.5));
+    R.setMeter(this['mt-fill'], lerp(0.25, 0.08, eio(seg(t, 5.0, 10.0))));
+    this.mouth.setAttribute('d', R.mouthHappy);
+    R.place(this.ml, 990, 920, 1);
+    R.place(this.a, 540, lerp(54, 40, eo(seg(t, 1.0, 1.4))), eo(seg(t, 1.0, 1.4)));
+    R.place(this.b, 540, lerp(124, 112, eo(seg(t, 5.93, 6.3))), eo(seg(t, 5.93, 6.3)));
+    R.place(this.c, 540, lerp(196, 184, eo(seg(t, 8.7, 9.1))), eo(seg(t, 8.7, 9.1)));
+  },
+});
+
+}</script>
+
+<script>
+const SCENES = {"v": 1, "width": 1080, "height": 1080, "fps": 30, "background": "#F3EEE4", "scenes": [{"id": "g-ask", "dur": 7.91}, {"id": "g-orders", "dur": 12.63}, {"id": "g-plant", "dur": 12.18}, {"id": "g-uses", "dur": 14.35}, {"id": "g-scan", "dur": 6.44}, {"id": "g-place", "dur": 7.55}, {"id": "g-brain", "dur": 10.83}, {"id": "g-chain", "dur": 9.71}, {"id": "g-scary", "dur": 12.61}, {"id": "g-calm", "dur": 6.2}, {"id": "g-path", "dur": 13.56}, {"id": "g-comfy", "dur": 17.55}, {"id": "g-statue", "dur": 14.15}, {"id": "g-soft", "dur": 8.9}, {"id": "g-whatever", "dur": 9.66}, {"id": "g-drift", "dur": 13.32}, {"id": "g-pause", "dur": 11.85}]};
+const stage = document.getElementById('stage');
+const live = [];
+let start = 0;
+for (const s of SCENES.scenes) {
+  const def = kit.defs.find((d) => d[0] === s.id);
+  const box = document.createElement('div'); box.className = 'scene'; stage.append(box);
+  const sk = Object.assign({}, kit, { stage: box, dur: s.dur, start });
+  if (def[1].init) def[1].init(sk);
+  live.push({ id: s.id, start, dur: s.dur, box, def: def[1], sk });
+  start += s.dur;
+}
+window.DURATION = start;
+let shown = null;
+window.renderAt = (T) => {
+  let cur = live[live.length - 1];
+  for (const sc of live) if (T < sc.start + sc.dur) { cur = sc; break; }
+  if (shown !== cur) { if (shown) shown.box.style.display = 'none'; cur.box.style.display = 'block'; shown = cur; }
+  cur.def.render.call(cur.def, T - cur.start, cur.sk);
+  return cur.id;
+};
+window.renderAt(0);
+</script></body></html>

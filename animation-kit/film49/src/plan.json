@@ -1,0 +1,938 @@
+{
+  "id": "S49",
+  "idea": "Social participation can matter and still be difficult. Ruth can choose which connections she wants to keep, make adaptations, and arrive as she is today.",
+  "sound_off": "An invitation brings both warmth and effort. Ruth asks what draws her there and what makes it hard. She can rest or participate; when she chooses connection, symptoms do not have to disappear first. A smaller meeting or shorter visit keeps the choice practical.",
+  "shots": [
+    {
+      "description": "Familiar people join Ruth; warmth and complexity can share the same room.",
+      "objects": [
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 720,
+          "y": 860,
+          "s": 0.8
+        },
+        {
+          "kind": "friendB",
+          "key": "friendB",
+          "x": 920,
+          "y": 860,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "אנשים שאנחנו אוהבים",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 2.12
+        },
+        {
+          "text": "זה לא אומר שזה תמיד פשוט",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 3.83
+        }
+      ],
+      "start": 0.0,
+      "end": 6.4
+    },
+    {
+      "description": "A shared table makes the social invitation concrete; the same people remain.",
+      "objects": [
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 720,
+          "y": 860,
+          "s": 0.8
+        },
+        {
+          "kind": "friendB",
+          "key": "friendB",
+          "x": 920,
+          "y": 860,
+          "s": 0.8
+        },
+        {
+          "kind": "dinner",
+          "key": "dinner",
+          "x": 760,
+          "y": 760,
+          "s": 0.7
+        }
+      ],
+      "labels": [
+        {
+          "text": "ארוחה עם חברים",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.33
+        },
+        {
+          "text": "גם מעמסה",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 9.729
+        }
+      ],
+      "start": 6.4,
+      "end": 17.65
+    },
+    {
+      "description": "Time, energy and the invitation remain available for an individual choice.",
+      "objects": [
+        {
+          "kind": "notice",
+          "key": "notice",
+          "x": 750,
+          "y": 360,
+          "s": 0.85
+        },
+        {
+          "kind": "clock",
+          "key": "clock",
+          "x": 870,
+          "y": 660,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "כשחיים עם פרקינסון, נכנסים לתמונה שיקולים נוספים",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 5.485
+        }
+      ],
+      "start": 17.65,
+      "end": 27.7
+    },
+    {
+      "description": "A question rests on a future invitation; a small tremor can be present without hiding Ruth.",
+      "objects": [
+        {
+          "kind": "calendar",
+          "key": "calendar",
+          "x": 760,
+          "y": 340,
+          "s": 1
+        },
+        {
+          "kind": "tremor",
+          "key": "tremor",
+          "x": 360,
+          "y": 710,
+          "s": 1.4
+        }
+      ],
+      "labels": [
+        {
+          "text": "לרצות מאוד ללכת לאירוע",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.691
+        },
+        {
+          "text": "אבל לחשוש להתחייב",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 2.396
+        }
+      ],
+      "character": {
+        "mood": -0.3
+      },
+      "start": 27.7,
+      "end": 41.68
+    },
+    {
+      "description": "Several people and a speech cue show the effort of entering a group conversation.",
+      "objects": [
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 720,
+          "y": 860,
+          "s": 0.8
+        },
+        {
+          "kind": "friendB",
+          "key": "friendB",
+          "x": 920,
+          "y": 860,
+          "s": 0.8
+        },
+        {
+          "kind": "message",
+          "key": "message",
+          "x": 760,
+          "y": 300,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "להשתלב בשיחה עם הרבה אנשים",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 1.778
+        }
+      ],
+      "character": {
+        "mood": -0.2
+      },
+      "start": 41.68,
+      "end": 50.01
+    },
+    {
+      "description": "The invitation sits beside a lower energy battery; the difficulty remains understandable.",
+      "objects": [
+        {
+          "kind": "notice",
+          "key": "notice",
+          "x": 700,
+          "y": 340,
+          "s": 0.8
+        },
+        {
+          "kind": "battery",
+          "key": "battery",
+          "x": 870,
+          "y": 610,
+          "s": 0.8,
+          "level": 0.35
+        }
+      ],
+      "labels": [
+        {
+          "text": "הרבה יותר מאמץ",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 4.395
+        }
+      ],
+      "character": {
+        "mood": -0.3
+      },
+      "start": 50.01,
+      "end": 56.47
+    },
+    {
+      "description": "The visitors recede. Resting at home remains a valid possible choice.",
+      "objects": [
+        {
+          "kind": "mug",
+          "key": "mug",
+          "x": 760,
+          "y": 500,
+          "s": 1.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "להישאר בבית",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 4.578
+        },
+        {
+          "text": "ולפעמים זאת יכולה להיות החלטה נכונה.",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 5.576
+        }
+      ],
+      "start": 56.47,
+      "end": 66.33
+    },
+    {
+      "description": "One familiar person is enough for one possible meeting; no social quota is shown.",
+      "objects": [
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 790,
+          "y": 860,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "לא כולנו צריכים את אותה כמות של חברה",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.33
+        }
+      ],
+      "start": 66.33,
+      "end": 76.61
+    },
+    {
+      "description": "The invitation moves farther away as repeatedly giving up desired experiences becomes visible.",
+      "objects": [
+        {
+          "kind": "notice",
+          "key": "notice",
+          "x": 860,
+          "y": 380,
+          "s": 0.65
+        },
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 900,
+          "y": 860,
+          "s": 0.6
+        }
+      ],
+      "labels": [
+        {
+          "text": "לוותר בהדרגה גם על דברים שאנחנו דווקא רוצים בחיים שלנו",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 8.713
+        }
+      ],
+      "character": {
+        "mood": -0.3
+      },
+      "start": 76.61,
+      "end": 90.11
+    },
+    {
+      "description": "Warmth and a familiar person return to the centre of the invitation.",
+      "objects": [
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 790,
+          "y": 860,
+          "s": 0.8
+        },
+        {
+          "kind": "heart",
+          "key": "heart",
+          "x": 760,
+          "y": 300,
+          "s": 0.9
+        }
+      ],
+      "labels": [
+        {
+          "text": "קשר עם אנשים",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.31
+        },
+        {
+          "text": "השתתפות במפגשים שחשובים לנו",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 1.349
+        }
+      ],
+      "character": {
+        "mood": 0.4
+      },
+      "start": 90.11,
+      "end": 100.48
+    },
+    {
+      "description": "Two question discs appear as separate choices, from right to left.",
+      "objects": [
+        {
+          "kind": "question",
+          "key": "want",
+          "x": 880,
+          "y": 400,
+          "s": 0.85
+        },
+        {
+          "kind": "question",
+          "key": "hard",
+          "x": 640,
+          "y": 400,
+          "s": 0.85
+        }
+      ],
+      "labels": [
+        {
+          "text": "שתי שאלות",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 3.208
+        }
+      ],
+      "start": 100.48,
+      "end": 105.35
+    },
+    {
+      "description": "The first question highlights what draws Ruth toward the meeting.",
+      "objects": [
+        {
+          "kind": "heart",
+          "key": "heart",
+          "x": 760,
+          "y": 430,
+          "s": 1.1
+        }
+      ],
+      "labels": [
+        {
+          "text": "מה גורם לי לרצות להיות שם?",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.32
+        }
+      ],
+      "start": 105.35,
+      "end": 111.22
+    },
+    {
+      "description": "The second question makes room for what is difficult, without cancelling the first.",
+      "objects": [
+        {
+          "kind": "battery",
+          "key": "battery",
+          "x": 760,
+          "y": 460,
+          "s": 1.1,
+          "level": 0.35
+        }
+      ],
+      "labels": [
+        {
+          "text": "מה מקשה עליי להיות שם?",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.33
+        }
+      ],
+      "start": 111.22,
+      "end": 116.8
+    },
+    {
+      "description": "A quiet day at home can be today’s answer.",
+      "objects": [
+        {
+          "kind": "mug",
+          "key": "mug",
+          "x": 760,
+          "y": 500,
+          "s": 1.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "היום באמת עדיף להישאר בבית.",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 1.441
+        }
+      ],
+      "character": {
+        "mood": 0.4
+      },
+      "start": 116.8,
+      "end": 121.41
+    },
+    {
+      "description": "The invitation and a familiar person return when the connection matters enough today.",
+      "objects": [
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 800,
+          "y": 860,
+          "s": 0.8
+        },
+        {
+          "kind": "notice",
+          "key": "notice",
+          "x": 760,
+          "y": 300,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "ובכל זאת אני רוצה להיות שם.",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 6.567
+        }
+      ],
+      "character": {
+        "mood": 0.4
+      },
+      "start": 121.41,
+      "end": 130.91
+    },
+    {
+      "description": "Ruth stands as herself beside the invitation; the next message is offered as support.",
+      "objects": [
+        {
+          "kind": "voice",
+          "key": "voice",
+          "x": 770,
+          "y": 330,
+          "s": 1.7,
+          "warm": 1
+        }
+      ],
+      "labels": [
+        {
+          "text": "מסר שתוכלו להזכיר לעצמכם",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 5.754
+        }
+      ],
+      "character": {
+        "pose": "stand",
+        "mood": 0.4
+      },
+      "start": 130.91,
+      "end": 140.05
+    },
+    {
+      "description": "The central sentence is held over the same, recognisable Ruth.",
+      "objects": [
+        {
+          "kind": "voice",
+          "key": "voice",
+          "x": 770,
+          "y": 330,
+          "s": 1.7,
+          "warm": 1
+        },
+        {
+          "kind": "heart",
+          "key": "heart",
+          "x": 760,
+          "y": 620,
+          "s": 0.75
+        }
+      ],
+      "labels": [
+        {
+          "text": "כמו שאני, זה טוב מספיק.",
+          "x": 540,
+          "y": 80,
+          "kind": "warm",
+          "width": 900,
+          "at": 0.33
+        }
+      ],
+      "character": {
+        "pose": "stand",
+        "mood": 0.6
+      },
+      "start": 140.05,
+      "end": 144.94
+    },
+    {
+      "description": "Ruth can be present with a visible tremor and a welcoming friend.",
+      "objects": [
+        {
+          "kind": "tremor",
+          "key": "tremor",
+          "x": 365,
+          "y": 700,
+          "s": 1.3
+        },
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 800,
+          "y": 860,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "אתם לא חייבים להגיע בלי סימפטומים.",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.33
+        }
+      ],
+      "character": {
+        "pose": "stand",
+        "mood": 0.2
+      },
+      "start": 144.94,
+      "end": 156.92
+    },
+    {
+      "description": "Ruth remains with the friend even while a little uncertain.",
+      "objects": [
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 800,
+          "y": 860,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "אפשר לבוא, להיות קצת נבוכים - ולהישאר.",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.34
+        }
+      ],
+      "character": {
+        "pose": "stand",
+        "mood": 0.1
+      },
+      "start": 156.92,
+      "end": 162.29
+    },
+    {
+      "description": "A small clock and the same person allow time, with no race or deadline.",
+      "objects": [
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 800,
+          "y": 860,
+          "s": 0.8
+        },
+        {
+          "kind": "clock",
+          "key": "clock",
+          "x": 780,
+          "y": 300,
+          "s": 0.75
+        }
+      ],
+      "labels": [
+        {
+          "text": "אפשר לעשות דברים לאט - ולהישאר.",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.33
+        }
+      ],
+      "character": {
+        "pose": "stand",
+        "mood": 0.4
+      },
+      "start": 162.29,
+      "end": 166.96
+    },
+    {
+      "description": "The same clothes, face and person stay in the meeting.",
+      "objects": [
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 800,
+          "y": 860,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "אפשר להיות בדיוק כמו שאתם היום - ולהישאר.",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.31
+        }
+      ],
+      "character": {
+        "pose": "stand",
+        "mood": 0.5
+      },
+      "start": 166.96,
+      "end": 172.19
+    },
+    {
+      "description": "The supportive voice returns to the same Ruth.",
+      "objects": [
+        {
+          "kind": "voice",
+          "key": "voice",
+          "x": 770,
+          "y": 330,
+          "s": 1.7,
+          "warm": 1
+        }
+      ],
+      "labels": [
+        {
+          "text": "מי שאתם היום זה מספיק טוב.",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 0.544
+        }
+      ],
+      "character": {
+        "pose": "stand",
+        "mood": 0.6
+      },
+      "start": 172.19,
+      "end": 175.76
+    },
+    {
+      "description": "The gathering becomes one friend and a shorter visit, as the narration describes.",
+      "objects": [
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 790,
+          "y": 860,
+          "s": 0.8
+        },
+        {
+          "kind": "clock",
+          "key": "clock",
+          "x": 780,
+          "y": 300,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "אפשר לפגוש חבר אחד.",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 5.356
+        },
+        {
+          "text": "אפשר להגיע לשעה.",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 9.54
+        }
+      ],
+      "character": {
+        "mood": 0.5
+      },
+      "start": 175.76,
+      "end": 187.38
+    },
+    {
+      "description": "The invitation and heart invite Ruth to choose the experiences she wants to keep.",
+      "objects": [
+        {
+          "kind": "notice",
+          "key": "notice",
+          "x": 760,
+          "y": 400,
+          "s": 0.9
+        },
+        {
+          "kind": "heart",
+          "key": "heart",
+          "x": 800,
+          "y": 700,
+          "s": 0.65
+        }
+      ],
+      "labels": [
+        {
+          "text": "אילו חוויות ומפגשים חברתיים אתם רוצים לשמור בחייכם",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 2.491
+        }
+      ],
+      "start": 187.38,
+      "end": 197.13
+    },
+    {
+      "description": "A question stays open beside the invitation; an immediate answer is not required.",
+      "objects": [
+        {
+          "kind": "notice",
+          "key": "notice",
+          "x": 760,
+          "y": 400,
+          "s": 0.9
+        },
+        {
+          "kind": "question",
+          "key": "question",
+          "x": 820,
+          "y": 700,
+          "s": 0.65
+        }
+      ],
+      "labels": [
+        {
+          "text": "מה יכול לעזור לכם להרגיש קצת יותר בנוח",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 2.151
+        },
+        {
+          "text": "לא חייבים למצוא תשובה עכשיו.",
+          "x": 540,
+          "y": 930,
+          "kind": "warm",
+          "width": 900,
+          "at": 5.591
+        }
+      ],
+      "start": 197.13,
+      "end": 206.11
+    },
+    {
+      "description": "Ruth and her familiar person remain; no perfected replacement self is introduced.",
+      "objects": [
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 800,
+          "y": 860,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "לא צריכים לחכות לגרסה אחרת של עצמנו כדי להיות חלק.",
+          "x": 540,
+          "y": 80,
+          "kind": "cool",
+          "width": 900,
+          "at": 1.508
+        }
+      ],
+      "character": {
+        "mood": 0.6
+      },
+      "start": 206.11,
+      "end": 212.18
+    },
+    {
+      "description": "The open door and familiar person hold a welcoming final composition.",
+      "objects": [
+        {
+          "kind": "friend",
+          "key": "friend",
+          "x": 800,
+          "y": 860,
+          "s": 0.8
+        },
+        {
+          "kind": "heart",
+          "key": "heart",
+          "x": 760,
+          "y": 320,
+          "s": 0.8
+        }
+      ],
+      "labels": [
+        {
+          "text": "כמו שאנחנו - זה טוב מספיק.",
+          "x": 540,
+          "y": 80,
+          "kind": "warm",
+          "width": 900,
+          "at": 0.33
+        }
+      ],
+      "world": "roomOpen",
+      "character": {
+        "pose": "stand",
+        "mood": 0.7
+      },
+      "start": 212.18,
+      "end": 215.49
+    }
+  ],
+  "acts": [
+    [
+      1,
+      6,
+      "The invitation and the effort"
+    ],
+    [
+      7,
+      10,
+      "What we want to keep"
+    ],
+    [
+      11,
+      15,
+      "Two useful questions"
+    ],
+    [
+      16,
+      22,
+      "As I am today"
+    ],
+    [
+      23,
+      27,
+      "Adapt and remain connected"
+    ]
+  ],
+  "breathing": [],
+  "counts": []
+}

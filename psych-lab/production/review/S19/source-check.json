@@ -1,0 +1,246 @@
+{
+  "sid": "S19",
+  "errors": [],
+  "checks": [
+    {
+      "part": 1,
+      "sample": 1,
+      "time": 1.2012,
+      "overflow": []
+    },
+    {
+      "part": 1,
+      "sample": 2,
+      "time": 4.2588,
+      "overflow": []
+    },
+    {
+      "part": 2,
+      "sample": 1,
+      "time": 7.6314,
+      "overflow": []
+    },
+    {
+      "part": 2,
+      "sample": 2,
+      "time": 13.1586,
+      "overflow": []
+    },
+    {
+      "part": 3,
+      "sample": 1,
+      "time": 16.7578,
+      "overflow": []
+    },
+    {
+      "part": 3,
+      "sample": 2,
+      "time": 20.392200000000003,
+      "overflow": []
+    },
+    {
+      "part": 4,
+      "sample": 1,
+      "time": 24.9616,
+      "overflow": []
+    },
+    {
+      "part": 4,
+      "sample": 2,
+      "time": 32.9584,
+      "overflow": []
+    },
+    {
+      "part": 5,
+      "sample": 1,
+      "time": 37.1208,
+      "overflow": []
+    },
+    {
+      "part": 5,
+      "sample": 2,
+      "time": 39.7192,
+      "overflow": []
+    },
+    {
+      "part": 6,
+      "sample": 1,
+      "time": 43.4702,
+      "overflow": []
+    },
+    {
+      "part": 6,
+      "sample": 2,
+      "time": 50.4198,
+      "overflow": []
+    },
+    {
+      "part": 7,
+      "sample": 1,
+      "time": 55.372,
+      "overflow": []
+    },
+    {
+      "part": 7,
+      "sample": 2,
+      "time": 61.028,
+      "overflow": []
+    },
+    {
+      "part": 8,
+      "sample": 1,
+      "time": 66.0066,
+      "overflow": []
+    },
+    {
+      "part": 8,
+      "sample": 2,
+      "time": 73.0234,
+      "overflow": []
+    },
+    {
+      "part": 9,
+      "sample": 1,
+      "time": 77.122,
+      "overflow": []
+    },
+    {
+      "part": 9,
+      "sample": 2,
+      "time": 80.538,
+      "overflow": []
+    },
+    {
+      "part": 10,
+      "sample": 1,
+      "time": 83.3804,
+      "overflow": []
+    },
+    {
+      "part": 10,
+      "sample": 2,
+      "time": 87.1996,
+      "overflow": []
+    },
+    {
+      "part": 11,
+      "sample": 1,
+      "time": 91.2476,
+      "overflow": []
+    },
+    {
+      "part": 11,
+      "sample": 2,
+      "time": 97.7324,
+      "overflow": []
+    },
+    {
+      "part": 12,
+      "sample": 1,
+      "time": 102.0598,
+      "overflow": []
+    },
+    {
+      "part": 12,
+      "sample": 2,
+      "time": 106.59020000000001,
+      "overflow": []
+    },
+    {
+      "part": 13,
+      "sample": 1,
+      "time": 110.4666,
+      "overflow": []
+    },
+    {
+      "part": 13,
+      "sample": 2,
+      "time": 115.80340000000001,
+      "overflow": []
+    },
+    {
+      "part": 14,
+      "sample": 1,
+      "time": 119.2706,
+      "overflow": []
+    },
+    {
+      "part": 14,
+      "sample": 2,
+      "time": 122.7594,
+      "overflow": []
+    },
+    {
+      "part": 15,
+      "sample": 1,
+      "time": 126.2068,
+      "overflow": []
+    },
+    {
+      "part": 15,
+      "sample": 2,
+      "time": 131.4932,
+      "overflow": []
+    },
+    {
+      "part": 16,
+      "sample": 1,
+      "time": 135.9152,
+      "overflow": []
+    },
+    {
+      "part": 16,
+      "sample": 2,
+      "time": 141.88479999999998,
+      "overflow": []
+    },
+    {
+      "part": 17,
+      "sample": 1,
+      "time": 146.15279999999998,
+      "overflow": []
+    },
+    {
+      "part": 17,
+      "sample": 2,
+      "time": 151.0472,
+      "overflow": []
+    },
+    {
+      "part": 18,
+      "sample": 1,
+      "time": 153.9226,
+      "overflow": []
+    },
+    {
+      "part": 18,
+      "sample": 2,
+      "time": 156.34740000000002,
+      "overflow": []
+    },
+    {
+      "part": 19,
+      "sample": 1,
+      "time": 159.4956,
+      "overflow": []
+    },
+    {
+      "part": 19,
+      "sample": 2,
+      "time": 165.08440000000002,
+      "overflow": []
+    },
+    {
+      "part": 20,
+      "sample": 1,
+      "time": 169.491,
+      "overflow": []
+    },
+    {
+      "part": 20,
+      "sample": 2,
+      "time": 175.119,
+      "overflow": []
+    }
+  ]
+}

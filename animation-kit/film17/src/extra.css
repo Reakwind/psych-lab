@@ -1,0 +1,2 @@
+.tag-red { background:color-mix(in srgb, #D96C6C 26%, var(--ground)) }
+.order { position:absolute; left:0; top:0; box-sizing:border-box; padding:20px 30px; border-radius:20px; font-size:36px; font-weight:700; direction:rtl; white-space:nowrap; color:var(--ground); background:color-mix(in srgb, var(--second) 70%, var(--ground)); border:5px solid var(--second); box-shadow:0 14px 24px -12px rgba(0,0,0,.4) }
