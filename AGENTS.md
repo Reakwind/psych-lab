@@ -10,7 +10,24 @@ This is a lab for exploring Remepy's Parkinson's psychological program: its scri
 - Never edit, rename or delete source material: the root DOCX/CSV originals, `psych-lab/intervention/sources/`, `psych-lab/intervention-audit/sources/`, `psych-lab/intervention/media/`, `animation-kit/artifact-files/`, and new owner-supplied material in `sources/`. `source-material.json` lists them with hashes; `npm run check`, the pre-commit hook and `agent-policy` reject any change. New sources may be added, then recorded with `python3 scripts/source_guard.py register`.
 - Program content shown in anything we build (Hebrew and English scripts, activity text, titles, narration) is quoted exactly as the source has it, with its source ID. Never translate, paraphrase, shorten, invent or "improve" it. Where no source text exists, show that it is missing rather than writing a substitute. Lab interface labels may be authored but must never pass for program content.
 
-The full intervention preview lives at `/?view=intervention&day=1`; the Lab holds 51 script/audio/storyboard/film trios. Read docs/ARCHITECTURE.md for source precedence.
+The Lab holds 87 session flows and 51 script/audio/storyboard/film trios. Read docs/ARCHITECTURE.md for source precedence.
+
+## Where output goes: the canvases
+
+The owner views the Lab in connected Claude Design canvases, not a website. Everything built for the owner to see goes onto a canvas; there is no local Lab server, and none should be added. Start at Home, which links every canvas (registry: `canvas/canvases.json`):
+
+- Home: https://claude.ai/artifact/WAWMSHN8NVvUtk2Mp5vaW6
+- Original design (the preserved design canvas: persona, design system, flows, the 51 films and storyboards, Ruth's journey): https://claude.ai/artifact/TddJCUmCTkkuhubb6ovHzm
+- Activities: https://claude.ai/artifact/GfG5m5VUL9zqniG5M9FHzT
+- Films & scripts: https://claude.ai/artifact/KkY7FBBxvJtd38pTcKNsLT
+- Phone preview: https://claude.ai/artifact/8NYov7M3HXKPhX49GV6WMw
+
+How to put work there:
+- Boards that show program content are generated from repository data (`node canvas/build.mjs`, or a generator beside it), never hand-typed, so the verbatim rule holds. Committed copies live in `canvas/<canvas>/project/`; publish them to their canvas with the Artifact tool (`root` = `canvas/<canvas>`), canvas.json and Main.dc.html first.
+- Before publishing, `npm test` must pass: `tests/test_canvas.py` checks that boards are current, verbatim (`scripts/verbatim.py`; film boards with `--narration`) and use only media their own canvas holds. Render changed boards with the canvas runtime and look at them.
+- Media is uploaded to the canvas that plays it (assets do not cross canvases); record every asset in `canvas/canvases.json` or the `canvas/assets-*.txt` maps. Source media stays untouched in the repository.
+- New work that fits no existing canvas gets its own canvas from the Design type, linked from Home and every sibling and added to `canvas/canvases.json`. Change the original design canvas only with the owner's agreement.
+- Tell the owner in the conversation what changed on which canvas, with its link.
 
 ## Ownership is mandatory
 
@@ -31,7 +48,7 @@ The full intervention preview lives at `/?view=intervention&day=1`; the Lab hold
 
 ## Validation and handoff
 
-Run `npm test` and `npm run check`. For media work, hydrate LFS and run `npm run media:check`, the existing encoded-film/audio checks, and visual review of relevant frames. For UX changes, inspect desktop and phone layouts and attach evidence. Do not count skipped/simulated flows as complete timing evidence. Keep clinical source gaps visible.
+Run `npm test` and `npm run check`. For media work, hydrate LFS and run `npm run media:check`, the existing encoded-film/audio checks, and visual review of relevant frames. For canvas or UX changes, render the changed boards (desktop pages and the 390 x 844 phone) and look at them before publishing. Do not count skipped/simulated flows as complete timing evidence. Keep clinical source gaps visible.
 
 Report to the owner directly in the conversation, plainly: every blocker, failure, risk, source gap, skipped check, and decision you need, each with your recommendation. Repository files, status JSON and PR bodies are records, not the place to tell the owner something; never leave a problem only there.
 

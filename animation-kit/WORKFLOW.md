@@ -1,6 +1,6 @@
 # Session films: how they are made
 
-Each session of Ruth's program (the Parkinson's psychological program) gets one animated film with the guide's recorded voice (Nira or Ariel). The films live in the Claude Design canvas "Parkinson's Psych Lab": https://claude.ai/artifact/FxjXM8gBnVYfkijShdBQcb. Each session's board (`project/scripts/SXX.dc.html`) is a video player that Ruth's journey embeds. All 51 planned Lab films are finished. Use sessions 1–7 as the original reference for look, pacing and quality. The editable review surface is now the local Psych Lab and GitHub repository; read ../AGENTS.md and ../docs/AGENT_WORKFLOW.md for current ownership, Git and PR rules.
+Each session of Ruth's program (the Parkinson's psychological program) gets one animated film with the guide's recorded voice (Nira or Ariel). The films live in the Claude Design canvas "Parkinson's Psych Lab": https://claude.ai/artifact/FxjXM8gBnVYfkijShdBQcb. Each session's board (`project/scripts/SXX.dc.html`) is a video player that Ruth's journey embeds. All 51 planned Lab films are finished. Use sessions 1–7 as the original reference for look, pacing and quality. The owner now reviews work on the connected Psych Lab canvases (Home: https://claude.ai/artifact/WAWMSHN8NVvUtk2Mp5vaW6; the films are on its Original design and Films & scripts canvases), built from this repository; read ../AGENTS.md and ../docs/AGENT_WORKFLOW.md for current ownership, Git, PR and publishing rules.
 
 ## Non-negotiables (from the user)
 
