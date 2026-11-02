@@ -1,0 +1,13 @@
+{
+  "task": "cloud-handoff",
+  "agent": "codex-coordinator",
+  "scope": [
+    "scripts/agents.py",
+    "tests/test_agent_workflow.py",
+    ".github/rulesets/",
+    "docs/CLOUD.md",
+    "docs/AGENT_WORKFLOW.md",
+    "docs/VERIFICATION.md"
+  ],
+  "branch": "agent/cloud-handoff-20261102"
+}
