@@ -573,6 +573,34 @@ ${gaps.map(g => en('p', g, 'meta')).join('\n')}
   return {boards: [{path: 'Main.dc.html', frame: {x: 0, y: 0, w, h, title: 'Psych Lab · home'}, html: board({title: 'Psych Lab', w, h, body})}], notes: {}};
 }
 
+// ---------- Original design: one navigation board ----------
+// The original canvas is the preserved design and is not generated; with the owner's agreement
+// (2026-11-02) it gains this one board linking back to Home and the other canvases.
+function buildOriginalNav() {
+  const w = 1440, h = 420;
+  const tiles = ['home', 'activities', 'films', 'phone'].map(k => `<a href="${URL[k]}" target="_blank" rel="noopener" class="box" style="display: block; text-decoration: none; color: inherit; padding: 18px 20px; margin: 0"><p class="kicker">Canvas</p><p style="font-size: 22px; font-weight: 600; margin: 4px 0 0; color: #2B6A62">${esc(TITLE[k])} →</p></a>`);
+  const body = labPage(w, h, `${en('p', 'Psych Lab', 'kicker')}
+<h1 class="title" style="font-size: 40px">This is the original design canvas</h1>
+<p class="sub" style="max-width: 1000px">It is preserved as designed: who we design for, the design system, daily experience, practices and games, program rhythm, the animated script films with their storyboards, Ruth's journey and the scene library. The Lab's other canvases are built from the repository's verified sources.</p>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: 28px">
+${tiles.join('\n')}
+</div>`);
+  return {path: 'LabNav.dc.html', frame: {x: 0, y: -880, w, h, title: 'Psych Lab · back to Home'}, html: board({title: 'Psych Lab navigation', w, h, body})};
+}
+
+function emitOriginalNav(check) {
+  const nav = buildOriginalNav();
+  const target = path.join(HERE, 'original', 'project', nav.path);
+  const frame = path.join(HERE, 'original', 'frame.json');
+  const files = [[target, nav.html], [frame, JSON.stringify({[nav.path]: nav.frame}, null, 1) + '\n']];
+  const problems = [];
+  for (const [file, content] of files) {
+    if (check) { if (!fs.existsSync(file) || fs.readFileSync(file, 'utf8') !== content) problems.push(path.relative(ROOT, file)); }
+    else { fs.mkdirSync(path.dirname(file), {recursive: true}); fs.writeFileSync(file, content); }
+  }
+  return {problems, count: 1};
+}
+
 // ---------- write ----------
 function emit(name, title, built, check) {
   const dir = path.join(HERE, name, 'project');
@@ -607,7 +635,8 @@ const results = {
   home: emit('home', TITLE.home, buildHome(stats), check),
   activities: emit('activities', TITLE.activities, {boards: [{path: activities.main.path, frame: {x: 0, y: 0, w: activities.main.w, h: activities.main.h, title: activities.main.title}, html: activities.main.html}, ...activities.boards], notes: activities.notes}, check),
   films: emit('films', TITLE.films, {boards: [{path: films.main.path, frame: {x: 0, y: 0, w: films.main.w, h: films.main.h, title: films.main.title}, html: films.main.html}, ...films.boards], notes: films.notes}, check),
-  phone: emit('phone', TITLE.phone, buildPhone(), check)};
+  phone: emit('phone', TITLE.phone, buildPhone(), check),
+  original: emitOriginalNav(check)};
 const stale = Object.values(results).flatMap(r => r.problems);
 if (check && stale.length) { console.error('Canvas boards are not current; run node canvas/build.mjs:\n  ' + stale.join('\n  ')); process.exit(1); }
 console.log(Object.entries(results).map(([k, r]) => `${k}: ${r.count} boards`).join(' · ') + (check ? ' · current' : ' · written'));

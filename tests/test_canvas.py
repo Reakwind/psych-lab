@@ -47,7 +47,7 @@ class CanvasBoards(unittest.TestCase):
         self.assertEqual(len(re.findall(r'"n":\d+,"id":"S\d+"', phone)), len(program['sessions']))
 
     def test_boards_only_use_media_their_own_canvas_holds(self):
-        for name in ('home', 'activities', 'films', 'phone'):
+        for name in ('home', 'activities', 'films', 'phone', 'original'):
             held = assets(name)
             for board in boards(name):
                 for url in re.findall(r'/_blob/[0-9a-f]{32}', board.read_text()):
@@ -58,7 +58,7 @@ class CanvasBoards(unittest.TestCase):
         needed = [p for p in corpus.unreadable if p.endswith(('.xlsx', '.docx'))]
         if needed:
             self.skipTest('Text sources not downloaded (git lfs pull): ' + ', '.join(needed))
-        files = [str(p) for name in ('home', 'activities', 'phone') for p in boards(name)]
+        files = [str(p) for name in ('home', 'activities', 'phone', 'original') for p in boards(name)]
         problems, _ = verbatim.check(files, corpus)
         self.assertEqual(problems, [])
 
