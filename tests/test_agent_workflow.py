@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -102,8 +103,46 @@ class Ownership(unittest.TestCase):
             check_claims(task(), [[{'number': 1, 'body': 'missing contract'}]], None)
 
 
+class GitHubAccess(unittest.TestCase):
+    """Hosted proxies block GraphQL, so the workflow must use REST endpoints only."""
+
+    def test_reservation_lookup_uses_rest_head_filter(self):
+        c = task()
+        listed = [[{'number': 7, 'html_url': 'https://example.invalid/7', 'draft': True, **pr(7, c)}]]
+        with patch.object(workflow, 'gh_api', return_value=listed) as api:
+            self.assertEqual(workflow.assert_reserved(c)['number'], 7)
+        path = api.call_args.args[0]
+        self.assertTrue(path.startswith('repos/Reakwind/psych-lab/pulls?'))
+        self.assertIn('head=Reakwind%3Aagent%2Fmobile-controls', path)
+
+    def test_gh_cli_calls_are_rest_only(self):
+        result = subprocess.CompletedProcess([], 0, stdout='{"number": 3}', stderr='')
+        with patch.object(workflow.shutil, 'which', return_value='/usr/bin/gh'), \
+                patch.object(workflow.subprocess, 'run', return_value=result) as run:
+            workflow.gh_api('repos/Reakwind/psych-lab/pulls', method='POST', data={'title': 'x'})
+        args = run.call_args.args[0]
+        self.assertEqual(args[:4], ['gh', 'api', '-X', 'POST'])
+        self.assertEqual(json.loads(run.call_args.kwargs['input']), {'title': 'x'})
+
+    def test_ready_falls_back_to_hosted_rest_route(self):
+        failed = subprocess.CompletedProcess([], 1)
+        with patch.object(workflow.shutil, 'which', return_value='/usr/bin/gh'), \
+                patch.object(workflow.subprocess, 'run', return_value=failed), \
+                patch.object(workflow, 'gh_api') as api:
+            workflow.mark_ready({'number': 9, 'draft': True})
+        api.assert_called_once_with('repos/Reakwind/psych-lab/pulls/9/ccr/ready_for_review', method='POST')
+
+    def test_lfs_hydration_counts(self):
+        listing = 'abc123 * film/a.mp4\ndef456 - film/b.mp4\n0ff1ce - voice over/c.m4a\n'
+        self.assertEqual(workflow.lfs_counts(listing), (1, 2))
+
+
 class GitIntegration(unittest.TestCase):
     def setUp(self):
+        # Hosted agents usually have a global Git identity; ignore machine configuration entirely.
+        self.env = patch.dict(os.environ, {'GIT_CONFIG_GLOBAL': os.devnull, 'GIT_CONFIG_NOSYSTEM': '1'})
+        self.env.start()
+        self.addCleanup(self.env.stop)
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
         self.patch = patch.object(safety, 'ROOT', self.root)
@@ -183,13 +222,13 @@ class GitIntegration(unittest.TestCase):
     def test_cloud_identity_uses_authenticated_noreply_address(self):
         self.run_git('config', '--unset', 'user.name')
         self.run_git('config', '--unset', 'user.email')
-        with patch.object(workflow, 'gh_json', return_value={'id': 123, 'login': 'test-agent', 'name': 'Test Agent'}):
+        with patch.object(workflow, 'gh_api', return_value={'id': 123, 'login': 'test-agent', 'name': 'Test Agent'}):
             workflow.ensure_identity()
         self.assertEqual(self.run_git('config', 'user.name'), 'Test Agent')
         self.assertEqual(self.run_git('config', 'user.email'), '123+test-agent@users.noreply.github.com')
 
     def test_provider_identity_is_preserved(self):
-        with patch.object(workflow, 'gh_json') as api:
+        with patch.object(workflow, 'gh_api') as api:
             workflow.ensure_identity()
         api.assert_not_called()
         self.assertEqual(self.run_git('config', 'user.name'), 'Guard test')

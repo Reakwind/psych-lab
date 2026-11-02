@@ -1,8 +1,20 @@
 # Working together without overwriting work
 
+## Quick start for a worker
+
+```bash
+bash scripts/cloud-bootstrap.sh --code-only    # or full bootstrap for media work
+npm run doctor                                 # every line should be ok/warn, none FAIL
+python3 scripts/agents.py status               # open PRs and the scopes they reserve
+python3 scripts/agents.py claim --task T --agent A --summary S --scope PATHS...
+# wait for agent-policy to pass on the draft PR, implement, then:
+python3 scripts/agents.py commit --message M --why W PATHS...
+python3 scripts/agents.py submit --title T --summary S --changes C --validation V --risks R
+```
+
 ## Worker lifecycle
 
-First read AGENTS.md, inspect `gh pr list --repo Reakwind/psych-lab`, and choose a bounded task with nonoverlapping paths.
+First read AGENTS.md, run `python3 scripts/agents.py status` to list open PRs with their reserved scopes, and choose a bounded task with nonoverlapping paths.
 
 For a local coordinator, create an isolated worktree and reserve it:
 
@@ -35,7 +47,7 @@ python3 scripts/agents.py commit \
   psych-lab/intervention/app.mjs psych-lab/intervention/style.css
 ```
 
-Keep commits focused. State why behavior changes and preserve `Task:` and `Agent:` trailers. Hooks reject unrelated staged files and possible credentials. New files require an explicit scope reservation before implementation. Do not expand the PR contract silently to win a conflict; coordinate a new claim or a scope transfer first.
+Keep commits focused. State why behavior changes and preserve `Task:` and `Agent:` trailers; `--footer` adds further trailers (for example `Co-Authored-By:`) after them. Hooks reject unrelated staged files and possible credentials. New files require an explicit scope reservation before implementation. Do not expand the PR contract silently to win a conflict; coordinate a new claim or a scope transfer first.
 
 Sync with current main without rewriting history:
 
@@ -56,7 +68,7 @@ python3 scripts/agents.py submit \
   --risks 'No clinical copy, sequencing, narration, or timing changes.'
 ```
 
-The command runs checks, pushes, updates the structured PR body, and marks the PR ready. Actual visual/media validation must be performed and accurately reported by the agent; a claimed command result is not a substitute for evidence.
+The command runs checks, pushes, updates the structured PR body, and marks the PR ready. `--footer` appends provider-required attribution after the contract. All GitHub calls are REST-only, so they also work in hosted sessions whose proxies block GraphQL; if marking ready is refused, the command says so and the agent marks the PR ready with its own GitHub integration. Actual visual/media validation must be performed and accurately reported by the agent; a claimed command result is not a substitute for evidence.
 
 ## Integrator lifecycle
 
