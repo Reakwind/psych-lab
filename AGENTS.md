@@ -2,11 +2,15 @@
 
 Read this file, README.md, docs/CLOUD.md, and docs/AGENT_WORKFLOW.md before editing.
 
-## Purpose and clinical constraints
+## Purpose: an exploration lab
 
-This is a source-based preview of Remepy's Parkinson's psychological intervention. The owner uses the Psych Lab to experience all 87 sessions and assess whether the psychological work fits within the product's 30-minute whole-session limit. Preserve the intervention and measure it. Identify possible cuts for discussion; do not shorten, rewrite, or replace clinical content without a specific task authorizing that change.
+This is a lab for exploring Remepy's Parkinson's psychological program: its scripts, activities, films and flow. The owner feeds context about the app and the program; agents help visualize, conceptualize and prototype it (including Claude Design prototypes) and engage with it in a lab-like environment. Nothing in the program needs fixing. Gaps in the sources, such as unrecorded practices or the PS-CONT-047 conflict, are facts to show, not work items.
 
-The full intervention lives at `/?view=intervention&day=1`. The Lab contains 51 completed script/audio/storyboard/film trios. Eight scheduled practice recordings have not been recorded yet (owner confirmed 2026-11-02); their labeled simulations must never count as a complete recorded experience. See `psych-lab/intervention/implementation-status.json` for other source gaps. Read docs/ARCHITECTURE.md for source precedence and the held-out PS-CONT-047 conflict.
+**Source material is read-only, and everything built must reflect it verbatim.** This is the most important check in the repository.
+- Never edit, rename or delete source material: the root DOCX/CSV originals, `psych-lab/intervention/sources/`, `psych-lab/intervention-audit/sources/`, `psych-lab/intervention/media/`, `animation-kit/artifact-files/`, and new owner-supplied material in `sources/`. `source-material.json` lists them with hashes; `npm run check`, the pre-commit hook and `agent-policy` reject any change. New sources may be added, then recorded with `python3 scripts/source_guard.py register`.
+- Program content shown in anything we build (Hebrew and English scripts, activity text, titles, narration) is quoted exactly as the source has it, with its source ID. Never translate, paraphrase, shorten, invent or "improve" it. Where no source text exists, show that it is missing rather than writing a substitute. Lab interface labels may be authored but must never pass for program content.
+
+The full intervention preview lives at `/?view=intervention&day=1`; the Lab holds 51 script/audio/storyboard/film trios. Read docs/ARCHITECTURE.md for source precedence.
 
 ## Ownership is mandatory
 

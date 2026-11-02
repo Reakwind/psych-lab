@@ -1,0 +1,25 @@
+{
+  "task": "source-fidelity",
+  "agent": "claude-bold-ptolemy",
+  "scope": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "README.md",
+    "CONTRIBUTING.md",
+    "docs/ARCHITECTURE.md",
+    "docs/AGENT_WORKFLOW.md",
+    "source-material.json",
+    "sources/",
+    "scripts/source_guard.py",
+    "scripts/verbatim.py",
+    "scripts/check_project.py",
+    "scripts/agent_safety.py",
+    "scripts/agent_policy.py",
+    "tests/test_source_fidelity.py",
+    "package.json",
+    ".github/workflows/quality.yml",
+    "psych-lab/intervention/build.py",
+    "psych-lab/intervention/program.json"
+  ],
+  "branch": "claude/bold-ptolemy-dt1ah7--source-fidelity"
+}
