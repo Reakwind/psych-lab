@@ -190,23 +190,52 @@ def js_strings(code):
     return data['strings']
 
 
+# Text inside these inline elements is displayed contiguously with its neighbours, so it is joined
+# before matching; every other element starts a new run. Unknown elements count as inline: when
+# layout is unclear the checker prefers flagging joined text over certifying sourced fragments.
+INLINE = {'a', 'abbr', 'b', 'bdi', 'bdo', 'cite', 'code', 'data', 'dfn', 'em', 'font', 'i', 'kbd',
+          'mark', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'small', 'span', 'strong', 'sub', 'sup',
+          'time', 'tt', 'u', 'var', 'wbr', 'nobr'}
+BLOCK = {'address', 'article', 'aside', 'blockquote', 'body', 'br', 'button', 'caption', 'dd',
+         'details', 'dialog', 'div', 'dl', 'dt', 'fieldset', 'figcaption', 'figure', 'footer',
+         'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hr', 'html', 'img', 'input',
+         'label', 'legend', 'li', 'main', 'nav', 'ol', 'option', 'p', 'pre', 'section', 'select',
+         'summary', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'title', 'tr', 'ul',
+         'svg', 'text', 'tspan', 'g', 'video', 'audio', 'helmet', 'x-dc', 'sc-if', 'sc-for',
+         'dc-import', 'x-import', 'script', 'style', 'template', 'iframe', 'canvas'}
+
+
 class TextRuns(HTMLParser):
-    """Text nodes, every attribute value (any quoting) and JavaScript string literals."""
+    """Displayed text runs (inline elements joined), every attribute value, and script strings."""
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.runs, self.raw, self.errors = [], None, []
+        self.runs, self.raw, self.errors, self.buffer = [], None, [], []
+
+    def flush(self):
+        if self.buffer:
+            self.runs.append(''.join(self.buffer))
+            self.buffer = []
+
+    def boundary(self, tag):
+        if tag in BLOCK or tag not in INLINE and tag.startswith(('sc-', 'dc-', 'x-')):
+            self.flush()
 
     def handle_starttag(self, tag, attrs):
+        self.boundary(tag)
         self.runs += [value for _, value in attrs if value]
         if tag in ('script', 'style'):
             self.raw = tag
 
-    handle_startendtag = handle_starttag
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        if tag in ('script', 'style'):
+            self.raw = None
 
     def handle_endtag(self, tag):
         if tag == self.raw:
             self.raw = None
+        self.boundary(tag)
 
     def handle_data(self, data):
         if self.raw == 'script':
@@ -215,7 +244,11 @@ class TextRuns(HTMLParser):
             except ScriptError as e:
                 self.errors.append(str(e))
         elif self.raw is None:
-            self.runs.append(data)
+            self.buffer.append(data)
+
+    def close(self):
+        super().close()
+        self.flush()
 
 
 def html_problems(text, corpus):

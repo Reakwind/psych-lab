@@ -108,6 +108,14 @@ class Prototypes(unittest.TestCase):
         self.assertEqual(len(problems), 1)
         self.assertIn('could not be tokenized', problems[0])
 
+    def test_inline_markup_cannot_split_wording(self):
+        # Displayed as 'היי, אנינירה', which no source contains.
+        self.assertEqual(len(verbatim.html_problems('<p>היי, אני<span>נירה</span></p>', CORPUS)), 1)
+        self.assertEqual(verbatim.html_problems('<p>היי, <b>אני</b> נירה</p>', CORPUS), [])
+        # Block boundaries still separate independent sourced strings.
+        self.assertEqual(verbatim.html_problems('<div>נשימה בטנית</div><div>שוברי קרח</div>', CORPUS), [])
+        self.assertEqual(verbatim.html_problems('<p>נשימה בטנית<br>שוברי קרח</p>', CORPUS), [])
+
     def test_escaped_script_strings_are_decoded(self):
         escaped = ''.join('\\u%04x' % ord(c) for c in 'טקסט מומצא')
         problems = verbatim.html_problems('<script>document.body.textContent = "%s";</script>' % escaped, CORPUS)
