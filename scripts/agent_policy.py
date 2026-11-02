@@ -7,7 +7,8 @@ import re
 import subprocess
 import sys
 
-from agent_safety import REPOSITORY, check_scope, json_pages, overlap, validate_contract
+from agent_safety import REPOSITORY, ROOT, check_scope, json_pages, overlap, validate_contract
+import source_guard
 
 MARKER = re.compile(r'<!-- agent-contract\s*\n(.*?)\n-->', re.S)
 
@@ -29,6 +30,32 @@ def check_claims(c, pages, current):
             raise ValueError(f"Open PR #{pr['number']} has no valid scope contract. Resolve it before claiming shared work.")
         if other['task'] == c['task'] or overlap(c['scope'], other['scope']):
             raise ValueError(f"Scope already reserved by PR #{pr['number']} ({other['task']}). Split scope or wait for it to merge.")
+
+
+def source_violations(files, prefixes):
+    """PR files that modify, delete or rename protected source material (adding is allowed)."""
+    bad = []
+    for f in files:
+        for path in [f['filename'], f.get('previous_filename')]:
+            if path and f['status'] != 'added' and source_guard.protected(path, prefixes):
+                bad.append(f"{path} ({f['status']})")
+    return bad
+
+
+def check_sources(files, pr):
+    # Trusted base: the protected list and existing hashes come from main, never from the PR.
+    base_text = (ROOT / source_guard.MANIFEST).read_text() if (ROOT / source_guard.MANIFEST).exists() else None
+    if base_text is None:
+        return
+    prefixes, _ = source_guard.load(base_text)
+    bad = source_violations(files, prefixes)
+    if bad:
+        raise ValueError('Source material is read-only; this PR changes: ' + ', '.join(bad))
+    if any(f['filename'] == source_guard.MANIFEST for f in files):
+        head = api(f"repos/{REPOSITORY}/contents/{source_guard.MANIFEST}?ref={pr['head']['sha']}")
+        problems = source_guard.manifest_problems(base_text, base64.b64decode(head['content']).decode())
+        if problems:
+            raise ValueError('Source manifest entries are immutable: ' + '; '.join(problems))
 
 
 def api(path, pages=False):
@@ -58,6 +85,7 @@ def main():
         raise ValueError('GitHub did not return every changed file; split this PR before merging.')
     paths = [p for f in files for p in [f['filename'], f.get('previous_filename')] if p]
     check_scope(c, paths)
+    check_sources(files, pr)
     metadata = f"docs/agent-tasks/{c['task']}.json"
     snapshot = api(f"repos/{REPOSITORY}/contents/{metadata}?ref={pr['head']['sha']}")
     if json.loads(base64.b64decode(snapshot['content'])) != c:

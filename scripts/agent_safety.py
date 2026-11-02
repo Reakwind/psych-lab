@@ -247,6 +247,11 @@ def pre_commit():
         raise ValueError('Commits require the owned task branch; direct main commits are blocked.')
     check_scope(c, filter(None, git('diff', '--cached', '--name-only', '-z').split('\0')))
     scan_secrets(staged=True)
+    if (ROOT / 'source-material.json').exists():
+        import source_guard
+        problems = source_guard.staged_problems()
+        if problems:
+            raise ValueError('\n'.join(problems))
 
 
 def pre_push(remote, url, lines):

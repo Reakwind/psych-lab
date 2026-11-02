@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 
 from agent_safety import ROOT, git, scan_secrets
+import source_guard
 
 
 def main():
@@ -22,6 +23,10 @@ def main():
         elif file.suffix == '.mjs':
             subprocess.run(['node', '--check', file], check=True, capture_output=True)
     print(f'Syntax and secret checks passed for {scan_secrets()} tracked files.')
+    problems = source_guard.verify()
+    if problems:
+        raise ValueError('Source material is read-only:\n- ' + '\n- '.join(problems))
+    print(f'Source material intact ({len(source_guard.load()[1])} protected files).')
     program = json.loads((ROOT / 'psych-lab/intervention/program.json').read_text())
     if args.media:
         urls = {c['url'] for c in program['clips'].values()}

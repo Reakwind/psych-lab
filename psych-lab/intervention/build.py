@@ -97,7 +97,8 @@ aliases = {
  'PS-ACT-001':'Belly Breathing', 'PS-ACT-002':'Inner Voice Workout', 'PS-ACT-003':'Grounding', 'PS-ACT-004':'Cardversation', 'PS-ACT-005':'Box Breathing', 'PS-ACT-006':'Take a Breather', 'PS-ACT-007':'Mindfulness', 'PS-ACT-008':'In the Moment', 'PS-ACT-009':'Exploring a Pleasant Experience', 'PS-ACT-010':'A Moment of Gratitude', 'PS-ACT-011':'This Matters to Me', 'PS-ACT-012':'Relaxation', 'PS-ACT-013':'Self-Care', 'PS-ACT-014':'Flexible Thinking', 'PS-ACT-015':'Attention & Emotional Balance', 'PS-ACT-016':'Cultivating Calm', 'PS-ACT-017':'Meaningful Action', 'PS-ACT-019':'Physiological Sigh', 'PS-ACT-020':'Coherent Breathing',
  'PS-CONT-058':'Grounding', 'PS-CONT-060':'Observing Thoughts', 'PS-CONT-065':'Guided Relaxation', 'PS-CONT-066':'Nighttime Guided Imagery', 'PS-CONT-067':'Progressive Muscle Relaxation', 'PS-CONT-068':'Safe Place Guided Imagery', 'PS-CONT-069':'Nighttime Safe Place', 'PS-CONT-070':'Awareness of Breath', 'PS-CONT-071':'Body Scan', 'PS-CONT-074':'A Moment of Self-Compassion', 'PS-CONT-077':'Nighttime Body Scan', 'PS-CONT-078':'Hands and Feet Before Sleep', 'PS-CONT-103':'I Am Enough (practice)', 'PS-CONT-104':'One-Breath Reset', 'PS-CONT-105':'Soften One Place', 'PS-CONT-106':'Three Anchors', 'PS-CONT-109':'This Matters to Me', 'DA-CONT-063':'Light Stretches'
 }
-fallback_he = {'PS-CONT-104':'נשימה אחת לאיפוס', 'PS-CONT-105':'לרכך מקום אחד', 'PS-CONT-106':'שלושה עוגנים', 'PS-CONT-110':'רגע של חמלה עצמית — טוב לב אוהב'}
+# Never invent Hebrew titles: every displayed title must come verbatim from a source.
+fallback_he = {}
 
 activities = {}
 
@@ -182,7 +183,11 @@ for gid, opts in groups.items():
 
 # Include library-only practices without inserting them into the daily sequence.
 for cid in ['PS-CONT-066','PS-CONT-069','PS-CONT-077','PS-CONT-078','PS-CONT-110']:
-    a=activity(cid, aliases.get(cid,fallback_he.get(cid,cid)))
+    # No Hebrew title exists in any source for some library items: show the source's own name
+    # (verbatim English) rather than a Lab translation.
+    a=activity(cid, aliases.get(cid) or fallback_he.get(cid) or cid)
+    if a['title'] == cid and a['english']:
+        a['title'] = a['english']
     a['library_only']=True
 
 audio_files = {'PS-ACT-003':'grounding', 'PS-CONT-058':'grounding', 'PS-CONT-060':'observing', 'PS-CONT-068':'safeplace', 'PS-CONT-065':'imagery'}
