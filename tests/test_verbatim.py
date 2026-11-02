@@ -3,6 +3,7 @@ import re
 from pathlib import Path
 import sys
 import unittest
+from urllib.parse import quote
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import verbatim  # noqa: E402
@@ -131,7 +132,8 @@ class Prototypes(unittest.TestCase):
         refs = ''.join('&amp;#%d;' % ord(c) for c in 'טקסט מומצא לחלוטין')
         for page in ['<a href=" javascript:alert(\'%s\')">x</a>' % escaped,
                      '<a href="java\tscript:alert(\'%s\')">x</a>' % escaped,
-                     '<iframe srcdoc="&lt;p&gt;%s&lt;/p&gt;"></iframe>' % refs]:
+                     '<iframe srcdoc="&lt;p&gt;%s&lt;/p&gt;"></iframe>' % refs,
+                     '<a href="javascript:alert(\'%s\')">x</a>' % quote('טקסט מומצא')]:
             with self.subTest(page=page):
                 self.assertEqual(len(verbatim.html_problems(page, CORPUS)), 1)
 

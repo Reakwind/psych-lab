@@ -17,6 +17,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+from urllib.parse import unquote
 import zipfile
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -234,8 +235,9 @@ class TextRuns(HTMLParser):
             # a URL before reading its scheme, so " java\tscript:" still runs as code.
             url = re.sub(r'[\t\n\r]', '', value).strip('\x00\x01\x02\x03\x04\x05\x06\x07\x08\x0b\x0c\x0e\x0f'
                                                           '\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f ')
-            code = url[url.index(':') + 1:] if url.lower().startswith('javascript:') else \
-                value if name.lower().startswith('on') else None
+            # A javascript: URL's payload is percent-decoded (UTF-8) before it runs; handlers are not.
+            code = unquote(url[url.index(':') + 1:], encoding='utf-8', errors='replace') \
+                if url.lower().startswith('javascript:') else value if name.lower().startswith('on') else None
             if code is None:
                 self.runs.append(value)
                 continue
