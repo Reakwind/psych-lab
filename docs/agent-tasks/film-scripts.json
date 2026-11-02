@@ -11,7 +11,9 @@
     "psych-lab/film-scripts.json",
     "psych-lab/index.html",
     "psych-lab/serve.py",
-    "package.json"
+    "package.json",
+    "scripts/agent_safety.py",
+    "tests/test_agent_workflow.py"
   ],
   "branch": "claude/bold-ptolemy-dt1ah7--film-scripts"
 }

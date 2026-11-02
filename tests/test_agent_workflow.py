@@ -246,6 +246,10 @@ class GitIntegration(unittest.TestCase):
     def test_owned_fast_forward_is_allowed(self):
         safety.pre_push('origin', 'https://github.com/Reakwind/psych-lab.git', self.push_line())
 
+    def test_up_to_date_push_with_blank_input_is_allowed(self):
+        safety.pre_push('origin', 'https://github.com/Reakwind/psych-lab.git', '\n')
+        safety.pre_push('origin', 'https://github.com/Reakwind/psych-lab.git', '\n' + self.push_line())
+
     def test_actual_history_rewrite_is_blocked(self):
         with self.assertRaisesRegex(ValueError, 'Non-fast-forward'):
             safety.pre_push('origin', 'https://github.com/Reakwind/psych-lab.git', self.push_line(new=self.first, old=self.head))

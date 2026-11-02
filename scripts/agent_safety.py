@@ -260,6 +260,8 @@ def pre_push(remote, url, lines):
         raise ValueError('Push only to this project’s origin remote.')
     ref = 'refs/heads/' + c['branch']
     for line in lines.splitlines():
+        if not line.strip():
+            continue  # An up-to-date push hands the hook a blank line; there is nothing to check.
         local_ref, local_sha, remote_ref, remote_sha = line.split()
         if local_ref != ref or remote_ref != ref or local_sha == ZERO:
             raise ValueError('No main, tag, deletion, or other-agent pushes; push the owned branch only.')
