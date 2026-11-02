@@ -212,7 +212,7 @@ try {
   P = await response.json();
   const wanted = new URLSearchParams(location.search).get('a');
   $('search').addEventListener('input', renderList);
-  show(P.activities[wanted] && KIND_NAME[P.activities[wanted].kind] ? wanted : 'PS-ACT-001');
+  show(P.activities[wanted] ? wanted : 'PS-ACT-001');  // any activity, including video options
 } catch (error) {
   $('main').replaceChildren(make('p', 'The activities could not load. ' + error.message, 'empty'));
 }
