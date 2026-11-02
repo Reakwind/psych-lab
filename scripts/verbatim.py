@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Prove that program text shown by the Lab is quoted verbatim from protected source material.
 
-Usage: python3 scripts/verbatim.py FILE...   (JSON data or HTML prototypes)
+Usage: python3 scripts/verbatim.py FILE...   (JSON data, HTML prototypes, or JavaScript modules)
 
 A JSON quote is an object {"text": ..., "source": "<protected path>"}; its text must occur exactly
 in that source. Any other Hebrew string in JSON, and every Hebrew text run in HTML, must occur
@@ -304,12 +304,31 @@ def html_problems(text, corpus):
     return problems
 
 
+def js_problems(text, corpus):
+    """Every Hebrew string a script can show (literals and template chunks) must be sourced."""
+    try:
+        strings = js_strings(text)
+    except ScriptError as e:
+        return [str(e)]  # an unreadable script fails closed
+    problems = []
+    for value in strings:
+        value = collapse(value)
+        if HEBREW.search(value) and not corpus.anywhere(value):
+            problems.append(f'{corpus.why_missing(value)}: {value[:60]!r}')
+    return problems
+
+
 def check(paths, corpus=None):
     corpus = corpus or Corpus(exclude={str(Path(p).resolve().relative_to(ROOT)) for p in paths if Path(p).resolve().is_relative_to(ROOT)})
     problems = []
     for path in paths:
         text = Path(path).read_text(encoding='utf-8')
-        found = quote_problems(json.loads(text), corpus, path) if path.endswith('.json') else html_problems(text, corpus)
+        if path.endswith('.json'):
+            found = quote_problems(json.loads(text), corpus, path)
+        elif path.endswith(('.js', '.mjs')):
+            found = js_problems(text, corpus)
+        else:
+            found = html_problems(text, corpus)
         problems += [p if p.startswith(path) else f'{path}: {p}' for p in found]
     return problems, corpus
 

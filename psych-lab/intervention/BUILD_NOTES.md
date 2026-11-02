@@ -2,6 +2,8 @@
 
 Purpose: experience the sourced psychology program end to end and measure its burden within a 30-minute app day. This implementation does not shorten or reorder the clinical program.
 
+Wording rule: the phone shows Hebrew only where a program source has it (titles, leads, thoughts, cards, reflection prompts and buttons). Interface words are English Lab labels in a system font, and screens whose program text is not in any source (motivation, post-practice question, in-practice breathing prompts, choice heading, Inner Voice feedback gaps, closing message) show a 'No source text' marker. `npm run verbatim -- psych-lab/intervention/app.mjs psych-lab/intervention/index.html` checks this; a test keeps it so.
+
 Design: retain the Lab's sage teal (#2B6A62), pale mint (#F5FBF8, #B3EFE4), amber (#FFDEA3), and ink (#171D1B). Hebrew patient screens use the existing Rubik/system font stack, large text, one task per screen, and large touch controls. The desktop shell pairs a session index with a phone preview and a separate English review panel. Sources and prototype assumptions belong in the review panel.
 
 The current V0 timeline controls the 87 psychology sessions. These are psychology session IDs, distinct from app day 1 orientation. Current pre-pages, activity copy, context tables, and trailer mappings supplement it. Choice groups select one practice; selected methods get their own introduction when new. Repeat/library visits can omit previously seen introductions. No chosen practice is replaced with its trailer.
