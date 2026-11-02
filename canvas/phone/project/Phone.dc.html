@@ -352,10 +352,19 @@ class Component extends DCLogic {
     this.timer = setInterval(() => this.tick(), 200);
     // The run clock counts visible time only: it stops while the page is hidden or the clock is paused.
     this.clock = setInterval(() => { if (this.run && this.run.since) this.setState({ now: Date.now() }); }, 1000);
+    // Hiding the page pauses what is playing as well as the clock, so no film or recording finishes unmeasured;
+    // showing it again restarts both (if the browser refuses to restart playback, pressing play does it).
     this.onVisibility = () => {
       if (!this.run || this.run.done) return;
-      if (document.visibilityState === 'visible') { if (!this.state.paused) this.run.since = Date.now(); }
-      else this.bank(true);
+      if (document.visibilityState === 'visible') {
+        if (!this.state.paused) this.run.since = Date.now();
+        if (this.resumeOnShow && this.media && !this.state.paused) { const p = this.media.play(); if (p && p.catch) p.catch(() => {}); }
+        this.resumeOnShow = false;
+      } else {
+        this.bank(true);
+        this.resumeOnShow = !!(this.media && !this.media.paused && !this.media.ended);
+        if (this.resumeOnShow) this.media.pause();
+      }
       this.setState({ now: Date.now() });
     };
     document.addEventListener('visibilitychange', this.onVisibility);
