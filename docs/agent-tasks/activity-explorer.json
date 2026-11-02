@@ -1,0 +1,13 @@
+{
+  "task": "activity-explorer",
+  "agent": "claude-bold-ptolemy",
+  "scope": [
+    "psych-lab/intervention/activities.html",
+    "psych-lab/intervention/activities.mjs",
+    "psych-lab/index.html",
+    "tests/test_verbatim.py",
+    "psych-lab/intervention/build.py",
+    "psych-lab/intervention/BUILD_NOTES.md"
+  ],
+  "branch": "claude/bold-ptolemy-dt1ah7--activity-explorer"
+}
