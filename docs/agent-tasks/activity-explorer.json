@@ -17,7 +17,8 @@
     ".github/rulesets/main.json",
     ".github/rulesets/history.json",
     "psych-lab/intervention/core.mjs",
-    "psych-lab/intervention/app.mjs"
+    "psych-lab/intervention/app.mjs",
+    "psych-lab/intervention/core.test.mjs"
   ],
   "branch": "claude/bold-ptolemy-dt1ah7--activity-explorer"
 }
