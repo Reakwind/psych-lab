@@ -117,7 +117,47 @@ def scan_secrets(staged=False):
 
 
 READ_ONLY = {'status', 'diff', 'log', 'show', 'fetch', 'ls-files', 'ls-tree', 'rev-parse', 'rev-list',
-             'merge-base', 'check-ref-format', 'cat-file', 'describe', 'shortlog', 'blame', 'version', 'help'}
+             'merge-base', 'check-ref-format', 'cat-file', 'describe', 'shortlog', 'blame', 'version', 'help',
+             'grep', 'check-ignore', 'show-ref', 'for-each-ref', 'ls-remote', 'count-objects', 'var'}
+# Environment assignments that redirect Git away from the guarded repository or configuration.
+GIT_OVERRIDE = re.compile(r'\bGIT_(?:CONFIG|INDEX_FILE|DIR|WORK_TREE|COMMON_DIR|SSH_COMMAND)\w*["\']?\]?\s*[=:]'
+                          r'|\bHUSKY\s*=\s*0')
+# `.git` as a path component, e.g. `.git`, `./.git/hooks`; not `.github/` or `.gitignore`.
+GIT_METADATA = re.compile(r'(?:^|/)\.git(?:/|$)')
+REMOVERS = {'rm', 'rmdir', 'unlink', 'Remove-Item', 'shred'}
+WRITERS = {'tee', 'cp', 'mv', 'ln', 'truncate', 'install', 'chmod', 'chown', 'dd', 'rsync'}
+SHELLS = {'bash', 'sh', 'zsh', 'dash', 'ksh'}
+EXECUTORS = SHELLS | {'env', 'xargs', 'eval', 'source', '.', 'sudo', 'exec', 'nohup', 'time', 'command'}
+# Complete delimiter word: fully quoted ('EOF' / "EOF") or an unquoted run of non-metacharacters.
+HEREDOC = re.compile(r'<<-?[ \t]*(?:\'([^\'\n]*)\'|"([^"\n]*)"|([^\s;&|<>()]+))')
+
+
+def strip_data_heredocs(command):
+    """Drop heredoc bodies only when Bash passes them on as inert data.
+
+    A body is skipped only if its delimiter is fully quoted (so `$(...)` and backticks are not
+    expanded), its terminator line exists, and no executor consumes it, either as the receiving
+    program or later in a pipeline. Everything else stays inspected as commands.
+    """
+    lines, out, i = command.split('\n'), [], 0
+    while i < len(lines):
+        line = lines[i]
+        out.append(line)
+        i += 1
+        match = HEREDOC.search(line)  # Only the first heredoc per line; later ones stay inspected.
+        if not match or match[3] is not None:
+            continue  # Unquoted delimiter: the shell expands the body, so inspect it.
+        delimiter = match[1] if match[1] is not None else match[2]
+        segment = re.split(r'[;&|]', line[:match.start()])[-1].split()
+        words = [w for w in segment if '=' not in w or w.startswith('-')]
+        program = Path(words[0].lstrip('$(<"\'')).name if words else ''
+        downstream = [Path(w).name for part in line[match.end():].split('|')[1:] for w in part.split()[:1]]
+        if not delimiter or program in EXECUTORS or any(p in EXECUTORS for p in downstream):
+            continue  # Something may execute the body: inspect it as commands.
+        body_end = next((j for j in range(i, len(lines)) if lines[j].strip() == delimiter), None)
+        if body_end is not None:
+            del lines[i:body_end]
+    return '\n'.join(out)
 
 
 def command_problem(command):
@@ -126,17 +166,21 @@ def command_problem(command):
     This is an accident guard, not a sandbox for arbitrary Python or shell code.
     Hooks and GitHub protections must never be removed to get around a denial.
     """
+    command = strip_data_heredocs(command)
     try:
         lexer = shlex.shlex(command, posix=True, punctuation_chars=';&|()<>')
         lexer.whitespace_split = True
         tokens = list(lexer)
     except ValueError:
         return 'Cannot safely parse this command.'
-    if re.search(r'\bGIT_(?:CONFIG|INDEX_FILE|DIR|WORK_TREE|COMMON_DIR|SSH_COMMAND)|\bHUSKY\s*=\s*0', command):
+    if GIT_OVERRIDE.search(command):
         return 'Git environment overrides can bypass repository safeguards.'
-    if '.git' in command and any(Path(t).name in {'rm', 'rmdir', 'unlink', 'Remove-Item'} for t in tokens):
+    metadata = [t for t in tokens if GIT_METADATA.search(t)]
+    if metadata and any(Path(t).name in REMOVERS for t in tokens):
         return 'Removing Git metadata is forbidden.'
-    if '.git' in command and ('-delete' in tokens or any(t in {'>', '>>'} for t in tokens)):
+    if metadata and ('-delete' in tokens or any(Path(t).name in WRITERS for t in tokens)
+                     or any(t in {'>', '>>', '>|'} and i + 1 < len(tokens) and GIT_METADATA.search(tokens[i + 1])
+                            for i, t in enumerate(tokens))):
         return 'Destructive writes to Git metadata are forbidden.'
     for i, t in enumerate(tokens):
         if Path(t).name in {'bash', 'sh', 'zsh'} and i + 2 < len(tokens) and 'c' in tokens[i+1].lstrip('-'):
@@ -162,7 +206,7 @@ def command_problem(command):
             if sub == 'fetch' and any(a.startswith('--prune') for a in rest):
                 return 'Do not prune references during autonomous work.'
             continue
-        if sub == 'lfs' and rest and rest[0] in {'pull', 'fetch', 'status', 'ls-files', 'fsck', 'version'}:
+        if sub == 'lfs' and rest and rest[0] in {'pull', 'fetch', 'status', 'ls-files', 'fsck', 'version', 'env'}:
             continue
         if sub == 'add' and '--all' not in rest and '-A' not in rest and '.' not in rest:
             continue
@@ -184,10 +228,15 @@ def command_problem(command):
             continue
         if sub == 'worktree' and rest and rest[0] == 'list':
             continue
-        if sub == 'remote' and (not rest or rest == ['-v']):
+        if sub == 'remote' and (not rest or rest == ['-v'] or (rest[0] == 'get-url' and len(rest) == 2)):
             continue
-        if sub == 'config' and rest and rest[0] in {'--get', '--get-all', '--list'}:
+        if sub == 'stash' and rest and rest[0] in {'list', 'show'}:
             continue
+        if sub == 'config':
+            while rest and rest[0] in {'--global', '--local', '--system', '--show-origin', '--show-scope', '--includes'}:
+                rest = rest[1:]
+            if rest and rest[0] in {'--get', '--get-all', '--get-regexp', '--list', '-l'}:
+                continue
         return f'Git action {sub!r} is outside the safe autonomous workflow. Use scripts/agents.py.'
     return None
 

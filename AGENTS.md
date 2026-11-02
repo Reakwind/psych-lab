@@ -11,7 +11,7 @@ The full intervention lives at `/?view=intervention&day=1`. The Lab contains 51 
 ## Ownership is mandatory
 
 1. One agent, one isolated checkout/worktree, one unique branch, one task, one PR. Never share a mutable checkout, render output directory, or browser debugging port with another agent.
-2. Run `python3 scripts/agents.py setup`. Use `start` for a new local worktree or `claim` to adopt a cloud-provider branch. Keep the provider's assigned branch name; do not rename it.
+2. Run `python3 scripts/agents.py setup`, then `npm run doctor` (readiness: tools, guards, claim, LFS media, GitHub access). Use `start` for a new local worktree or `claim` to adopt a cloud-provider branch. Keep the provider's assigned branch name; do not rename it. `scripts/agents.py` talks to GitHub through REST only (`gh api`), because hosted agent proxies block the GraphQL API that `gh pr ...` uses; do not replace it with `gh pr` commands.
 3. Claim exact files or directory prefixes through an early draft PR. Wait for `agent-policy` to pass before implementation. Inspect open PRs and their scope contracts. The oldest open PR wins a conflicting claim; later agents split their task or wait.
 4. Change only your reserved files and your own task manifest. Shared files require a separate task or explicit, coordinated transfer after the previous claim closes. No global mutable lock file. Do not edit another task's manifest or context.
 5. Keep a readable PR body with purpose, behavior changes, validation, risks/source impact, and ownership. Preserve the hidden agent contract. Use conventional subjects and `Task:` / `Agent:` commit trailers. State the reason for each meaningful change.

@@ -6,6 +6,8 @@
 *.key
 .claude/settings.local.json
 .agent-context.json
+# Local agent memory/session state written by personal plugins
+.anchor/
 .tools/
 .venv/
 node_modules/

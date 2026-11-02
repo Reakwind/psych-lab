@@ -21,6 +21,7 @@ Open **http://127.0.0.1:63684/?view=intervention&day=1**. In a cloud environment
 npm test                 # sequence, ownership, policy, and Git safety tests
 npm run check            # tracked-source syntax and credential scan
 npm run media:check      # verify every referenced recording/video with FFprobe
+npm run doctor           # agent readiness: tools, guards, task claim, LFS media, GitHub access
 ```
 
 PR CI uses code and LFS pointers; full media verification is an explicit workflow to avoid repeated archive downloads.
