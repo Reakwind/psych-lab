@@ -303,7 +303,7 @@ for key,rows in zip(['matters','pleasant','gratitude'],sheets(read('mindful-mome
 
 # Daily app minutes per weekly cycle day, summed from each day's activities in Protocol.xlsx
 # (columns A day, B activity, C duration). The light-speech sheet also lists its own totals,
-# which disagree for day 7 (23 listed vs 25 summed); the sum of the listed activities is used.
+# which disagree for day 7 (23 listed vs 25 summed); the owner confirmed 25 (2026-11-02), the sum.
 protocol_book=ACTIVITY_SHEETS/'Protocol.xlsx'
 sources['protocol']={'title':'Protocol.xlsx','updated_at':modified(protocol_book),'path':str(protocol_book.relative_to(ROOT))}
 daily={}
