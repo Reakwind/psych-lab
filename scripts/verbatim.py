@@ -10,6 +10,7 @@ the command says so, because text that cannot be read cannot be verified.
 """
 import csv
 import html
+from html.parser import HTMLParser
 import io
 import json
 from pathlib import Path
@@ -121,7 +122,8 @@ def quote_problems(data, corpus, where=''):
                 problems.append(f"{where}: {data['source']} is a design prototype, not a program source")
             elif not corpus.in_source(data['text'], data['source']):
                 problems.append(f"{where}: not verbatim in {data['source']}: {data['text'][:60]!r}")
-            return problems
+            # A sourced quote must not shelter other content: check its remaining fields too.
+            data = {k: v for k, v in data.items() if k not in ('text', 'source')}
         for k, v in data.items():
             problems += quote_problems(v, corpus, f'{where}.{k}')
     elif isinstance(data, list):
@@ -135,19 +137,38 @@ def quote_problems(data, corpus, where=''):
 JS_STRING = re.compile(r'"((?:[^"\\\n]|\\.)*)"|\'((?:[^\'\\\n]|\\.)*)\'|`([^`]*)`')
 
 
+class TextRuns(HTMLParser):
+    """Text nodes, every attribute value (any quoting) and JavaScript string literals."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.runs, self.raw = [], None
+
+    def handle_starttag(self, tag, attrs):
+        self.runs += [value for _, value in attrs if value]
+        if tag in ('script', 'style'):
+            self.raw = tag
+
+    handle_startendtag = handle_starttag
+
+    def handle_endtag(self, tag):
+        if tag == self.raw:
+            self.raw = None
+
+    def handle_data(self, data):
+        if self.raw == 'script':
+            self.runs += [next(g for g in m.groups() if g is not None) for m in JS_STRING.finditer(data)]
+        elif self.raw is None:
+            self.runs.append(data)
+
+
 def html_problems(text, corpus):
     """Every Hebrew text run in a prototype (text nodes, attribute values, JS strings) must be sourced."""
-    runs = []
-
-    def strip_block(match):
-        if match[1].lower() == 'script':
-            runs.extend(next(g for g in m.groups() if g is not None) for m in JS_STRING.finditer(match[2]))
-        return ''
-
-    body = re.sub(r'<(script|style)\b[^>]*>(.*?)</\1>', strip_block, text, flags=re.S | re.I)
-    runs += re.split(r'<[^>]+>', body) + re.findall(r'(?:alt|title|aria-label|placeholder|content)="([^"]*)"', body)
+    parser = TextRuns()
+    parser.feed(text)
+    parser.close()
     problems = []
-    for run in runs:
+    for run in parser.runs:
         for line in html.unescape(run).split('\n'):
             line = line.strip()
             if HEBREW.search(line) and not corpus.anywhere(line):

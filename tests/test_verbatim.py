@@ -32,6 +32,12 @@ class Quotes(unittest.TestCase):
         paraphrase = {'text': 'נשימה מהבטן', 'source': 'sources/script.json'}
         self.assertTrue(verbatim.quote_problems(paraphrase, CORPUS))
 
+    def test_a_sourced_quote_cannot_hide_other_fields(self):
+        quote = {'text': 'נשימה בטנית', 'source': 'sources/script.json', 'activity': 'טקסט מומצא לחלוטין'}
+        problems = verbatim.quote_problems(quote, CORPUS, 'q')
+        self.assertEqual(len(problems), 1)
+        self.assertIn('q.activity', problems[0])
+
     def test_other_hebrew_strings_must_exist_somewhere(self):
         self.assertEqual(verbatim.quote_problems({'a': ['שוברי קרח', 'Lab label']}, CORPUS), [])
         problems = verbatim.quote_problems({'a': {'b': 'טקסט שהומצא'}}, CORPUS, 'data')
@@ -47,6 +53,11 @@ class Prototypes(unittest.TestCase):
         problems = verbatim.html_problems(page, CORPUS)
         self.assertEqual(len(problems), 1)
         self.assertIn('מחשבה שהומצאה', problems[0])
+
+    def test_single_quoted_and_value_attributes_are_checked(self):
+        for page in ["<input placeholder='טקסט מומצא לחלוטין'>", '<input value="טקסט מומצא לחלוטין">']:
+            with self.subTest(page=page):
+                self.assertEqual(len(verbatim.html_problems(page, CORPUS)), 1)
 
     def test_invented_text_node_is_reported(self):
         self.assertTrue(verbatim.html_problems('<p>טקסט שהומצא</p>', CORPUS))
