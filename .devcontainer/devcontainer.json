@@ -2,8 +2,6 @@
   "name": "Psych Lab agent workspace",
   "build": {"dockerfile": "Dockerfile"},
   "remoteUser": "node",
-  "forwardPorts": [63684],
-  "portsAttributes": {"63684": {"label": "Psych Lab", "onAutoForward": "notify"}},
   "postCreateCommand": "bash scripts/cloud-bootstrap.sh",
   "customizations": {"vscode": {"settings": {"files.eol": "\n"}}}
 }
