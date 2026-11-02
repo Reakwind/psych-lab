@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """An isolated branch, an explicit task claim, and an auditable PR per agent."""
 import argparse
+import html
 import json
 from pathlib import Path
 import re
@@ -95,6 +96,30 @@ def ensure_identity():
               'user.email': f"{user['id']}+{user['login']}@users.noreply.github.com"}
     for key in missing:
         run('git', 'config', '--local', key, values[key])
+
+
+def next_task(args):
+    """Start the next task on a fresh branch cut from main.
+
+    A squash merge leaves the old task's commits outside main, so reusing that branch would drag
+    them (with the wrong Task trailers) into the next PR. Each task gets `<session-branch>--<task>`.
+    """
+    clean()
+    current = git('branch', '--show-current')
+    branch = f"{current.split('--')[0]}--{args.task}"
+    validate_contract({'task': args.task, 'agent': args.agent, 'scope': args.scope, 'branch': branch})
+    run('git', 'fetch', 'origin', 'main')
+    local = ROOT / '.agent-context.json'
+    if local.exists():
+        old = context()
+        merged = not subprocess.run(['git', 'cat-file', '-e', f"origin/main:docs/agent-tasks/{old['task']}.json"],
+                                    cwd=ROOT, capture_output=True).returncode
+        if not merged or open_prs(old['branch']):
+            raise ValueError(f"Task {old['task']} is not merged yet: submit and merge it before starting another.")
+    run('git', 'switch', '-c', branch, 'origin/main')
+    if local.exists():
+        local.unlink()  # The finished task's record lives in its committed manifest on main.
+    claim(args)
 
 
 def resume_state(c):
@@ -245,6 +270,73 @@ def submit(args):
     print(pr['html_url'])
 
 
+def required_checks():
+    """Required status checks from the recorded main ruleset (GitHub enforces the live copy)."""
+    rules = json.loads((ROOT / '.github/rulesets/main.json').read_text())['rules']
+    return sorted({check['context'] for rule in rules if rule['type'] == 'required_status_checks'
+                   for check in rule['parameters']['required_status_checks']})
+
+
+def codex_review_state(comments):
+    """Latest Codex review summary state, or None when the repository has no Codex review."""
+    for comment in reversed(comments):
+        match = re.search(r'codex-review-state:v1 (.*?) -->', comment.get('body') or '', re.S)
+        if match:
+            return json.loads(html.unescape(match[1])).get('code_review') or {}
+    return None
+
+
+def merge_problems(pr, head, runs, required, threads, codex):
+    """Everything that must hold before an agent squash-merges its own PR."""
+    problems = []
+    if pr['state'] != 'open':
+        problems.append(f"PR is {pr['state']}.")
+    if pr.get('draft'):
+        problems.append('PR is still a draft; run submit first.')
+    if pr['head']['sha'] != head:
+        problems.append('Local HEAD differs from the PR head; push your commits (submit) first.')
+    for name in required:
+        mine = [r for r in runs if r['name'] == name]
+        if any(r['status'] != 'completed' for r in mine):
+            problems.append(f'{name}: still running on {head[:8]}.')
+        elif any(r['conclusion'] in {'failure', 'timed_out', 'action_required', 'startup_failure'} for r in mine):
+            problems.append(f'{name}: failed on {head[:8]}; fix it before merging.')
+        elif not any(r['conclusion'] == 'success' for r in mine):
+            problems.append(f'{name}: no successful run on {head[:8]} yet.')
+    unresolved = [t for t in threads if not t.get('resolved')]
+    if unresolved:
+        problems.append(f'{len(unresolved)} unresolved review thread(s): fix or answer each, then resolve it.')
+    if codex is not None and codex.get('status') != 'completed':
+        problems.append('Codex review is still running; wait for its findings.')
+    return problems
+
+
+def merge(args):
+    """Squash-merge this task's PR once checks, reviews and the base are all in order."""
+    c = context()
+    pr = assert_reserved(c)
+    clean()
+    run('git', 'fetch', 'origin', 'main')
+    head = git('rev-parse', 'HEAD')
+    if subprocess.run(['git', 'merge-base', '--is-ancestor', 'origin/main', head], cwd=ROOT).returncode:
+        raise ValueError('Branch is behind main: run sync, then submit, and wait for checks before merging.')
+    number = pr['number']
+    pr = gh_api(f'repos/{REPOSITORY}/pulls/{number}')
+    runs = gh_api(f'repos/{REPOSITORY}/commits/{head}/check-runs?per_page=100')['check_runs']
+    try:
+        threads = gh_api(f'repos/{REPOSITORY}/pulls/{number}/ccr/review_threads')
+    except ValueError:
+        threads = []  # Route only exists behind hosted proxies; the ruleset still requires resolution.
+    comments = [x for page in gh_api(f'repos/{REPOSITORY}/issues/{number}/comments?per_page=100', paginate=True) for x in page]
+    problems = merge_problems(pr, head, runs, required_checks(), threads, codex_review_state(comments))
+    if problems:
+        raise ValueError('Not ready to merge:\n- ' + '\n- '.join(problems))
+    result = gh_api(f'repos/{REPOSITORY}/pulls/{number}/merge', method='PUT', data={
+        'merge_method': 'squash', 'sha': head, 'commit_title': f"{pr['title']} (#{number})",
+        'commit_message': f"Task: {c['task']}\nAgent: {c['agent']}"})
+    print(f"Merged #{number} as {result.get('sha', '?')[:8]}. Next: python3 scripts/agents.py next --task ... to start the next task on a fresh branch.")
+
+
 def status():
     print(git('status', '--short', '--branch'))
     print(json.dumps(context(), indent=2) if (ROOT / '.agent-context.json').exists() else 'No task claimed.')
@@ -332,9 +424,10 @@ def main():
     sub.add_parser('setup')
     sub.add_parser('status')
     sub.add_parser('sync')
+    sub.add_parser('merge', help="squash-merge this task's green, fully reviewed PR")
     s = sub.add_parser('doctor', help='report environment readiness for autonomous work')
     s.add_argument('--offline', action='store_true', help='skip GitHub API checks')
-    for name in ['start', 'claim']:
+    for name in ['start', 'claim', 'next']:
         s = sub.add_parser(name)
         for field in ['task', 'agent', 'summary']:
             s.add_argument('--' + field, required=True)
@@ -362,7 +455,7 @@ def main():
             run('git', 'fetch', 'origin', 'main')
             run('git', 'merge', '--no-edit', 'origin/main')
         else:
-            globals()[args.action](args)
+            {'next': next_task}.get(args.action, globals().get(args.action))(args)
     except (ValueError, OSError, subprocess.CalledProcessError) as e:
         print(f'Agent workflow stopped: {e}\nFiles and branches have been preserved. Inspect before continuing.', file=sys.stderr)
         sys.exit(1)

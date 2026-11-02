@@ -10,7 +10,12 @@ python3 scripts/agents.py claim --task T --agent A --summary S --scope PATHS...
 # wait for agent-policy to pass on the draft PR, implement, then:
 python3 scripts/agents.py commit --message M --why W PATHS...
 python3 scripts/agents.py submit --title T --summary S --changes C --validation V --risks R
+# fix/answer and resolve every review finding, wait for green checks, then:
+python3 scripts/agents.py merge
+python3 scripts/agents.py next --task T2 --agent A --summary S --scope PATHS...   # fresh branch from main
 ```
+
+Report blockers, risks and decisions to the owner directly in the conversation with a recommendation; never leave them only in a file or PR body.
 
 ## Worker lifecycle
 
@@ -34,7 +39,7 @@ python3 scripts/agents.py claim --task video-controls --agent claude-controls \
   --scope psych-lab/intervention/app.mjs psych-lab/intervention/style.css
 ```
 
-The claim command commits only its own manifest, pushes only its assigned branch, and opens a draft PR. Wait for `agent-policy` to pass before implementing. If two claims race, the oldest open PR reserves that scope and the newer PR is blocked. Different exact files can be worked on concurrently; directory claims reserve their descendants. A malformed open claim blocks new reservations until the integrator fixes it. Avoid a single shared task board file that all agents must edit.
+The claim command commits only its own manifest, pushes only its assigned branch, and opens a draft PR. Wait for `agent-policy` to pass before implementing. If two claims race, the oldest open PR reserves that scope and the newer PR is blocked. Different exact files can be worked on concurrently; directory claims reserve their descendants. A malformed open claim blocks new reservations until its agent fixes it or the owner closes it. Avoid a single shared task board file that all agents must edit.
 
 If a reservation is interrupted by authentication or network failure, retry the exact same `claim` command in the same checkout with unchanged task, agent, branch and scope. It reuses the reservation commit and draft PR instead of creating duplicates. Recovery refuses unrelated uncommitted work or a different contract and preserves those files. Do not delete context, branches, or Git metadata to recover.
 
@@ -70,19 +75,18 @@ python3 scripts/agents.py submit \
 
 The command runs checks, pushes, updates the structured PR body, and marks the PR ready. `--footer` appends provider-required attribution after the contract. All GitHub calls are REST-only, so they also work in hosted sessions whose proxies block GraphQL; if marking ready is refused, the command says so and the agent marks the PR ready with its own GitHub integration. Actual visual/media validation must be performed and accurately reported by the agent; a claimed command result is not a substitute for evidence.
 
-## Integrator lifecycle
+## Merging your own PR
 
-Assign one integrator at a time. Workers stop at ready PRs. The integrator reviews the changes, authored sources, scope, validation and current head; checks for logical conflicts that path ownership cannot detect; then squash-merges one PR at a time:
+The owner does not review or approve PRs (decision 2026-11-02). Each agent integrates its own work, one PR at a time:
 
 ```bash
-gh pr checks NUMBER --repo Reakwind/psych-lab --required
-gh pr view NUMBER --repo Reakwind/psych-lab --json headRefOid
-gh pr merge NUMBER --repo Reakwind/psych-lab --squash --match-head-commit EXACT_HEAD_SHA
+python3 scripts/agents.py merge     # squash-merges only when everything below holds
+python3 scripts/agents.py next ...  # next task on <session-branch>--<task>, cut from main
 ```
 
-Never use `--admin` or `--delete-branch`. Preserve branches and task manifests as an audit trail. After one merge, later agents fetch/merge main and rerun checks. Squash commit titles inherit the conventional PR title; the structured PR body explains the final change.
+`merge` refuses unless the PR is submitted (not draft), the local head is pushed and is the PR head, the branch contains current main, every required check from `.github/rulesets/main.json` has succeeded on that exact head (cancelled duplicates are ignored; any failure blocks), every review thread is resolved, and the Codex review has finished. Before merging, fix each review finding or answer it on its thread, then resolve it. Re-read your full diff for logical conflicts that path ownership cannot detect. The squash commit takes the conventional PR title; branches and task manifests stay as the audit trail. After a merge, `next` checks that the previous task is merged with no open PR, creates `<session-branch>--<task>` from main, and claims it. Never reuse a squash-merged branch: its commits stay outside main and would fail `agent-policy` in the next PR.
 
-Required independent human approvals are set to zero so agents using the same GitHub identity can complete the workflow. A single account cannot approve its own PR. The assigned integrator review, scope policy, required checks, and strict current-base rule remain mandatory. If separate worker and reviewer identities are available, the owner can require a code-owner approval without deadlocking autonomous work.
+Required human approvals are zero because agents share the owner's GitHub identity, which cannot approve its own PR. Scope policy, required checks, resolved threads and the strict current-base rule remain enforced by GitHub.
 
 ## Safeguards and boundaries
 
@@ -92,6 +96,6 @@ Required independent human approvals are set to zero so agents using the same Gi
 - Trusted-base policy: runs only main's policy code, never executes PR code with privileged tokens, checks live PR data and committed task metadata, and rejects scope overlaps.
 - Quality CI: read-only permissions, no secrets, no privileged PR execution, pinned official actions. Media is an explicit heavier check.
 
-Local hooks can be bypassed by arbitrary code or an administrator. Remote rules enforce shared history but an administrator can change the ruleset. Do not issue admin credentials to workers. Path claims prevent overlapping edits; they cannot guarantee semantic compatibility between different files, so integrator review still matters. Rules preserve remote history; keep normal backups for local uncommitted work.
+Local hooks can be bypassed by arbitrary code or an administrator. Remote rules enforce shared history but an administrator can change the ruleset. Do not issue admin credentials to workers. Path claims prevent overlapping edits; they cannot guarantee semantic compatibility between different files, so re-read the merged result before `merge`. Rules preserve remote history; keep normal backups for local uncommitted work.
 
-Task scope changes and infrastructure/source-policy changes should be separate, narrowly owned integrator PRs. Do not downgrade protections to unblock a worker. The owner alone decides repository access and clinical content changes.
+Task scope changes and infrastructure/source-policy changes should be separate, narrowly owned PRs. Do not downgrade protections to unblock a task. The owner alone decides repository access, rulesets and clinical content changes; recommend those in the conversation.

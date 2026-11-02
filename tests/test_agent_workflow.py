@@ -4,6 +4,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
@@ -152,6 +153,39 @@ class GitHubAccess(unittest.TestCase):
             workflow.mark_ready({'number': 9, 'draft': True})
         api.assert_called_once_with('repos/Reakwind/psych-lab/pulls/9/ccr/ready_for_review', method='POST')
 
+    def test_required_checks_follow_recorded_ruleset(self):
+        self.assertEqual(workflow.required_checks(), ['agent-policy', 'quality'])
+
+    def test_merge_gate(self):
+        head = 'a' * 40
+        pr_state = {'state': 'open', 'draft': False, 'head': {'sha': head}}
+        green = [{'name': 'quality', 'status': 'completed', 'conclusion': 'success'},
+                 {'name': 'agent-policy', 'status': 'completed', 'conclusion': 'cancelled'},
+                 {'name': 'agent-policy', 'status': 'completed', 'conclusion': 'success'}]
+        required = ['agent-policy', 'quality']
+        done = {'status': 'completed'}
+        self.assertEqual(workflow.merge_problems(pr_state, head, green, required, [{'resolved': True}], done), [])
+        self.assertEqual(workflow.merge_problems(pr_state, head, green, required, [], None), [])
+        cases = {
+            'draft': ({**pr_state, 'draft': True}, green, [], done),
+            'differs': ({**pr_state, 'head': {'sha': 'b' * 40}}, green, [], done),
+            'failed': (pr_state, green + [{'name': 'quality', 'status': 'completed', 'conclusion': 'failure'}], [], done),
+            'still running': (pr_state, green + [{'name': 'quality', 'status': 'in_progress', 'conclusion': None}], [], done),
+            'no successful': (pr_state, green[1:], [], done),
+            'unresolved': (pr_state, green, [{'resolved': False}], done),
+            'Codex': (pr_state, green, [], {'status': 'running'}),
+        }
+        for expected, (state, runs, threads, codex) in cases.items():
+            with self.subTest(expected=expected):
+                problems = workflow.merge_problems(state, head, runs, required, threads, codex)
+                self.assertTrue(any(expected in p for p in problems), problems)
+
+    def test_codex_review_state_is_read_from_summary_comment(self):
+        body = ('<!-- codex-review-state:v1 &#123;"code_review":&#123;"commit_sha":"abc",'
+                '"status":"completed"&#125;&#125; -->\n## Codex Review Summary')
+        self.assertEqual(workflow.codex_review_state([{'body': 'hi'}, {'body': body}])['status'], 'completed')
+        self.assertIsNone(workflow.codex_review_state([{'body': 'no review here'}]))
+
     def test_lfs_hydration_counts(self):
         listing = 'abc123 * film/a.mp4\ndef456 - film/b.mp4\n0ff1ce - voice over/c.m4a\n'
         self.assertEqual(workflow.lfs_counts(listing), (1, 2))
@@ -262,6 +296,45 @@ class GitIntegration(unittest.TestCase):
         with patch.object(workflow, 'git', side_effect=self.run_git), self.assertRaisesRegex(ValueError, 'other uncommitted'):
             workflow.resume_state(c)
         self.assertEqual((self.root / 'owned.txt').read_text(), 'unfinished work\n')
+
+    def merge_current_task_into_main(self):
+        """Simulate a squash merge: main gains the task manifest; the task branch keeps its own commits."""
+        self.run_git('switch', '-c', 'main-sim', self.first)
+        metadata = self.root / 'docs/agent-tasks/mobile-controls.json'
+        metadata.parent.mkdir(parents=True)
+        metadata.write_text(json.dumps(task(scope=['owned.txt'])))
+        self.run_git('add', 'docs/agent-tasks/mobile-controls.json')
+        self.run_git('commit', '-m', 'Squashed task')
+        self.run_git('update-ref', 'refs/remotes/origin/main', 'HEAD')
+        self.run_git('switch', 'agent/mobile-controls')
+
+    def next_task(self, open_prs=()):
+        def run(*args, cwd=None):  # real Git in the temporary repository, but no network fetch
+            if args[:2] != ('git', 'fetch'):
+                subprocess.run([str(a) for a in args], cwd=self.root, check=True, capture_output=True)
+        args = SimpleNamespace(task='next-task', agent='test-agent', summary='Next task', scope=['owned.txt'])
+        with patch.object(workflow, 'open_prs', return_value=list(open_prs)), \
+                patch.object(workflow, 'run', side_effect=run), patch.object(workflow, 'claim') as claim:
+            workflow.next_task(args)
+        return claim
+
+    def test_next_task_starts_fresh_branch_from_main(self):
+        self.merge_current_task_into_main()
+        claim = self.next_task()
+        claim.assert_called_once()
+        self.assertEqual(self.run_git('branch', '--show-current'), 'agent/mobile-controls--next-task')
+        self.assertEqual(self.run_git('rev-parse', 'HEAD'), self.run_git('rev-parse', 'origin/main'))
+        self.assertFalse((self.root / '.agent-context.json').exists())
+
+    def test_next_task_refuses_while_previous_task_is_unmerged_or_open(self):
+        self.run_git('update-ref', 'refs/remotes/origin/main', self.first)  # manifest not on main
+        with self.assertRaisesRegex(ValueError, 'not merged'):
+            self.next_task()
+        self.merge_current_task_into_main()
+        with self.assertRaisesRegex(ValueError, 'not merged'):
+            self.next_task(open_prs=[{'number': 4}])
+        self.assertEqual(self.run_git('branch', '--show-current'), 'agent/mobile-controls')
+        self.assertTrue((self.root / '.agent-context.json').exists())
 
     def test_recovery_cannot_change_the_contract(self):
         with self.assertRaisesRegex(ValueError, 'different contract'):
