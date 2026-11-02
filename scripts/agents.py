@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""An isolated branch, an explicit task claim, and an auditable PR per agent."""
+"""One session, one worktree and branch, commits all day, one squash-merged PR at the end of the day."""
 import argparse
 import html
 import json
@@ -156,12 +156,23 @@ def setup():
     print('Agent guards installed. Read AGENTS.md; claim a task before editing or committing.')
 
 
-def body(c, summary, changes='Task reserved; implementation in progress.', validation='Pending implementation checks.', risks='See task scope and source constraints.'):
-    return (f'## Purpose\n{summary}\n\n## Changes\n{changes}\n\n## Validation\n{validation}\n\n'
-            f'## Risks and source changes\n{risks}\n\n## Ownership\n'
-            f"Task: `{c['task']}`\nAgent: `{c['agent']}`\nBranch: `{c['branch']}`\n\n"
+def ownership(c):
+    return (f"## Ownership\nTask: `{c['task']}`\nAgent: `{c['agent']}`\nBranch: `{c['branch']}`\n\n"
             + '\n'.join(f'- `{s}`' for s in c['scope'])
             + '\n\n<!-- agent-contract\n' + json.dumps(c, ensure_ascii=False, indent=2) + '\n-->\n')
+
+
+def body(c, summary, changes='Task reserved; implementation in progress.', validation='Pending implementation checks.', risks='See task scope and source constraints.'):
+    return (f'## Purpose\n{summary}\n\n## Changes\n{changes}\n\n## Validation\n{validation}\n\n'
+            f'## Risks and source changes\n{risks}\n\n' + ownership(c))
+
+
+def with_contract(text, c):
+    """The PR body with its ownership list and contract replaced; every other section is kept."""
+    pattern = re.compile(r'## Ownership\n.*?<!-- agent-contract\s*\n.*?\n-->\n?', re.S)
+    if not pattern.search(text or ''):
+        raise ValueError('The PR body has no ownership contract to update.')
+    return pattern.sub(lambda _: ownership(c), text, count=1)
 
 
 def find_pr(c):
@@ -229,6 +240,55 @@ def claim(args):
             'body': body(c, args.summary), 'draft': True})
         print(pr['html_url'])
     print('Wait for the agent-policy check to pass before implementing. Oldest overlapping PR owns the scope.')
+
+
+def widen_scope(args):
+    """Add paths to this session's claim, keeping manifest, local context and PR contract identical."""
+    c = context()
+    pr = assert_reserved(c)
+    clean()
+    new = validate_contract({**c, 'scope': c['scope'] + [x for x in args.add if x not in c['scope']]})
+    if new == c:
+        print('The claim already covers these paths.')
+        return
+    from agent_policy import check_claims
+    check_claims(new, [open_prs()], current=pr['number'])
+    (ROOT / '.agent-context.json').write_text(json.dumps(new, indent=2) + '\n')
+    task_path(new).write_text(json.dumps(new, indent=2) + '\n')
+    run('git', 'add', '--', str(task_path(new).relative_to(ROOT)))
+    footer = ('\n' + args.footer.strip()) if args.footer else ''
+    run('git', 'commit', '-m', f"chore(task): widen {c['task']} scope\n\n{args.why}\n\nTask: {c['task']}\nAgent: {c['agent']}{footer}")
+    # Publish the contract and the manifest together; the policy compares the two on each head.
+    gh_api(f"repos/{REPOSITORY}/pulls/{pr['number']}", method='PATCH', data={'body': with_contract(pr.get('body'), new)})
+    run('git', 'push', 'origin', c['branch'])
+    print('Scope now: ' + ', '.join(new['scope']))
+
+
+def after_merge():
+    """Leave the next session a current main: prune merged branches, fast-forward main, trim the worktree."""
+    notes = []
+    run('git', 'fetch', '--prune', 'origin')  # GitHub deletes the merged head branch; drop its tracking ref.
+    if git('branch', '--list', 'main'):
+        if not subprocess.run(['git', 'fetch', 'origin', 'main:main'], cwd=ROOT, capture_output=True).returncode:
+            notes.append('local main fast-forwarded')
+        else:
+            # main is checked out in another worktree (usually the primary checkout): update it there if clean.
+            listing = git('worktree', 'list', '--porcelain').split('\n\n')
+            path = next((b.split('\n')[0][len('worktree '):] for b in listing if 'branch refs/heads/main' in b), None)
+            if path and not subprocess.run(['git', '-C', path, 'status', '--porcelain'], cwd=ROOT, capture_output=True, text=True).stdout.strip() \
+                    and not subprocess.run(['git', '-C', path, 'merge', '--ff-only', 'origin/main'], cwd=ROOT, capture_output=True).returncode:
+                notes.append(f'main fast-forwarded in {path}')
+            else:
+                notes.append('local main not fast-forwarded (diverged or uncommitted work there); left as it was')
+    common = Path(git('rev-parse', '--path-format=absolute', '--git-common-dir'))
+    primary = common.parent
+    if ROOT.resolve() != primary.resolve():
+        if git('status', '--porcelain'):
+            notes.append(f'worktree {ROOT} kept: it has uncommitted files')
+        else:
+            run('git', '-C', primary, 'worktree', 'remove', ROOT)
+            notes.append(f'worktree {ROOT} removed')
+    return notes
 
 
 def start(args):
@@ -352,7 +412,9 @@ def merge(args):
     result = gh_api(f'repos/{REPOSITORY}/pulls/{number}/merge', method='PUT', data={
         'merge_method': 'squash', 'sha': head, 'commit_title': f"{pr['title']} (#{number})",
         'commit_message': f"Task: {c['task']}\nAgent: {c['agent']}"})
-    print(f"Merged #{number} as {result.get('sha', '?')[:8]}. Next: python3 scripts/agents.py next --task ... to start the next task on a fresh branch.")
+    notes = after_merge()
+    print(f"Merged #{number} as {result.get('sha', '?')[:8]}. GitHub deletes the merged branch; "
+          + '; '.join(notes or ['nothing local to trim']) + '. The next session claims its own branch from main.')
 
 
 def status():
@@ -452,6 +514,10 @@ def main():
         for field in ['task', 'agent', 'summary']:
             s.add_argument('--' + field, required=True)
         s.add_argument('--scope', nargs='+', required=True)
+    s = sub.add_parser('scope', help="add paths to this session's claim (manifest, context and PR contract together)")
+    s.add_argument('--add', nargs='+', required=True)
+    s.add_argument('--why', required=True)
+    s.add_argument('--footer', help='optional extra trailers, e.g. Co-Authored-By lines')
     s = sub.add_parser('commit')
     s.add_argument('--message', required=True)
     s.add_argument('--why', required=True)
@@ -475,7 +541,7 @@ def main():
             run('git', 'fetch', 'origin', 'main')
             run('git', 'merge', '--no-edit', 'origin/main')
         else:
-            {'next': next_task, 'request-review': request_review}.get(args.action, globals().get(args.action))(args)
+            {'next': next_task, 'request-review': request_review, 'scope': widen_scope}.get(args.action, globals().get(args.action))(args)
     except (ValueError, OSError, subprocess.CalledProcessError) as e:
         print(f'Agent workflow stopped: {e}\nFiles and branches have been preserved. Inspect before continuing.', file=sys.stderr)
         sys.exit(1)

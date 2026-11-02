@@ -6,16 +6,19 @@
 bash scripts/cloud-bootstrap.sh --code-only    # or full bootstrap for media work
 npm run doctor                                 # every line should be ok/warn, none FAIL
 python3 scripts/agents.py status               # open PRs and the scopes they reserve
-python3 scripts/agents.py claim --task T --agent A --summary S --scope PATHS...
-# wait for agent-policy to pass on the draft PR, implement, then:
+python3 scripts/agents.py claim --task T --agent A --summary S --scope PATHS...   # the day's draft PR
+# wait for agent-policy to pass, then all day long, one commit per change (code or docs):
 python3 scripts/agents.py commit --message M --why W PATHS...
+python3 scripts/agents.py scope --add PATHS --why W    # when the day reaches new paths
+# end of the day:
 python3 scripts/agents.py submit --title T --summary S --changes C --validation V --risks R
 # fix/answer and resolve every review finding; after pushing fixes ask Codex to re-review:
 python3 scripts/agents.py request-review
-# once checks are green and Codex has reviewed the exact head:
-python3 scripts/agents.py merge
-python3 scripts/agents.py next --task T2 --agent A --summary S --scope PATHS...   # fresh branch from main
+# once CI is green and Codex has reviewed the exact head:
+python3 scripts/agents.py merge    # squash-merge, fast-forward main, trim the worktree
 ```
+
+A session is one worktree and one branch for one day of work. It ends with one PR holding all of the day's commits, squash-merged after CI is green. GitHub deletes the merged branch, `merge` fast-forwards local main and removes the session's clean worktree, and the next session starts from that main, so it sees everything that was done.
 
 Report blockers, risks and decisions to the owner directly in the conversation with a recommendation; never leave them only in a file or PR body.
 
@@ -77,22 +80,21 @@ python3 scripts/agents.py submit \
 
 The command runs checks, pushes, updates the structured PR body, and marks the PR ready. `--footer` appends provider-required attribution after the contract. All GitHub calls are REST-only, so they also work in hosted sessions whose proxies block GraphQL; if marking ready is refused, the command says so and the agent marks the PR ready with its own GitHub integration. Actual visual/media validation must be performed and accurately reported by the agent; a claimed command result is not a substitute for evidence.
 
-## Merging your own PR
+## Merging the day's PR
 
-The owner does not review or approve PRs (decision 2026-11-02). Each agent integrates its own work, one PR at a time:
+The owner does not review or approve PRs, and work runs in daily sessions (decisions 2026-11-02). Each session integrates its own PR at the end of the day:
 
 ```bash
 python3 scripts/agents.py merge     # squash-merges only when everything below holds
-python3 scripts/agents.py next ...  # next task on <session-branch>--<task>, cut from main
 ```
 
-`merge` refuses unless the PR is submitted (not draft), the local head is pushed and is the PR head, the branch contains current main, every required check from `.github/rulesets/main.json` has succeeded on that exact head (cancelled duplicates are ignored; any failure blocks), every review thread is resolved, and Codex has finished reviewing that exact head. Codex reviews automatically only when a PR opens or leaves draft; after pushing fixes run `python3 scripts/agents.py request-review` (posts `@codex review`) and wait for its result. Before merging, fix each review finding or answer it on its thread, then resolve it. Re-read your full diff for logical conflicts that path ownership cannot detect. The squash commit takes the conventional PR title; branches and task manifests stay as the audit trail. After a merge, `next` checks that the previous task is merged with no open PR, creates `<session-branch>--<task>` from main, and claims it. Never reuse a squash-merged branch: its commits stay outside main and would fail `agent-policy` in the next PR.
+`merge` refuses unless the PR is submitted (not draft), the local head is pushed and is the PR head, the branch contains current main, every required check from `.github/rulesets/main.json` has succeeded on that exact head (cancelled duplicates are ignored; any failure blocks), every review thread is resolved, and Codex has finished reviewing that exact head. Codex reviews automatically only when a PR opens or leaves draft; after pushing fixes run `python3 scripts/agents.py request-review` (posts `@codex review`) and wait for its result. Before merging, fix each review finding or answer it on its thread, then resolve it. Re-read your full diff for logical conflicts that path ownership cannot detect. The squash commit takes the conventional PR title; the PR keeps every individual commit and the task manifest stays on main as the audit trail. After merging, `merge` prunes the deleted branch's tracking ref, fast-forwards local main (in the primary checkout when main is checked out there and clean), and removes the session's worktree when it is a clean linked worktree; uncommitted work is kept and reported. Never reuse a squash-merged branch: its commits stay outside main and would fail `agent-policy` in the next PR. A second PR within one session is the exception: `next` cuts `<session-branch>--<task>` from main once the first is merged.
 
 Required human approvals are zero because agents share the owner's GitHub identity, which cannot approve its own PR. Scope policy, required checks, resolved threads and the strict current-base rule remain enforced by GitHub.
 
 ## Safeguards and boundaries
 
-- GitHub rulesets: no branch deletion or force pushes across branches; main requires PRs, `quality`, `agent-policy`, resolved conversations, a current base and linear history; no bypass actors.
+- GitHub rulesets: no force pushes on any branch; main also cannot be deleted and requires PRs, `quality`, `agent-policy`, resolved conversations, a current base and linear history; no bypass actors. Merged head branches are deleted automatically (repository setting), which is how session branches are trimmed.
 - Local hooks: scope/credential checks, commit attribution, own-branch-only fast-forward pushes, and Git LFS upload chaining.
 - Claude hook: rejects common destructive Git commands and bypass attempts before Bash execution.
 - Trusted-base policy: runs only main's policy code, never executes PR code with privileged tokens, checks live PR data and committed task metadata, and rejects scope overlaps.

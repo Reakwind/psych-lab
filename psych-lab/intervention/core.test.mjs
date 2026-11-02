@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {sessionSteps,chooseSteps,sessionRange,thoughtTheme} from './core.mjs';
+import {sessionSteps,chooseSteps,sessionRange,thoughtTheme,introClip} from './core.mjs';
 const p=JSON.parse(fs.readFileSync(new URL('./program.json',import.meta.url)));
 const session=n=>p.sessions.find(s=>s.number===n);
 
@@ -92,4 +92,11 @@ test('local media references exist and the session table contains no broken link
     if(a.audio)assert.ok(fs.existsSync(new URL('./media/'+a.audio.url.split('/').pop(),import.meta.url)));
     if(a.kind==='audio'&&!a.audio)assert.ok(a.issues.length);
   }
+});
+
+test('intro films resolve the same way everywhere, including the S58 binding for This Matters',()=>{
+  const program=JSON.parse(fs.readFileSync(new URL('./program.json',import.meta.url)));
+  assert.equal(introClip(program,program.activities['PS-ACT-011'])?.id,'S58');
+  assert.equal(introClip(program,program.activities['PS-ACT-006']),null); // 047 is held out of the flow
+  assert.equal(introClip(program,program.activities['PS-ACT-001'])?.id,program.activities['PS-CONT-030'].clip.id);
 });

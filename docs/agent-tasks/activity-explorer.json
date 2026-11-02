@@ -1,0 +1,24 @@
+{
+  "task": "activity-explorer",
+  "agent": "claude-bold-ptolemy",
+  "scope": [
+    "psych-lab/intervention/activities.html",
+    "psych-lab/intervention/activities.mjs",
+    "psych-lab/index.html",
+    "tests/test_verbatim.py",
+    "psych-lab/intervention/build.py",
+    "psych-lab/intervention/BUILD_NOTES.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "docs/AGENT_WORKFLOW.md",
+    "docs/CLOUD.md",
+    "scripts/agents.py",
+    "tests/test_agent_workflow.py",
+    ".github/rulesets/main.json",
+    ".github/rulesets/history.json",
+    "psych-lab/intervention/core.mjs",
+    "psych-lab/intervention/app.mjs",
+    "psych-lab/intervention/core.test.mjs"
+  ],
+  "branch": "claude/bold-ptolemy-dt1ah7--activity-explorer"
+}

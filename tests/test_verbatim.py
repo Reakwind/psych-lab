@@ -208,7 +208,7 @@ class Repository(unittest.TestCase):
         corpus = verbatim.Corpus()
         if [p for p in corpus.unreadable if p.endswith(('.xlsx', '.docx'))]:
             self.skipTest('Text sources not downloaded (git lfs pull)')
-        files = [str(ROOT / 'psych-lab/intervention' / f) for f in ('app.mjs', 'core.mjs', 'index.html')]
+        files = [str(ROOT / 'psych-lab/intervention' / f) for f in ('app.mjs', 'core.mjs', 'index.html', 'activities.mjs', 'activities.html')]
         problems, _ = verbatim.check(files, corpus)
         self.assertEqual(problems, [])
 

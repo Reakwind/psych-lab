@@ -12,7 +12,7 @@
 <header>
   <button class="mobile-toggle" id="toggle-sidebar" aria-label="Choose a session">☰</button>
   <h1>Parkinson’s Psych Lab</h1><span class="local">Local copy</span><span class="spacer"></span>
-  <div class="header-actions"><button id="full-intervention">Full intervention</button> <button id="journey">Original journey</button> <button id="all-boards">All boards</button> <button id="canvas">Canvas</button></div>
+  <div class="header-actions"><button id="full-intervention">Full intervention</button> <button id="activities">Activities</button> <button id="journey">Original journey</button> <button id="all-boards">All boards</button> <button id="canvas">Canvas</button></div>
   <a class="external" href="https://claude.ai/artifact/FxjXM8gBnVYfkijShdBQcb" target="_blank" rel="noopener">Original ↗</a>
 </header>
 <div class="layout" id="layout">
@@ -63,12 +63,19 @@ function render() {
  el('all-boards').setAttribute('aria-pressed',String(screen==='boards'));
  el('journey').setAttribute('aria-pressed',String(screen==='journey'));
  el('full-intervention').setAttribute('aria-pressed',String(screen==='intervention'));
- document.querySelector('.layout').style.gridTemplateColumns=screen==='intervention'?'minmax(0,1fr)':'';
- document.querySelector('.layout>aside').style.display=screen==='intervention'?'none':'';
- toolbar.style.display=screen==='intervention'?'none':'';
- el('toggle-sidebar').style.display=screen==='intervention'?'none':'';
- if(screen==='intervention')el('layout').classList.remove('show-sidebar');
+ el('activities').setAttribute('aria-pressed',String(screen==='activities'));
+ const full=screen==='intervention'||screen==='activities';
+ document.querySelector('.layout').style.gridTemplateColumns=full?'minmax(0,1fr)':'';
+ document.querySelector('.layout>aside').style.display=full?'none':'';
+ toolbar.style.display=full?'none':'';
+ el('toggle-sidebar').style.display=full?'none':'';
+ if(full)el('layout').classList.remove('show-sidebar');
  if(screen!=='session') {const url=new URL(location.href);url.searchParams.set('view',screen);history.replaceState(null,'',url);}
+ if(screen==='activities'){
+  content.style.padding='0';content.style.overflow='hidden';
+  const frame=node('iframe');frame.title='Activities explorer';const a=new URLSearchParams(location.search).get('activity');frame.src='/intervention/activities.html'+(a?'?a='+encodeURIComponent(a):'');frame.style.cssText='width:100%;height:100%;border:0;display:block';content.append(frame);
+  const url=new URL(location.href);url.searchParams.set('view','activities');url.searchParams.delete('session');url.searchParams.delete('tab');history.replaceState(null,'',url);return;
+ }
  if(screen==='intervention'){
   content.style.padding='0';content.style.overflow='hidden';
   const frame=node('iframe');frame.title='Full psychological intervention';frame.src='/intervention/?s='+(new URLSearchParams(location.search).get('day')||1)+(new URLSearchParams(location.search).get('test')==='1'?'&test=1':'');frame.style.cssText='width:100%;height:100%;border:0;display:block';frame.allow='autoplay';content.append(frame);
@@ -185,12 +192,13 @@ function renderCanvas(){
 el('status-filter').addEventListener('change',renderList);
 el('journey').addEventListener('click',()=>{screen='journey';render();});
 el('full-intervention').addEventListener('click',()=>{screen='intervention';render();});
+el('activities').addEventListener('click',()=>{screen='activities';render();});
 window.addEventListener('message',e=>{if(e.origin!==location.origin||e.data?.type!=='psych-intervention-session')return;const day=Number(e.data.session);if(!Number.isInteger(day)||day<1||day>87)return;const url=new URL(location.href);url.searchParams.set('view','intervention');url.searchParams.set('day',day);history.replaceState(null,'',url);});
 el('all-boards').addEventListener('click',()=>{screen='boards';render();});
 el('canvas').addEventListener('click',()=>{screen='canvas';render();});
 el('toggle-sidebar').addEventListener('click',()=>el('layout').classList.toggle('show-sidebar'));
 Promise.all([fetch('/api/audit').then(r=>{if(!r.ok)throw Error('Unable to read session audit');return r.json();}),fetch('/api/canvas').then(r=>{if(!r.ok)throw Error('Unable to read saved canvas');return r.json();})]).then(([a,c])=>{
- audit=a;canvas=c;selected=a.sessions[0].id;const query=new URLSearchParams(location.search);if(a.sessions.some(r=>r.id===query.get('session')))selected=query.get('session');if(['session','story','animation','script'].includes(query.get('tab')))tab=query.get('tab');if(['journey','canvas','boards','intervention'].includes(query.get('view')))screen=query.get('view');
+ audit=a;canvas=c;selected=a.sessions[0].id;const query=new URLSearchParams(location.search);if(a.sessions.some(r=>r.id===query.get('session')))selected=query.get('session');if(['session','story','animation','script'].includes(query.get('tab')))tab=query.get('tab');if(['journey','canvas','boards','intervention','activities'].includes(query.get('view')))screen=query.get('view');
  for(const [key,label] of [['scripts','Scripts + audio'],['authored_storyboards','Storyboards'],['animations_rendered','Rendered films'],['trios_integrated','Trios in Lab']]){const stat=node('div',label);const value=node('strong',a.summary[key]);value.dataset.count=key;stat.prepend(value);el('counts').append(stat);}
  el('checked-at').textContent='Checked '+new Date(a.checked_at).toLocaleString('en-GB',{timeZone:'Asia/Jerusalem',dateStyle:'medium',timeStyle:'short'});
  render();

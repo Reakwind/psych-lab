@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Psych Lab · Activities</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#171d1b;--muted:#54635d;--teal:#2b6a62;--paper:#f5fbf8;--line:#d6e1dc;--nav:#f6f8f5;--gap:#fff8e8;--gap-line:#b58a3c;--gap-ink:#6b4d12}
+body{margin:0;background:#edf1ed;color:var(--ink);font:14px/1.5 system-ui,-apple-system,sans-serif}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;background:#fff;border:1px solid var(--line);border-radius:9px;padding:6px 10px}
+button[aria-pressed=true]{background:#d3e9e1;border-color:var(--teal)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #187eab;outline-offset:2px}
+a{color:var(--teal)}
+.layout{display:grid;grid-template-columns:300px minmax(0,1fr);height:100dvh}
+nav{background:var(--nav);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.nav-head{padding:18px 16px 10px}.nav-head h1{font-size:19px;margin:0;font-weight:600}.nav-head p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.nav-head input{margin-top:12px;width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff}
+#list{overflow:auto;flex:1;padding:0 8px 14px}
+.group{font-size:12px;font-weight:650;color:#63726a;padding:14px 8px 4px}
+.item{width:100%;display:grid;grid-template-columns:1fr auto;gap:2px 8px;text-align:left;background:transparent;border:1px solid transparent;border-radius:8px;padding:8px;margin:2px 0}
+.item[aria-current=true]{background:#dcece5;border-color:#a8c4b7}
+.item .he{grid-column:1/-1;font-size:15px;text-align:right}.item .en{font-size:12px;color:var(--muted)}.item .id{font-size:11px;color:#6b7b70}
+main{overflow:auto;min-height:0;padding:26px 30px 60px}
+.detail{max-width:860px;margin:0 auto}
+.kicker{font-size:12px;color:var(--muted)}
+h2.he{font-size:30px;font-weight:600;margin:4px 0 0;line-height:1.3}
+.en-name{color:var(--muted);margin:2px 0 0}
+section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:16px}
+section>h3{font-size:14px;margin:0 0 10px;font-weight:650}
+[lang=he]{font-family:'Rubik',Arial,sans-serif}
+.he-text{font-size:17px;line-height:1.7;white-space:pre-line;margin:6px 0}
+.subtitle{font-size:19px;color:#4c645a;margin:6px 0 0}
+ul.he-list{margin:6px 0;padding-right:22px;font-size:17px;line-height:1.7}
+.meta{font-size:12px;color:var(--muted)}
+.no-source{border:1px dashed var(--gap-line);background:var(--gap);color:var(--gap-ink);border-radius:10px;padding:8px 11px;font-size:13px;margin:8px 0}
+.no-source strong{font-weight:650}
+video{width:100%;max-height:420px;background:#edece2;border-radius:10px;display:block}
+audio{width:100%}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;font-weight:650;color:var(--muted);text-align:left;padding:6px;border-bottom:1px solid var(--line)}
+td{vertical-align:top;padding:9px 6px;border-bottom:1px solid #edf1ee}
+td.he-cell{font-size:16px;line-height:1.6;text-align:right}
+.type{display:inline-block;font-size:13px;border-radius:7px;padding:1px 8px;background:#e7f0e9;white-space:nowrap}
+.type.keep{background:#dcece5}.type.let{background:#f4ece0}
+.sessions{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;border:1px solid var(--line);border-radius:8px;padding:3px 8px;background:#fafcfa}
+.card{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;background:#fbfdfb}
+.card .q{font-size:18px;line-height:1.55;margin:4px 0}
+.card .ideas{font-size:14px;color:#4d5f55;white-space:pre-line;border-right:3px solid #cfe1d6;padding-right:10px;margin:4px 0 8px}
+.screen{border-top:1px solid #edf1ee;padding:10px 0}
+.screen h4{font-size:12px;margin:0 0 4px;color:var(--muted);font-weight:650}
+.field{display:grid;grid-template-columns:130px minmax(0,1fr);gap:10px;padding:4px 0}
+.field .label{font-size:12px;color:var(--muted)}
+.option{display:flex;gap:12px;align-items:baseline;padding:8px 0;border-bottom:1px solid #edf1ee}
+.issue{font-size:13px;color:#795b2e;margin:6px 0}
+.empty{color:var(--muted);margin:60px auto;text-align:center}
+.menu{display:none}
+@media(max-width:760px){.layout{display:block;height:auto}nav{border-right:0;border-bottom:1px solid var(--line);max-height:none}#list{max-height:40dvh}main{padding:18px 16px 50px}.field{grid-template-columns:1fr}td,th{padding:6px 4px}h2.he{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav aria-label="Activities">
+    <div class="nav-head"><h1>Activities</h1><p>Everything the sources hold for each activity, quoted as written. Missing text is shown as missing.</p><input type="search" id="search" placeholder="Find an activity…" aria-label="Find an activity"></div>
+    <div id="list"></div>
+  </nav>
+  <main id="main" aria-live="polite"><p class="empty">Loading…</p></main>
+</div>
+<script type="module" src="/intervention/activities.mjs"></script>
+</body>
+</html>
