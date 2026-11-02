@@ -14,10 +14,16 @@ export function shouldIntroduce(program, id, session, settings = {}, seen = {}) 
   return firstScheduled(program, id) >= session.number;
 }
 
+// The film that introduces an activity. PS-CONT-109's intro has no clip of its own; its film is S58.
+export function introClip(program, a) {
+  const intro = program.activities[a.intro_id];
+  return intro?.clip || (a.intro_id === 'PS-CONT-109' ? program.clips.S58 : null);
+}
+
 function introStep(program, a) {
   if (!a.intro_id) return [];
   const intro = program.activities[a.intro_id];
-  const clip = intro?.clip || (a.intro_id === 'PS-CONT-109' ? program.clips.S58 : null);
+  const clip = introClip(program, a);
   return [{kind: 'video', activity: a.id, source_id: a.intro_id, clip,
     seconds: clip?.seconds ?? intro?.planned_seconds ?? 120, trailer: true,
     missing: !clip}];

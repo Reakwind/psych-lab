@@ -2,7 +2,7 @@
 // Program text (Hebrew) is only ever read from program.json, which is built from the sources and
 // verified verbatim. This file writes English Lab labels only; where the sources hold no text,
 // the page says so instead of filling the gap.
-import {minuteLabel as time, thoughtTheme, reflectionType} from './core.mjs';
+import {minuteLabel as time, thoughtTheme, reflectionType, introClip} from './core.mjs';
 
 const $ = id => document.getElementById(id);
 const make = (tag, text = '', cls = '') => {const e = document.createElement(tag); if (text) e.textContent = text; if (cls) e.className = cls; return e;};
@@ -64,20 +64,36 @@ function introPage(a) {
   return section('Intro page', ...parts);
 }
 
+function film(clip, id, label) {
+  const v = make('video'); v.controls = true; v.preload = 'metadata'; v.src = clip.url; v.setAttribute('aria-label', id + ' ' + label);
+  const parts = [v, make('p', `${id} · film ${clip.id} · ${time(clip.seconds)}`, 'meta')];
+  if (/^S\d/.test(clip.id)) {const link = make('a', 'Script beside narration, word by word'); link.href = `/?session=${clip.id}&tab=script`; link.target = '_top'; parts.push(link);}
+  return parts;
+}
+
+function notes(item) {
+  return [...new Set([...(item?.issues || []), item?.source_conflict, item?.source_note].filter(Boolean))].map(x => make('p', x, 'issue'));
+}
+
 function introFilm(a) {
   if (!a.intro_id) return null;
   const intro = P.activities[a.intro_id];
   const parts = [];
-  if (intro) parts.push(he('p', intro.title, 'he-text'));
-  const clip = intro?.clip;
-  if (clip) {
-    const v = make('video'); v.controls = true; v.preload = 'metadata'; v.src = clip.url; v.setAttribute('aria-label', a.intro_id + ' intro film');
-    parts.push(v, make('p', `${a.intro_id} · film ${clip.id} · ${time(clip.seconds)}`, 'meta'));
-    if (/^S\d/.test(clip.id)) {const link = make('a', 'Script beside narration, word by word'); link.href = `/?session=${clip.id}&tab=script`; link.target = '_top'; parts.push(link);}
-  } else {
-    parts.push(make('p', `${a.intro_id} · no film for this intro in the Lab copy.`, 'meta'));
+  if (intro && intro.id !== a.id) parts.push(he('p', intro.title, 'he-text'));
+  const clip = introClip(P, a);  // the same resolution the phone preview uses
+  if (clip) parts.push(...film(clip, a.intro_id, 'intro film'));
+  else parts.push(make('p', `${a.intro_id} · no film for this intro in the Lab copy.`, 'meta'));
+  // Facts recorded on the intro itself (such as the PS-CONT-047 conflict) belong on this page too.
+  if (intro && intro.id !== a.id) parts.push(...notes(intro));
+  if (intro?.review_media) {
+    const link = make('a', 'Inspect the conflicted source video (held out of the flow)'); link.href = intro.review_media; link.target = '_blank'; link.rel = 'noopener';
+    parts.push(link);
   }
   return section('Intro film', ...parts);
+}
+
+function ownFilm(a) {
+  return section('Film', ...(a.clip ? film(a.clip, a.id, 'film') : [make('p', `${a.id} · no film in the Lab copy.`, 'meta')]));
 }
 
 function thoughtTable(rows) {
@@ -178,14 +194,14 @@ function show(id) {
   selected = id; renderList();
   const a = P.activities[id]; const main = $('main'); main.replaceChildren(); main.scrollTop = 0;
   const detail = make('div', '', 'detail');
-  detail.append(make('div', `${KIND_NAME[a.kind]} · ${a.id}`, 'kicker'), he('h2', a.title, 'he'), make('p', a.english, 'en-name'));
+  detail.append(make('div', `${KIND_NAME[a.kind] || 'Video'} · ${a.id}`, 'kicker'), he('h2', a.title, 'he'), make('p', a.english, 'en-name'));
   detail.append(introPage(a));
   const film = introFilm(a); if (film) detail.append(film);
   detail.append(schedule(a));
-  const content = a.kind === 'inner' ? innerVoice() : a.kind === 'cards' ? cards() : a.kind === 'reflection' ? reflection(a) : a.kind === 'choice' ? options(a) : practice(a);
+  const content = a.kind === 'video' ? ownFilm(a) : a.kind === 'inner' ? innerVoice() : a.kind === 'cards' ? cards() : a.kind === 'reflection' ? reflection(a) : a.kind === 'choice' ? options(a) : practice(a);
   if (content) detail.append(content);
-  const issues = [...(a.issues || []), a.source_conflict, a.source_note].filter(Boolean);
-  if (issues.length) detail.append(section('Source notes', ...issues.map(x => make('p', x, 'issue'))));
+  const own = notes(a);
+  if (own.length) detail.append(section('Source notes', ...own));
   main.append(detail);
   const url = new URL(location.href); url.searchParams.set('a', id); history.replaceState(null, '', url);
 }
