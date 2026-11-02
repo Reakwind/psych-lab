@@ -1,1 +1,1 @@
-{"bypass_actors":[],"conditions":{"ref_name":{"exclude":[],"include":["~ALL"]}},"enforcement":"active","name":"Preserve all branch history","rules":[{"type":"deletion"},{"type":"non_fast_forward"}],"target":"branch"}
+{"bypass_actors":[],"conditions":{"ref_name":{"exclude":[],"include":["~ALL"]}},"enforcement":"active","name":"No history rewrites on any branch","rules":[{"type":"non_fast_forward"}],"target":"branch"}
