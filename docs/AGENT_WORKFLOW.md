@@ -10,7 +10,9 @@ python3 scripts/agents.py claim --task T --agent A --summary S --scope PATHS...
 # wait for agent-policy to pass on the draft PR, implement, then:
 python3 scripts/agents.py commit --message M --why W PATHS...
 python3 scripts/agents.py submit --title T --summary S --changes C --validation V --risks R
-# fix/answer and resolve every review finding, wait for green checks, then:
+# fix/answer and resolve every review finding; after pushing fixes ask Codex to re-review:
+python3 scripts/agents.py request-review
+# once checks are green and Codex has reviewed the exact head:
 python3 scripts/agents.py merge
 python3 scripts/agents.py next --task T2 --agent A --summary S --scope PATHS...   # fresh branch from main
 ```
@@ -84,7 +86,7 @@ python3 scripts/agents.py merge     # squash-merges only when everything below h
 python3 scripts/agents.py next ...  # next task on <session-branch>--<task>, cut from main
 ```
 
-`merge` refuses unless the PR is submitted (not draft), the local head is pushed and is the PR head, the branch contains current main, every required check from `.github/rulesets/main.json` has succeeded on that exact head (cancelled duplicates are ignored; any failure blocks), every review thread is resolved, and the Codex review has finished. Before merging, fix each review finding or answer it on its thread, then resolve it. Re-read your full diff for logical conflicts that path ownership cannot detect. The squash commit takes the conventional PR title; branches and task manifests stay as the audit trail. After a merge, `next` checks that the previous task is merged with no open PR, creates `<session-branch>--<task>` from main, and claims it. Never reuse a squash-merged branch: its commits stay outside main and would fail `agent-policy` in the next PR.
+`merge` refuses unless the PR is submitted (not draft), the local head is pushed and is the PR head, the branch contains current main, every required check from `.github/rulesets/main.json` has succeeded on that exact head (cancelled duplicates are ignored; any failure blocks), every review thread is resolved, and Codex has finished reviewing that exact head. Codex reviews automatically only when a PR opens or leaves draft; after pushing fixes run `python3 scripts/agents.py request-review` (posts `@codex review`) and wait for its result. Before merging, fix each review finding or answer it on its thread, then resolve it. Re-read your full diff for logical conflicts that path ownership cannot detect. The squash commit takes the conventional PR title; branches and task manifests stay as the audit trail. After a merge, `next` checks that the previous task is merged with no open PR, creates `<session-branch>--<task>` from main, and claims it. Never reuse a squash-merged branch: its commits stay outside main and would fail `agent-policy` in the next PR.
 
 Required human approvals are zero because agents share the owner's GitHub identity, which cannot approve its own PR. Scope policy, required checks, resolved threads and the strict current-base rule remain enforced by GitHub.
 

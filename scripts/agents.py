@@ -306,9 +306,27 @@ def merge_problems(pr, head, runs, required, threads, codex):
     unresolved = [t for t in threads if not t.get('resolved')]
     if unresolved:
         problems.append(f'{len(unresolved)} unresolved review thread(s): fix or answer each, then resolve it.')
-    if codex is not None and codex.get('status') != 'completed':
-        problems.append('Codex review is still running; wait for its findings.')
+    # Codex reviews automatically only when a PR opens or leaves draft, so later pushes need a new
+    # review request. The ruleset cannot enforce this; the merge gate must.
+    if codex is None:
+        problems.append('No Codex review yet. It starts when the PR is marked ready; '
+                        'otherwise run `python3 scripts/agents.py request-review` and wait for it.')
+    elif codex.get('commit_sha') != head:
+        problems.append(f"Codex reviewed {str(codex.get('commit_sha'))[:8]}, not the head {head[:8]}: "
+                        'run `python3 scripts/agents.py request-review` and wait for it.')
+    elif codex.get('status') != 'completed':
+        problems.append('Codex review of the head is still running; wait for its findings.')
     return problems
+
+
+def request_review(args):
+    """Ask Codex to review the pushed head after fixes (it only reviews automatically on ready)."""
+    pr = assert_reserved(context())
+    if pr['head']['sha'] != git('rev-parse', 'HEAD'):
+        raise ValueError('Push your commits first: Codex reviews the PR head on GitHub.')
+    gh_api(f"repos/{REPOSITORY}/issues/{pr['number']}/comments", method='POST', data={
+        'body': '@codex review' + (('\n\n' + args.footer.strip()) if args.footer else '')})
+    print(f"Requested a Codex review of {pr['head']['sha'][:8]} on #{pr['number']}; run merge once it has finished.")
 
 
 def merge(args):
@@ -425,6 +443,8 @@ def main():
     sub.add_parser('status')
     sub.add_parser('sync')
     sub.add_parser('merge', help="squash-merge this task's green, fully reviewed PR")
+    s = sub.add_parser('request-review', help='ask Codex to review the current pushed head')
+    s.add_argument('--footer', help='optional attribution appended to the request comment')
     s = sub.add_parser('doctor', help='report environment readiness for autonomous work')
     s.add_argument('--offline', action='store_true', help='skip GitHub API checks')
     for name in ['start', 'claim', 'next']:
@@ -455,7 +475,7 @@ def main():
             run('git', 'fetch', 'origin', 'main')
             run('git', 'merge', '--no-edit', 'origin/main')
         else:
-            {'next': next_task}.get(args.action, globals().get(args.action))(args)
+            {'next': next_task, 'request-review': request_review}.get(args.action, globals().get(args.action))(args)
     except (ValueError, OSError, subprocess.CalledProcessError) as e:
         print(f'Agent workflow stopped: {e}\nFiles and branches have been preserved. Inspect before continuing.', file=sys.stderr)
         sys.exit(1)

@@ -163,22 +163,36 @@ class GitHubAccess(unittest.TestCase):
                  {'name': 'agent-policy', 'status': 'completed', 'conclusion': 'cancelled'},
                  {'name': 'agent-policy', 'status': 'completed', 'conclusion': 'success'}]
         required = ['agent-policy', 'quality']
-        done = {'status': 'completed'}
+        done = {'status': 'completed', 'commit_sha': head}
         self.assertEqual(workflow.merge_problems(pr_state, head, green, required, [{'resolved': True}], done), [])
-        self.assertEqual(workflow.merge_problems(pr_state, head, green, required, [], None), [])
         cases = {
+            'No Codex review': (pr_state, green, [], None),
+            'not the head': (pr_state, green, [], {'status': 'completed', 'commit_sha': 'c' * 40}),
+            'still running; wait': (pr_state, green, [], {'status': 'running', 'commit_sha': head}),
             'draft': ({**pr_state, 'draft': True}, green, [], done),
             'differs': ({**pr_state, 'head': {'sha': 'b' * 40}}, green, [], done),
             'failed': (pr_state, green + [{'name': 'quality', 'status': 'completed', 'conclusion': 'failure'}], [], done),
             'still running': (pr_state, green + [{'name': 'quality', 'status': 'in_progress', 'conclusion': None}], [], done),
             'no successful': (pr_state, green[1:], [], done),
             'unresolved': (pr_state, green, [{'resolved': False}], done),
-            'Codex': (pr_state, green, [], {'status': 'running'}),
         }
         for expected, (state, runs, threads, codex) in cases.items():
             with self.subTest(expected=expected):
                 problems = workflow.merge_problems(state, head, runs, required, threads, codex)
                 self.assertTrue(any(expected in p for p in problems), problems)
+
+    def test_review_request_targets_pushed_head(self):
+        c = task()
+        head = 'd' * 40
+        listed = [[{'number': 5, 'draft': False, 'head': {'sha': head}, **pr(5, c)}]]
+        with patch.object(workflow, 'context', return_value=c), patch.object(workflow, 'git', return_value=head), \
+                patch.object(workflow, 'gh_api', side_effect=[listed, {}]) as api:
+            workflow.request_review(SimpleNamespace(footer=None))
+        self.assertEqual(api.call_args.args[0], 'repos/Reakwind/psych-lab/issues/5/comments')
+        self.assertEqual(api.call_args.kwargs['data']['body'], '@codex review')
+        with patch.object(workflow, 'context', return_value=c), patch.object(workflow, 'git', return_value='e' * 40), \
+                patch.object(workflow, 'gh_api', return_value=listed), self.assertRaisesRegex(ValueError, 'Push'):
+            workflow.request_review(SimpleNamespace(footer=None))
 
     def test_codex_review_state_is_read_from_summary_comment(self):
         body = ('<!-- codex-review-state:v1 &#123;"code_review":&#123;"commit_sha":"abc",'
