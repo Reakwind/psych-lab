@@ -8,7 +8,9 @@
     "psych-lab/intervention/program.json",
     "psych-lab/intervention/app.mjs",
     "psych-lab/intervention/BUILD_NOTES.md",
-    "tests/test_inner_voice.py"
+    "tests/test_inner_voice.py",
+    "scripts/verbatim.py",
+    "tests/test_verbatim.py"
   ],
   "branch": "claude/bold-ptolemy-dt1ah7--inner-voice-current"
 }

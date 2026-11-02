@@ -2,6 +2,8 @@
 
 Purpose: experience the sourced psychology program end to end and measure its burden within a 30-minute app day. This implementation does not shorten or reorder the clinical program.
 
+Current workbooks: Inner Voice is built from the owner's current `sources/activity-sheets/inner voice workout.xlsx` (2026-11-02; the September snapshot in `sources/inner-voice.json` stays as it was). Its answer buttons use the sheet's own Hebrew type names (לאמץ / לשחרר), and an answered card shows its type. Daily app minutes are summed from each day's activities in `sources/activity-sheets/Protocol.xlsx`; that sheet's own light-speech total for day 7 says 23, while its listed activities add up to 25. `tests/test_inner_voice.py` checks both against the spreadsheets.
+
 Wording rule: the phone shows Hebrew only where a program source has it (titles, leads, thoughts, cards, reflection prompts and buttons). Interface words are English Lab labels in a system font, and screens whose program text is not in any source (motivation, post-practice question, in-practice breathing prompts, choice heading, Inner Voice feedback gaps, closing message) show a 'No source text' marker. `npm run verbatim -- psych-lab/intervention/app.mjs psych-lab/intervention/index.html` checks this; a test keeps it so.
 
 Design: retain the Lab's sage teal (#2B6A62), pale mint (#F5FBF8, #B3EFE4), amber (#FFDEA3), and ink (#171D1B). Hebrew patient screens use the existing Rubik/system font stack, large text, one task per screen, and large touch controls. The desktop shell pairs a session index with a phone preview and a separate English review panel. Sources and prototype assumptions belong in the review panel.

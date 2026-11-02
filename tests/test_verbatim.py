@@ -58,6 +58,11 @@ class Quotes(unittest.TestCase):
         self.assertEqual(len(problems), 1)
         self.assertIn('f.source', problems[0])
 
+    def test_formatted_cell_runs_are_one_string(self):
+        xml = ('<sst><si><t>שוברי קרח</t></si><si><r><t>היי,</t></r><r><rPr><b/></rPr><t xml:space="preserve"> אני</t></r>'
+               '<r><t xml:space="preserve"> נירה</t></r><rPh><t>x</t></rPh></si></sst>')
+        self.assertEqual(verbatim.shared_strings(xml), ['שוברי קרח', 'היי, אני נירה'])
+
     def test_docx_line_breaks_and_tabs_are_whitespace(self):
         xml = '<w:p><w:r><w:t>ברקע.</w:t><w:br/><w:t xml:space="preserve">ובפעמים</w:t><w:tab/><w:t>&amp;</w:t></w:r></w:p>'
         self.assertEqual(verbatim.docx_paragraph(xml), 'ברקע.\nובפעמים\t&')

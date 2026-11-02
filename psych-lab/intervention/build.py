@@ -21,6 +21,40 @@ def sheets(text):
     return [list(csv.reader(io.StringIO(s))) for s in text.split('\f')]
 
 
+XL = '{http://schemas.openxmlformats.org/spreadsheetml/2006/main}'
+XL_REL = '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}'
+ACTIVITY_SHEETS = ROOT / 'sources/activity-sheets'
+
+
+def workbook(path):
+    """The owner's spreadsheet as {sheet name: [{column letter: cell text}]}, in workbook order."""
+    import zipfile
+    from xml.etree import ElementTree as ET
+    z = zipfile.ZipFile(path)
+    names = z.namelist()
+    shared = [''.join(t.text or '' for t in si.iter(XL + 't')) for si in ET.fromstring(z.read('xl/sharedStrings.xml')).iter(XL + 'si')] if 'xl/sharedStrings.xml' in names else []
+    targets = {r.get('Id'): r.get('Target') for r in ET.fromstring(z.read('xl/_rels/workbook.xml.rels'))}
+    book = {}
+    for sheet in ET.fromstring(z.read('xl/workbook.xml')).iter(XL + 'sheet'):
+        target = targets[sheet.get(XL_REL + 'id')].lstrip('/')
+        rows = []
+        for row in ET.fromstring(z.read(target if target.startswith('xl/') else 'xl/' + target)).iter(XL + 'row'):
+            cells = {}
+            for c in row.iter(XL + 'c'):
+                v = c.find(XL + 'v')
+                text = ''.join(t.text or '' for t in c.iter(XL + 't')) if c.get('t') == 'inlineStr' else (v.text if v is not None else '')
+                cells[re.match(r'[A-Z]+', c.get('r'))[0]] = shared[int(text)] if c.get('t') == 's' else (text or '')
+            rows.append(cells)
+        book[sheet.get('name')] = rows
+    return book
+
+
+def modified(path):
+    import zipfile
+    core = zipfile.ZipFile(path).read('docProps/core.xml').decode('utf-8')
+    return re.search(r'<dcterms:modified[^>]*>([^<]+)', core)[1]
+
+
 def norm(s):
     return re.sub(r'[^a-z0-9]', '', s.lower())
 
@@ -195,7 +229,7 @@ for a in activities.values():
     if a['kind'] == 'audio':
         key=audio_files.get(a['id'])
         file=HERE / 'media' / f'{key}.mp3' if key else None
-        secs=duration(file) if file else None
+        secs=float(round(duration(file))) if file else None  # whole seconds, as listed before
         a['audio']={'url':f'/intervention/media/{key}.mp3','seconds':secs,'status':'Remepy draft — file marked not finalized' if key=='imagery' else 'Remepy production edit'} if secs else None
         if not secs:
             confirmed = a['id'] in {'PS-CONT-067','PS-CONT-070','PS-CONT-071','PS-CONT-074','PS-CONT-103','PS-CONT-104','PS-CONT-105','PS-CONT-106'}
@@ -235,12 +269,18 @@ for s in sequence:
     title=activities[rows[0]['id']]['title']
     sessions.append({'number':s['session'],'id':f"S{s['session']:02d}",'title':title,'english':activities[rows[0]['id']]['english'],'app_day':s['session']+1,'week':(s['session']-1)//7+1,'activities':rows,'context':context})
 
-# Source thought banks (seven sheets: motivation, balanced, relaxation, mindfulness,
-# compassion, labels, mixed/flexible). Keep all authored feedback, not just example cards.
+# Source thought banks, from the owner's current workbook (seven sheets in workbook order:
+# motivation, balanced, relaxation, mindfulness, compassion, labels, mixed/flexible). Columns:
+# A # · B Thought · C Type · D/E English feedback · F בחירה שגויה · G בחירה נכונה · H סוג · I מחשבה.
+# Every Hebrew field is copied exactly; the type's Hebrew name labels the answer buttons.
+inner_voice_book=ACTIVITY_SHEETS/'inner voice workout.xlsx'
+sources['inner-voice']={'title':'inner voice workout.xlsx','url':sources['inner-voice']['url'],'updated_at':modified(inner_voice_book),'path':str(inner_voice_book.relative_to(ROOT))}
 themes=['motivation','balanced','relaxation','mindfulness','compassion','labels','flexible']
 thoughts={}
-for theme,rows in zip(themes,sheets(read('inner-voice')['content'])):
-    thoughts[theme]=[{'text':r[9], 'english':r[2], 'type':r[3], 'keep':r[3] in ['Take it in','Golden thought'], 'correct':r[7], 'incorrect':r[6]} for r in rows[1:] if len(r)>9 and r[9].strip()]
+for theme,rows in zip(themes,workbook(inner_voice_book).values()):
+    header=rows[0]
+    assert [header.get(c) for c in 'BCFGHI']==['Thought','Type','בחירה שגויה','בחירה נכונה','סוג','מחשבה'], header
+    thoughts[theme]=[{'text':r['I'],'english':r.get('B',''),'type':r.get('C',''),'type_he':r.get('H',''),'keep':r.get('C') in ['Take it in','Golden thought'],'correct':r.get('G',''),'incorrect':r.get('F','')} for r in rows[1:] if r.get('I','').strip()]
 
 card_sheets=sheets(read('cards')['content'])
 card_names=[('interests','תחומי עניין ותחביבים'),('people','אנשים וקהילה'),('self','חוזקות ותכונות'),('icebreakers','שוברי קרח')]
@@ -261,7 +301,21 @@ for key,rows in zip(['matters','pleasant','gratitude'],sheets(read('mindful-mome
             content.append({'screen':r[1].strip(),'field':r[2].strip(),'english':r[3].strip(),'hebrew':r[4].strip(),'female':r[5].strip() if len(r)>5 else ''})
     reflections[key]=content
 
-daily={'light':[25,30,30,30,30,30,25], 'heavy':[31,30,31,30,31,30,31]}
+# Daily app minutes per weekly cycle day, summed from each day's activities in Protocol.xlsx
+# (columns A day, B activity, C duration). The light-speech sheet also lists its own totals,
+# which disagree for day 7 (23 listed vs 25 summed); the sum of the listed activities is used.
+protocol_book=ACTIVITY_SHEETS/'Protocol.xlsx'
+sources['protocol']={'title':'Protocol.xlsx','updated_at':modified(protocol_book),'path':str(protocol_book.relative_to(ROOT))}
+daily={}
+for key,sheet in [('light','Light speech'),('heavy','Heavy speech')]:
+    totals,day=defaultdict(float),None
+    for r in workbook(protocol_book)[sheet][3:]:
+        if r.get('A','').startswith('Day'):
+            day=int(r['A'].split()[1])
+        if day and r.get('B','').strip() and r.get('C','').strip():
+            totals[day]+=float(r['C'])
+    assert sorted(totals)==list(range(1,8)), (sheet,dict(totals))
+    daily[key]=[int(totals[d]) if totals[d].is_integer() else totals[d] for d in range(1,8)]
 manifest={'schema':1,'built_at':'2026-11-01','sources':sources,'clips':clips,'activities':activities,'sessions':sessions,'groups':dict(groups),'thoughts':thoughts,'cards':cards,'reflections':reflections,'daily_totals_minutes':daily,
  'assumptions':[
  'The V0 session numbers control the psychology sequence. App day 1 is orientation; psychology S01 is shown as app day 2. Weekly cycle alignment is editable because the sources do not define the exact offset.',
