@@ -1,4 +1,5 @@
 import json
+import re
 from pathlib import Path
 import sys
 import unittest
@@ -12,12 +13,14 @@ ROOT = Path(__file__).resolve().parents[1]
 class FakeCorpus(verbatim.Corpus):
     """A corpus from literal texts, so tests do not depend on which LFS files are downloaded."""
 
-    def __init__(self, texts):
-        self.texts, self.unreadable = dict(texts), []
+    def __init__(self, texts, prototype=''):
+        self.texts, self.prototype, self.unreadable = dict(texts), {}, []
         self.blob = '\n'.join(self.texts.values())
+        self.prototype_blob = prototype
 
 
-CORPUS = FakeCorpus({'sources/script.json': 'היי, אני נירה\nנשימה בטנית', 'sources/cards.json': 'שוברי קרח'})
+CORPUS = FakeCorpus({'sources/script.json': 'היי, אני נירה\nנשימה בטנית', 'sources/cards.json': 'שוברי קרח'},
+                    prototype='מה גרם לכם לחייך השבוע?')
 
 
 class Quotes(unittest.TestCase):
@@ -46,7 +49,15 @@ class Prototypes(unittest.TestCase):
         self.assertIn('מחשבה שהומצאה', problems[0])
 
     def test_invented_text_node_is_reported(self):
-        self.assertTrue(verbatim.html_problems('<p>מה גרם לכם לחייך השבוע?</p>', CORPUS))
+        self.assertTrue(verbatim.html_problems('<p>טקסט שהומצא</p>', CORPUS))
+
+    def test_prototype_wording_never_verifies_new_work(self):
+        # Copying an unsourced question from the original design into a new board must still fail.
+        problems = verbatim.html_problems('<p>מה גרם לכם לחייך השבוע?</p>', CORPUS)
+        self.assertEqual(len(problems), 1)
+        self.assertIn('original design prototype', problems[0])
+        cited = {'text': 'מה גרם לכם לחייך השבוע?', 'source': verbatim.PROTOTYPE + 'x/project/scripts/Cards.dc.html'}
+        self.assertIn('not a program source', verbatim.quote_problems(cited, CORPUS)[0])
 
 
 class Repository(unittest.TestCase):
@@ -54,6 +65,12 @@ class Repository(unittest.TestCase):
         board = 'animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Cards.dc.html'
         corpus = verbatim.Corpus(exclude={board})
         self.assertNotIn(board, corpus.texts)
+        self.assertNotIn(board, corpus.prototype)
+
+    def test_design_prototype_is_evidence_not_authority(self):
+        corpus = verbatim.Corpus()
+        self.assertFalse(any(p.startswith(verbatim.PROTOTYPE) for p in corpus.texts))
+        self.assertFalse(corpus.anywhere('מה גרם לכם לחייך השבוע?'))
 
     def test_program_manifest_is_verbatim(self):
         corpus = verbatim.Corpus()
@@ -61,7 +78,11 @@ class Repository(unittest.TestCase):
         if needed:
             self.skipTest('Text sources not downloaded (git lfs pull): ' + ', '.join(needed))
         problems, _ = verbatim.check([str(ROOT / 'psych-lab/intervention/program.json')], corpus)
-        self.assertEqual(problems, [])
+        # Only the Lab's own film titles ("מפגש N: ...") come from the original design; all program
+        # text is verbatim from program sources.
+        others = [p for p in problems if not re.search(r'\.clips?\.(?:S\w+\.)?title:', p)]
+        self.assertEqual(others, [])
+        self.assertTrue(all('original design prototype' in p for p in problems))
 
 
 if __name__ == '__main__':

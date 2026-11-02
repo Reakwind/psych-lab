@@ -81,10 +81,15 @@ def source_text(path):
     return ''
 
 
+# Preserved earlier design prototype: protected from edits, but it is evidence of what the design
+# showed, never authority for program text. Copying its wording elsewhere must not verify it.
+PROTOTYPE = 'animation-kit/artifact-files/'
+
+
 class Corpus:
     def __init__(self, exclude=()):
-        """`exclude`: files under check, so a protected file never vouches for itself."""
-        self.texts, self.unreadable = {}, []
+        """Program sources vouch for text; prototype boards only explain where unsourced text came from."""
+        self.texts, self.prototype, self.unreadable = {}, {}, []
         for path in source_guard.load()[1]:
             if path in exclude:
                 continue
@@ -92,8 +97,9 @@ class Corpus:
             if text is None:
                 self.unreadable.append(path)
             elif text:
-                self.texts[path] = text
+                (self.prototype if path.startswith(PROTOTYPE) else self.texts)[path] = text
         self.blob = '\n'.join(self.texts.values())
+        self.prototype_blob = '\n'.join(self.prototype.values())
 
     def in_source(self, text, path):
         return path in self.texts and text in self.texts[path]
@@ -101,13 +107,19 @@ class Corpus:
     def anywhere(self, text):
         return text in self.blob
 
+    def why_missing(self, text):
+        return ('found only in the original design prototype, not in a program source'
+                if text in getattr(self, 'prototype_blob', '') else 'not found in any program source')
+
 
 def quote_problems(data, corpus, where=''):
     """Check {"text", "source"} quotes exactly; other Hebrew strings must exist in some source."""
     problems = []
     if isinstance(data, dict):
         if set(data) >= {'text', 'source'} and isinstance(data['text'], str):
-            if not corpus.in_source(data['text'], data['source']):
+            if data['source'].startswith(PROTOTYPE):
+                problems.append(f"{where}: {data['source']} is a design prototype, not a program source")
+            elif not corpus.in_source(data['text'], data['source']):
                 problems.append(f"{where}: not verbatim in {data['source']}: {data['text'][:60]!r}")
             return problems
         for k, v in data.items():
@@ -116,7 +128,7 @@ def quote_problems(data, corpus, where=''):
         for i, v in enumerate(data):
             problems += quote_problems(v, corpus, f'{where}[{i}]')
     elif isinstance(data, str) and HEBREW.search(data) and not corpus.anywhere(data):
-        problems.append(f'{where}: Hebrew text not found in any source: {data[:60]!r}')
+        problems.append(f'{where}: Hebrew text {corpus.why_missing(data)}: {data[:60]!r}')
     return problems
 
 
@@ -139,7 +151,7 @@ def html_problems(text, corpus):
         for line in html.unescape(run).split('\n'):
             line = line.strip()
             if HEBREW.search(line) and not corpus.anywhere(line):
-                problems.append(f'not found in any source: {line[:60]!r}')
+                problems.append(f'{corpus.why_missing(line)}: {line[:60]!r}')
     return problems
 
 
