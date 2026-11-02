@@ -45,9 +45,22 @@ class Commands(unittest.TestCase):
                         'bash -lc "git reset --hard"', 'env X=1 /usr/bin/git clean -fd',
                         'git status && git reset --hard', 'rm -rf .git',
                         'find .git -delete', 'git update-ref refs/heads/main HEAD',
-                        'git unknown-alias', 'git switch -C main']:
+                        'git unknown-alias', 'git switch -C main',
+                        'echo x > .git/config', 'cp hook ./.git/hooks/pre-push', 'export GIT_DIR=/tmp/other',
+                        'git config --global user.name someone', "bash <<'EOF'\ngit reset --hard\nEOF",
+                        "cat > notes.md <<EOF\ntext\nEOF\ngit clean -fd"]:
             with self.subTest(command=command):
                 self.assertIsNotNone(safety.command_problem(command))
+
+    def test_ordinary_commands_near_git_names_are_not_false_positives(self):
+        # `.github/`, `.gitignore`, stderr redirects and heredoc data are not Git metadata writes.
+        for command in ['ls .github .githooks 2>/dev/null', 'cat .gitignore 2>&1 | head',
+                        'grep -n GIT_CONFIG tests/test_agent_workflow.py', 'git config --global --get user.name',
+                        "python3 - <<'EOF'\nfrom agent_safety import git\nc = git('branch')\nEOF",
+                        "cat > notes.md <<EOF\nnever run git reset --hard\nEOF",
+                        'git remote get-url origin', 'git stash list', 'git grep -n contract']:
+            with self.subTest(command=command):
+                self.assertIsNone(safety.command_problem(command))
 
 
 class Ownership(unittest.TestCase):
