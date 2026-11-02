@@ -167,6 +167,13 @@ class Prototypes(unittest.TestCase):
         sourced = ''.join('\\u{%x}' % ord(c) for c in 'שוברי קרח')
         self.assertEqual(verbatim.html_problems("<script>x = '%s';</script>" % sourced, CORPUS), [])
 
+    def test_javascript_modules_are_checked(self):
+        module = "import {x} from './core.mjs';\nconst a = 'שוברי קרח';\nconst b = `היי ${a} מומצא לגמרי`;\nawait x();"
+        problems = verbatim.js_problems(module, CORPUS)
+        self.assertEqual(len(problems), 1, problems)
+        self.assertIn('מומצא לגמרי', problems[0])
+        self.assertIn('could not be tokenized', verbatim.js_problems("const x = 'unterminated;", CORPUS)[0])
+
     def test_invented_text_node_is_reported(self):
         self.assertTrue(verbatim.html_problems('<p>טקסט שהומצא</p>', CORPUS))
 
@@ -190,6 +197,15 @@ class Repository(unittest.TestCase):
         corpus = verbatim.Corpus()
         self.assertFalse(any(p.startswith(verbatim.PROTOTYPE) for p in corpus.texts))
         self.assertFalse(corpus.anywhere('מה גרם לכם לחייך השבוע?'))
+
+    def test_intervention_preview_shows_no_unsourced_hebrew(self):
+        # The phone preview's own wording is English Lab labels and 'No source text' markers.
+        corpus = verbatim.Corpus()
+        if [p for p in corpus.unreadable if p.endswith(('.xlsx', '.docx'))]:
+            self.skipTest('Text sources not downloaded (git lfs pull)')
+        files = [str(ROOT / 'psych-lab/intervention' / f) for f in ('app.mjs', 'core.mjs', 'index.html')]
+        problems, _ = verbatim.check(files, corpus)
+        self.assertEqual(problems, [])
 
     def test_program_manifest_is_verbatim(self):
         corpus = verbatim.Corpus()
