@@ -28,6 +28,8 @@ Hosted Claude sessions can authenticate Git through a proxy outside the sandbox.
 
 ## Media and content
 
+On the first task claim, missing Git author settings are configured locally from the authenticated GitHub account, using its public noreply address. An existing provider/user identity is preserved. If GitHub API authentication is unavailable, the claim stops before writing task files. Configure the provider's API access and retry; never copy credentials into committed files.
+
 All finished media and binary source documents are versioned using Git LFS. Disposable raw render frames and synthesis cache are reproducible and excluded. The source recordings, completed films, animation source, original artifact mirror, documents, and review evidence are included. Run `git lfs pull` after a clone that skipped smudging. Run `npm run media:check` before making playback or duration claims.
 
 LFS storage and downloads are subject to the repository owner's GitHub plan/billing. PR checks avoid downloading the archive on every push. The manually dispatched Full media verification workflow hydrates the archive and verifies referenced media and LFS object integrity. See [GitHub's LFS documentation](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage).

@@ -8,6 +8,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import agent_safety as safety
+import agents as workflow
 from agent_policy import check_claims, contract
 
 
@@ -107,12 +108,15 @@ class GitIntegration(unittest.TestCase):
         self.root = Path(self.temp.name)
         self.patch = patch.object(safety, 'ROOT', self.root)
         self.patch.start()
+        self.workflow_patch = patch.object(workflow, 'ROOT', self.root)
+        self.workflow_patch.start()
         self.run_git('init', '-b', 'agent/mobile-controls')
         self.run_git('config', 'user.name', 'Guard test')
         self.run_git('config', 'user.email', 'guard@example.invalid')
         (self.root / '.agent-context.json').write_text(json.dumps(task(scope=['owned.txt'])))
+        (self.root / '.gitignore').write_text('.agent-context.json\n')
         (self.root / 'owned.txt').write_text('initial\n')
-        self.run_git('add', 'owned.txt')
+        self.run_git('add', 'owned.txt', '.gitignore')
         self.run_git('commit', '-m', 'Initial test state')
         self.first = self.run_git('rev-parse', 'HEAD')
         (self.root / 'owned.txt').write_text('updated\n')
@@ -124,6 +128,7 @@ class GitIntegration(unittest.TestCase):
         return subprocess.check_output(['git', *args], cwd=self.root, stderr=subprocess.DEVNULL, text=True).strip()
 
     def tearDown(self):
+        self.workflow_patch.stop()
         self.patch.stop()
         self.temp.cleanup()
 
@@ -165,6 +170,43 @@ class GitIntegration(unittest.TestCase):
             safety.scan_secrets(staged=True)
         self.assertNotIn(fake, str(caught.exception))
         self.assertIn('GitHub credential', str(caught.exception))
+
+    def test_reservation_can_resume_after_network_failure(self):
+        c = task(scope=['owned.txt'])
+        metadata = self.root / 'docs/agent-tasks/mobile-controls.json'
+        metadata.parent.mkdir(parents=True)
+        metadata.write_text(json.dumps(c))
+        self.run_git('add', str(metadata.relative_to(self.root)))
+        with patch.object(workflow, 'git', side_effect=self.run_git):
+            self.assertTrue(workflow.resume_state(c))
+
+    def test_cloud_identity_uses_authenticated_noreply_address(self):
+        self.run_git('config', '--unset', 'user.name')
+        self.run_git('config', '--unset', 'user.email')
+        with patch.object(workflow, 'gh_json', return_value={'id': 123, 'login': 'test-agent', 'name': 'Test Agent'}):
+            workflow.ensure_identity()
+        self.assertEqual(self.run_git('config', 'user.name'), 'Test Agent')
+        self.assertEqual(self.run_git('config', 'user.email'), '123+test-agent@users.noreply.github.com')
+
+    def test_provider_identity_is_preserved(self):
+        with patch.object(workflow, 'gh_json') as api:
+            workflow.ensure_identity()
+        api.assert_not_called()
+        self.assertEqual(self.run_git('config', 'user.name'), 'Guard test')
+
+    def test_reservation_recovery_preserves_other_work(self):
+        c = task(scope=['owned.txt'])
+        metadata = self.root / 'docs/agent-tasks/mobile-controls.json'
+        metadata.parent.mkdir(parents=True)
+        metadata.write_text(json.dumps(c))
+        (self.root / 'owned.txt').write_text('unfinished work\n')
+        with patch.object(workflow, 'git', side_effect=self.run_git), self.assertRaisesRegex(ValueError, 'other uncommitted'):
+            workflow.resume_state(c)
+        self.assertEqual((self.root / 'owned.txt').read_text(), 'unfinished work\n')
+
+    def test_recovery_cannot_change_the_contract(self):
+        with self.assertRaisesRegex(ValueError, 'different contract'):
+            workflow.resume_state(task('different-task', ['owned.txt']))
 
 
 if __name__ == '__main__':

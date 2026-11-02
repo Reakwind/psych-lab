@@ -24,6 +24,8 @@ python3 scripts/agents.py claim --task video-controls --agent claude-controls \
 
 The claim command commits only its own manifest, pushes only its assigned branch, and opens a draft PR. Wait for `agent-policy` to pass before implementing. If two claims race, the oldest open PR reserves that scope and the newer PR is blocked. Different exact files can be worked on concurrently; directory claims reserve their descendants. A malformed open claim blocks new reservations until the integrator fixes it. Avoid a single shared task board file that all agents must edit.
 
+If a reservation is interrupted by authentication or network failure, retry the exact same `claim` command in the same checkout with unchanged task, agent, branch and scope. It reuses the reservation commit and draft PR instead of creating duplicates. Recovery refuses unrelated uncommitted work or a different contract and preserves those files. Do not delete context, branches, or Git metadata to recover.
+
 Implement, inspect your diff, and commit explicit paths:
 
 ```bash

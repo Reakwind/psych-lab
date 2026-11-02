@@ -15,8 +15,8 @@ from agent_safety import ROOT, REPOSITORY, check_scope, context, git, json_pages
 MARKER = re.compile(r'<!-- agent-contract\s*\n(.*?)\n-->', re.S)
 
 
-def run(*args, cwd=ROOT):
-    subprocess.run([str(a) for a in args], cwd=cwd, check=True)
+def run(*args, cwd=None):
+    subprocess.run([str(a) for a in args], cwd=cwd or ROOT, check=True)
 
 
 def gh_json(*args):
@@ -31,6 +31,39 @@ def task_path(c):
 def clean():
     if git('status', '--porcelain'):
         raise ValueError('Working tree has uncommitted files. Preserve and finish them before switching tasks or syncing.')
+
+
+def ensure_identity():
+    missing = [key for key in ['user.name', 'user.email']
+               if not subprocess.run(['git', 'config', '--get', key], cwd=ROOT, capture_output=True, text=True).stdout.strip()]
+    if not missing:
+        return
+    user = gh_json('api', 'user')
+    if not isinstance(user.get('id'), int) or not re.fullmatch(r'[A-Za-z0-9-]+', user.get('login', '')):
+        raise ValueError('Configure a Git author identity before reserving a task.')
+    values = {'user.name': user.get('name') or user['login'],
+              'user.email': f"{user['id']}+{user['login']}@users.noreply.github.com"}
+    for key in missing:
+        run('git', 'config', '--local', key, values[key])
+
+
+def resume_state(c):
+    """Resume a failed reservation without absorbing implementation or foreign work."""
+    local = ROOT / '.agent-context.json'
+    manifest = task_path(c)
+    if not local.exists() and not manifest.exists():
+        clean()
+        return False
+    if (not local.exists() or not manifest.exists()
+            or json.loads(local.read_text()) != c or json.loads(manifest.read_text()) != c):
+        raise ValueError('This checkout is assigned to a different contract. Preserve it and use a fresh checkout.')
+    changed = set()
+    for args in [('diff', '--name-only', '-z'), ('diff', '--cached', '--name-only', '-z'),
+                 ('ls-files', '--others', '--exclude-standard', '-z')]:
+        changed.update(filter(None, git(*args).split('\0')))
+    if changed - {str(manifest.relative_to(ROOT))}:
+        raise ValueError('Reservation recovery found other uncommitted work. Preserve and finish it before retrying.')
+    return True
 
 
 def setup():
@@ -80,22 +113,35 @@ def assert_reserved(c):
 
 
 def claim(args):
-    clean()
     c = validate_contract({'task': args.task, 'agent': args.agent, 'scope': args.scope,
                            'branch': git('branch', '--show-current')})
-    if (ROOT / '.agent-context.json').exists() or task_path(c).exists():
-        raise ValueError('This checkout or task ID is already assigned. Use a fresh isolated checkout and unique task ID.')
+    resuming = resume_state(c)
+    ensure_identity()  # Fail before writing task files if identity is unavailable.
+    existing = gh_json('pr', 'list', '--repo', REPOSITORY, '--head', c['branch'], '--state', 'open', '--json', 'number,url,body')
+    if len(existing) > 1 or (existing and (not resuming or not MARKER.search(existing[0]['body'])
+                            or json.loads(MARKER.search(existing[0]['body'])[1]) != c)):
+        raise ValueError('A different PR already owns this branch.')
     # Query live claims before editing. The server policy repeats this check for races.
     from agent_policy import check_claims
-    check_claims(c, gh_json('api', '--paginate', f'repos/{REPOSITORY}/pulls?state=open&per_page=100'), current=None)
-    (ROOT / '.agent-context.json').write_text(json.dumps(c, indent=2) + '\n')
-    task_path(c).parent.mkdir(parents=True, exist_ok=True)
-    task_path(c).write_text(json.dumps(c, indent=2) + '\n')
-    run('git', 'add', '--', task_path(c).relative_to(ROOT))
-    message = f"chore(task): reserve {c['task']}\n\n{args.summary}\n\nTask: {c['task']}\nAgent: {c['agent']}"
-    run('git', 'commit', '-m', message)
+    check_claims(c, gh_json('api', '--paginate', f'repos/{REPOSITORY}/pulls?state=open&per_page=100'),
+                 current=existing[0]['number'] if existing else None)
+    if not resuming:
+        (ROOT / '.agent-context.json').write_text(json.dumps(c, indent=2) + '\n')
+        task_path(c).parent.mkdir(parents=True, exist_ok=True)
+        task_path(c).write_text(json.dumps(c, indent=2) + '\n')
+    metadata = str(task_path(c).relative_to(ROOT))
+    recorded = subprocess.run(['git', 'show', 'HEAD:' + metadata], cwd=ROOT, capture_output=True, text=True)
+    if recorded.returncode:
+        run('git', 'add', '--', metadata)
+        message = f"chore(task): reserve {c['task']}\n\n{args.summary}\n\nTask: {c['task']}\nAgent: {c['agent']}"
+        run('git', 'commit', '-m', message)
+    elif json.loads(recorded.stdout) != c:
+        raise ValueError('The committed reservation differs from this task. Coordinate a scope transfer first.')
     run('git', 'push', '-u', 'origin', c['branch'])
-    with_file(body(c, args.summary), lambda path: run('gh', 'pr', 'create', '--repo', REPOSITORY, '--base', 'main', '--head', c['branch'], '--draft', '--title', f"chore(task): {args.summary}", '--body-file', path))
+    if existing:
+        print(existing[0]['url'])
+    else:
+        with_file(body(c, args.summary), lambda path: run('gh', 'pr', 'create', '--repo', REPOSITORY, '--base', 'main', '--head', c['branch'], '--draft', '--title', f"chore(task): {args.summary}", '--body-file', path))
     print('Wait for the agent-policy check to pass before implementing. Oldest overlapping PR owns the scope.')
 
 
