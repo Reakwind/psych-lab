@@ -1,0 +1,14 @@
+{
+  "task": "inner-voice-current",
+  "agent": "claude-bold-ptolemy",
+  "scope": [
+    "sources/activity-sheets/",
+    "source-material.json",
+    "psych-lab/intervention/build.py",
+    "psych-lab/intervention/program.json",
+    "psych-lab/intervention/app.mjs",
+    "psych-lab/intervention/BUILD_NOTES.md",
+    "tests/test_inner_voice.py"
+  ],
+  "branch": "claude/bold-ptolemy-dt1ah7--inner-voice-current"
+}
