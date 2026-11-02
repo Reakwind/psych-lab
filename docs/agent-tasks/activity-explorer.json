@@ -15,7 +15,9 @@
     "scripts/agents.py",
     "tests/test_agent_workflow.py",
     ".github/rulesets/main.json",
-    ".github/rulesets/history.json"
+    ".github/rulesets/history.json",
+    "psych-lab/intervention/core.mjs",
+    "psych-lab/intervention/app.mjs"
   ],
   "branch": "claude/bold-ptolemy-dt1ah7--activity-explorer"
 }
