@@ -137,6 +137,22 @@ def quote_problems(data, corpus, where=''):
 JS_STRING = re.compile(r'"((?:[^"\\\n]|\\.)*)"|\'((?:[^\'\\\n]|\\.)*)\'|`([^`]*)`')
 
 
+JS_ESCAPE = re.compile(r'\\(u\{[0-9a-fA-F]+\}|u[0-9a-fA-F]{4}|x[0-9a-fA-F]{2}|.)', re.S)
+SIMPLE = {'n': '\n', 'r': '\r', 't': '\t', 'b': '\b', 'f': '\f', 'v': '\v', '0': '\0'}
+
+
+def js_unescape(literal):
+    """Decode JavaScript string escapes so escaped Hebrew is checked like literal Hebrew."""
+    def one(match):
+        e = match[1]
+        if e.startswith('u{'):
+            return chr(int(e[2:-1], 16))
+        if e[0] in 'ux' and len(e) > 1:
+            return chr(int(e[1:], 16))
+        return SIMPLE.get(e, e)
+    return JS_ESCAPE.sub(one, literal)
+
+
 class TextRuns(HTMLParser):
     """Text nodes, every attribute value (any quoting) and JavaScript string literals."""
 
@@ -157,7 +173,7 @@ class TextRuns(HTMLParser):
 
     def handle_data(self, data):
         if self.raw == 'script':
-            self.runs += [next(g for g in m.groups() if g is not None) for m in JS_STRING.finditer(data)]
+            self.runs += [js_unescape(next(g for g in m.groups() if g is not None)) for m in JS_STRING.finditer(data)]
         elif self.raw is None:
             self.runs.append(data)
 

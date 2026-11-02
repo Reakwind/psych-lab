@@ -59,6 +59,14 @@ class Prototypes(unittest.TestCase):
             with self.subTest(page=page):
                 self.assertEqual(len(verbatim.html_problems(page, CORPUS)), 1)
 
+    def test_escaped_script_strings_are_decoded(self):
+        escaped = ''.join('\\u%04x' % ord(c) for c in 'טקסט מומצא')
+        problems = verbatim.html_problems('<script>document.body.textContent = "%s";</script>' % escaped, CORPUS)
+        self.assertEqual(len(problems), 1)
+        self.assertIn('טקסט מומצא', problems[0])
+        sourced = ''.join('\\u{%x}' % ord(c) for c in 'שוברי קרח')
+        self.assertEqual(verbatim.html_problems("<script>x = '%s';</script>" % sourced, CORPUS), [])
+
     def test_invented_text_node_is_reported(self):
         self.assertTrue(verbatim.html_problems('<p>טקסט שהומצא</p>', CORPUS))
 
