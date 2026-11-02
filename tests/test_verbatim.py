@@ -77,6 +77,13 @@ class Prototypes(unittest.TestCase):
         self.assertEqual(len(template), 1)  # 'היי' is sourced; the invented chunk is not
         self.assertIn('מומצא לגמרי', template[0])
 
+    def test_entities_are_decoded_once_like_the_browser(self):
+        # The browser shows a literal '&#1488;' here; it must not be matched as decoded Hebrew.
+        for page in ['<p>היי, &amp;#1488;ני נירה</p>', "<script>x = 'היי, &#1488;ני נירה';</script>"]:
+            with self.subTest(page=page):
+                self.assertEqual(len(verbatim.html_problems(page, CORPUS)), 1)
+        self.assertEqual(verbatim.html_problems('<p>היי, &#1488;ני נירה</p>', CORPUS), [])
+
     def test_escaped_script_strings_are_decoded(self):
         escaped = ''.join('\\u%04x' % ord(c) for c in 'טקסט מומצא')
         problems = verbatim.html_problems('<script>document.body.textContent = "%s";</script>' % escaped, CORPUS)

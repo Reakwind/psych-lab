@@ -260,7 +260,7 @@ def html_problems(text, corpus):
     parser.close()
     problems = []
     for run in parser.runs:
-        for line in html.unescape(run).split('\n'):
+        for line in run.split('\n'):  # already decoded once by the parser; never decode twice
             line = line.strip()
             if HEBREW.search(line) and not corpus.anywhere(line):
                 problems.append(f'{corpus.why_missing(line)}: {line[:60]!r}')
