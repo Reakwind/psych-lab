@@ -48,7 +48,13 @@ class Commands(unittest.TestCase):
                         'git unknown-alias', 'git switch -C main',
                         'echo x > .git/config', 'cp hook ./.git/hooks/pre-push', 'export GIT_DIR=/tmp/other',
                         'git config --global user.name someone', "bash <<'EOF'\ngit reset --hard\nEOF",
-                        "cat > notes.md <<EOF\ntext\nEOF\ngit clean -fd"]:
+                        "cat > notes.md <<EOF\ntext\nEOF\ngit clean -fd",
+                        # Unquoted heredocs expand $(...); pipelines may hand bodies to a shell;
+                        # an unresolved delimiter must not hide the commands after it.
+                        "cat > notes.md <<EOF\n$(git reset --hard)\nEOF",
+                        "cat <<'EOF' | bash\ngit reset --hard\nEOF",
+                        "cat <<EOF-TEXT\nhello\nEOF-TEXT\ngit reset --hard",
+                        "cat <<'EOF'\nunterminated\ngit reset --hard"]:
             with self.subTest(command=command):
                 self.assertIsNotNone(safety.command_problem(command))
 
@@ -57,7 +63,8 @@ class Commands(unittest.TestCase):
         for command in ['ls .github .githooks 2>/dev/null', 'cat .gitignore 2>&1 | head',
                         'grep -n GIT_CONFIG tests/test_agent_workflow.py', 'git config --global --get user.name',
                         "python3 - <<'EOF'\nfrom agent_safety import git\nc = git('branch')\nEOF",
-                        "cat > notes.md <<EOF\nnever run git reset --hard\nEOF",
+                        "cat > notes.md <<'EOF'\nnever run git reset --hard\nEOF",
+                        "git commit -m \"$(cat <<'EOF'\nfix(x): explain git reset avoidance\nEOF\n)\"",
                         'git remote get-url origin', 'git stash list', 'git grep -n contract']:
             with self.subTest(command=command):
                 self.assertIsNone(safety.command_problem(command))

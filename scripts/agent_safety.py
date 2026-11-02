@@ -127,26 +127,36 @@ GIT_METADATA = re.compile(r'(?:^|/)\.git(?:/|$)')
 REMOVERS = {'rm', 'rmdir', 'unlink', 'Remove-Item', 'shred'}
 WRITERS = {'tee', 'cp', 'mv', 'ln', 'truncate', 'install', 'chmod', 'chown', 'dd', 'rsync'}
 SHELLS = {'bash', 'sh', 'zsh', 'dash', 'ksh'}
-HEREDOC = re.compile(r'<<-?\s*(["\']?)([A-Za-z_][A-Za-z0-9_]*)\1')
+EXECUTORS = SHELLS | {'env', 'xargs', 'eval', 'source', '.', 'sudo', 'exec', 'nohup', 'time', 'command'}
+# Complete delimiter word: fully quoted ('EOF' / "EOF") or an unquoted run of non-metacharacters.
+HEREDOC = re.compile(r'<<-?[ \t]*(?:\'([^\'\n]*)\'|"([^"\n]*)"|([^\s;&|<>()]+))')
 
 
 def strip_data_heredocs(command):
-    """Drop heredoc bodies fed to non-shell programs (Python, cat, tee); keep shell ones for inspection."""
+    """Drop heredoc bodies only when Bash passes them on as inert data.
+
+    A body is skipped only if its delimiter is fully quoted (so `$(...)` and backticks are not
+    expanded), its terminator line exists, and no executor consumes it, either as the receiving
+    program or later in a pipeline. Everything else stays inspected as commands.
+    """
     lines, out, i = command.split('\n'), [], 0
     while i < len(lines):
         line = lines[i]
         out.append(line)
         i += 1
         match = HEREDOC.search(line)  # Only the first heredoc per line; later ones stay inspected.
-        if not match:
-            continue
+        if not match or match[3] is not None:
+            continue  # Unquoted delimiter: the shell expands the body, so inspect it.
+        delimiter = match[1] if match[1] is not None else match[2]
         segment = re.split(r'[;&|]', line[:match.start()])[-1].split()
         words = [w for w in segment if '=' not in w or w.startswith('-')]
-        program = Path(words[0]).name if words else ''
-        if program in SHELLS | {'env', 'xargs', 'eval', 'source', '.', 'sudo', 'exec'}:
-            continue  # Something that may execute the body: inspect it as commands.
-        body_end = next((j for j in range(i, len(lines)) if lines[j].strip() == match[2]), len(lines))
-        del lines[i:body_end]
+        program = Path(words[0].lstrip('$(<"\'')).name if words else ''
+        downstream = [Path(w).name for part in line[match.end():].split('|')[1:] for w in part.split()[:1]]
+        if not delimiter or program in EXECUTORS or any(p in EXECUTORS for p in downstream):
+            continue  # Something may execute the body: inspect it as commands.
+        body_end = next((j for j in range(i, len(lines)) if lines[j].strip() == delimiter), None)
+        if body_end is not None:
+            del lines[i:body_end]
     return '\n'.join(out)
 
 
