@@ -10,7 +10,8 @@
     "psych-lab/intervention/index.html",
     "scripts/verbatim.py",
     "tests/test_verbatim.py",
-    "package.json"
+    "package.json",
+    "package-lock.json"
   ],
   "branch": "claude/bold-ptolemy-dt1ah7--program-map"
 }

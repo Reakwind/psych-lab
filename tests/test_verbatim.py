@@ -94,6 +94,20 @@ class Prototypes(unittest.TestCase):
         self.assertEqual(len(verbatim.html_problems(joined, CORPUS)), 1)
         self.assertEqual(verbatim.html_problems('<p>היי,   אני\n נירה</p>', CORPUS), [])
 
+    def test_script_lexing_matches_javascript(self):
+        # Braces inside interpolation strings and division after an object literal must not hide text.
+        for script in ['document.body.textContent = `${"{"}טקסט מומצא לחלוטין`;',
+                       'const n = {} / 2; document.body.textContent = "טקסט מומצא לחלוטין";']:
+            with self.subTest(script=script):
+                problems = verbatim.html_problems('<script>%s</script>' % script, CORPUS)
+                self.assertEqual(len(problems), 1, problems)
+                self.assertIn('טקסט מומצא לחלוטין', problems[0])
+
+    def test_unreadable_script_fails_closed(self):
+        problems = verbatim.html_problems("<script>const x = 'unterminated;</script>", CORPUS)
+        self.assertEqual(len(problems), 1)
+        self.assertIn('could not be tokenized', problems[0])
+
     def test_escaped_script_strings_are_decoded(self):
         escaped = ''.join('\\u%04x' % ord(c) for c in 'טקסט מומצא')
         problems = verbatim.html_problems('<script>document.body.textContent = "%s";</script>' % escaped, CORPUS)

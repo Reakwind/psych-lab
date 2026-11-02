@@ -15,6 +15,7 @@ import io
 import json
 from pathlib import Path
 import re
+import subprocess
 import sys
 import zipfile
 
@@ -148,101 +149,45 @@ def quote_problems(data, corpus, where=''):
     return problems
 
 
-# JavaScript string values: comments and regular expressions are skipped, quotes inside them
-# cannot open a string, and every string (or template-literal chunk) is checked as one whole value,
-# so neither hidden text nor recombined fragments can pass.
-REGEX_AFTER = set('(,=:[!&|?{};+-*%<>~^') | {''}
-KEYWORDS_BEFORE_REGEX = {'return', 'typeof', 'case', 'do', 'else', 'in', 'of', 'new', 'delete', 'void', 'throw', 'yield', 'await'}
+# Script text is read with a real JavaScript tokenizer (acorn, pinned in package.json), never a
+# hand-written lexer: strings and template chunks come out exactly as the engine evaluates them
+# (escapes, line continuations, regex/division, nested interpolation). If a script cannot be
+# tokenized, verification fails closed.
+TOKENIZE_JS = r"""
+const acorn = require('acorn');
+let src = '';
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', d => { src += d; }).on('end', () => {
+  const strings = [];
+  try {
+    const opts = {ecmaVersion: 'latest', sourceType: 'script', allowHashBang: true, allowReturnOutsideFunction: true};
+    for (const t of acorn.tokenizer(src, opts)) {
+      if (t.type === acorn.tokTypes.string || t.type === acorn.tokTypes.template) strings.push(String(t.value ?? ''));
+    }
+    process.stdout.write(JSON.stringify({ok: true, strings}));
+  } catch (e) {
+    process.stdout.write(JSON.stringify({ok: false, error: String(e && e.message || e)}));
+  }
+});
+"""
+
+
+class ScriptError(ValueError):
+    pass
 
 
 def js_strings(code):
-    out, i, n, prev = [], 0, len(code), ''
-
-    def read_quoted(i, quote):
-        j, buf = i + 1, []
-        while j < n and code[j] != quote and code[j] != '\n':
-            if code[j] == '\\' and j + 1 < n:
-                step = 3 if code.startswith('\r\n', j + 1) else 2
-                buf.append(code[j:j + step]); j += step
-            else:
-                buf.append(code[j]); j += 1
-        return ''.join(buf), j + 1
-
-    def read_template(i):
-        j, buf, chunks = i + 1, [], []
-        while j < n and code[j] != '`':
-            if code[j] == '\\' and j + 1 < n:
-                buf.append(code[j:j + 2]); j += 2
-            elif code.startswith('${', j):
-                chunks.append(''.join(buf)); buf = []
-                depth, j = 1, j + 2
-                start = j
-                while j < n and depth:
-                    depth += {'{': 1, '}': -1}.get(code[j], 0); j += 1
-                out.extend(js_strings(code[start:j - 1]))
-            else:
-                buf.append(code[j]); j += 1
-        chunks.append(''.join(buf))
-        return chunks, j + 1
-
-    while i < n:
-        c = code[i]
-        if c in ' \t\r\n':
-            i += 1
-        elif code.startswith('//', i):
-            i = code.find('\n', i) % (n + 1) if '\n' in code[i:] else n
-        elif code.startswith('/*', i):
-            end = code.find('*/', i + 2)
-            i = n if end < 0 else end + 2
-        elif c in '"\'':
-            value, i = read_quoted(i, c)
-            out.append(value); prev = 'str'
-        elif c == '`':
-            chunks, i = read_template(i)
-            out.extend(chunks); prev = 'str'
-        elif c == '/' and (prev in REGEX_AFTER or prev in KEYWORDS_BEFORE_REGEX):
-            j, in_class = i + 1, False
-            while j < n and code[j] != '\n':
-                if code[j] == '\\':
-                    j += 2; continue
-                if code[j] == '[':
-                    in_class = True
-                elif code[j] == ']':
-                    in_class = False
-                elif code[j] == '/' and not in_class:
-                    break
-                j += 1
-            i = j + 1
-            while i < n and code[i].isalpha():
-                i += 1
-            prev = 'regex'
-        else:
-            m = re.match(r'[A-Za-z_$][\w$]*|\d[\w.]*', code[i:])
-            if m:
-                prev = m[0] if m[0] in KEYWORDS_BEFORE_REGEX else 'word'
-                i += len(m[0])
-            else:
-                prev = c if c not in ')]' else 'word'
-                i += 1
-    return [js_unescape(s) for s in out]
-
-
-JS_ESCAPE = re.compile(r'\\(u\{[0-9a-fA-F]+\}|u[0-9a-fA-F]{4}|x[0-9a-fA-F]{2}|\r\n|.)', re.S)
-SIMPLE = {'n': '\n', 'r': '\r', 't': '\t', 'b': '\b', 'f': '\f', 'v': '\v', '0': '\0',
-          # Line continuations: JavaScript drops a backslash followed by a line terminator.
-          '\n': '', '\r\n': '', '\r': '', '\u2028': '', '\u2029': ''}
-
-
-def js_unescape(literal):
-    """Decode JavaScript string escapes so escaped Hebrew is checked like literal Hebrew."""
-    def one(match):
-        e = match[1]
-        if e.startswith('u{'):
-            return chr(int(e[2:-1], 16))
-        if e[0] in 'ux' and len(e) > 1:
-            return chr(int(e[1:], 16))
-        return SIMPLE.get(e, e)
-    return JS_ESCAPE.sub(one, literal)
+    """Every string literal and template chunk in `code`, as JavaScript evaluates them."""
+    try:
+        result = subprocess.run(['node', '-e', TOKENIZE_JS], input=code, capture_output=True,
+                                text=True, cwd=ROOT, timeout=60)
+        data = json.loads(result.stdout or '{}')
+    except (OSError, ValueError, subprocess.TimeoutExpired) as e:
+        raise ScriptError(f'cannot tokenize script (needs node and npm ci): {e}') from None
+    if not data.get('ok'):
+        raise ScriptError('script could not be tokenized, so its text cannot be verified: '
+                          + str(data.get('error') or result.stderr.strip()[:200]))
+    return data['strings']
 
 
 class TextRuns(HTMLParser):
@@ -250,7 +195,7 @@ class TextRuns(HTMLParser):
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.runs, self.raw = [], None
+        self.runs, self.raw, self.errors = [], None, []
 
     def handle_starttag(self, tag, attrs):
         self.runs += [value for _, value in attrs if value]
@@ -265,7 +210,10 @@ class TextRuns(HTMLParser):
 
     def handle_data(self, data):
         if self.raw == 'script':
-            self.runs += js_strings(data)
+            try:
+                self.runs += js_strings(data)
+            except ScriptError as e:
+                self.errors.append(str(e))
         elif self.raw is None:
             self.runs.append(data)
 
@@ -275,7 +223,7 @@ def html_problems(text, corpus):
     parser = TextRuns()
     parser.feed(text)
     parser.close()
-    problems = []
+    problems = list(parser.errors)  # an unreadable script fails closed
     for run in parser.runs:  # already decoded once by the parser; never decode twice
         text = collapse(run)  # one whole run, as displayed
         if HEBREW.search(text) and not corpus.anywhere(text):
