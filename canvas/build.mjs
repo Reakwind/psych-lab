@@ -619,13 +619,23 @@ function protocolPlans() {
     // The first-month workouts are the codes the status sheet lists (e.g. 'A1+B1 * 3 Levels').
     const month1 = st ? (st.content.match(/[A-C]\d/g) || []) : [];
     return {name: x.activity, minutes: x.minutes, rounds: x.rounds, med: x.time_since_med, category: x.category, psych, status: st,
-      pages: mod.pages.map(p => ({...p, month1: month1.includes(p.code)})), scripts: mod.scripts};
+      pages: mod.pages.map(p => ({...p, month1: month1.includes(p.code), keys: p.scripts.concat((p.excerpts || []).map(ex => ex.script + '#' + p.id)), excerpts: undefined})), scripts: mod.scripts};
   }));
   // Each module script once, as its paragraphs; text exactly as its snapshot in sources/module-scripts has it.
+  // A page excerpt is the run of the script from its section heading up to the next section's heading.
+  const paras = text => text.split('\n').filter(t => t.trim());
   const scripts = Object.fromEntries(Object.entries(P.protocol.scripts).map(([slug, m]) => {
     const snap = read(m.path);
-    return [slug, {title: m.title, updated: m.updated_at.slice(0, 10), path: m.path, paras: snap.content.split('\n').filter(t => t.trim())}];
+    return [slug, {title: m.title, updated: m.updated_at.slice(0, 10), path: m.path, paras: paras(snap.content)}];
   }));
+  const excerptKey = ex => ex.script + '#' + ex.n;
+  for (const mod of Object.values(P.protocol.modules)) for (const pg of mod.pages) (pg.excerpts || []).forEach((ex, k) => {
+    const m = P.protocol.scripts[ex.script], content = read(m.path).content;
+    const at = content.indexOf(ex.from), end = ex.to ? content.indexOf(ex.to, at + 1) : content.length;
+    if (at < 0 || end < 0) throw Error('Script section not found: ' + ex.script);
+    ex.n = pg.id;  // a key without program text in it
+    scripts[excerptKey(ex)] = {title: m.title, section: ex.from, updated: m.updated_at.slice(0, 10), path: m.path, paras: paras(content.slice(at, end))};
+  });
   return {light: plan('light'), heavy: plan('heavy'), sheets: {light: P.protocol.light.sheet, heavy: P.protocol.heavy.sheet}, scripts};
 }
 

@@ -276,10 +276,10 @@
         title: page ? page.title : '', subtitle: page ? page.subtitle : '', hasSubtitle: !!(page && page.subtitle),
         lead: page ? lines(page.lead) : [], hasLead: !!(page && page.lead), equipment: page ? lines(page.equipment) : [], hasEquipment: !!(page && page.equipment),
         safety: page ? page.safety : '', hasSafety: !!(page && page.safety), pageId: page ? page.id + ' · content metadata' : '' });
-      const slugs = (page ? page.scripts : []).concat(x.scripts || []);
+      const slugs = (page ? page.keys : []).concat(x.scripts || []);
       v.mod.scripts = slugs.map((slug) => {
         const sc = D.protocol.scripts[slug], shown = sub.script === slug;
-        return { label: (shown ? 'Hide script · ' : 'Script · ') + sc.title, meta: sc.path + ' · modified ' + sc.updated, shown, paras: shown ? sc.paras.map((q) => ({ t: q })) : [],
+        return { label: (shown ? 'Hide script · ' : 'Script · ') + sc.title, section: sc.section || '', hasSection: !!sc.section, meta: sc.path + ' · modified ' + sc.updated, shown, paras: shown ? sc.paras.map((q) => ({ t: q })) : [],
           toggle: () => this.setSub({ script: shown ? null : slug }) };
       });
       v.mod.hasScripts = slugs.length > 0;

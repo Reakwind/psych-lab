@@ -10092,7 +10092,8 @@
             "type": "Video",
             "scripts": [
               "pt-A1"
-            ]
+            ],
+            "excerpts": []
           },
           {
             "id": "PT-CONT-002",
@@ -10106,7 +10107,8 @@
             "type": "Video",
             "scripts": [
               "pt-B1"
-            ]
+            ],
+            "excerpts": []
           },
           {
             "id": "PT-CONT-003",
@@ -10120,7 +10122,8 @@
             "type": "Video",
             "scripts": [
               "pt-A2"
-            ]
+            ],
+            "excerpts": []
           },
           {
             "id": "PT-CONT-004",
@@ -10134,7 +10137,8 @@
             "type": "Video",
             "scripts": [
               "pt-B2"
-            ]
+            ],
+            "excerpts": []
           },
           {
             "id": "PT-CONT-005",
@@ -10148,7 +10152,8 @@
             "type": "Video",
             "scripts": [
               "pt-A3"
-            ]
+            ],
+            "excerpts": []
           },
           {
             "id": "PT-CONT-006",
@@ -10160,7 +10165,8 @@
             "equipment": "2 כיסאות, משקולות, נעלי בית, סרט סימון, בקבוק מים",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [],
+            "excerpts": []
           }
         ],
         "scripts": []
@@ -10177,7 +10183,8 @@
             "equipment": "כדור לחיץ\nעט ונייר\nרצועת נייר טואלט",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [],
+            "excerpts": []
           },
           {
             "id": "OT-CONT-004",
@@ -10189,7 +10196,8 @@
             "equipment": "מטבעות\nעט ונייר",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [],
+            "excerpts": []
           },
           {
             "id": "OT-CONT-005",
@@ -10201,7 +10209,8 @@
             "equipment": "עט ונייר\nמטבעות",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [],
+            "excerpts": []
           },
           {
             "id": "OT-CONT-006",
@@ -10213,7 +10222,8 @@
             "equipment": "מגבת מטבח\nאטבי כביסה\nכדור לחיץ",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [],
+            "excerpts": []
           },
           {
             "id": "OT-CONT-007",
@@ -10225,7 +10235,8 @@
             "equipment": "כדור לחיץ\nאטבי כביסה",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [],
+            "excerpts": []
           },
           {
             "id": "OT-CONT-008",
@@ -10237,7 +10248,8 @@
             "equipment": "מגבת מטבח\nגומייה\nאטבי כביסה\nכדור לחיץ",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [],
+            "excerpts": []
           },
           {
             "id": "OT-CONT-009",
@@ -10249,7 +10261,8 @@
             "equipment": "טישו\nעט ונייר",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [],
+            "excerpts": []
           },
           {
             "id": "OT-CONT-010",
@@ -10261,7 +10274,8 @@
             "equipment": "עט ונייר\nטישו",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [],
+            "excerpts": []
           },
           {
             "id": "OT-CONT-011",
@@ -10273,7 +10287,8 @@
             "equipment": "כדור לחיץ\nעט ונייר",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [],
+            "excerpts": []
           }
         ],
         "scripts": [
@@ -10296,7 +10311,8 @@
             "type": "Video",
             "scripts": [
               "sp-sustained"
-            ]
+            ],
+            "excerpts": []
           }
         ],
         "scripts": []
@@ -10315,7 +10331,8 @@
             "type": "Video",
             "scripts": [
               "sp-pitch-glides"
-            ]
+            ],
+            "excerpts": []
           }
         ],
         "scripts": []
@@ -10334,7 +10351,8 @@
             "type": "Video",
             "scripts": [
               "sp-reading"
-            ]
+            ],
+            "excerpts": []
           }
         ],
         "scripts": []
@@ -10353,7 +10371,8 @@
             "type": "Video",
             "scripts": [
               "sp-reading"
-            ]
+            ],
+            "excerpts": []
           }
         ],
         "scripts": []
@@ -10370,7 +10389,14 @@
             "equipment": "",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [],
+            "excerpts": [
+              {
+                "script": "ot-prompter-23-8",
+                "from": "אינטרו לטיפ טפ",
+                "to": ""
+              }
+            ]
           }
         ],
         "scripts": []
@@ -10387,7 +10413,14 @@
             "equipment": "",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [],
+            "excerpts": [
+              {
+                "script": "ot-prompter-23-8",
+                "from": "אינטרו - אצבעות מנגנות",
+                "to": "אינטרו לטיפ טפ"
+              }
+            ]
           }
         ],
         "scripts": []
@@ -10404,13 +10437,22 @@
             "equipment": "שמע פעיל\nכיסוי עיניים",
             "safety": "",
             "type": "Video",
-            "scripts": []
+            "scripts": [
+              "co-maze-why"
+            ],
+            "excerpts": []
           }
         ],
         "scripts": []
       }
     },
     "scripts": {
+      "co-maze-why": {
+        "title": "למה לשחק במבוך.docx",
+        "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Maze/Scripts/למה לשחק במבוך.docx",
+        "updated_at": "2026-09-02T10:09:24Z",
+        "path": "sources/module-scripts/co-maze-why.json"
+      },
       "ot-dry-run": {
         "title": "כל סרטוני ההסבר עבור dry run 28.7.docx",
         "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Occupational Therapy/תסריטים/כל סרטוני ההסבר עבור dry run 28.7.docx",
