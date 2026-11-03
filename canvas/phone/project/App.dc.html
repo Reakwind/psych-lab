@@ -940,14 +940,16 @@ class Component extends Player {
   // Weekly cycle day: app day 2 is cycle day 1 (the sources do not fix the offset; program.json assumption).
   cycle(app) { return ((app.day - this.data().firstDay) % 7 + 7) % 7; }
   dayPlan(app) { return this.data().protocol[app.plan || 'light'][this.cycle(app)]; }
-  moduleDone(app, k) { return (app.modules[app.day] || []).indexOf(k) >= 0; }
+  // A passed slot is remembered for its own week sheet and row, so switching light/heavy never carries it over.
+  moduleKey(app, k) { return (app.plan || 'light') + ':' + k; }
+  moduleDone(app, k) { return (app.modules[app.day] || []).indexOf(this.moduleKey(app, k)) >= 0; }
   mindsetSteps(t) { return (t.kind === 'session' ? t.s.steps : t.loop.steps).filter((st) => st.kind !== 'complete'); }
   // The day as one flow: each protocol item in order. Other modules are slots; Mindset is today's psychology.
   dayFlow(app, t) {
     const steps = [];
     this.dayPlan(app).forEach((x, k) => {
       if (x.psych) { if (!t.done) steps.push(...this.mindsetSteps(t)); }
-      else if (!this.moduleDone(app, k)) steps.push({ kind: 'module', index: k, item: x });
+      else if (!this.moduleDone(app, k)) steps.push({ kind: 'module', index: k, key: this.moduleKey(app, k), item: x });
     });
     return steps.concat([{ kind: 'complete' }]);
   }
@@ -956,10 +958,12 @@ class Component extends Player {
     this.startFlow({ type: 'day', psych: !t.done, n: t.kind === 'session' ? t.s.n : 0, loopDay: t.kind === 'loop' ? t.loop.day : 0, id: t.kind === 'loop' ? t.loop.id : null },
       this.dayFlow(app, t), 'day-' + app.day);
   }
-  startModule(k, x) { this.startFlow({ type: 'module', index: k }, [{ kind: 'module', index: k, item: x }, { kind: 'complete' }], 'module-' + x.name); }
+  startModule(k, x) { this.startFlow({ type: 'module', index: k }, [{ kind: 'module', index: k, key: this.moduleKey(this._app, k), item: x }, { kind: 'complete' }], 'module-' + x.name); }
   passModule(st) {
     const app = this.copyApp(), list = (app.modules[app.day] || []).slice();
-    if (list.indexOf(st.index) < 0) list.push(st.index);
+    if (list.indexOf(st.key) < 0) list.push(st.key);
+    // Nothing of the module played, so this run can never count as complete timing evidence.
+    this.gap(st.item.name); this.accelerate('simulated module slot');
     app.modules[app.day] = list; app.active[app.day] = true;
     this.note(app, st.item.name + ' · slot passed (' + st.item.minutes + ' min planned, not in the Lab)');
     this.putApp(app);
