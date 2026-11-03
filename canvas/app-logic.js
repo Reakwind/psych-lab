@@ -24,6 +24,8 @@
 
   // ---- the program day by day ----
   isDone(app, n) { return app.done[n] !== undefined && app.done[n] !== null; }
+  // A practice is met once any completed session has offered it, directly or as a choice option.
+  met(app, item) { return item.in.some((n) => this.isDone(app, n)); }
   firstOpen(app) { return this.data().sessions.find((x) => !this.isDone(app, x.n)) || null; }
   loopFor(app, k) { const L = this.data().loop[((k % 7) + 7) % 7]; return { kind: 'loop', loop: L, done: app.loopDone[app.day] === L.day }; }
   // What Today offers. Resume: the next session not yet done, one a day. Calendar: the session planned for this app day.
@@ -109,36 +111,45 @@
     }
     this.putApp(app);
   }
-  leaveFlow() {
+  // Ends an open flow: an unfinished run is saved as interrupted and noted in the diary held by `app`.
+  closeFlow(app) {
     const f = this.flow;
     if (f && !f.recorded && this.run && !this.run.done) {
-      const app = this.copyApp();
       this.note(app, 'Left ' + (f.type === 'session' ? 'session ' + f.n : f.type === 'practice' ? 'a practice' : 'rhythm day ' + f.day) + ' before the end');
-      this.putApp(app);
+      this.finishRun(false, 'left before the end');
     }
+    this.holdStop();
     this.flow = null;
-    this.leave({ view: this.state.tab });
+  }
+  leaveFlow() {
+    const app = this.copyApp();
+    this.closeFlow(app);
+    this.putApp(app);
+    this.setState({ view: this.state.tab, sub: {} });
   }
 
   // ---- lab rail actions ----
   advance(days) {
-    const app = this.copyApp(), t = this.today(app);
+    const app = this.copyApp();
+    this.closeFlow(app);
+    const t = this.today(app);
     if (t.kind !== 'rest' && !t.done) this.note(app, 'Nothing done on day ' + app.day);
     if (days > 1) this.note(app, 'Missed days ' + (app.day + 1) + '–' + (app.day + days - 1));
     app.day += days;
     this.putApp(app);
-    this.setState({ view: 'today', tab: 'today', preview: null, open: {} });
+    this.setState({ view: 'today', tab: 'today', preview: null, open: {}, sub: {} });
   }
   jumpTo(n) {
     const D = this.data(), target = D.sessions.find((x) => x.n === n);
     if (!target) return;
     const app = this.copyApp();
+    this.closeFlow(app);
     app.done = {}; app.loopDone = {}; app.active = {};
     D.sessions.filter((x) => x.n < n).forEach((x) => { app.done[x.n] = x.day; app.active[x.day] = true; });
     app.day = target.day;
     this.note(app, 'Lab: jumped to session ' + n + ' (earlier sessions marked done on their planned days)');
     this.putApp(app);
-    this.setState({ view: 'today', tab: 'today', preview: null, open: {} });
+    this.setState({ view: 'today', tab: 'today', preview: null, open: {}, sub: {} });
   }
 
   renderVals() {
@@ -203,7 +214,7 @@
     const behind = app.mode === 'calendar' ? D.sessions.filter((x) => x.day < app.day && !this.isDone(app, x.n)) : [];
     v.hasCatchUp = behind.length > 0;
     v.catchUpTitle = behind.length + ' earlier session' + (behind.length === 1 ? '' : 's') + ' not done';
-    const unlockedLib = D.library.filter((x) => this.isDone(app, x.met));
+    const unlockedLib = D.library.filter((x) => this.met(app, x));
     v.recent = unlockedLib.slice(-2).reverse().map((x) => this.libItem(x, app));
     v.hasRecent = view === 'today' && v.recent.length > 0 && !v.todayOpen;
     // Journey
@@ -248,7 +259,7 @@
     v.rOffered = t.kind === 'session' ? 'Today: session ' + t.s.n + ' · ' + t.s.english + (t.done ? ' · done' : '')
       : t.kind === 'loop' ? 'Today: rhythm day ' + t.loop.day + ' · ' + D.acts[t.loop.id].english + (t.done ? ' · done' : '') : 'Today: no psychology session';
     v.nextDay = () => this.advance(1); v.skipDays = () => this.advance(4);
-    v.reset = () => { this.flow = null; this.putApp(this.freshApp()); this.leave({ view: 'onboard', tab: 'today', open: {}, preview: null }); };
+    v.reset = () => { this.closeFlow(this.copyApp()); this.putApp(this.freshApp()); this.setState({ view: 'onboard', tab: 'today', open: {}, preview: null, sub: {} }); };
     const jt = Math.max(1, Math.min(total, s.jump)), js = D.sessions[jt - 1];
     v.jTarget = jt; v.jTitle = 'Session ' + jt + ' · ' + js.english + ' · app day ' + js.day + ' · week ' + js.week;
     const setJump = (d) => this.setState({ jump: Math.max(1, Math.min(total, jt + d)) });
@@ -285,7 +296,7 @@
       open: () => { if (open) this.setState({ view: 'preview', preview: x.n }); } };
   }
   libItem(x, app) {
-    const m = this.meta(x.id), open = this.isDone(app, x.met), uses = app.uses[x.id] || 0;
+    const m = this.meta(x.id), open = this.met(app, x), uses = app.uses[x.id] || 0;
     const sub = open ? m.kind + ' · ' + this.fmt(m.a.planned) + (x.recording === 'not_yet_recorded' ? ' · not recorded yet' : '') + (uses ? ' · opened ' + uses + '×' : '')
       : 'Met in session ' + x.met + ' · week ' + x.week;
     return { title: m.a.title, lead: m.lead, icon: m.icon, sub, locked: !open, opacity: open ? '1' : '.5', trail: open ? 'play_arrow' : 'lock',

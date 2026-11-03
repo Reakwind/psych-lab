@@ -603,14 +603,14 @@ const LIBRARY_KINDS = ['breathing', 'audio', 'inner', 'cards', 'reflection'];
 function appData() {
   const base = phoneData();
   // A practice joins the library once the user has met it: in a session, or as an option of a session's choice.
-  const met = {};
-  const meet = (id, n) => { if (!(id in met)) met[id] = n; };
+  const met = {}, offered = {};
+  const meet = (id, n) => { if (!(id in met)) met[id] = n; (offered[id] = offered[id] || []).push(n); };
   for (const s of P.sessions) for (const o of s.activities) { meet(o.id, s.number); (P.activities[o.id].options || []).forEach(x => meet(x.id, s.number)); }
   const repeat = {intros: 'repeat', durations: {}};
   // Library and loop flows replay a practice without its intro film (spec: the library can skip the intro).
   const library = Object.keys(met).filter(id => LIBRARY_KINDS.includes(P.activities[id].kind)).sort((a, b) => met[a] - met[b]).map(id => {
     const session = P.sessions[met[id] - 1], a = P.activities[id];
-    return {id, kind: a.kind, met: met[id], week: session.week, recording: a.recording_status || '',
+    return {id, kind: a.kind, met: met[id], in: [...new Set(offered[id])], week: session.week, recording: a.recording_status || '',
       steps: flowSteps(practiceSteps(P, id, session, repeat, {}, ''), session, repeat).concat([{kind: 'complete'}])};
   });
   const last = P.sessions[P.sessions.length - 1];
