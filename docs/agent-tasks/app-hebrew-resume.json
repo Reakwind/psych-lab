@@ -1,0 +1,21 @@
+{
+  "task": "app-hebrew-resume",
+  "agent": "claude-app-prototype",
+  "scope": [
+    "scripts/verbatim.py",
+    "tests/test_verbatim.py",
+    "canvas/interface-he.json",
+    "canvas/app-logic.js",
+    "canvas/app-markup.html",
+    "canvas/flow-markup.html",
+    "canvas/phone-logic.js",
+    "canvas/build.mjs",
+    "canvas/phone/",
+    "canvas/home/",
+    "tests/test_canvas.py",
+    "README.md",
+    "docs/ARCHITECTURE.md",
+    "AGENTS.md"
+  ],
+  "branch": "claude/gifted-goldberg-elib6d--app-hebrew-resume"
+}

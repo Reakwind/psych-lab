@@ -191,6 +191,49 @@ class Prototypes(unittest.TestCase):
         self.assertIn('not a program source', verbatim.quote_problems(cited, CORPUS)[0])
 
 
+class InterfaceRegister(unittest.TestCase):
+    """canvas/interface-he.json: owner-approved Hebrew interface words quoted from the original design."""
+    RUTH = 'animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html'
+
+    def test_a_label_passes_only_as_a_whole_run(self):
+        corpus = FakeCorpus({'sources/script.json': 'היי, אני נירה'})
+        corpus.interface = frozenset({'המסע שלך'})
+        self.assertEqual(verbatim.html_problems('<p>המסע שלך</p>', corpus), [])
+        self.assertEqual(verbatim.js_problems('const a = "המסע שלך";', corpus), [])
+        self.assertEqual(len(verbatim.html_problems('<p>המסע שלך ארוך</p>', corpus)), 1)
+        self.assertEqual(len(verbatim.js_problems('const a = "זה המסע שלך";', corpus)), 1)
+
+    def test_labels_must_be_whole_pieces_of_a_registered_design_board(self):
+        paths = {self.RUTH, 'psych-lab/intervention/sources/cards.json'}
+        labels, problems = verbatim.load_interface(paths, {'labels': [
+            {'text': 'המסע שלך', 'source': self.RUTH},
+            {'text': 'המסע של', 'source': self.RUTH},
+            {'text': 'מילים שלא עוצבו', 'source': self.RUTH},
+            {'text': 'צד א', 'source': 'psych-lab/intervention/sources/cards.json'},
+            {'text': 'המסע שלך', 'source': 'animation-kit/artifact-files/unregistered.dc.html'}]})
+        self.assertEqual(labels, frozenset({'המסע שלך'}))
+        self.assertEqual(len(problems), 4)
+
+    def test_the_register_is_verified_and_vouches_for_nothing_else(self):
+        corpus = verbatim.Corpus()
+        self.assertEqual(list(corpus.interface_errors), [])
+        self.assertTrue(corpus.interface_label('המסע שלך'))
+        # Design wording outside the register stays unsourced, and the register is not a program source.
+        self.assertFalse(corpus.interface_label('מה גרם לכם לחייך השבוע?'))
+        self.assertFalse(corpus.anywhere('המפגש של היום הושלם'))
+        self.assertNotIn(verbatim.INTERFACE, corpus.texts)
+
+    def test_program_labels_quote_their_program_source(self):
+        corpus = verbatim.Corpus()
+        if [p for p in corpus.unreadable if p.endswith(('.xlsx', '.docx'))]:
+            self.skipTest('Text sources not downloaded (git lfs pull)')
+        register = json.loads((ROOT / verbatim.INTERFACE).read_text())
+        for item in register['program_labels']:
+            self.assertTrue(corpus.in_source(item['text'], item['source']), item)
+        keys = [x['key'] for x in register['labels'] + register['program_labels']]
+        self.assertEqual(len(keys), len(set(keys)))
+
+
 class Repository(unittest.TestCase):
     def test_a_checked_source_file_never_vouches_for_itself(self):
         board = 'animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Cards.dc.html'
@@ -208,7 +251,8 @@ class Repository(unittest.TestCase):
         corpus = verbatim.Corpus()
         if [p for p in corpus.unreadable if p.endswith(('.xlsx', '.docx'))]:
             self.skipTest('Text sources not downloaded (git lfs pull)')
-        files = [str(ROOT / 'psych-lab/intervention/core.mjs'), str(ROOT / 'canvas/build.mjs'), str(ROOT / 'canvas/phone-logic.js'), str(ROOT / 'canvas/phone-markup.html')]
+        files = [str(ROOT / 'psych-lab/intervention/core.mjs'), str(ROOT / 'canvas/build.mjs'), str(ROOT / 'canvas/phone-logic.js'), str(ROOT / 'canvas/phone-markup.html'),
+                 str(ROOT / 'canvas/flow-markup.html'), str(ROOT / 'canvas/app-logic.js'), str(ROOT / 'canvas/app-markup.html')]
         problems, _ = verbatim.check(files, corpus)
         self.assertEqual(problems, [])
 

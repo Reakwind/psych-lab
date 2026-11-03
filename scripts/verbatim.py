@@ -114,8 +114,61 @@ NARRATION = 'voice-over/elevenlabs/prepped-all.json'
 PROTOTYPE = 'animation-kit/artifact-files/'
 
 
+# Owner-approved Hebrew interface wording (tabs, buttons, status words) for the Lab's phone
+# prototypes. Each label quotes one whole text piece of an original design board, and passes on a
+# board only as a whole run: the register can never vouch for program text or for part of a sentence.
+INTERFACE = 'canvas/interface-he.json'
+
+
+def design_pieces(path):
+    """Text pieces of a design board: text between tags, attribute values and script strings, split at
+    template holes ({{...}}) and icon ligature names, with spaces and · separators trimmed."""
+    text = (ROOT / path).read_text(encoding='utf-8')
+    scripts = re.findall(r'<script\b[^>]*>(.*?)</script>', text, re.S)
+    markup = re.sub(r'<(script|style)\b[^>]*>.*?</\1>', '<>', text, flags=re.S)
+    raw = re.findall(r'>([^<]*)<', markup) + re.findall(r'\s[\w:-]+="([^"]*)"', markup)
+    for code in scripts:
+        try:
+            raw += js_strings(code)
+        except ScriptError:
+            pass  # an unreadable design script vouches for nothing
+    pieces = set()
+    for chunk in raw:
+        for piece in re.split(r'\{\{[^}]*\}\}|[A-Za-z_][A-Za-z0-9_]*', html.unescape(chunk)):
+            piece = collapse(piece).strip(' ·')
+            if HEBREW.search(piece):
+                pieces.add(piece)
+    return pieces
+
+
+def load_interface(paths, data=None):
+    """Verified interface labels and the register's problems. A label must name a registered original
+    design board and be exactly one of its text pieces."""
+    if data is None:
+        file = ROOT / INTERFACE
+        if not file.exists():
+            return frozenset(), []
+        data = json.loads(file.read_text(encoding='utf-8'))
+    labels, problems, pieces = set(), [], {}
+    for i, item in enumerate(data.get('labels', [])):
+        text, source = collapse(item.get('text', '')), item.get('source', '')
+        where = f'{INTERFACE}: labels[{i}]'
+        if not (source.startswith(PROTOTYPE) and source.endswith('.html') and source in paths):
+            problems.append(f'{where}: interface wording must quote a registered original design board, not {source!r}')
+            continue
+        if source not in pieces:
+            pieces[source] = design_pieces(source)
+        if text not in pieces[source]:
+            problems.append(f'{where}: not a whole text piece of {source}: {text[:60]!r}')
+            continue
+        labels.add(text)
+    return frozenset(labels), problems
+
+
 class Corpus:
     narration_flat = ''
+    interface = frozenset()
+    interface_errors = ()
 
     def __init__(self, exclude=(), narration=False):
         """Program sources vouch for text; prototype boards only explain where unsourced text came from."""
@@ -134,6 +187,7 @@ class Corpus:
         self.prototype_blob = SEP.join(self.prototype.values())
         if narration:
             self.narration_flat = collapse(source_text(NARRATION) or '')
+        self.interface, self.interface_errors = load_interface(self.paths)
         self.index()
 
     def index(self):
@@ -146,6 +200,10 @@ class Corpus:
     def in_source(self, text, path):
         # Same display rule as everywhere else: whitespace collapsed, separators still boundaries.
         return path in self.flat_texts and bool(collapse(text)) and collapse(text) in self.flat_texts[path]
+
+    def interface_label(self, text):
+        """An owner-approved interface label from the original design, matched as a whole run."""
+        return collapse(text) in self.interface
 
     def anywhere(self, text):
         flat = collapse(text)
@@ -319,7 +377,7 @@ def html_problems(text, corpus):
         text = collapse(run)  # one whole run, as displayed
         if text in corpus.paths:
             continue  # a registered source file's exact path names the file; it is not program text
-        if HEBREW.search(text) and not corpus.anywhere(text):
+        if HEBREW.search(text) and not corpus.anywhere(text) and not corpus.interface_label(text):
             problems.append(f'{corpus.why_missing(text)}: {text[:60]!r}')
     return problems
 
@@ -335,7 +393,7 @@ def js_problems(text, corpus):
         value = collapse(value)
         if value in corpus.paths:
             continue  # a registered source file's exact path names the file; it is not program text
-        if HEBREW.search(value) and not corpus.anywhere(value):
+        if HEBREW.search(value) and not corpus.anywhere(value) and not corpus.interface_label(value):
             problems.append(f'{corpus.why_missing(value)}: {value[:60]!r}')
     return problems
 
@@ -343,7 +401,7 @@ def js_problems(text, corpus):
 def check(paths, corpus=None, narration=False):
     corpus = corpus or Corpus(exclude={str(Path(p).resolve().relative_to(ROOT)) for p in paths if Path(p).resolve().is_relative_to(ROOT)},
                               narration=narration)
-    problems = []
+    problems = list(corpus.interface_errors)  # a register entry that is not a design quote fails every check
     for path in paths:
         text = Path(path).read_text(encoding='utf-8')
         if path.endswith('.json'):
