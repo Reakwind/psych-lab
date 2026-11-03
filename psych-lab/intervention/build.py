@@ -316,7 +316,28 @@ for key,sheet in [('light','Light speech'),('heavy','Heavy speech')]:
             totals[day]+=float(r['C'])
     assert sorted(totals)==list(range(1,8)), (sheet,dict(totals))
     daily[key]=[int(totals[d]) if totals[d].is_integer() else totals[d] for d in range(1,8)]
-manifest={'schema':1,'built_at':'2026-11-01','sources':sources,'clips':clips,'activities':activities,'sessions':sessions,'groups':dict(groups),'thoughts':thoughts,'cards':cards,'reflections':reflections,'daily_totals_minutes':daily,
+# The whole app day as Protocol.xlsx lays it out: each weekly cycle day's activities in order (columns A-F,
+# cell text as written, trailing spaces trimmed), and the first-month content status of each module.
+protocol={}
+for key,sheet in [('light','Light speech'),('heavy','Heavy speech')]:
+    days,day=[[] for _ in range(7)],None
+    for r in workbook(protocol_book)[sheet][3:]:
+        if r.get('A','').startswith('Day'):
+            day=int(r['A'].split()[1])
+        if day and r.get('B','').strip() and r.get('C','').strip():
+            minutes=float(r['C'])
+            days[day-1].append({'activity':r['B'].strip(),'minutes':int(minutes) if minutes.is_integer() else minutes,'rounds':r.get('D','').strip(),
+                                'time_since_med':r.get('E','').strip(),'category':r.get('F','').strip()})
+    protocol[key]={'sheet':sheet,'days':days}
+status_rows,area=[],''
+for r in workbook(protocol_book)['Status 1st month']:
+    area=r.get('A','').strip() or area
+    item=r.get('B','').strip() or (r.get('A','').strip() if any(r.get(c,'').strip() for c in 'CDEF') else '')
+    if item and item!='Trailers':
+        status_rows.append({'area':area,'item':item,'trailers':r.get('C','').strip(),'content':r.get('D','').strip(),
+                            'non_video_content':r.get('E','').strip(),'copy':r.get('F','').strip(),'note':r.get('G','').strip()})
+protocol['status']=status_rows
+manifest={'schema':1,'built_at':'2026-11-01','sources':sources,'clips':clips,'activities':activities,'sessions':sessions,'groups':dict(groups),'thoughts':thoughts,'cards':cards,'reflections':reflections,'daily_totals_minutes':daily,'protocol':protocol,
  'assumptions':[
  'The V0 session numbers control the psychology sequence. App day 1 is orientation; psychology S01 is shown as app day 2. Weekly cycle alignment is editable because the sources do not define the exact offset.',
  'Protocol.xlsx reserves 3 minutes for psychology. Its remaining minutes are shown as a comparison scenario, not verified actual app runtime.',

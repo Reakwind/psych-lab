@@ -4,22 +4,25 @@
   // comes from program.json; the lab rail is English.
   constructor(props) {
     super(props);
-    Object.assign(this.state, { app: this.loadApp(), view: 'today', tab: 'today', preview: null, jump: 1, earlier: false });
+    this._app = this.loadApp();
+    Object.assign(this.state, { app: this._app, view: 'today', tab: 'today', preview: null, jump: 1, earlier: false });
     this.flow = null;
   }
   // Runs and progress stay in this browser, apart from the Phone preview's timing log.
   loadRuns() { try { return JSON.parse(window.localStorage.getItem('psych-lab-app-runs-v1') || '[]'); } catch (e) { return []; } }
   saveRuns(runs) { try { window.localStorage.setItem('psych-lab-app-runs-v1', JSON.stringify(runs)); return true; } catch (e) { return false; } }
-  freshApp() { return { day: this.data().firstDay, done: {}, loopDone: {}, active: {}, uses: {}, library: 0, seconds: 0, log: [{ day: this.data().firstDay, what: 'Started the program' }] }; }
+  freshApp() { return { day: this.data().firstDay, plan: 'light', done: {}, loopDone: {}, active: {}, modules: {}, uses: {}, library: 0, seconds: 0, log: [{ day: this.data().firstDay, what: 'Started the program' }] }; }
   loadApp() {
     try { const x = JSON.parse(window.localStorage.getItem('psych-lab-app-v1') || 'null'); if (x && x.done) return Object.assign(this.freshApp(), x); } catch (e) {}
     return this.freshApp();
   }
   saveApp(app) { try { window.localStorage.setItem('psych-lab-app-v1', JSON.stringify(app)); } catch (e) {} }
-  putApp(app) { this.saveApp(app); this.setState({ app }); }
+  // The latest app state is also kept on the instance, so two updates in one click never read a stale copy.
+  putApp(app) { this._app = app; this.saveApp(app); this.setState({ app }); }
   copyApp() {
-    const a = this.state.app;
-    return Object.assign({}, a, { done: Object.assign({}, a.done), loopDone: Object.assign({}, a.loopDone), active: Object.assign({}, a.active), uses: Object.assign({}, a.uses), log: a.log.slice() });
+    const a = this._app || this.state.app;
+    return Object.assign({}, a, { done: Object.assign({}, a.done), loopDone: Object.assign({}, a.loopDone), active: Object.assign({}, a.active),
+      modules: Object.assign({}, a.modules), uses: Object.assign({}, a.uses), log: a.log.slice() });
   }
   note(app, what) { app.log = [{ day: app.day, what }].concat(app.log).slice(0, 80); }
   // The step screens' interface words, in Hebrew from the register (the Phone preview keeps English).
@@ -77,6 +80,40 @@
   }
   range(s) { return this.fmt(s.low) + (s.high - s.low > 1 ? '–' + this.fmt(s.high) : ''); }
 
+  // ---- the whole app day, as Protocol.xlsx lays it out ----
+  // Weekly cycle day: app day 2 is cycle day 1 (the sources do not fix the offset; program.json assumption).
+  cycle(app) { return ((app.day - this.data().firstDay) % 7 + 7) % 7; }
+  dayPlan(app) { return this.data().protocol[app.plan || 'light'][this.cycle(app)]; }
+  // A passed slot is remembered for its own week sheet and row, so switching light/heavy never carries it over.
+  moduleKey(app, k) { return (app.plan || 'light') + ':' + k; }
+  moduleDone(app, k) { return (app.modules[app.day] || []).indexOf(this.moduleKey(app, k)) >= 0; }
+  mindsetSteps(t) { return (t.kind === 'session' ? t.s.steps : t.loop.steps).filter((st) => st.kind !== 'complete'); }
+  // The day as one flow: each protocol item in order. Other modules are slots; Mindset is today's psychology.
+  dayFlow(app, t) {
+    const steps = [];
+    this.dayPlan(app).forEach((x, k) => {
+      if (x.psych) { if (!t.done) steps.push(...this.mindsetSteps(t)); }
+      else if (!this.moduleDone(app, k)) steps.push({ kind: 'module', index: k, key: this.moduleKey(app, k), item: x });
+    });
+    return steps.concat([{ kind: 'complete' }]);
+  }
+  startDay(t) {
+    const app = this._app;
+    this.startFlow({ type: 'day', psych: !t.done, n: t.kind === 'session' ? t.s.n : 0, loopDay: t.kind === 'loop' ? t.loop.day : 0, id: t.kind === 'loop' ? t.loop.id : null },
+      this.dayFlow(app, t), 'day-' + app.day);
+  }
+  startModule(k, x) { this.startFlow({ type: 'module', index: k }, [{ kind: 'module', index: k, key: this.moduleKey(this._app, k), item: x }, { kind: 'complete' }], 'module-' + x.name); }
+  passModule(st) {
+    const app = this.copyApp(), list = (app.modules[app.day] || []).slice();
+    if (list.indexOf(st.key) < 0) list.push(st.key);
+    // Nothing of the module played, so this run can never count as complete timing evidence.
+    this.gap(st.item.name); this.accelerate('simulated module slot');
+    app.modules[app.day] = list; app.active[app.day] = true;
+    this.note(app, st.item.name + ' · slot passed (' + st.item.minutes + ' min planned, not in the Lab)');
+    this.putApp(app);
+    this.next();
+  }
+
   // ---- flows ----
   startFlow(flow, steps, runId) {
     this.flow = flow;
@@ -99,7 +136,13 @@
     f.recorded = true;
     const app = this.copyApp(), secs = this.run ? Math.round(this.run.ms / 1000) : 0;
     app.seconds += secs; app.active[app.day] = true;
-    if (f.type === 'session') {
+    if (f.type === 'module') {
+      // passModule already recorded the slot.
+    } else if (f.type === 'day') {
+      if (f.psych && f.n && !this.isDone(app, f.n)) app.done[f.n] = app.day;
+      if (f.psych && f.loopDay) app.loopDone[app.day] = f.loopDay;
+      this.note(app, 'Whole day ' + app.day + ' done (' + (D.protocol[app.plan || 'light'] && this.dayPlan(app).length) + ' items) · ' + this.fmt(secs));
+    } else if (f.type === 'session') {
       const s = D.sessions.find((x) => x.n === f.n);
       if (this.isDone(app, f.n)) this.note(app, 'Repeated session ' + f.n + ' · ' + this.fmt(secs));
       else { app.done[f.n] = app.day; this.note(app, 'Session ' + f.n + ' done · ' + s.english + ' · ' + this.fmt(secs)); }
@@ -192,6 +235,38 @@
       Object.assign(v, { loopChip: 'Week 13+ · rhythm day ' + L.day + ' of 7 · spec suggestion', heroTitle: a.title, heroSteps: this.stepRows(this.optionIds(L.id)),
         startToday: () => this.startLoop(L), doneHead: U.practiceDone, doneTitle: a.title, replayToday: () => this.startLoop(L), hasNext: false });
     }
+    // Today's protocol day: every item in order, with today's psychology as its Mindset item.
+    const plan = this.dayPlan(app), sheet = D.protocol.sheets[app.plan || 'light'], cyc = this.cycle(app) + 1;
+    const planned = plan.reduce((n, x) => n + x.minutes, 0);
+    const looks = { Practice: ['lead-breath', 'directions_walk'], Play: ['lead-game', 'sports_esports'], Mindset: ['lead-video', 'groups'] };
+    v.dayChip = sheet + ' week · day ' + cyc + ' of 7 · ' + planned + ' min';
+    v.dayRows = plan.map((x, k) => {
+      const done = x.psych ? !!t.done : this.moduleDone(app, k), look = x.psych ? ['lead-audio', 'psychology'] : looks[x.category] || looks.Practice;
+      return { psych: x.psych, module: !x.psych, name: x.name, title: x.psych ? v.heroTitle : '', sub: x.category + ' · ' + x.minutes + ' min',
+        lead: look[0], icon: look[1], done, slot: !x.psych && !done, todo: x.psych && !done,
+        open: () => (x.psych ? (t.kind === 'session' ? this.startSession(t.s) : this.startLoop(t.loop)) : this.startModule(k, x)) };
+    });
+    const dayLeft = v.dayRows.some((r) => !r.done);
+    v.dayLeft = dayLeft;
+    v.startDay = () => this.startDay(t);
+    v.rPlanRows = plan.map((x) => ({ name: x.name + (x.psych ? ' (psychology session)' : ''), minutes: x.minutes + ' min', cat: x.category }));
+    v.rPlanTotal = planned + ' min planned of the 30-minute day · ' + sheet + ' week, cycle day ' + cyc;
+    v.rPsychLine = t.kind === 'session' ? 'Mindset is planned at 3 min; today\'s session holds ' + this.range(t.s) + ' of films, recordings and activities.' : 'Mindset is planned at 3 min; today is a week-13+ rhythm day.';
+    v.lightCls2 = (app.plan || 'light') === 'light' ? 'is-selected' : ''; v.heavyCls2 = app.plan === 'heavy' ? 'is-selected' : '';
+    v.lightPressed2 = v.lightCls2 ? 'true' : 'false'; v.heavyPressed2 = v.heavyCls2 ? 'true' : 'false';
+    v.planLight2 = () => { const a = this.copyApp(); a.plan = 'light'; this.putApp(a); };
+    v.planHeavy2 = () => { const a = this.copyApp(); a.plan = 'heavy'; this.putApp(a); };
+    // A module slot in a flow
+    const step = s.steps[s.i] || {};
+    v.kModule = step.kind === 'module';
+    if (v.kModule) {
+      const x = step.item, st = x.status || {};
+      v.mod = { name: x.name, kicker: x.category + ' · Protocol.xlsx, ' + sheet + ' week, day ' + cyc,
+        facts: [['Duration (min)', String(x.minutes)], ['Rounds', x.rounds], ['Time since med (min)', x.med]].filter((r) => r[1]).map((r) => ({ k: r[0], v: r[1] })),
+        statusHead: 'Status 1st month · ' + (st.area || '') + ' · ' + (st.item || ''),
+        status: [['Trailers', st.trailers], ['Content', st.content], ['Non Video Content', st.non_video_content], ['Copy', st.copy], ['', st.note]].filter((r) => r[1]).map((r) => ({ k: r[0], v: r[1] })) };
+      v.modGo = () => this.passModule(step);
+    }
     const unlockedLib = D.library.filter((x) => this.met(app, x));
     v.recent = unlockedLib.slice(-2).reverse().map((x) => this.libItem(x, app));
     v.hasRecent = v.recent.length > 0 && !v.todayOpen;
@@ -218,8 +293,8 @@
     v.finish = () => { this.flow = null; this.leave({ view: 'today', tab: 'today' }); };
     if (f) {
       const n = of(s.i + 1, s.steps.length);
-      v.stepText = f.type === 'session' ? U.session + ' ' + f.n + ' · ' + n : U.kPractice + ' · ' + n;
-      v.completeTitle = f.type === 'session' ? U.todayDone : U.practiceDone;
+      v.stepText = f.type === 'session' ? U.session + ' ' + f.n + ' · ' + n : f.type === 'day' || f.type === 'module' ? U.tabToday + ' · ' + n : U.kPractice + ' · ' + n;
+      v.completeTitle = f.type === 'session' || (f.type === 'day' && f.psych) ? U.todayDone : U.practiceDone;
       v.finishLabel = f.type === 'practice' ? U.backLibrary : U.backToday;
       v.finish = () => { const tab = f.type === 'practice' ? 'library' : 'today'; this.flow = null; this.leave({ view: tab, tab }); };
     }
@@ -240,8 +315,8 @@
     v.rLoop = t.kind === 'loop'; v.rLoopSpec = t.kind === 'loop' ? t.loop.spec : '';
     const fs = f ? (f.type === 'session' ? D.sessions.find((x) => x.n === f.n) : null) : t.kind === 'session' ? t.s : null;
     v.rState = v.tState;
-    const plan = fs ? fs.range : f && f.type === 'practice' ? fmt((D.acts[f.id] || {}).planned) : '';
-    v.rPlanLine = plan ? 'Content plan ' + plan + ' of recorded media and planned activity time; reading and choosing are extra.' : 'Content plan depends on the practice chosen.';
+    const content = fs ? fs.range : f && f.type === 'practice' ? fmt((D.acts[f.id] || {}).planned) : '';
+    v.rPlanLine = content ? 'Content plan ' + content + ' of recorded media and planned activity time; reading and choosing are extra.' : 'Content plan depends on the practice chosen.';
     v.rGaps = (fs ? fs.missing : []).map((x) => ({ t: 'Not in the Lab copy: ' + x }));
     v.rHasGaps = v.rGaps.length > 0;
     v.sDone = doneCount; v.sTotal = total; v.sMissed = missed.total; v.sLibrary = app.library; v.sTime = fmt(app.seconds);

@@ -552,7 +552,7 @@ ${en('h2', 'PS-CONT-047', 'title')}
 ${src047 ? `<video controls="controls" preload="none" playsinline="playsinline" src="${src047}" style="width: 220px; height: 391px; border-radius: 16px; background: #E9EFEC; display: block; margin: 12px 0"></video>` : ''}
 <p class="meta">720p preview encode for the canvas; the original file stays in psych-lab/intervention/media/PS-CONT-047.mp4.</p>
 ${notes047.map(n => en('p', n, 'issue')).join('\n')}`)})};
-  const mainH = 1140;
+  const mainH = 1240;
   const main = {path: 'Main.dc.html', w: 760, h: mainH, title: 'Phone preview · about',
     html: board({title: 'Phone preview', w: 760, h: mainH, body: labPage(760, mainH, `${navLinks('phone')}
 ${en('p', 'Psych Lab', 'kicker')}
@@ -561,6 +561,7 @@ ${en('h1', 'Phone preview', 'title')}
 <div class="box">
 <p class="kicker">App prototype · below</p>
 <p>The App prototype board lives the program as Ruth would, one app day at a time, in Hebrew: Today offers the next session not yet done (missed days move the rest later; owner decision 2026-11-03), Journey lists all 87, and the Library gathers the breathing, recordings, games and reflections met so far, to repeat without their intro film. Lab controls beside it move the calendar, miss days and jump ahead; after session 87 it follows the spec's suggested 7-day rhythm. It plays the same sessions and step screens as the phone above.</p>
+<p>Each app day follows Protocol.xlsx (light or heavy speech week): PT or OT practice, speech or dance, a game, a lived-experience video and Mindset, the psychology session. Psychology plays in full; every other module is a marked slot with its source name, planned minutes and first-month status, because the Lab holds none of their screens or media.</p>
 <p>Its program text is quoted from the sources; its Hebrew interface words (tabs, buttons, status words) quote the original design, as the owner approved, and are listed with their files in canvas/interface-he.json.</p>
 </div>
 <div class="box">
@@ -604,6 +605,22 @@ const LIBRARY_KINDS = ['breathing', 'audio', 'inner', 'cards', 'reflection'];
 // cells), each verified by scripts/verbatim.py. Program text never comes from here.
 const INTERFACE_HE = read('canvas/interface-he.json');
 
+// Protocol.xlsx names a module one way in its week sheets and another in its 'Status 1st month' sheet;
+// this Lab table pairs them. 'Mindset' is the psychology session itself. An unknown name stops the build.
+const PROTOCOL_STATUS = {'PT practice': 'PT', 'OT practice': 'OT', 'Dance practice': 'Dance', 'Sustained P': 'Sustained P.', 'Pitch glides': 'Pitch Glides',
+  'Reading': 'Reading', 'Speech Reading': 'Reading', 'Maze play': 'Maze', 'TipTap': 'Tiptap', 'Orchestra': 'Orchestra', 'Lived experience': 'Lived Experience'};
+
+function protocolPlans() {
+  const status = Object.fromEntries(P.protocol.status.map(r => [r.item, r]));
+  const plan = key => P.protocol[key].days.map(day => day.map(x => {
+    const psych = x.activity === 'Mindset';
+    if (!psych && !status[PROTOCOL_STATUS[x.activity]]) throw Error('Protocol activity without a status row: ' + x.activity);
+    return {name: x.activity, minutes: x.minutes, rounds: x.rounds, med: x.time_since_med, category: x.category, psych,
+      status: psych ? null : status[PROTOCOL_STATUS[x.activity]]};
+  }));
+  return {light: plan('light'), heavy: plan('heavy'), sheets: {light: P.protocol.light.sheet, heavy: P.protocol.heavy.sheet}};
+}
+
 function appData() {
   const base = phoneData();
   // A practice joins the library once the user has met it: in a session, or as an option of a session's choice.
@@ -628,7 +645,7 @@ function appData() {
   loop.forEach(x => { ids.add(x.id); walk(x.steps); });
   base.acts = Object.fromEntries([...ids].sort().map(id => [id, actRecord(id)]));
   const ui = Object.fromEntries([...INTERFACE_HE.labels, ...INTERFACE_HE.program_labels].map(x => [x.key, x.text]));
-  return Object.assign(base, {library, loop, ui, firstDay: P.sessions[0].app_day, lastDay: last.app_day,
+  return Object.assign(base, {library, loop, ui, protocol: protocolPlans(), firstDay: P.sessions[0].app_day, lastDay: last.app_day,
     spec: {source: SPEC, missed: SPEC_MISSED, library: SPEC_LIBRARY}});
 }
 
