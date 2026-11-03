@@ -64,6 +64,19 @@ class CanvasBoards(unittest.TestCase):
             self.assertEqual([sum(x['minutes'] for x in d) for d in days], program['daily_totals_minutes'][key])
             self.assertTrue(all(sum(x['activity'] == 'Mindset' for x in d) == 1 for d in days))
         self.assertEqual(app.count('"psych":true'), 14)
+        # Every PT, OT, speech and game slot opens its own pre-pages from the content metadata, and every
+        # script it names is a registered snapshot.
+        modules, scripts = program['protocol']['modules'], program['protocol']['scripts']
+        for day in program['protocol']['light']['days'] + program['protocol']['heavy']['days']:
+            for item in day:
+                if item['activity'] != 'Mindset':
+                    self.assertTrue(modules[item['activity']]['pages'], item['activity'])
+        sources = json.loads((ROOT / 'source-material.json').read_text())['files']
+        for slug, sc in scripts.items():
+            self.assertIn(sc['path'], sources, slug)
+        for m in modules.values():
+            for slug in m['scripts'] + [s for p in m['pages'] for s in p['scripts']]:
+                self.assertIn(slug, scripts)
 
     def test_boards_only_use_media_their_own_canvas_holds(self):
         for name in ('home', 'activities', 'films', 'phone', 'original'):
