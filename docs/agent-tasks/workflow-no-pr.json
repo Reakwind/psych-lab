@@ -1,0 +1,14 @@
+{
+  "task": "workflow-no-pr",
+  "agent": "claude-app-prototype",
+  "scope": [
+    "scripts/agents.py",
+    "tests/test_agent_workflow.py",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "docs/AGENT_WORKFLOW.md",
+    "docs/CLOUD.md",
+    "README.md"
+  ],
+  "branch": "claude/gifted-goldberg-elib6d--workflow-no-pr"
+}

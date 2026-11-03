@@ -41,7 +41,7 @@ Boards are published to their canvas with Claude's Artifact tool (see [AGENTS.md
 
 Read [AGENTS.md](AGENTS.md), [the agent workflow](docs/AGENT_WORKFLOW.md), and [cloud setup](docs/CLOUD.md). Claude Code reads [CLAUDE.md](CLAUDE.md) and repository hook settings automatically.
 
-Every agent uses an isolated workspace, a unique task branch, an early draft PR with explicit owned paths, attributed commits, and a readable final PR. Overlapping claims fail CI; protected main requires current, passing checks. Hooks reject destructive Git operations and foreign-branch pushes. Each agent merges its own PR with `scripts/agents.py merge` once required checks are green and every review finding is handled, then starts its next task on a fresh branch with `scripts/agents.py next`.
+Every agent uses an isolated workspace, a unique task branch with a committed claim of its owned paths, and attributed commits; a readable PR is opened only when the owner asks for one. Overlapping claims fail CI; protected main requires current, passing checks. Hooks reject destructive Git operations and foreign-branch pushes. Each agent merges its own PR with `scripts/agents.py merge` once required checks are green and every review finding is handled, then starts its next task on a fresh branch with `scripts/agents.py next`.
 
 ## Project map
 

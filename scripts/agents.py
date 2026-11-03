@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One session, one worktree and branch, commits all day, one squash-merged PR at the end of the day."""
+"""One session, one worktree and branch, commits as the work goes; a PR only when the owner asks (owner rule 2026-11-03)."""
 import argparse
 import html
 import json
@@ -194,6 +194,28 @@ def assert_reserved(c):
     return pr
 
 
+def reserved(c):
+    """The session's open PR, or None before the owner asks for one (owner rule 2026-11-03).
+
+    Without a PR the claim is the task manifest committed on this branch; with one, its published
+    contract must match. Either way the local context must be exactly what was claimed."""
+    prs = open_prs(c['branch'])
+    if len(prs) > 1:
+        raise ValueError('More than one open PR for this branch.')
+    if prs:
+        if published_contract(prs[0]) != c:
+            raise ValueError('The task contract differs from the published claim. Coordinate scope changes before continuing.')
+        return prs[0]
+    manifest = str(task_path(c).relative_to(ROOT))
+    # A task whose manifest is on main was squash-merged: its branch is finished and never reused.
+    if not subprocess.run(['git', 'cat-file', '-e', f'origin/main:{manifest}'], cwd=ROOT, capture_output=True).returncode:
+        raise ValueError(f"Task {c['task']} is already merged: start the next task with agents.py next.")
+    recorded = subprocess.run(['git', 'show', 'HEAD:' + manifest], cwd=ROOT, capture_output=True, text=True)
+    if recorded.returncode or json.loads(recorded.stdout) != c:
+        raise ValueError('This task is not claimed on this branch: run agents.py claim first.')
+    return None
+
+
 def mark_ready(pr):
     """Draft→ready has no plain REST endpoint: try gh (GraphQL), then the hosted-proxy route."""
     if not pr.get('draft'):
@@ -232,34 +254,33 @@ def claim(args):
     elif json.loads(recorded.stdout) != c:
         raise ValueError('The committed reservation differs from this task. Coordinate a scope transfer first.')
     run('git', 'push', '-u', 'origin', c['branch'])
+    # Owner rule 2026-11-03: no PR per prompt. The claim is the committed manifest on the pushed branch;
+    # `submit` opens the PR only when the owner asks for one.
     if existing:
         print(existing[0]['html_url'])
     else:
-        pr = gh_api(f'repos/{REPOSITORY}/pulls', method='POST', data={
-            'title': f"chore(task): {args.summary}", 'head': c['branch'], 'base': 'main',
-            'body': body(c, args.summary), 'draft': True})
-        print(pr['html_url'])
-    print('Wait for the agent-policy check to pass before implementing. Oldest overlapping PR owns the scope.')
+        print(f"Claimed {c['task']} on {c['branch']} (no PR). Commit as you go; run agents.py submit when the owner asks for a PR.")
 
 
 def widen_scope(args):
     """Add paths to this session's claim, keeping manifest, local context and PR contract identical."""
     c = context()
-    pr = assert_reserved(c)
+    pr = reserved(c)
     clean()
     new = validate_contract({**c, 'scope': c['scope'] + [x for x in args.add if x not in c['scope']]})
     if new == c:
         print('The claim already covers these paths.')
         return
     from agent_policy import check_claims
-    check_claims(new, [open_prs()], current=pr['number'])
+    check_claims(new, [open_prs()], current=pr['number'] if pr else None)
     (ROOT / '.agent-context.json').write_text(json.dumps(new, indent=2) + '\n')
     task_path(new).write_text(json.dumps(new, indent=2) + '\n')
     run('git', 'add', '--', str(task_path(new).relative_to(ROOT)))
     footer = ('\n' + args.footer.strip()) if args.footer else ''
     run('git', 'commit', '-m', f"chore(task): widen {c['task']} scope\n\n{args.why}\n\nTask: {c['task']}\nAgent: {c['agent']}{footer}")
     # Publish the contract and the manifest together; the policy compares the two on each head.
-    gh_api(f"repos/{REPOSITORY}/pulls/{pr['number']}", method='PATCH', data={'body': with_contract(pr.get('body'), new)})
+    if pr:
+        gh_api(f"repos/{REPOSITORY}/pulls/{pr['number']}", method='PATCH', data={'body': with_contract(pr.get('body'), new)})
     run('git', 'push', 'origin', c['branch'])
     print('Scope now: ' + ', '.join(new['scope']))
 
@@ -306,7 +327,7 @@ def start(args):
 
 def commit(args):
     c = context()
-    assert_reserved(c)
+    reserved(c)
     if not re.match(r'^(feat|fix|docs|test|refactor|chore|build|ci|style|perf)(\([a-z0-9-]+\))?: .{8,}', args.message):
         raise ValueError('Use a specific conventional commit subject, e.g. fix(preview): restore mobile video controls.')
     check_scope(c, args.paths)
@@ -317,16 +338,20 @@ def commit(args):
 
 
 def submit(args):
+    """Open (or update) the session's PR, ready for review. Run it only when the owner asks for a PR."""
     c = context()
-    pr = assert_reserved(c)
+    pr = reserved(c)
     clean()
     run('npm', 'test')
     run('npm', 'run', 'check')
     run('git', 'push', 'origin', c['branch'])
-    gh_api(f"repos/{REPOSITORY}/pulls/{pr['number']}", method='PATCH', data={
-        'title': args.title, 'body': body(c, args.summary, args.changes, args.validation, args.risks)
-        + (('\n' + args.footer.strip() + '\n') if args.footer else '')})
-    mark_ready(pr)
+    text = body(c, args.summary, args.changes, args.validation, args.risks) + (('\n' + args.footer.strip() + '\n') if args.footer else '')
+    if pr is None:
+        pr = gh_api(f'repos/{REPOSITORY}/pulls', method='POST', data={
+            'title': args.title, 'head': c['branch'], 'base': 'main', 'body': text, 'draft': False})
+    else:
+        gh_api(f"repos/{REPOSITORY}/pulls/{pr['number']}", method='PATCH', data={'title': args.title, 'body': text})
+        mark_ready(pr)
     print(pr['html_url'])
 
 
@@ -523,7 +548,7 @@ def main():
     s.add_argument('--why', required=True)
     s.add_argument('--footer', help='optional extra trailers, e.g. Co-Authored-By lines')
     s.add_argument('paths', nargs='+')
-    s = sub.add_parser('submit')
+    s = sub.add_parser('submit', help='open the PR, ready for review: only when the owner asks for one')
     for field in ['title', 'summary', 'changes', 'validation', 'risks']:
         s.add_argument('--' + field, required=True)
     s.add_argument('--footer', help='optional attribution text appended after the contract')
