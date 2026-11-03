@@ -6,11 +6,11 @@
 bash scripts/cloud-bootstrap.sh --code-only    # or full bootstrap for media work
 npm run doctor                                 # every line should be ok/warn, none FAIL
 python3 scripts/agents.py status               # open PRs and the scopes they reserve
-python3 scripts/agents.py claim --task T --agent A --summary S --scope PATHS...   # the day's draft PR
-# wait for agent-policy to pass, then all day long, one commit per change (code or docs):
+python3 scripts/agents.py claim --task T --agent A --summary S --scope PATHS...   # manifest + pushed branch, no PR
+# then, as you iterate with the owner, one commit per change (code or docs), pushing the branch:
 python3 scripts/agents.py commit --message M --why W PATHS...
-python3 scripts/agents.py scope --add PATHS --why W    # when the day reaches new paths
-# end of the day:
+python3 scripts/agents.py scope --add PATHS --why W    # when the work reaches new paths
+# only when the owner asks for a PR (owner rule 2026-11-03):
 python3 scripts/agents.py submit --title T --summary S --changes C --validation V --risks R
 # fix/answer and resolve every review finding; after pushing fixes ask Codex to re-review:
 python3 scripts/agents.py request-review
@@ -44,9 +44,9 @@ python3 scripts/agents.py claim --task video-controls --agent claude-controls \
   --scope canvas/phone-logic.js canvas/phone-markup.html
 ```
 
-The claim command commits only its own manifest, pushes only its assigned branch, and opens a draft PR. Wait for `agent-policy` to pass before implementing. If two claims race, the oldest open PR reserves that scope and the newer PR is blocked. Different exact files can be worked on concurrently; directory claims reserve their descendants. A malformed open claim blocks new reservations until its agent fixes it or the owner closes it. Avoid a single shared task board file that all agents must edit.
+The claim command checks open PRs for overlapping scopes, commits only its own manifest and pushes only its assigned branch. It opens no PR: by the owner's rule (2026-11-03) work is iterated with commits and a PR is opened only when the owner asks, by `submit`. The `agent-policy` check runs when that PR opens; if two claims race, the oldest open PR reserves that scope and the newer PR is blocked. Claims without a PR are invisible to other sessions, so run one session on the repository at a time. Different exact files can be worked on concurrently; directory claims reserve their descendants. A malformed open claim blocks new reservations until its agent fixes it or the owner closes it. Avoid a single shared task board file that all agents must edit.
 
-If a reservation is interrupted by authentication or network failure, retry the exact same `claim` command in the same checkout with unchanged task, agent, branch and scope. It reuses the reservation commit and draft PR instead of creating duplicates. Recovery refuses unrelated uncommitted work or a different contract and preserves those files. Do not delete context, branches, or Git metadata to recover.
+If a reservation is interrupted by authentication or network failure, retry the exact same `claim` command in the same checkout with unchanged task, agent, branch and scope. It reuses the reservation commit instead of creating a duplicate. Recovery refuses unrelated uncommitted work or a different contract and preserves those files. Do not delete context, branches, or Git metadata to recover.
 
 Implement, inspect your diff, and commit explicit paths:
 
@@ -67,7 +67,7 @@ python3 scripts/agents.py sync
 
 This requires a clean checkout, fetches main, and merges it. A conflict is left intact for inspection. Preserve the files, explain the conflict, and coordinate ownership; never resolve by discarding another agent's changes. Required up-to-date checks force another sync if main advances before merge.
 
-Submit a concrete reviewable result:
+When the owner asks for a PR, submit a concrete reviewable result:
 
 ```bash
 python3 scripts/agents.py submit \
@@ -78,11 +78,11 @@ python3 scripts/agents.py submit \
   --risks 'No clinical copy, sequencing, narration, or timing changes.'
 ```
 
-The command runs checks, pushes, updates the structured PR body, and marks the PR ready. `--footer` appends provider-required attribution after the contract. All GitHub calls are REST-only, so they also work in hosted sessions whose proxies block GraphQL; if marking ready is refused, the command says so and the agent marks the PR ready with its own GitHub integration. Actual visual/media validation must be performed and accurately reported by the agent; a claimed command result is not a substitute for evidence.
+The command runs checks, pushes, and opens the PR ready for review with the structured body (or updates it and marks it ready if one is already open). `--footer` appends provider-required attribution after the contract. All GitHub calls are REST-only, so they also work in hosted sessions whose proxies block GraphQL; if marking ready is refused, the command says so and the agent marks the PR ready with its own GitHub integration. Actual visual/media validation must be performed and accurately reported by the agent; a claimed command result is not a substitute for evidence.
 
-## Merging the day's PR
+## Merging a PR
 
-The owner does not review or approve PRs, and work runs in daily sessions (decisions 2026-11-02). Each session integrates its own PR at the end of the day:
+The owner does not review or approve PRs (decision 2026-11-02) and asks for them when wanted (2026-11-03). Once a requested PR is ready, the session integrates it:
 
 ```bash
 python3 scripts/agents.py merge     # squash-merges only when everything below holds

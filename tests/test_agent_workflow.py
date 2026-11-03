@@ -354,6 +354,40 @@ class GitIntegration(unittest.TestCase):
         self.assertEqual(self.run_git('branch', '--show-current'), 'agent/mobile-controls')
         self.assertTrue((self.root / '.agent-context.json').exists())
 
+    def test_without_a_pr_the_claim_is_the_committed_manifest(self):
+        """Owner rule 2026-11-03: no PR until the owner asks; commits check the manifest on the branch."""
+        c = task(scope=['owned.txt'])
+        metadata = self.root / 'docs/agent-tasks/mobile-controls.json'
+        metadata.parent.mkdir(parents=True)
+        with patch.object(workflow, 'open_prs', return_value=[]):
+            with self.assertRaisesRegex(ValueError, 'not claimed'):
+                workflow.reserved(c)
+            metadata.write_text(json.dumps(c))
+            self.run_git('add', str(metadata.relative_to(self.root)))
+            self.run_git('commit', '-m', 'Reserve')
+            self.assertIsNone(workflow.reserved(c))
+            with self.assertRaisesRegex(ValueError, 'not claimed'):
+                workflow.reserved(task(scope=['owned.txt', 'other.txt']))
+        published = {'number': 3, **pr(3, c)}
+        with patch.object(workflow, 'open_prs', return_value=[published]):
+            self.assertEqual(workflow.reserved(c), published)
+            with self.assertRaisesRegex(ValueError, 'differs'):
+                workflow.reserved(task(scope=['owned.txt', 'other.txt']))
+
+    def test_submit_opens_the_pr_only_when_none_exists(self):
+        c = task(scope=['owned.txt'])
+        args = SimpleNamespace(title='feat(x): the day', summary='S', changes='C', validation='V', risks='R', footer=None)
+        calls = []
+        def api(path, method='GET', data=None, **_):
+            calls.append((method, path, data))
+            return {'number': 11, 'html_url': 'https://example.invalid/11'}
+        with patch.object(workflow, 'context', return_value=c), patch.object(workflow, 'reserved', return_value=None), \
+                patch.object(workflow, 'clean'), patch.object(workflow, 'run'), patch.object(workflow, 'gh_api', side_effect=api):
+            workflow.submit(args)
+        self.assertEqual([(m, p) for m, p, _ in calls], [('POST', 'repos/Reakwind/psych-lab/pulls')])
+        self.assertIs(calls[0][2]['draft'], False)
+        self.assertIn('agent-contract', calls[0][2]['body'])
+
     def test_recovery_cannot_change_the_contract(self):
         with self.assertRaisesRegex(ValueError, 'different contract'):
             workflow.resume_state(task('different-task', ['owned.txt']))
