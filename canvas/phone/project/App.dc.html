@@ -159,7 +159,7 @@ body{margin:0}
   <sc-if value="{{hasRecent}}" hint-placeholder-val="{{ false }}">
     <span class="where">{{U.libSub}}</span>
     <sc-for list="{{recent}}" as="p" hint-placeholder-count="2">
-      <button class="list-row" onClick="{{p.open}}" style="flex-shrink: 0; text-align: right"><span class="list-lead {{p.lead}}"><span class="icon">{{p.icon}}</span></span><span class="list-text"><span class="list-title">{{p.title}}</span><span class="list-sub">{{p.sub}}</span></span><span class="icon muted">play_arrow</span></button>
+      <button class="list-row" onClick="{{p.open}}" style="flex-shrink: 0; text-align: right"><span class="list-lead {{p.lead}}"><span class="icon">{{p.icon}}</span></span><span class="list-text"><span class="list-title">{{p.title}}</span><span class="list-sub">{{p.sub}}</span></span><sc-if value="{{p.gap}}" hint-placeholder-val="{{ false }}"><span class="pill pill-amber lab" style="font-size: 12px; height: 26px">not recorded yet</span></sc-if><span class="icon muted">play_arrow</span></button>
     </sc-for>
   </sc-if>
 </div>
