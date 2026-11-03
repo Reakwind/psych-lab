@@ -53,6 +53,10 @@ class CanvasBoards(unittest.TestCase):
         program = json.loads((ROOT / 'psych-lab/intervention/program.json').read_text())
         phone = (CANVAS / 'phone/project/Phone.dc.html').read_text()
         self.assertEqual(len(re.findall(r'"n":\d+,"id":"S\d+"', phone)), len(program['sessions']))
+        app = (CANVAS / 'phone/project/App.dc.html').read_text()
+        self.assertEqual(len(re.findall(r'"n":\d+,"id":"S\d+"', app)), len(program['sessions']))
+        self.assertEqual(len(re.findall(r'"day":\d,"id":"PS-ACT-\d+","spec":"Day \d', app)), 7)
+        self.assertIn('class Component extends Player', app)
 
     def test_boards_only_use_media_their_own_canvas_holds(self):
         for name in ('home', 'activities', 'films', 'phone', 'original'):

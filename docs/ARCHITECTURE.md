@@ -4,7 +4,7 @@ The Lab is viewed in connected Claude Design canvases (Home, Original design, Ac
 
 The original artifact mirror lives under `animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/`. Its runtime, canvas, source boards, Hebrew scripts and 51 completed narrated films are preserved. Generated film sources and storyboards live in `animation-kit/film*/`, `boards_meta/`, and `sb_*.py`. The portable renderer streams frames to FFmpeg, retains the original narration, and uses isolated browser instances. Never render different agents' films into the same output files.
 
-The full intervention lives in `psych-lab/intervention/`. `program.json` is the checked-in runtime manifest; `build.py` derives it from source snapshots, the Lab audit, and real media durations. `core.mjs` handles sourced session/choice sequencing and duration ranges; the Phone preview canvas walks the sessions it sequences. `core.test.mjs` checks the 87 sessions, choices, deduplication, source conflicts, and explicit media gaps. Review notes are canvas comments.
+The full intervention lives in `psych-lab/intervention/`. `program.json` is the checked-in runtime manifest; `build.py` derives it from source snapshots, the Lab audit, and real media durations. `core.mjs` handles sourced session/choice sequencing and duration ranges; the Phone preview canvas walks the sessions it sequences, and its App prototype board (`canvas/app-logic.js`, `canvas/app-markup.html`) lays the same sessions out day by day with a practice library, sharing the Phone board's step players (`canvas/flow-markup.html`, `canvas/phone-logic.js`). `core.test.mjs` checks the 87 sessions, choices, deduplication, source conflicts, and explicit media gaps. Review notes are canvas comments.
 
 ## Source precedence
 

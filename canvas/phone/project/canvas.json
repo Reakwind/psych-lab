@@ -14,7 +14,7 @@
    "x": 0,
    "y": 0,
    "w": 760,
-   "h": 844,
+   "h": 1080,
    "title": "Phone preview · about"
   },
   "Phone.dc.html": {
@@ -31,12 +31,21 @@
    "w": 520,
    "h": 820,
    "title": "PS-CONT-047 · held out of the flow"
+  },
+  "App.dc.html": {
+   "x": 840,
+   "y": 944,
+   "w": 860,
+   "h": 844,
+   "title": "App prototype · live the program day by day",
+   "is_interactive": true
   }
  },
  "order": [
   "Main.dc.html",
   "Phone.dc.html",
-  "HeldOut-047.dc.html"
+  "HeldOut-047.dc.html",
+  "App.dc.html"
  ],
  "notes": {},
  "designSystems": []

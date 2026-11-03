@@ -13,7 +13,7 @@ The Lab is viewed in connected Claude Design canvases. Start at **[Home](https:/
 | [Original design](https://claude.ai/artifact/TddJCUmCTkkuhubb6ovHzm) | The preserved design: persona, design system, daily experience, practices and games, program rhythm, the 51 films with storyboards, Ruth's journey |
 | [Activities](https://claude.ai/artifact/GfG5m5VUL9zqniG5M9FHzT) | One board per activity: intro pages, schedules, every Inner Voice thought, Cardversation card and reflection screen, the recordings |
 | [Films & scripts](https://claude.ai/artifact/KkY7FBBxvJtd38pTcKNsLT) | Each film beside the script document it narrates, differences highlighted |
-| [Phone preview](https://claude.ai/artifact/8NYov7M3HXKPhX49GV6WMw) | Walk and time any of the 87 sessions on a phone, as the sources sequence them, against the 30-minute planned day |
+| [Phone preview](https://claude.ai/artifact/8NYov7M3HXKPhX49GV6WMw) | Walk and time any of the 87 sessions on a phone, as the sources sequence them, against the 30-minute planned day; the App prototype board lives the program day by day (Today, Journey, Practices, missed days, the week-13+ rhythm) |
 
 The canvases are private to their owner until shared from each page's Share menu.
 

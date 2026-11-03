@@ -1,0 +1,203 @@
+<sc-if value="{{kPrepage}}" hint-placeholder-val="{{ false }}">
+<div class="screen scroll" style="gap: 14px">
+  <p class="lab muted" style="margin: 0; font-size: 14px">{{preKind}}</p>
+  <h1 class="t-headline he" dir="rtl" lang="he">{{actTitle}}</h1>
+  <sc-if value="{{preHasSubtitle}}" hint-placeholder-val="{{ true }}"><p class="t-title he muted" dir="rtl" lang="he">{{preSubtitle}}</p></sc-if>
+  <sc-if value="{{preHasLead}}" hint-placeholder-val="{{ true }}"><p class="t-body he" dir="rtl" lang="he">{{preLead}}</p></sc-if>
+  <sc-if value="{{preHasBullets}}" hint-placeholder-val="{{ false }}"><ul class="he t-body" dir="rtl" lang="he" style="margin: 0; padding-right: 22px; padding-left: 0"><sc-for list="{{preBullets}}" as="b" hint-placeholder-count="3"><li>{{b.t}}</li></sc-for></ul></sc-if>
+  <sc-if value="{{preHasEquipment}}" hint-placeholder-val="{{ false }}"><p class="he muted" dir="rtl" lang="he" style="margin: 0">{{preEquipment}}</p></sc-if>
+  <sc-if value="{{preHasSafety}}" hint-placeholder-val="{{ false }}"><p class="he muted" dir="rtl" lang="he" style="margin: 0">{{preSafety}}</p></sc-if>
+  <sc-if value="{{preEmpty}}" hint-placeholder-val="{{ false }}"><p class="gap"><strong>No source text</strong> · intro page text</p></sc-if>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block lab" onClick="{{go}}">{{preButton}}</button></div>
+</sc-if>
+
+<sc-if value="{{kContext}}" hint-placeholder-val="{{ false }}">
+<div class="screen scroll" style="gap: 14px">
+  <sc-if value="{{hasActTitle}}" hint-placeholder-val="{{ true }}"><h1 class="t-title he" dir="rtl" lang="he">{{actTitle}}</h1></sc-if>
+  <sc-if value="{{ctxIsHe}}" hint-placeholder-val="{{ true }}"><p class="t-body-l he" dir="rtl" lang="he" style="white-space: pre-line; font-size: 21px; line-height: 32px; margin: 0">{{ctxText}}</p></sc-if>
+  <sc-if value="{{ctxIsEn}}" hint-placeholder-val="{{ false }}"><p class="lab" style="white-space: pre-line; margin: 0">{{ctxText}}</p></sc-if>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block lab" onClick="{{go}}">Continue</button></div>
+</sc-if>
+
+<sc-if value="{{kVideo}}" hint-placeholder-val="{{ false }}">
+<div class="screen scroll" style="gap: 12px">
+  <p class="lab muted" style="margin: 0; font-size: 14px">{{vidKind}}</p>
+  <sc-if value="{{hasActTitle}}" hint-placeholder-val="{{ true }}"><h1 class="t-title he" dir="rtl" lang="he">{{actTitle}}</h1></sc-if>
+  <sc-if value="{{vidHas}}" hint-placeholder-val="{{ true }}">
+    <video controls="controls" playsinline="playsinline" preload="metadata" src="{{vidSrc}}" ref="{{setMedia}}" onPlay="{{mediaPlay}}" onEnded="{{mediaEnded}}" onTimeUpdate="{{mediaTime}}" onSeeking="{{mediaSeeking}}" style="width: 342px; height: 400px; object-fit: contain; border-radius: 20px; background: #E9EFEC; display: block"></video>
+    <p class="lab muted" style="margin: 0; font-size: 14px">{{vidMeta}}</p>
+  </sc-if>
+  <sc-if value="{{vidMissing}}" hint-placeholder-val="{{ false }}">
+    <p class="gap">This video is not in the Lab copy. {{vidSlot}}</p>
+    <sc-if value="{{vidHasLead}}" hint-placeholder-val="{{ false }}"><p class="t-body he" dir="rtl" lang="he">{{vidLead}}</p></sc-if>
+  </sc-if>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block lab" onClick="{{go}}">Continue</button></div>
+</sc-if>
+
+<sc-if value="{{kChoice}}" hint-placeholder-val="{{ false }}">
+<div class="screen scroll" style="gap: 12px">
+  <h1 class="t-title he" dir="rtl" lang="he">{{actTitle}}</h1>
+  <p class="gap"><strong>No source text</strong> · choice screen heading</p>
+  <sc-if value="{{preHasSubtitle}}" hint-placeholder-val="{{ false }}"><p class="he muted" dir="rtl" lang="he" style="margin: 0">{{preSubtitle}}</p></sc-if>
+  <div>
+    <sc-for list="{{choiceOptions}}" as="o" hint-placeholder-count="3">
+      <button class="opt" onClick="{{o.pick}}" aria-label="{{o.english}}"><span class="lab muted" style="font-size: 14px; flex-shrink: 0">{{o.time}}</span><span style="display: flex; flex-direction: column; align-items: flex-end"><span class="he" dir="rtl" lang="he" style="font-size: 19px">{{o.title}}</span><span class="lab muted" style="font-size: 13px">{{o.kind}}</span></span></button>
+    </sc-for>
+  </div>
+  <p class="lab muted" style="margin: 0; font-size: 14px">Choose one practice.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{kBreathing}}" hint-placeholder-val="{{ false }}">
+<div class="screen" style="gap: 14px; align-items: center; text-align: center">
+  <h1 class="t-title he" dir="rtl" lang="he">{{actTitle}}</h1>
+  <div style="height: 230px; display: flex; align-items: center; justify-content: center; width: 100%"><div class="orb" style="{{orbStyle}}"></div></div>
+  <p class="lab t-title" style="margin: 0">{{brPhase}} <span class="muted">{{brCount}}</span></p>
+  <p class="lab muted" style="margin: 0">{{brClock}}</p>
+  <div class="row" style="justify-content: center">
+    <button class="btn btn-tonal lab" style="padding: 0 20px" onClick="{{brSlower}}" aria-label="Slower pace">Slower</button>
+    <button class="btn btn-filled lab" style="padding: 0 24px" onClick="{{brToggle}}">{{brToggleLabel}}</button>
+    <button class="btn btn-tonal lab" style="padding: 0 20px" onClick="{{brFaster}}" aria-label="Faster pace">Faster</button>
+  </div>
+  <p class="gap"><strong>No source text</strong> · in-practice prompts and guidance (phase names and timing are Lab assumptions)</p>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px">
+  <sc-if value="{{brFinished}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled btn-l btn-block lab" onClick="{{go}}">Practice complete · Continue</button></sc-if>
+  <button class="btn btn-text lab" onClick="{{go}}">End early</button>
+</div>
+</sc-if>
+
+<sc-if value="{{kAudio}}" hint-placeholder-val="{{ false }}">
+<div class="screen scroll" style="gap: 14px">
+  <p class="lab muted" style="margin: 0; font-size: 14px">Guided audio</p>
+  <h1 class="t-headline he" dir="rtl" lang="he">{{actTitle}}</h1>
+  <sc-if value="{{auHas}}" hint-placeholder-val="{{ true }}">
+    <audio controls="controls" preload="metadata" src="{{auSrc}}" ref="{{setMedia}}" onPlay="{{mediaPlay}}" onEnded="{{mediaEnded}}" onTimeUpdate="{{mediaTime}}" onSeeking="{{mediaSeeking}}" style="width: 100%"></audio>
+    <p class="lab muted" style="margin: 0; font-size: 14px">{{auMeta}}</p>
+  </sc-if>
+  <sc-if value="{{auMissing}}" hint-placeholder-val="{{ false }}">
+    <p class="gap">The recording is not in the Lab copy. {{auPlanned}}</p>
+    <p class="gap"><strong>No source text</strong> · practice script</p>
+  </sc-if>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block lab" onClick="{{go}}">Continue</button></div>
+</sc-if>
+
+<sc-if value="{{kInner}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ivPlaying}}" hint-placeholder-val="{{ true }}">
+<div class="screen" style="gap: 16px">
+  <h1 class="t-title he" dir="rtl" lang="he">{{actTitle}}</h1>
+  <div class="card card-white" style="min-height: 200px; display: flex; flex-direction: column; justify-content: center; gap: 12px">
+    <p class="he" dir="rtl" lang="he" style="font-size: 24px; line-height: 34px; margin: 0">{{ivText}}</p>
+    <sc-if value="{{ivShowType}}" hint-placeholder-val="{{ false }}"><span class="pill he" dir="rtl" lang="he" style="align-self: flex-end">{{ivType}}</span></sc-if>
+  </div>
+  <sc-if value="{{ivHasFeedback}}" hint-placeholder-val="{{ false }}"><p class="feedback he" dir="rtl" lang="he">{{ivFeedback}}</p></sc-if>
+  <sc-if value="{{ivNoFeedback}}" hint-placeholder-val="{{ false }}"><p class="gap"><strong>No source text</strong> · feedback for this answer</p></sc-if>
+  <p class="lab muted" style="margin: 0; text-align: center">{{ivCount}}</p>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0">
+  <sc-if value="{{ivUnanswered}}" hint-placeholder-val="{{ true }}">
+    <div class="row">
+      <button class="btn btn-tonal btn-l he" dir="rtl" lang="he" style="flex: 1 1 0; padding: 0" onClick="{{ivLet}}">{{ivLetLabel}}</button>
+      <button class="btn btn-filled btn-l he" dir="rtl" lang="he" style="flex: 1 1 0; padding: 0" onClick="{{ivKeep}}">{{ivKeepLabel}}</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{ivAnswered}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled btn-l btn-block lab" onClick="{{ivNext}}">Next thought</button></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ivDone}}" hint-placeholder-val="{{ false }}">
+<div class="screen center" style="justify-content: center; gap: 16px">
+  <h1 class="t-headline lab">Round complete</h1>
+  <p class="gap"><strong>No source text</strong> · end-of-round message</p>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block lab" onClick="{{go}}">Continue</button></div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{kCards}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{cdChoosing}}" hint-placeholder-val="{{ true }}">
+<div class="screen scroll" style="gap: 14px">
+  <h1 class="t-title he" dir="rtl" lang="he">{{actTitle}}</h1>
+  <p class="lab t-title" style="margin: 0">Choose a topic</p>
+  <div class="seg lab"><button class="{{cdSoloCls}}" onClick="{{cdSolo}}" aria-pressed="{{cdSoloPressed}}">Alone</button><button class="{{cdTogetherCls}}" onClick="{{cdTogether}}" aria-pressed="{{cdTogetherPressed}}">Together</button></div>
+  <div class="stack">
+    <sc-for list="{{cdTopics}}" as="t" hint-placeholder-count="5"><button class="opt he" dir="rtl" lang="he" style="justify-content: flex-start; font-size: 19px" onClick="{{t.pick}}">{{t.name}}</button></sc-for>
+  </div>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block lab" onClick="{{cdPick}}">Pick for me</button></div>
+</sc-if>
+<sc-if value="{{cdPlaying}}" hint-placeholder-val="{{ false }}">
+<div class="screen scroll" style="gap: 12px">
+  <p style="margin: 0"><span class="he" dir="rtl" lang="he">{{cdDeck}}</span> <span class="lab muted">· {{cdCardLabel}}</span></p>
+  <sc-for list="{{cdSides}}" as="side" hint-placeholder-count="2">
+    <div class="card card-white" style="display: flex; flex-direction: column; gap: 8px; padding: 18px">
+      <span class="lab muted" style="font-size: 13px">{{side.label}}</span>
+      <p class="he" dir="rtl" lang="he" style="font-size: 21px; line-height: 30px; margin: 0">{{side.q}}</p>
+      <sc-if value="{{side.hasIdeas}}" hint-placeholder-val="{{ true }}"><button class="btn btn-text lab" style="align-self: flex-start" onClick="{{side.toggle}}">{{side.toggleLabel}}</button></sc-if>
+      <sc-if value="{{side.show}}" hint-placeholder-val="{{ false }}"><p class="he muted" dir="rtl" lang="he" style="white-space: pre-line; margin: 0">{{side.ideas}}</p></sc-if>
+    </div>
+  </sc-for>
+  <sc-if value="{{cdHasFollow}}" hint-placeholder-val="{{ true }}"><button class="btn btn-text lab" onClick="{{cdToggleFollow}}">{{cdFollowLabel}}</button></sc-if>
+  <sc-if value="{{cdShowFollow}}" hint-placeholder-val="{{ false }}">
+    <sc-for list="{{cdFollowups}}" as="f" hint-placeholder-count="2"><p class="note he" dir="rtl" lang="he" style="margin: 0">{{f.text}}</p></sc-for>
+  </sc-if>
+</div>
+<div style="padding: 0 24px 20px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px">
+  <div class="row">
+    <button class="btn btn-tonal lab" style="flex: 1 1 0" onClick="{{cdNext}}">{{cdNextLabel}}</button>
+    <sc-if value="{{cdCanFinish}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled lab" style="flex: 1 1 0" onClick="{{go}}">Finish</button></sc-if>
+  </div>
+  <button class="btn btn-text lab" onClick="{{cdAnother}}">Choose another topic</button>
+</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{kReflection}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{rfInPart}}" hint-placeholder-val="{{ true }}">
+<div class="screen scroll" style="gap: 14px">
+  <h1 class="t-title he" dir="rtl" lang="he">{{actTitle}}</h1>
+  <p class="lab muted" style="margin: 0; font-size: 13px">{{rfPartLabel}}</p>
+  <sc-if value="{{rfHasPrompt}}" hint-placeholder-val="{{ true }}"><p class="he" dir="rtl" lang="he" style="font-size: 23px; line-height: 34px; margin: 0">{{rfPrompt}}</p></sc-if>
+  <sc-if value="{{rfNoPrompt}}" hint-placeholder-val="{{ false }}"><p class="gap"><strong>No source text</strong> · {{rfMissing}}</p></sc-if>
+  <sc-if value="{{rfHasIdeas}}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{rfIdeasHe}}" hint-placeholder-val="{{ false }}"><button class="btn btn-text he" dir="rtl" lang="he" style="align-self: flex-end" onClick="{{rfToggleIdeas}}">{{rfIdeasLabel}}</button></sc-if>
+    <sc-if value="{{rfIdeasLab}}" hint-placeholder-val="{{ false }}"><button class="btn btn-text lab" style="align-self: flex-start" onClick="{{rfToggleIdeas}}">{{rfIdeasLabLabel}}</button></sc-if>
+    <sc-if value="{{rfShowIdeas}}" hint-placeholder-val="{{ false }}"><div dir="rtl"><sc-for list="{{rfIdeas}}" as="w" hint-placeholder-count="6"><span class="word he" dir="rtl" lang="he">{{w.t}}</span></sc-for></div></sc-if>
+  </sc-if>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px">
+  <sc-if value="{{rfHasHold}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled btn-l btn-block he" dir="rtl" lang="he" aria-label="Hold to reflect, or use Continue" style="{{rfHoldStyle}}" onPointerDown="{{rfHoldStart}}" onPointerUp="{{rfHoldStop}}" onPointerCancel="{{rfHoldStop}}" onPointerLeave="{{rfHoldStop}}" onKeyDown="{{rfHoldKey}}" onKeyUp="{{rfHoldStop}}">{{rfHold}}</button><button class="btn btn-text lab" onClick="{{rfGo}}">Continue</button></sc-if>
+  <sc-if value="{{rfHasNext}}" hint-placeholder-val="{{ false }}"><button class="btn btn-filled btn-l btn-block he" dir="rtl" lang="he" onClick="{{rfGo}}">{{rfNext}}</button></sc-if>
+  <sc-if value="{{rfLabNext}}" hint-placeholder-val="{{ true }}"><button class="btn btn-filled btn-l btn-block lab" onClick="{{rfGo}}">Continue</button></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{rfSummary}}" hint-placeholder-val="{{ false }}">
+<div class="screen scroll" style="gap: 14px">
+  <sc-if value="{{rfHasSumTitle}}" hint-placeholder-val="{{ true }}"><h1 class="t-headline he" dir="rtl" lang="he">{{rfSumTitle}}</h1></sc-if>
+  <sc-if value="{{rfNoSumTitle}}" hint-placeholder-val="{{ false }}"><p class="gap"><strong>No source text</strong> · summary title</p></sc-if>
+  <sc-if value="{{rfHasSumSub}}" hint-placeholder-val="{{ false }}"><p class="t-title he muted" dir="rtl" lang="he">{{rfSumSub}}</p></sc-if>
+  <sc-if value="{{rfHasTip}}" hint-placeholder-val="{{ false }}"><p class="t-body he" dir="rtl" lang="he">{{rfTip}}</p></sc-if>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block lab" onClick="{{go}}">Finish</button></div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{kMotivation}}" hint-placeholder-val="{{ false }}">
+<div class="screen" style="justify-content: center; gap: 14px">
+  <p class="lab t-title" style="margin: 0">Motivation</p>
+  <p class="gap"><strong>No source text</strong> · motivation question and answer options</p>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block lab" onClick="{{go}}">Continue</button></div>
+</sc-if>
+
+<sc-if value="{{kRating}}" hint-placeholder-val="{{ false }}">
+<div class="screen" style="justify-content: center; gap: 14px">
+  <p class="lab t-title" style="margin: 0">After the practice</p>
+  <p class="gap"><strong>No source text</strong> · post-practice question and answer options</p>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block lab" onClick="{{go}}">Continue</button></div>
+</sc-if>
+
