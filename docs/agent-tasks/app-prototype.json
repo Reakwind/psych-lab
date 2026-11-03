@@ -1,0 +1,15 @@
+{
+  "task": "app-prototype",
+  "agent": "claude-app-prototype",
+  "scope": [
+    "canvas/build.mjs",
+    "canvas/app-logic.js",
+    "canvas/app-markup.html",
+    "canvas/phone",
+    "canvas/home",
+    "tests/test_canvas.py",
+    "README.md",
+    "docs/ARCHITECTURE.md"
+  ],
+  "branch": "claude/gifted-goldberg-elib6d"
+}
