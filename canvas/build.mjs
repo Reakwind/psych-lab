@@ -615,10 +615,18 @@ function protocolPlans() {
   const plan = key => P.protocol[key].days.map(day => day.map(x => {
     const psych = x.activity === 'Mindset';
     if (!psych && !status[PROTOCOL_STATUS[x.activity]]) throw Error('Protocol activity without a status row: ' + x.activity);
-    return {name: x.activity, minutes: x.minutes, rounds: x.rounds, med: x.time_since_med, category: x.category, psych,
-      status: psych ? null : status[PROTOCOL_STATUS[x.activity]]};
+    const st = psych ? null : status[PROTOCOL_STATUS[x.activity]], mod = P.protocol.modules[x.activity] || {pages: [], scripts: []};
+    // The first-month workouts are the codes the status sheet lists (e.g. 'A1+B1 * 3 Levels').
+    const month1 = st ? (st.content.match(/[A-C]\d/g) || []) : [];
+    return {name: x.activity, minutes: x.minutes, rounds: x.rounds, med: x.time_since_med, category: x.category, psych, status: st,
+      pages: mod.pages.map(p => ({...p, month1: month1.includes(p.code)})), scripts: mod.scripts};
   }));
-  return {light: plan('light'), heavy: plan('heavy'), sheets: {light: P.protocol.light.sheet, heavy: P.protocol.heavy.sheet}};
+  // Each module script once, as its paragraphs; text exactly as its snapshot in sources/module-scripts has it.
+  const scripts = Object.fromEntries(Object.entries(P.protocol.scripts).map(([slug, m]) => {
+    const snap = read(m.path);
+    return [slug, {title: m.title, updated: m.updated_at.slice(0, 10), path: m.path, paras: snap.content.split('\n').filter(t => t.trim())}];
+  }));
+  return {light: plan('light'), heavy: plan('heavy'), sheets: {light: P.protocol.light.sheet, heavy: P.protocol.heavy.sheet}, scripts};
 }
 
 function appData() {
@@ -680,6 +688,7 @@ body{margin:0}
 .word{display:inline-block;background:#E3EAE7;border-radius:999px;padding:4px 12px;margin:0 0 8px 8px;font-size:16px}
 .orb{width:180px;height:180px;border-radius:50%;background:#B3EFE4;margin:0 auto;transition:transform .1s linear}
 .app .screen.scroll > *{flex-shrink:0}
+.list-row.is-picked{background:var(--primary-container);box-shadow:inset 0 0 0 2px var(--primary)}
 .where{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--on-surface-variant)}
 .wk{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1 1 0}
 .wk-dot{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;box-sizing:border-box}

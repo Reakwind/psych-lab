@@ -10076,7 +10076,408 @@
         "copy": "",
         "note": ""
       }
-    ]
+    ],
+    "modules": {
+      "PT practice": {
+        "pages": [
+          {
+            "id": "PT-CONT-001",
+            "code": "A1",
+            "title": "A1: כוח ושיווי משקל",
+            "english": "A1: Strength & Balance",
+            "subtitle": "קימה, עמידה, צעידה",
+            "lead": "חשוב להגיע לאימון עם נעלי ספורט ובגדים נוחים.\nבתרגילי שיווי המשקל, כדאי לתרגל ליד קיר, שאפשר להישען עליו אם צריך.\nתרגל בסביבה פנויה משטיחים ומכבלים, כשיש לידך כיסא יציב.",
+            "equipment": "2 כיסאות, משקולות, כדור קטן, בקבוק מים",
+            "safety": "",
+            "type": "Video",
+            "scripts": [
+              "pt-A1"
+            ]
+          },
+          {
+            "id": "PT-CONT-002",
+            "code": "B1",
+            "title": "B1: יציבות וקואורדינציה",
+            "english": "B1: Stability & Coordination",
+            "subtitle": "עצירה-חזרה, מיקוד",
+            "lead": "בזמן העברות משקל, שמור על מבט קדימה ולא לכיוון הרגליים.\nבעמידת טנדם, היעזר בתמיכה מהצד.",
+            "equipment": "2 כיסאות, כדור, בקבוק מים",
+            "safety": "",
+            "type": "Video",
+            "scripts": [
+              "pt-B1"
+            ]
+          },
+          {
+            "id": "PT-CONT-003",
+            "code": "A2",
+            "title": "A2: כוח ומהירות הליכה",
+            "english": "A2: Power & Gait Speed",
+            "subtitle": "מהירות, הליכה, חציה",
+            "lead": "אל תוותר על ביצוע נכון בשביל המהירות.\nבמעבר מצד לצד, שמור על גוף זקוף ליד כסא יציב.",
+            "equipment": "2 כיסאות, משקולות, מגבת מגולגלת, בקבוק מים",
+            "safety": "",
+            "type": "Video",
+            "scripts": [
+              "pt-A2"
+            ]
+          },
+          {
+            "id": "PT-CONT-004",
+            "code": "B2",
+            "title": "B2: זריזות וסיבובים",
+            "english": "B2: Agility & Turns",
+            "subtitle": "העברות משקל וזריזות",
+            "lead": "לפני הליכה לאחור, ודא שהסביבה פנויה לחלוטין.\nבסיבובים של 180°, עצור לרגע באמצע הסיבוב כדי למנוע סחרחורת.",
+            "equipment": "2 כיסאות, משקולות, בקבוק מים",
+            "safety": "",
+            "type": "Video",
+            "scripts": [
+              "pt-B2"
+            ]
+          },
+          {
+            "id": "PT-CONT-005",
+            "code": "A3",
+            "title": "A3: תפקוד יומיומי וריבוי משימות",
+            "english": "A3: Daily Function & Multitasking",
+            "subtitle": "רצפי תנועה ונשיאת משקל",
+            "lead": "כשאתה מושיט יד לחפצים, שמור על הגוף מעל כפות הרגליים.\nקח את הזמן בהעברת חפצים ושמור על בסיס תמיכה רחב.",
+            "equipment": "2 כיסאות, נעלי בית, כרית, שקית רב פעמית, בקבוק מים",
+            "safety": "",
+            "type": "Video",
+            "scripts": [
+              "pt-A3"
+            ]
+          },
+          {
+            "id": "PT-CONT-006",
+            "code": "B3",
+            "title": "B3: שיווי משקל וניווט",
+            "english": "B3: Reactive Balance & Navigation",
+            "subtitle": "ניווט במרחב",
+            "lead": "בתרגילי שמיניות, הבט קדימה ולא למטה.\nלפני הליכה לאחור, ודא שהסביבה פנויה לחלוטין ממכשולים.",
+            "equipment": "2 כיסאות, משקולות, נעלי בית, סרט סימון, בקבוק מים",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          }
+        ],
+        "scripts": []
+      },
+      "OT practice": {
+        "pages": [
+          {
+            "id": "OT-CONT-003",
+            "code": "A1",
+            "title": "A1: אחיזה ודיוק",
+            "english": "A1: Grip & Control",
+            "subtitle": "חיזוק ידיים ואצבעות, שליטה בעט וקואורדינציה.",
+            "lead": "שב לצד שולחן יציב ופנוי עם הציוד לתרגול.\nבמהלך התרגול, התמקד בתנועה מודעת ומכוונת של האצבעות.\nבתרגילי תיפוף על הגוף, שים לב להחלפה בין הרצפים.",
+            "equipment": "כדור לחיץ\nעט ונייר\nרצועת נייר טואלט",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          },
+          {
+            "id": "OT-CONT-004",
+            "code": "A2",
+            "title": "A2: כתיבה ואחיזה",
+            "english": "A2: Writing & Grip",
+            "subtitle": "חיזוק כף היד, תמרון חפצים, כתיבה וקואורדינציה.",
+            "lead": "שב לצד שולחן יציב ופנוי עם הציוד לתרגול.\nבתרגיל הכתיבה, התמקד בביצוע תנועות גדולות ורציפות.\nבתרגילי תיפוף על הגוף, שים לב להחלפה בין הרצפים.",
+            "equipment": "מטבעות\nעט ונייר",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          },
+          {
+            "id": "OT-CONT-005",
+            "code": "A3",
+            "title": "A3: כתיבה ושליטה",
+            "english": "A3: Writing & Control",
+            "subtitle": "תמרון חפצים, כתיבה וקואורדינציה.",
+            "lead": "שב לצד שולחן יציב ופנוי עם הציוד לתרגול.\nבתרגיל הכתיבה, התמקד בביצוע תנועות גדולות ורציפות.\nבתרגילי המטבעות, נסה להשתמש רק באצבעות, ובלי להעזר ביד השניה.",
+            "equipment": "עט ונייר\nמטבעות",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          },
+          {
+            "id": "OT-CONT-006",
+            "code": "B1",
+            "title": "B1: תיאום בין הידיים",
+            "english": "B1: Two-Hand Control",
+            "subtitle": "חיזוק כף היד, תמרון חפצים וקואורדינציית עין-יד.",
+            "lead": "שב לצד שולחן יציב ופנוי עם הציוד לתרגול.\nבמהלך התרגול, התמקד בתנועה מודעת ומכוונת של האצבעות.\nבתרגיל זריקת הכדור, במידה והכדור נופל, הרם אותו בזהירות והמשך לתרגל.",
+            "equipment": "מגבת מטבח\nאטבי כביסה\nכדור לחיץ",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          },
+          {
+            "id": "OT-CONT-007",
+            "code": "B2",
+            "title": "B2: תמרון חפצים",
+            "english": "B2: Object Handling",
+            "subtitle": "הפרדת תנועה, תמרון חפצים וקואורדינציית עין-יד.",
+            "lead": "שב לצד שולחן יציב ופנוי עם הציוד לתרגול.\nבמהלך התרגול, התמקד בתנועה מודעת ומכוונת של האצבעות.\nבתרגיל זריקת הכדור, שים לב למעבר בין הרצפים.",
+            "equipment": "כדור לחיץ\nאטבי כביסה",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          },
+          {
+            "id": "OT-CONT-008",
+            "code": "B3",
+            "title": "B3: תיאום וחשיבה",
+            "english": "B3: Hands & Focus",
+            "subtitle": "חיזוק כף היד, תמרון חפצים, אתגרי חשיבה וקואורדינציית עין-יד.",
+            "lead": "שב לצד שולחן יציב ופנוי עם הציוד לתרגול.\nבמהלך התרגול, התמקד בתנועה מודעת ומכוונת של האצבעות.\nבתרגיל זריקת הכדור, שים לב למשימה המתחלפת.",
+            "equipment": "מגבת מטבח\nגומייה\nאטבי כביסה\nכדור לחיץ",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          },
+          {
+            "id": "OT-CONT-009",
+            "code": "C1",
+            "title": "C1: שליטה באצבעות",
+            "english": "C1: Finger Control",
+            "subtitle": "הפרדת תנועה וחיזוק אצבעות, שליטה בעט וקואורדינציה.",
+            "lead": "שב לצד שולחן יציב ופנוי עם הציוד לתרגול.\nבמהלך התרגול, התמקד בתנועה מבודדת של האצבעות.\nבתרגיל הקואורדינציה, שים לב לרצפים המשתנים.",
+            "equipment": "טישו\nעט ונייר",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          },
+          {
+            "id": "OT-CONT-010",
+            "code": "C2",
+            "title": "C2: כתיבה ודיוק",
+            "english": "C2: Writing & Control",
+            "subtitle": "הפרדת תנועה וחיזוק אצבעות, כתיבה וקואורדינציה.",
+            "lead": "שב לצד שולחן יציב ופנוי עם הציוד לתרגול.\nבמהלך התרגול, התמקד בתנועה מבודדת של האצבעות.\nבתרגיל הקואורדינציה, שים לב לרצפים המשתנים.",
+            "equipment": "עט ונייר\nטישו",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          },
+          {
+            "id": "OT-CONT-011",
+            "code": "C3",
+            "title": "C3: כתיבה ותיאום",
+            "english": "C3: Writing Control",
+            "subtitle": "הפרדת תנועה, חיזוק כף יד ואצבעות, כתיבה וקואורדינציה.",
+            "lead": "שב לצד שולחן יציב ופנוי עם הציוד לתרגול.\nבמהלך התרגול, התמקד בתנועה מבודדת של האצבעות.\nבתרגיל הכתיבה, התמקד בביצוע תנועות גדולות ורציפות.",
+            "equipment": "כדור לחיץ\nעט ונייר",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          }
+        ],
+        "scripts": [
+          "ot-prompter-merged",
+          "ot-prompter-23-8",
+          "ot-dry-run"
+        ]
+      },
+      "Sustained P": {
+        "pages": [
+          {
+            "id": "SP-CONT-005",
+            "code": "",
+            "title": "הקול יכול",
+            "english": "Hold That Tone",
+            "subtitle": "חימום הקול באמצעות \"אההה\"",
+            "lead": "שב זקוף.\nקח נשימה עמוקה.\nתפיק צליל ״אההה״ בקול חזק, נוח ויציב.",
+            "equipment": "",
+            "safety": "",
+            "type": "Video",
+            "scripts": [
+              "sp-sustained"
+            ]
+          }
+        ],
+        "scripts": []
+      },
+      "Pitch glides": {
+        "pages": [
+          {
+            "id": "SP-CONT-003",
+            "code": "",
+            "title": "גלישות קול",
+            "english": "Pitch glides",
+            "subtitle": "הרפתקה קטנה לקול שלך!",
+            "lead": "שב זקוף.\nקח נשימה עמוקה.\nגלוש עם הקול מעלה ומטה.",
+            "equipment": "",
+            "safety": "",
+            "type": "Video",
+            "scripts": [
+              "sp-pitch-glides"
+            ]
+          }
+        ],
+        "scripts": []
+      },
+      "Reading": {
+        "pages": [
+          {
+            "id": "SP-CONT-004",
+            "code": "",
+            "title": "בשידור חי",
+            "english": "On the Air",
+            "subtitle": "אתם בשידור! קראו בקול חזק וברור.",
+            "lead": "שב זקוף.\nקח נשימה עמוקה.\nקרא ברור ובקצב נוח.",
+            "equipment": "",
+            "safety": "",
+            "type": "Video",
+            "scripts": [
+              "sp-reading"
+            ]
+          }
+        ],
+        "scripts": []
+      },
+      "Speech Reading": {
+        "pages": [
+          {
+            "id": "SP-CONT-004",
+            "code": "",
+            "title": "בשידור חי",
+            "english": "On the Air",
+            "subtitle": "אתם בשידור! קראו בקול חזק וברור.",
+            "lead": "שב זקוף.\nקח נשימה עמוקה.\nקרא ברור ובקצב נוח.",
+            "equipment": "",
+            "safety": "",
+            "type": "Video",
+            "scripts": [
+              "sp-reading"
+            ]
+          }
+        ],
+        "scripts": []
+      },
+      "TipTap": {
+        "pages": [
+          {
+            "id": "OT-CONT-002",
+            "code": "",
+            "title": "טיפ טאפ",
+            "english": "Tip Tap",
+            "subtitle": "תרגול תנועות מהירות ומדויקות",
+            "lead": "הנח את הטלפון על שולחן או משטח יציב.\nשב בנוחות כשהגב זקוף.\nמומלץ להשתמש באוזניות לחוויה מיטבית.\nבדרך כלל, כדאי לתרגל בין 30 ל־150 דקות אחרי נטילת התרופה.",
+            "equipment": "",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          }
+        ],
+        "scripts": []
+      },
+      "Orchestra": {
+        "pages": [
+          {
+            "id": "OT-CONT-001",
+            "code": "",
+            "title": "מפגש נגינה",
+            "english": "Jam Session",
+            "subtitle": "תרגול תנועות אצבע עם כלי נגינה",
+            "lead": "הנח את הטלפון על שולחן או משטח יציב.\nשב בנוחות כשהגב זקוף.\nמומלץ להשתמש באוזניות לחוויה מיטבית.\nבדרך כלל, כדאי לתרגל בין 30 ל־150 דקות אחרי נטילת התרופה.",
+            "equipment": "",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          }
+        ],
+        "scripts": []
+      },
+      "Maze play": {
+        "pages": [
+          {
+            "id": "CO-CONT-003",
+            "code": "",
+            "title": "המבוך",
+            "english": "The Maze",
+            "subtitle": "ניווט מרחבי: לתת לצליל להוביל",
+            "lead": "מצא מקום שקט בו תוכל לשחק בלי הפרעות.\nשב בנוחות כשכיסוי העיניים שלך בהישג יד.\n סמוך על האוזניים ועל הזכרון שיקחו אותך לאן שצריך.\nבדרך כלל החוויה המיטבית תהיה 30-150 דקות לאחר נטילת התרופה.",
+            "equipment": "שמע פעיל\nכיסוי עיניים",
+            "safety": "",
+            "type": "Video",
+            "scripts": []
+          }
+        ],
+        "scripts": []
+      }
+    },
+    "scripts": {
+      "ot-dry-run": {
+        "title": "כל סרטוני ההסבר עבור dry run 28.7.docx",
+        "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Occupational Therapy/תסריטים/כל סרטוני ההסבר עבור dry run 28.7.docx",
+        "updated_at": "2026-07-29T14:20:56Z",
+        "path": "sources/module-scripts/ot-dry-run.json"
+      },
+      "ot-prompter-23-8": {
+        "title": "קובץ לפרומפטר 23.8.26.docx",
+        "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Occupational Therapy/תסריטים/קובץ לפרומפטר 23.8.26.docx",
+        "updated_at": "2026-08-23T12:09:58Z",
+        "path": "sources/module-scripts/ot-prompter-23-8.json"
+      },
+      "ot-prompter-merged": {
+        "title": "קובץ תסריטים מאוחד לפרומפטר - 5.8.26.docx",
+        "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Occupational Therapy/תסריטים/קובץ תסריטים מאוחד לפרומפטר - 5.8.26.docx",
+        "updated_at": "2026-09-23T11:09:10Z",
+        "path": "sources/module-scripts/ot-prompter-merged.json"
+      },
+      "pt-A1": {
+        "title": "טריילר + אימון A1.docx",
+        "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Physical Therapy/Scripts/טריילר + אימון A1.docx",
+        "updated_at": "2026-08-21T09:31:21Z",
+        "path": "sources/module-scripts/pt-A1.json"
+      },
+      "pt-A2": {
+        "title": "A2 טריילר + אימונים.docx",
+        "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Physical Therapy/Scripts/A2 טריילר + אימונים.docx",
+        "updated_at": "2026-08-21T09:59:08Z",
+        "path": "sources/module-scripts/pt-A2.json"
+      },
+      "pt-A3": {
+        "title": "A3 טריילר + אימונים.docx",
+        "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Physical Therapy/Scripts/A3 טריילר + אימונים.docx",
+        "updated_at": "2026-09-04T09:14:18Z",
+        "path": "sources/module-scripts/pt-A3.json"
+      },
+      "pt-B1": {
+        "title": "B1 טריילר + אימונים.docx",
+        "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Physical Therapy/Scripts/B1 טריילר + אימונים.docx",
+        "updated_at": "2026-10-11T09:40:44Z",
+        "path": "sources/module-scripts/pt-B1.json"
+      },
+      "pt-B2": {
+        "title": "B2 טריילר + אימונים.docx",
+        "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Physical Therapy/Scripts/B2 טריילר + אימונים.docx",
+        "updated_at": "2026-08-21T10:13:17Z",
+        "path": "sources/module-scripts/pt-B2.json"
+      },
+      "sp-pitch-glides": {
+        "title": "אינטרו גלישות קול.docx",
+        "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Speech Therapy/תסריטים מקוריים/אינטרו גלישות קול.docx",
+        "updated_at": "2026-08-25T11:53:12Z",
+        "path": "sources/module-scripts/sp-pitch-glides.json"
+      },
+      "sp-reading": {
+        "title": "אינטרו לבשידור חי.docx",
+        "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Speech Therapy/תסריטים מקוריים/אינטרו לבשידור חי.docx",
+        "updated_at": "2026-08-25T10:11:53Z",
+        "path": "sources/module-scripts/sp-reading.json"
+      },
+      "sp-sustained": {
+        "title": "אינטרו להקול יכול.docx",
+        "url": "https://remepyhealth.sharepoint.com/sites/Therapeutics/Shared Documents/PD/APP Final Content/Speech Therapy/תסריטים מקוריים/אינטרו להקול יכול.docx",
+        "updated_at": "2026-09-15T09:12:48Z",
+        "path": "sources/module-scripts/sp-sustained.json"
+      }
+    }
   },
   "assumptions": [
     "The V0 session numbers control the psychology sequence. App day 1 is orientation; psychology S01 is shown as app day 2. Weekly cycle alignment is editable because the sources do not define the exact offset.",

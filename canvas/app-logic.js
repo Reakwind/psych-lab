@@ -265,6 +265,25 @@
         facts: [['Duration (min)', String(x.minutes)], ['Rounds', x.rounds], ['Time since med (min)', x.med]].filter((r) => r[1]).map((r) => ({ k: r[0], v: r[1] })),
         statusHead: 'Status 1st month · ' + (st.area || '') + ' · ' + (st.item || ''),
         status: [['Trailers', st.trailers], ['Content', st.content], ['Non Video Content', st.non_video_content], ['Copy', st.copy], ['', st.note]].filter((r) => r[1]).map((r) => ({ k: r[0], v: r[1] })) };
+      // The module's own pre-pages (content metadata) and scripts (sources/module-scripts), quoted as written.
+      const pages = x.pages || [], sub = s.sub, lines = (text) => (text || '').split('\n').filter((l) => l.trim()).map((l) => ({ t: l }));
+      const pick = sub.page !== undefined ? sub.page : Math.max(0, pages.findIndex((pg) => pg.month1));
+      const page = pages[pick];
+      Object.assign(v.mod, {
+        hasPages: pages.length > 0, noPages: pages.length === 0, many: pages.length > 1,
+        choices: pages.map((pg, k) => ({ title: pg.title, sub: pg.subtitle, month1: pg.month1, cls: k === pick ? 'is-picked' : '',
+          pick: () => this.setSub({ page: k, script: null }) })),
+        title: page ? page.title : '', subtitle: page ? page.subtitle : '', hasSubtitle: !!(page && page.subtitle),
+        lead: page ? lines(page.lead) : [], hasLead: !!(page && page.lead), equipment: page ? lines(page.equipment) : [], hasEquipment: !!(page && page.equipment),
+        safety: page ? page.safety : '', hasSafety: !!(page && page.safety), pageId: page ? page.id + ' · content metadata' : '' });
+      const slugs = (page ? page.scripts : []).concat(x.scripts || []);
+      v.mod.scripts = slugs.map((slug) => {
+        const sc = D.protocol.scripts[slug], shown = sub.script === slug;
+        return { label: (shown ? 'Hide script · ' : 'Script · ') + sc.title, meta: sc.path + ' · modified ' + sc.updated, shown, paras: shown ? sc.paras.map((q) => ({ t: q })) : [],
+          toggle: () => this.setSub({ script: shown ? null : slug }) };
+      });
+      v.mod.hasScripts = slugs.length > 0;
+      v.mod.noScript = !!page && slugs.length === 0;
       v.modGo = () => this.passModule(step);
     }
     const unlockedLib = D.library.filter((x) => this.met(app, x));

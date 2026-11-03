@@ -211,9 +211,38 @@
 
 <!-- flow-markup.html -->
 <sc-if value="{{kModule}}" hint-placeholder-val="{{ false }}">
-<div class="screen scroll lab" style="gap: 14px; direction: ltr; text-align: left">
-  <p class="muted" style="margin: 0; font-size: 14px">{{mod.kicker}}</p>
-  <h1 class="t-headline">{{mod.name}}</h1>
+<div class="screen scroll" style="gap: 14px">
+  <p class="lab muted" style="margin: 0; font-size: 14px">{{mod.kicker}} · {{mod.name}}</p>
+  <sc-if value="{{mod.many}}" hint-placeholder-val="{{ false }}">
+    <div class="stack" style="gap: 6px">
+      <sc-for list="{{mod.choices}}" as="c" hint-placeholder-count="6">
+        <button class="list-row {{c.cls}}" onClick="{{c.pick}}" style="min-height: 60px; padding: 8px 14px; text-align: right; flex-shrink: 0"><span class="list-text"><span class="list-title" style="font-size: 17px">{{c.title}}</span><span class="list-sub" style="font-size: 14px">{{c.sub}}</span></span><sc-if value="{{c.month1}}" hint-placeholder-val="{{ false }}"><span class="pill pill-primary lab" style="font-size: 12px; height: 26px">first month</span></sc-if></button>
+      </sc-for>
+    </div>
+  </sc-if>
+  <sc-if value="{{mod.hasPages}}" hint-placeholder-val="{{ true }}">
+    <div class="card card-white" style="padding: 18px; display: flex; flex-direction: column; gap: 10px">
+      <h1 class="t-headline-s" style="margin: 0">{{mod.title}}</h1>
+      <sc-if value="{{mod.hasSubtitle}}" hint-placeholder-val="{{ true }}"><p class="t-title-s muted" style="margin: 0">{{mod.subtitle}}</p></sc-if>
+      <p class="gap">The video is not in the Lab copy (PD/APP Final Content holds it); its planned minutes count toward the day.</p>
+      <sc-if value="{{mod.hasLead}}" hint-placeholder-val="{{ true }}"><ul class="t-body" style="margin: 0; padding-right: 22px; padding-left: 0"><sc-for list="{{mod.lead}}" as="l" hint-placeholder-count="3"><li>{{l.t}}</li></sc-for></ul></sc-if>
+      <sc-if value="{{mod.hasEquipment}}" hint-placeholder-val="{{ false }}"><div class="stack" style="gap: 2px"><span class="lab muted" style="font-size: 13px">What you'll need</span><sc-for list="{{mod.equipment}}" as="l" hint-placeholder-count="2"><span style="font-size: 17px">{{l.t}}</span></sc-for></div></sc-if>
+      <sc-if value="{{mod.hasSafety}}" hint-placeholder-val="{{ false }}"><div class="stack" style="gap: 2px"><span class="lab muted" style="font-size: 13px">Safety</span><span style="font-size: 17px">{{mod.safety}}</span></div></sc-if>
+      <span class="lab muted" style="font-size: 12px">{{mod.pageId}}</span>
+    </div>
+  </sc-if>
+  <sc-if value="{{mod.hasScripts}}" hint-placeholder-val="{{ false }}">
+    <sc-for list="{{mod.scripts}}" as="sc" hint-placeholder-count="1">
+      <div class="card card-low" style="padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
+        <button class="btn btn-text" onClick="{{sc.toggle}}" style="align-self: flex-start; height: auto; min-height: 44px; padding: 6px 8px; text-align: right"><span class="icon icon-s">description</span>{{sc.label}}</button>
+        <span class="lab muted" style="font-size: 12px">{{sc.meta}}</span>
+        <sc-if value="{{sc.shown}}" hint-placeholder-val="{{ false }}"><div class="stack" style="gap: 6px"><sc-for list="{{sc.paras}}" as="q" hint-placeholder-count="4"><p style="margin: 0; font-size: 16px; line-height: 25px">{{q.t}}</p></sc-for></div></sc-if>
+      </div>
+    </sc-for>
+  </sc-if>
+  <sc-if value="{{mod.noScript}}" hint-placeholder-val="{{ false }}"><p class="gap"><strong>No script in the Lab</strong> · for this page</p></sc-if>
+  <sc-if value="{{mod.noPages}}" hint-placeholder-val="{{ false }}"><p class="gap"><strong>Not linked yet</strong> · no intro page from the content metadata is linked to this slot in the Lab</p></sc-if>
+<div class="lab stack" style="gap: 14px; direction: ltr; text-align: left">
   <div class="card card-low" style="padding: 12px 16px">
     <sc-for list="{{mod.facts}}" as="r" hint-placeholder-count="3"><div class="row" style="justify-content: space-between; gap: 12px; padding: 5px 0"><span class="muted">{{r.k}}</span><span style="font-weight: 600; text-align: right">{{r.v}}</span></div></sc-for>
   </div>
@@ -221,7 +250,7 @@
     <p class="muted" style="margin: 0 0 4px; font-size: 14px">{{mod.statusHead}}</p>
     <sc-for list="{{mod.status}}" as="r" hint-placeholder-count="4"><div class="row" style="justify-content: space-between; gap: 12px; padding: 5px 0"><span class="muted">{{r.k}}</span><span style="font-weight: 600; text-align: right">{{r.v}}</span></div></sc-for>
   </div>
-  <p class="gap"><strong>Not in the Lab</strong> · this module's screens and media were not supplied. Its planned minutes count toward the day; nothing plays here.</p>
+</div>
 </div>
 <div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block" onClick="{{modGo}}">{{U.continue}}</button></div>
 </sc-if>
