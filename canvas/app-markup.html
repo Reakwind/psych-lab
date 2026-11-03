@@ -216,7 +216,7 @@
   <sc-if value="{{mod.many}}" hint-placeholder-val="{{ false }}">
     <div class="stack" style="gap: 6px">
       <sc-for list="{{mod.choices}}" as="c" hint-placeholder-count="6">
-        <button class="list-row {{c.cls}}" onClick="{{c.pick}}" style="min-height: 60px; padding: 8px 14px; text-align: right; flex-shrink: 0"><span class="list-text"><span class="list-title" style="font-size: 17px">{{c.title}}</span><span class="list-sub" style="font-size: 14px">{{c.sub}}</span></span><sc-if value="{{c.month1}}" hint-placeholder-val="{{ false }}"><span class="pill pill-primary lab" style="font-size: 12px; height: 26px">first month</span></sc-if></button>
+        <button class="list-row {{c.cls}}" onClick="{{c.pick}}" style="min-height: 60px; padding: 8px 14px; text-align: right; flex-shrink: 0"><span class="list-text"><span class="list-title" style="font-size: 17px">{{c.title}}</span><span class="list-sub" style="font-size: 14px">{{c.sub}}</span><sc-if value="{{c.hasNote}}" hint-placeholder-val="{{ false }}"><span class="lab muted" style="font-size: 12px">{{c.note}}</span></sc-if></span><sc-if value="{{c.month1}}" hint-placeholder-val="{{ false }}"><span class="pill pill-primary lab" style="font-size: 12px; height: 26px">first month</span></sc-if></button>
       </sc-for>
     </div>
   </sc-if>

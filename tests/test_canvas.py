@@ -69,7 +69,7 @@ class CanvasBoards(unittest.TestCase):
         modules, scripts = program['protocol']['modules'], program['protocol']['scripts']
         for day in program['protocol']['light']['days'] + program['protocol']['heavy']['days']:
             for item in day:
-                if item['activity'] not in ('Mindset', 'Lived experience', 'Dance practice'):
+                if item['activity'] != 'Mindset':
                     self.assertTrue(modules[item['activity']]['pages'], item['activity'])
         sources = json.loads((ROOT / 'source-material.json').read_text())['files']
         for slug, sc in scripts.items():

@@ -341,10 +341,12 @@ protocol['status']=status_rows
 # (cell text as written; 'Before you begin' in its male form, as the psychology pre-pages use), and the
 # Word scripts in sources/module-scripts that narrate them. A PT workout's script is the file named by the
 # workout code in its title; the OT and speech-free rows have none or share the OT files.
-module_rows={r[2]:r for r in sheets(read('metadata')['content'])[1] if len(r)>26 and re.fullmatch(r'(PT|OT|SP|CO)-CONT-\d+',r[2])}
+module_rows={r[2]:r for r in sheets(read('metadata')['content'])[1] if len(r)>26 and re.fullmatch(r'(PT|OT|SP|CO|DA|DM)-CONT-\d+',r[2])}
 MODULE_PAGES={'PT practice':['PT-CONT-%03d'%i for i in range(1,7)],'OT practice':['OT-CONT-%03d'%i for i in range(3,12)],
               'Sustained P':['SP-CONT-005'],'Pitch glides':['SP-CONT-003'],'Reading':['SP-CONT-004'],'Speech Reading':['SP-CONT-004'],
-              'TipTap':['OT-CONT-002'],'Orchestra':['OT-CONT-001'],'Maze play':['CO-CONT-003']}
+              'TipTap':['OT-CONT-002'],'Orchestra':['OT-CONT-001'],'Maze play':['CO-CONT-003'],
+              # Dance: the dance-session videos (not the library-only music or extras); lived experience: its videos.
+              'Dance practice':['DA-CONT-%03d'%i for i in range(2,38)],'Lived experience':['DM-CONT-%03d'%i for i in range(37,44)]}
 PAGE_SCRIPTS={'SP-CONT-003':['sp-pitch-glides'],'SP-CONT-004':['sp-reading'],'SP-CONT-005':['sp-sustained'],'CO-CONT-003':['co-maze-why']}
 # The game intros share the OT prompter file: each page quotes its own section, from its heading to the next one.
 PAGE_EXCERPTS={'OT-CONT-001':[{'script':'ot-prompter-23-8','from':'אינטרו - אצבעות מנגנות','to':'אינטרו לטיפ טפ'}],
@@ -358,7 +360,7 @@ for name,ids in MODULE_PAGES.items():
         r=module_rows[cid]
         code=re.match(r'([A-C]\d):',r[6].strip())
         scripts=PAGE_SCRIPTS.get(cid,[])+([f'pt-{code[1]}'] if cid.startswith('PT-') and code and (script_dir/f'pt-{code[1]}.json').exists() else [])
-        pages.append({'id':cid,'code':code[1] if code else '','title':r[6].strip(),'english':r[7].strip(),'subtitle':r[8].strip(),'lead':r[20].strip(),
+        pages.append({'id':cid,'code':code[1] if code else '','internal':r[4].strip(),'title':r[6].strip(),'english':r[7].strip(),'subtitle':r[8].strip(),'lead':r[20].strip(),
                       'equipment':r[23].strip(),'safety':r[26].strip(),'type':r[10].strip(),'scripts':scripts,'excerpts':PAGE_EXCERPTS.get(cid,[])})
     modules[name]={'pages':pages,'scripts':MODULE_SCRIPTS.get(name,[])}
 protocol['modules']=modules

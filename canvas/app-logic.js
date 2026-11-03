@@ -271,7 +271,9 @@
       const page = pages[pick];
       Object.assign(v.mod, {
         hasPages: pages.length > 0, noPages: pages.length === 0, many: pages.length > 1,
+        // Rows sharing one title (the lived-experience videos) are told apart by their internal working title.
         choices: pages.map((pg, k) => ({ title: pg.title, sub: pg.subtitle, month1: pg.month1, cls: k === pick ? 'is-picked' : '',
+          note: pages.filter((o) => o.title === pg.title).length > 1 ? pg.internal : '', hasNote: pages.filter((o) => o.title === pg.title).length > 1,
           pick: () => this.setSub({ page: k, script: null }) })),
         title: page ? page.title : '', subtitle: page ? page.subtitle : '', hasSubtitle: !!(page && page.subtitle),
         lead: page ? lines(page.lead) : [], hasLead: !!(page && page.lead), equipment: page ? lines(page.equipment) : [], hasEquipment: !!(page && page.equipment),
