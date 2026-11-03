@@ -80,15 +80,15 @@
     <span class="pill lab" style="align-self: flex-start; position: relative; background: rgba(255,255,255,.7); color: var(--on-primary-container); font-size: 13px">{{dayChip}}</span>
     <ol class="stack" style="gap: 6px; margin: 0; padding: 0; list-style: none; position: relative">
       <sc-for list="{{dayRows}}" as="r" hint-placeholder-count="5">
-        <li><button class="row" onClick="{{r.open}}" style="width: 100%; gap: 12px; align-items: center; border: none; background: rgba(255,255,255,.6); border-radius: 16px; padding: 8px 10px; cursor: pointer; color: inherit; text-align: right; min-height: 60px; box-sizing: border-box">
+        <li><button class="row {{r.rowCls}}" onClick="{{r.open}}" style="width: 100%; gap: 12px; align-items: center; border: none; border-radius: 16px; padding: 8px 10px; cursor: pointer; color: inherit; text-align: right; min-height: 60px; box-sizing: border-box">
           <span class="list-lead {{r.lead}}" style="width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0"><span class="icon icon-s">{{r.icon}}</span></span>
           <span class="stack" style="gap: 0; flex: 1 1 auto; min-width: 0">
-            <sc-if value="{{r.psych}}" hint-placeholder-val="{{ false }}"><span style="font-size: 17px; line-height: 22px; font-weight: 600">{{r.title}}</span></sc-if>
-            <sc-if value="{{r.module}}" hint-placeholder-val="{{ true }}"><span class="lab" style="font-size: 17px; line-height: 22px; font-weight: 600">{{r.name}}</span></sc-if>
+            <sc-if value="{{r.hasTitle}}" hint-placeholder-val="{{ false }}"><span style="font-size: 17px; line-height: 22px; font-weight: 600">{{r.title}}</span></sc-if>
+            <sc-if value="{{r.noTitle}}" hint-placeholder-val="{{ true }}"><span class="lab" style="font-size: 17px; line-height: 22px; font-weight: 600">{{r.name}}</span></sc-if>
             <span class="t-label-s lab" style="opacity: .8">{{r.sub}}</span>
           </span>
           <sc-if value="{{r.done}}" hint-placeholder-val="{{ false }}"><span class="icon icon-fill" style="color: var(--primary)">check_circle</span></sc-if>
-          <sc-if value="{{r.slot}}" hint-placeholder-val="{{ true }}"><span class="pill pill-amber lab" style="font-size: 12px; height: 26px">not in the Lab</span></sc-if>
+          <sc-if value="{{r.slot}}" hint-placeholder-val="{{ true }}"><span class="pill pill-amber lab" style="font-size: 12px; height: 26px">placeholder</span></sc-if>
           <sc-if value="{{r.todo}}" hint-placeholder-val="{{ false }}"><span class="icon muted mirror-rtl">chevron_right</span></sc-if>
         </button></li>
       </sc-for>
@@ -213,6 +213,19 @@
 <sc-if value="{{kModule}}" hint-placeholder-val="{{ false }}">
 <div class="screen scroll" style="gap: 14px">
   <p class="lab muted" style="margin: 0; font-size: 14px">{{mod.kicker}} · {{mod.name}}</p>
+  <div class="slot-video lab"><span class="icon icon-xl icon-fill">smart_display</span><span>Module video · placeholder</span><span style="font-size: 12px; opacity: .75">Not in the Lab copy (PD/APP Final Content holds it); its planned minutes count toward the day.</span></div>
+  <sc-if value="{{mod.hasPages}}" hint-placeholder-val="{{ true }}">
+    <div class="stack" style="gap: 8px">
+      <h1 class="t-headline-s" style="margin: 0">{{mod.title}}</h1>
+      <sc-if value="{{mod.hasSubtitle}}" hint-placeholder-val="{{ true }}"><p class="t-title-s muted" style="margin: 0">{{mod.subtitle}}</p></sc-if>
+      <sc-if value="{{mod.hasLead}}" hint-placeholder-val="{{ true }}"><ul class="t-body" style="margin: 0; padding-right: 22px; padding-left: 0"><sc-for list="{{mod.lead}}" as="l" hint-placeholder-count="3"><li>{{l.t}}</li></sc-for></ul></sc-if>
+      <span class="lab muted" style="font-size: 12px">{{mod.pageId}}</span>
+    </div>
+  </sc-if>
+  <sc-if value="{{mod.noPages}}" hint-placeholder-val="{{ false }}"><p class="gap"><strong>Not linked yet</strong> · no intro page from the content metadata is linked to this slot in the Lab</p></sc-if>
+  <button class="btn btn-text lab" onClick="{{mod.toggleDetails}}" style="align-self: flex-start; height: auto; min-height: 44px; padding: 6px 8px; direction: ltr"><span class="icon icon-s">tune</span>{{mod.detailsLabel}}</button>
+  <sc-if value="{{mod.details}}" hint-placeholder-val="{{ false }}">
+  <div class="stack" style="gap: 14px">
   <sc-if value="{{mod.many}}" hint-placeholder-val="{{ false }}">
     <div class="stack" style="gap: 6px">
       <sc-for list="{{mod.choices}}" as="c" hint-placeholder-count="6">
@@ -220,17 +233,8 @@
       </sc-for>
     </div>
   </sc-if>
-  <sc-if value="{{mod.hasPages}}" hint-placeholder-val="{{ true }}">
-    <div class="card card-white" style="padding: 18px; display: flex; flex-direction: column; gap: 10px">
-      <h1 class="t-headline-s" style="margin: 0">{{mod.title}}</h1>
-      <sc-if value="{{mod.hasSubtitle}}" hint-placeholder-val="{{ true }}"><p class="t-title-s muted" style="margin: 0">{{mod.subtitle}}</p></sc-if>
-      <p class="gap">The video is not in the Lab copy (PD/APP Final Content holds it); its planned minutes count toward the day.</p>
-      <sc-if value="{{mod.hasLead}}" hint-placeholder-val="{{ true }}"><ul class="t-body" style="margin: 0; padding-right: 22px; padding-left: 0"><sc-for list="{{mod.lead}}" as="l" hint-placeholder-count="3"><li>{{l.t}}</li></sc-for></ul></sc-if>
-      <sc-if value="{{mod.hasEquipment}}" hint-placeholder-val="{{ false }}"><div class="stack" style="gap: 2px"><span class="lab muted" style="font-size: 13px">What you'll need</span><sc-for list="{{mod.equipment}}" as="l" hint-placeholder-count="2"><span style="font-size: 17px">{{l.t}}</span></sc-for></div></sc-if>
-      <sc-if value="{{mod.hasSafety}}" hint-placeholder-val="{{ false }}"><div class="stack" style="gap: 2px"><span class="lab muted" style="font-size: 13px">Safety</span><span style="font-size: 17px">{{mod.safety}}</span></div></sc-if>
-      <span class="lab muted" style="font-size: 12px">{{mod.pageId}}</span>
-    </div>
-  </sc-if>
+  <sc-if value="{{mod.hasEquipment}}" hint-placeholder-val="{{ false }}"><div class="stack" style="gap: 2px"><span class="lab muted" style="font-size: 13px">What you'll need</span><sc-for list="{{mod.equipment}}" as="l" hint-placeholder-count="2"><span style="font-size: 17px">{{l.t}}</span></sc-for></div></sc-if>
+  <sc-if value="{{mod.hasSafety}}" hint-placeholder-val="{{ false }}"><div class="stack" style="gap: 2px"><span class="lab muted" style="font-size: 13px">Safety</span><span style="font-size: 17px">{{mod.safety}}</span></div></sc-if>
   <sc-if value="{{mod.hasScripts}}" hint-placeholder-val="{{ false }}">
     <sc-for list="{{mod.scripts}}" as="sc" hint-placeholder-count="1">
       <div class="card card-low" style="padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
@@ -242,16 +246,17 @@
     </sc-for>
   </sc-if>
   <sc-if value="{{mod.noScript}}" hint-placeholder-val="{{ false }}"><p class="gap"><strong>No script in the Lab</strong> · for this page</p></sc-if>
-  <sc-if value="{{mod.noPages}}" hint-placeholder-val="{{ false }}"><p class="gap"><strong>Not linked yet</strong> · no intro page from the content metadata is linked to this slot in the Lab</p></sc-if>
-<div class="lab stack" style="gap: 14px; direction: ltr; text-align: left">
-  <div class="card card-low" style="padding: 12px 16px">
-    <sc-for list="{{mod.facts}}" as="r" hint-placeholder-count="3"><div class="row" style="justify-content: space-between; gap: 12px; padding: 5px 0"><span class="muted">{{r.k}}</span><span style="font-weight: 600; text-align: right">{{r.v}}</span></div></sc-for>
+  <div class="lab stack" style="gap: 14px; direction: ltr; text-align: left">
+    <div class="card card-low" style="padding: 12px 16px">
+      <sc-for list="{{mod.facts}}" as="r" hint-placeholder-count="3"><div class="row" style="justify-content: space-between; gap: 12px; padding: 5px 0"><span class="muted">{{r.k}}</span><span style="font-weight: 600; text-align: right">{{r.v}}</span></div></sc-for>
+    </div>
+    <div class="card card-low" style="padding: 12px 16px">
+      <p class="muted" style="margin: 0 0 4px; font-size: 14px">{{mod.statusHead}}</p>
+      <sc-for list="{{mod.status}}" as="r" hint-placeholder-count="4"><div class="row" style="justify-content: space-between; gap: 12px; padding: 5px 0"><span class="muted">{{r.k}}</span><span style="font-weight: 600; text-align: right">{{r.v}}</span></div></sc-for>
+    </div>
   </div>
-  <div class="card card-low" style="padding: 12px 16px">
-    <p class="muted" style="margin: 0 0 4px; font-size: 14px">{{mod.statusHead}}</p>
-    <sc-for list="{{mod.status}}" as="r" hint-placeholder-count="4"><div class="row" style="justify-content: space-between; gap: 12px; padding: 5px 0"><span class="muted">{{r.k}}</span><span style="font-weight: 600; text-align: right">{{r.v}}</span></div></sc-for>
   </div>
-</div>
+  </sc-if>
 </div>
 <div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block" onClick="{{modGo}}">{{U.continue}}</button></div>
 </sc-if>

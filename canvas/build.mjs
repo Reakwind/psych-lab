@@ -699,6 +699,10 @@ body{margin:0}
 .orb{width:180px;height:180px;border-radius:50%;background:#B3EFE4;margin:0 auto;transition:transform .1s linear}
 .app .screen.scroll > *{flex-shrink:0}
 .list-row.is-picked{background:var(--primary-container);box-shadow:inset 0 0 0 2px var(--primary)}
+.day-slot{background:rgba(255,255,255,.45)}
+.day-slot .list-lead{opacity:.7}
+.day-psych{background:#FFFFFF;box-shadow:inset 0 0 0 2px var(--primary)}
+.slot-video{aspect-ratio:16/9;width:100%;border-radius:20px;background:repeating-linear-gradient(135deg,var(--surface-high) 0 14px,var(--surface-container) 14px 28px);color:var(--on-surface-variant);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:16px;box-sizing:border-box;font-size:15px;font-weight:600}
 .where{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--on-surface-variant)}
 .wk{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1 1 0}
 .wk-dot{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;box-sizing:border-box}

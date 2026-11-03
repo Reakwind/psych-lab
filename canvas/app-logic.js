@@ -242,8 +242,11 @@
     v.dayChip = sheet + ' week · day ' + cyc + ' of 7 · ' + planned + ' min';
     v.dayRows = plan.map((x, k) => {
       const done = x.psych ? !!t.done : this.moduleDone(app, k), look = x.psych ? ['lead-audio', 'psychology'] : looks[x.category] || looks.Practice;
-      return { psych: x.psych, module: !x.psych, name: x.name, title: x.psych ? v.heroTitle : '', sub: x.category + ' · ' + x.minutes + ' min',
-        lead: look[0], icon: look[1], done, slot: !x.psych && !done, todo: x.psych && !done,
+      // A module row carries its first-month intro page title, quoted from the content metadata, when one is linked.
+      const pg = x.psych ? null : (x.pages || []).find((q) => q.month1) || (x.pages || [])[0];
+      return { psych: x.psych, module: !x.psych, name: x.name, title: x.psych ? v.heroTitle : pg ? pg.title : '', hasTitle: x.psych || !!pg, noTitle: !x.psych && !pg,
+        sub: (x.psych ? 'Psychology · ' : pg ? x.name + ' · ' : '') + x.category + ' · ' + x.minutes + ' min',
+        rowCls: x.psych ? 'day-psych' : 'day-slot', lead: look[0], icon: look[1], done, slot: !x.psych && !done, todo: x.psych && !done,
         open: () => (x.psych ? (t.kind === 'session' ? this.startSession(t.s) : this.startLoop(t.loop)) : this.startModule(k, x)) };
     });
     const dayLeft = v.dayRows.some((r) => !r.done);
@@ -274,7 +277,7 @@
         // Rows sharing one title (the lived-experience videos) are told apart by their internal working title.
         choices: pages.map((pg, k) => ({ title: pg.title, sub: pg.subtitle, month1: pg.month1, cls: k === pick ? 'is-picked' : '',
           note: pages.filter((o) => o.title === pg.title).length > 1 ? pg.internal : '', hasNote: pages.filter((o) => o.title === pg.title).length > 1,
-          pick: () => this.setSub({ page: k, script: null }) })),
+          pick: () => this.setSub({ page: k, script: null, details: true }) })),
         title: page ? page.title : '', subtitle: page ? page.subtitle : '', hasSubtitle: !!(page && page.subtitle),
         lead: page ? lines(page.lead) : [], hasLead: !!(page && page.lead), equipment: page ? lines(page.equipment) : [], hasEquipment: !!(page && page.equipment),
         safety: page ? page.safety : '', hasSafety: !!(page && page.safety), pageId: page ? page.id + ' · content metadata' : '' });
@@ -286,6 +289,10 @@
       });
       v.mod.hasScripts = slugs.length > 0;
       v.mod.noScript = !!page && slugs.length === 0;
+      // The slot stays a light placeholder in the day; workouts, scripts and protocol facts sit behind one lab toggle.
+      v.mod.details = !!sub.details;
+      v.mod.detailsLabel = sub.details ? 'Hide lab details' : 'Lab details · ' + (pages.length > 1 ? pages.length + ' pages, ' : '') + slugs.length + ' script' + (slugs.length === 1 ? '' : 's') + ', protocol facts';
+      v.mod.toggleDetails = () => this.setSub({ details: !sub.details });
       v.modGo = () => this.passModule(step);
     }
     const unlockedLib = D.library.filter((x) => this.met(app, x));
