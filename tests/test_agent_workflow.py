@@ -368,6 +368,10 @@ class GitIntegration(unittest.TestCase):
             self.assertIsNone(workflow.reserved(c))
             with self.assertRaisesRegex(ValueError, 'not claimed'):
                 workflow.reserved(task(scope=['owned.txt', 'other.txt']))
+            # Once squash-merged (manifest on main), the branch is finished: no more work on it.
+            self.run_git('update-ref', 'refs/remotes/origin/main', 'HEAD')
+            with self.assertRaisesRegex(ValueError, 'already merged'):
+                workflow.reserved(c)
         published = {'number': 3, **pr(3, c)}
         with patch.object(workflow, 'open_prs', return_value=[published]):
             self.assertEqual(workflow.reserved(c), published)

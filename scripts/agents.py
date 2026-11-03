@@ -206,7 +206,11 @@ def reserved(c):
         if published_contract(prs[0]) != c:
             raise ValueError('The task contract differs from the published claim. Coordinate scope changes before continuing.')
         return prs[0]
-    recorded = subprocess.run(['git', 'show', 'HEAD:' + str(task_path(c).relative_to(ROOT))], cwd=ROOT, capture_output=True, text=True)
+    manifest = str(task_path(c).relative_to(ROOT))
+    # A task whose manifest is on main was squash-merged: its branch is finished and never reused.
+    if not subprocess.run(['git', 'cat-file', '-e', f'origin/main:{manifest}'], cwd=ROOT, capture_output=True).returncode:
+        raise ValueError(f"Task {c['task']} is already merged: start the next task with agents.py next.")
+    recorded = subprocess.run(['git', 'show', 'HEAD:' + manifest], cwd=ROOT, capture_output=True, text=True)
     if recorded.returncode or json.loads(recorded.stdout) != c:
         raise ValueError('This task is not claimed on this branch: run agents.py claim first.')
     return None
