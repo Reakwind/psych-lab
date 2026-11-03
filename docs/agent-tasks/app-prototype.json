@@ -12,7 +12,9 @@
     "docs/ARCHITECTURE.md",
     "canvas/flow-markup.html",
     "canvas/phone-markup.html",
-    "canvas/phone-logic.js"
+    "canvas/phone-logic.js",
+    "canvas/phone/",
+    "canvas/home/"
   ],
   "branch": "claude/gifted-goldberg-elib6d"
 }
