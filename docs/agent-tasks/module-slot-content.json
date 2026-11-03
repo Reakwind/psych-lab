@@ -1,0 +1,17 @@
+{
+  "task": "module-slot-content",
+  "agent": "claude-app-prototype",
+  "scope": [
+    "psych-lab/intervention/build.py",
+    "psych-lab/intervention/program.json",
+    "sources/module-scripts/",
+    "source-material.json",
+    "canvas/app-logic.js",
+    "canvas/app-markup.html",
+    "canvas/build.mjs",
+    "canvas/phone/",
+    "tests/test_canvas.py",
+    "docs/ARCHITECTURE.md"
+  ],
+  "branch": "claude/gifted-goldberg-elib6d--module-slot-content"
+}
