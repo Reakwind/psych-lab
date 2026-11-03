@@ -9388,6 +9388,696 @@
       31
     ]
   },
+  "protocol": {
+    "light": {
+      "sheet": "Light speech",
+      "days": [
+        [
+          {
+            "activity": "PT practice",
+            "minutes": 15,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "TipTap",
+            "minutes": 5,
+            "rounds": "4",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 2,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ],
+        [
+          {
+            "activity": "OT practice",
+            "minutes": 10,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Dance practice",
+            "minutes": 6,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Maze play",
+            "minutes": 10,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 1,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ],
+        [
+          {
+            "activity": "PT practice",
+            "minutes": 15,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Speech Reading",
+            "minutes": 5,
+            "rounds": "1 (rounds are built into the exercise - pending usability tests)",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Orchestra",
+            "minutes": 5,
+            "rounds": "4",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 2,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ],
+        [
+          {
+            "activity": "OT practice",
+            "minutes": 10,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Dance practice",
+            "minutes": 5,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Maze play",
+            "minutes": 10,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 2,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ],
+        [
+          {
+            "activity": "PT practice",
+            "minutes": 15,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Speech Reading",
+            "minutes": 5,
+            "rounds": "1 (rounds are built into the exercise - pending usability tests)",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "TipTap",
+            "minutes": 5,
+            "rounds": "4",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 2,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ],
+        [
+          {
+            "activity": "OT practice",
+            "minutes": 10,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Dance practice",
+            "minutes": 5,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Maze play",
+            "minutes": 10,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 2,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ],
+        [
+          {
+            "activity": "PT practice",
+            "minutes": 15,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Orchestra",
+            "minutes": 5,
+            "rounds": "4",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 2,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ]
+      ]
+    },
+    "heavy": {
+      "sheet": "Heavy speech",
+      "days": [
+        [
+          {
+            "activity": "PT practice",
+            "minutes": 15,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Sustained P",
+            "minutes": 3,
+            "rounds": "1 (rounds are built into the exercise - pending usability tests)",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Reading",
+            "minutes": 5,
+            "rounds": "1 (rounds are built into the exercise - pending usability tests)",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "TipTap",
+            "minutes": 3,
+            "rounds": "2",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 2,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ],
+        [
+          {
+            "activity": "OT practice",
+            "minutes": 10,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Dance practice",
+            "minutes": 6,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Maze play",
+            "minutes": 10,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 1,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ],
+        [
+          {
+            "activity": "PT practice",
+            "minutes": 15,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Pitch glides",
+            "minutes": 3,
+            "rounds": "1 (rounds are built into the exercise - pending usability tests)",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Reading",
+            "minutes": 5,
+            "rounds": "1 (rounds are built into the exercise - pending usability tests)",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Orchestra",
+            "minutes": 3,
+            "rounds": "2",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 2,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ],
+        [
+          {
+            "activity": "OT practice",
+            "minutes": 10,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Dance practice",
+            "minutes": 5,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Maze play",
+            "minutes": 10,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 2,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ],
+        [
+          {
+            "activity": "PT practice",
+            "minutes": 15,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Sustained P",
+            "minutes": 3,
+            "rounds": "1 (rounds are built into the exercise - pending usability tests)",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Reading",
+            "minutes": 5,
+            "rounds": "1 (rounds are built into the exercise - pending usability tests)",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "TipTap",
+            "minutes": 3,
+            "rounds": "2",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 2,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ],
+        [
+          {
+            "activity": "OT practice",
+            "minutes": 10,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Dance practice",
+            "minutes": 5,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Maze play",
+            "minutes": 10,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 2,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ],
+        [
+          {
+            "activity": "PT practice",
+            "minutes": 15,
+            "rounds": "",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Pitch glides",
+            "minutes": 3,
+            "rounds": "1 (rounds are built into the exercise - pending usability tests)",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Reading",
+            "minutes": 5,
+            "rounds": "1 (rounds are built into the exercise - pending usability tests)",
+            "time_since_med": "30-150",
+            "category": "Practice"
+          },
+          {
+            "activity": "Orchestra",
+            "minutes": 3,
+            "rounds": "2",
+            "time_since_med": "30-150",
+            "category": "Play"
+          },
+          {
+            "activity": "Lived experience",
+            "minutes": 2,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          },
+          {
+            "activity": "Mindset",
+            "minutes": 3,
+            "rounds": "",
+            "time_since_med": "",
+            "category": "Mindset"
+          }
+        ]
+      ]
+    },
+    "status": [
+      {
+        "area": "Practice",
+        "item": "PT",
+        "trailers": "A1+B1",
+        "content": "A1+B1 * 3 Levels",
+        "non_video_content": "None",
+        "copy": "PM Ready",
+        "note": ""
+      },
+      {
+        "area": "Practice",
+        "item": "OT",
+        "trailers": "A1+B1+C1",
+        "content": "A1+B1+C1 * 3 Levels",
+        "non_video_content": "",
+        "copy": "Michal C",
+        "note": ""
+      },
+      {
+        "area": "Practice",
+        "item": "Dance",
+        "trailers": "None",
+        "content": "12 Videos",
+        "non_video_content": "",
+        "copy": "",
+        "note": ""
+      },
+      {
+        "area": "Practice",
+        "item": "Sustained P.",
+        "trailers": "1",
+        "content": "None",
+        "non_video_content": "None",
+        "copy": "Noam C",
+        "note": ""
+      },
+      {
+        "area": "Practice",
+        "item": "Pitch Glides",
+        "trailers": "1",
+        "content": "None",
+        "non_video_content": "None",
+        "copy": "Noam C",
+        "note": ""
+      },
+      {
+        "area": "Practice",
+        "item": "Reading",
+        "trailers": "1",
+        "content": "None",
+        "non_video_content": "Ready",
+        "copy": "Noam C",
+        "note": ""
+      },
+      {
+        "area": "Play",
+        "item": "Maze",
+        "trailers": "1",
+        "content": "None",
+        "non_video_content": "Ready",
+        "copy": "Ready",
+        "note": ""
+      },
+      {
+        "area": "Play",
+        "item": "Tiptap",
+        "trailers": "1",
+        "content": "None",
+        "non_video_content": "None",
+        "copy": "Michal C",
+        "note": ""
+      },
+      {
+        "area": "Play",
+        "item": "Orchestra",
+        "trailers": "1",
+        "content": "None",
+        "non_video_content": "Missing 40 Songs",
+        "copy": "Michal C",
+        "note": ""
+      },
+      {
+        "area": "Mindset",
+        "item": "Lived Experience",
+        "trailers": "",
+        "content": "28 Videos",
+        "non_video_content": "None",
+        "copy": "Yaara",
+        "note": "Gilad Y + patients"
+      },
+      {
+        "area": "Mindset",
+        "item": "Mindset Videos",
+        "trailers": "",
+        "content": "15 Videos",
+        "non_video_content": "None",
+        "copy": "",
+        "note": ""
+      },
+      {
+        "area": "Mindset",
+        "item": "Mindset Audio",
+        "trailers": "",
+        "content": "None",
+        "non_video_content": "None",
+        "copy": "",
+        "note": ""
+      },
+      {
+        "area": "Mindset",
+        "item": "Card game",
+        "trailers": "1",
+        "content": "None",
+        "non_video_content": "15",
+        "copy": "",
+        "note": ""
+      },
+      {
+        "area": "Mindset",
+        "item": "Inner Voice",
+        "trailers": "1",
+        "content": "None",
+        "non_video_content": "15",
+        "copy": "",
+        "note": ""
+      },
+      {
+        "area": "Mindset",
+        "item": "Mindful Moments",
+        "trailers": "1",
+        "content": "None",
+        "non_video_content": "15",
+        "copy": "",
+        "note": ""
+      },
+      {
+        "area": "Orientation",
+        "item": "Orientation",
+        "trailers": "",
+        "content": "6 Videos",
+        "non_video_content": "",
+        "copy": "",
+        "note": ""
+      }
+    ]
+  },
   "assumptions": [
     "The V0 session numbers control the psychology sequence. App day 1 is orientation; psychology S01 is shown as app day 2. Weekly cycle alignment is editable because the sources do not define the exact offset.",
     "Protocol.xlsx reserves 3 minutes for psychology. Its remaining minutes are shown as a comparison scenario, not verified actual app runtime.",

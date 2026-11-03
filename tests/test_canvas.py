@@ -57,6 +57,13 @@ class CanvasBoards(unittest.TestCase):
         self.assertEqual(len(re.findall(r'"n":\d+,"id":"S\d+"', app)), len(program['sessions']))
         self.assertEqual(len(re.findall(r'"day":\d,"id":"PS-ACT-\d+","spec":"Day \d', app)), 7)
         self.assertIn('class Component extends Player', app)
+        # The whole app day: both Protocol.xlsx weeks, seven days each, every day with one psychology (Mindset) slot,
+        # and each day's planned minutes adding up to the totals the manifest records.
+        for key in ('light', 'heavy'):
+            days = program['protocol'][key]['days']
+            self.assertEqual([sum(x['minutes'] for x in d) for d in days], program['daily_totals_minutes'][key])
+            self.assertTrue(all(sum(x['activity'] == 'Mindset' for x in d) == 1 for d in days))
+        self.assertEqual(app.count('"psych":true'), 14)
 
     def test_boards_only_use_media_their_own_canvas_holds(self):
         for name in ('home', 'activities', 'films', 'phone', 'original'):

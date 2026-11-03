@@ -21,6 +21,11 @@
     <button class="pbtn primary" onClick="{{jGo}}">Go to session {{jTarget}}</button>
   </div>
   <p class="muted">{{jTitle}}</p>
+  <h2>Today's app day · Protocol.xlsx</h2>
+  <div class="seg2"><button class="{{lightCls2}}" onClick="{{planLight2}}" aria-pressed="{{lightPressed2}}">Light speech week</button><button class="{{heavyCls2}}" onClick="{{planHeavy2}}" aria-pressed="{{heavyPressed2}}">Heavy speech week</button></div>
+  <sc-for list="{{rPlanRows}}" as="x" hint-placeholder-count="5"><div class="rowline"><span>{{x.name}} <span class="muted">· {{x.cat}}</span></span><span>{{x.minutes}}</span></div></sc-for>
+  <p><strong>{{rPlanTotal}}</strong></p>
+  <p class="muted">{{rPsychLine}} Every other module is a slot: the Lab holds its name, minutes and first-month status, not its screens or media. Cycle day 1 is app day 2; the sources do not fix this offset.</p>
   <h2>Missed-day rule · resume</h2>
   <p>Each day offers the next session not yet done, so missed days move the rest of the program later and nothing is skipped (owner decision, 2026-11-03).</p>
   <p class="quote">“{{specMissed}}” · {{specSource}}</p>
@@ -70,9 +75,29 @@
     </div>
   </sc-if>
 
+  <div class="card card-primary elev-1" style="padding: 20px; display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden">
+    <div class="art" style="position: absolute; left: -40px; top: -34px; width: 160px; height: 160px; opacity: .9"><div class="layer shape shape-sunny spin-slow" style="width: 160px; height: 160px; background: #8FD6CA"></div></div>
+    <span class="pill lab" style="align-self: flex-start; position: relative; background: rgba(255,255,255,.7); color: var(--on-primary-container); font-size: 13px">{{dayChip}}</span>
+    <ol class="stack" style="gap: 6px; margin: 0; padding: 0; list-style: none; position: relative">
+      <sc-for list="{{dayRows}}" as="r" hint-placeholder-count="5">
+        <li><button class="row" onClick="{{r.open}}" style="width: 100%; gap: 12px; align-items: center; border: none; background: rgba(255,255,255,.6); border-radius: 16px; padding: 8px 10px; cursor: pointer; color: inherit; text-align: right; min-height: 60px; box-sizing: border-box">
+          <span class="list-lead {{r.lead}}" style="width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0"><span class="icon icon-s">{{r.icon}}</span></span>
+          <span class="stack" style="gap: 0; flex: 1 1 auto; min-width: 0">
+            <sc-if value="{{r.psych}}" hint-placeholder-val="{{ false }}"><span style="font-size: 17px; line-height: 22px; font-weight: 600">{{r.title}}</span></sc-if>
+            <sc-if value="{{r.module}}" hint-placeholder-val="{{ true }}"><span class="lab" style="font-size: 17px; line-height: 22px; font-weight: 600">{{r.name}}</span></sc-if>
+            <span class="t-label-s lab" style="opacity: .8">{{r.sub}}</span>
+          </span>
+          <sc-if value="{{r.done}}" hint-placeholder-val="{{ false }}"><span class="icon icon-fill" style="color: var(--primary)">check_circle</span></sc-if>
+          <sc-if value="{{r.slot}}" hint-placeholder-val="{{ true }}"><span class="pill pill-amber lab" style="font-size: 12px; height: 26px">not in the Lab</span></sc-if>
+          <sc-if value="{{r.todo}}" hint-placeholder-val="{{ false }}"><span class="icon muted mirror-rtl">chevron_right</span></sc-if>
+        </button></li>
+      </sc-for>
+    </ol>
+    <sc-if value="{{dayLeft}}" hint-placeholder-val="{{ true }}"><button class="btn btn-filled btn-l btn-block" onClick="{{startDay}}" style="position: relative"><span class="icon icon-fill">play_arrow</span>{{U.start}}</button></sc-if>
+  </div>
+
   <sc-if value="{{todayOpen}}" hint-placeholder-val="{{ true }}">
-    <div class="card card-primary elev-1" style="padding: 22px; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden">
-      <div class="art" style="position: absolute; left: -40px; top: -34px; width: 160px; height: 160px; opacity: .9"><div class="layer shape shape-sunny spin-slow" style="width: 160px; height: 160px; background: #8FD6CA"></div></div>
+    <div class="card card-low" style="padding: 20px; display: flex; flex-direction: column; gap: 14px">
       <sc-if value="{{isLoop}}" hint-placeholder-val="{{ false }}"><span class="pill lab" style="align-self: flex-start; position: relative; background: rgba(255,255,255,.7); color: var(--on-primary-container); font-size: 13px">{{loopChip}}</span></sc-if>
       <sc-if value="{{heroPill}}" hint-placeholder-val="{{ true }}"><div class="row" style="justify-content: space-between; position: relative"><span class="pill" style="background: rgba(255,255,255,.7); color: var(--on-primary-container)">{{heroPill}}</span><span class="pill lab" style="background: transparent; color: var(--on-primary-container)"><span class="icon icon-s">schedule</span>{{heroTime}}</span></div></sc-if>
       <h2 class="t-headline-s" style="position: relative">{{heroTitle}}</h2>
@@ -85,7 +110,6 @@
           </li>
         </sc-for>
       </ol>
-      <button class="btn btn-filled btn-l btn-block" onClick="{{startToday}}" style="position: relative"><span class="icon icon-fill">play_arrow</span>{{U.start}}</button>
     </div>
   </sc-if>
 
@@ -186,6 +210,21 @@
 <div style="padding: 0 24px 10px; flex-shrink: 0"><div class="progress"><div style="{{progressStyle}}"></div></div></div>
 
 <!-- flow-markup.html -->
+<sc-if value="{{kModule}}" hint-placeholder-val="{{ false }}">
+<div class="screen scroll lab" style="gap: 14px; direction: ltr; text-align: left">
+  <p class="muted" style="margin: 0; font-size: 14px">{{mod.kicker}}</p>
+  <h1 class="t-headline">{{mod.name}}</h1>
+  <div class="card card-low" style="padding: 12px 16px">
+    <sc-for list="{{mod.facts}}" as="r" hint-placeholder-count="3"><div class="row" style="justify-content: space-between; gap: 12px; padding: 5px 0"><span class="muted">{{r.k}}</span><span style="font-weight: 600; text-align: right">{{r.v}}</span></div></sc-for>
+  </div>
+  <div class="card card-low" style="padding: 12px 16px">
+    <p class="muted" style="margin: 0 0 4px; font-size: 14px">{{mod.statusHead}}</p>
+    <sc-for list="{{mod.status}}" as="r" hint-placeholder-count="4"><div class="row" style="justify-content: space-between; gap: 12px; padding: 5px 0"><span class="muted">{{r.k}}</span><span style="font-weight: 600; text-align: right">{{r.v}}</span></div></sc-for>
+  </div>
+  <p class="gap"><strong>Not in the Lab</strong> · this module's screens and media were not supplied. Its planned minutes count toward the day; nothing plays here.</p>
+</div>
+<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block" onClick="{{modGo}}">{{U.continue}}</button></div>
+</sc-if>
 <sc-if value="{{kComplete}}" hint-placeholder-val="{{ false }}">
 <div class="screen center" style="justify-content: center; gap: 20px; text-align: center">
   <div class="art" style="width: 190px; height: 190px">
