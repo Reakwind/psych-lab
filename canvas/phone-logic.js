@@ -144,11 +144,24 @@
     this.enter(s.steps, s.i + 1);
   }
   setSub(patch) { this.setState({ sub: Object.assign({}, this.state.sub, patch) }); }
+  // Interface words of the step screens. The Phone preview shows English Lab labels; the app prototype
+  // overrides this with the owner-approved Hebrew interface register (canvas/interface-he.json).
+  labels() {
+    return { c: 'lab', showParts: true, continue: 'Continue', watch: 'Watch', choosePractice: 'Choose a practice', chooseOnePractice: 'Choose one practice.',
+      kinds: { video: 'Video', audio: 'Guided audio', choice: 'Choose one', breathing: 'Breathing', inner: 'Inner Voice', cards: 'Cardversation', reflection: 'Reflection' },
+      video: 'Video', intro: 'Practice intro', kAudio: 'Guided audio', phase: {}, ready: 'Ready', done: 'Done', start: 'Start', pause: 'Pause',
+      slower: 'Slower', slowerAria: 'Slower pace', faster: 'Faster', fasterAria: 'Faster pace', finishPractice: 'Practice complete · Continue', endEarly: 'End early',
+      nextThought: 'Next thought', roundDone: 'Round complete', chooseTopic: 'Choose a topic', alone: 'Alone', together: 'Together', luck: 'Pick for me',
+      card: 'Card', actionCard: 'Action card', q1: 'Question 1', q2: 'Question 2', ideas: 'Ideas', hideIdeas: 'Hide ideas',
+      followUp: 'Follow-up questions', hideFollowUp: 'Hide follow-up questions', nextCard: 'Next card', anotherCard: 'Another card', finish: 'Finish', backDecks: 'Choose another topic',
+      breathGap: 'in-practice prompts and guidance (phase names and timing are Lab assumptions)' };
+  }
   renderVals() {
     const D = this.data(), s = this.state, sub = s.sub, fmt = (x) => this.fmt(x);
-    const kinds = { video: 'Video', audio: 'Guided audio', choice: 'Choose one', breathing: 'Breathing', inner: 'Inner Voice', cards: 'Cardversation', reflection: 'Reflection' };
+    const L = this.labels(), kinds = L.kinds;
     const session = D.sessions[s.s];
     const v = {
+      L,
       isList: s.view === 'list', isOverview: s.view === 'overview', isFlow: s.view === 'flow',
       sessionCount: D.sessions.length,
       sessions: D.sessions.map((x, k) => ({ label: 'Session ' + x.n + ' · week ' + x.week + ' · app day ' + x.day, title: x.title, pick: () => this.setState({ view: 'overview', s: k }) })),
@@ -179,14 +192,14 @@
       v.preEquipment = a.equipment; v.preHasEquipment = !!a.equipment;
       v.preSafety = a.safety; v.preHasSafety = !!a.safety;
       v.preEmpty = !a.subtitle && !a.lead && !a.bullets.length && !a.equipment && !a.safety;
-      v.preButton = a.kind === 'video' ? 'Watch' : a.kind === 'choice' ? 'Choose a practice' : 'Continue';
+      v.preButton = a.kind === 'video' ? L.watch : a.kind === 'choice' ? L.choosePractice : L.continue;
     }
     // Context page
     if (st.kind === 'context') { v.ctxText = st.hebrew || st.english; v.ctxIsHe = !!st.hebrew; v.ctxIsEn = !st.hebrew; }
     // Video
     if (st.kind === 'video') {
       const clip = st.clip;
-      v.vidKind = st.trailer ? 'Practice intro' : 'Video';
+      v.vidKind = st.trailer ? L.intro : L.video;
       v.vidHas = !!(clip && clip.url); v.vidMissing = !v.vidHas; v.vidSrc = v.vidHas ? clip.url : '';
       v.vidMeta = (clip ? clip.id.replace(/^SOURCE-/, '') + ' · ' : '') + fmt(st.seconds) + (clip && clip.preview ? ' · 720p preview encode' : '');
       v.vidSlot = 'Time slot kept for review: ' + fmt(st.seconds) + '.';
@@ -207,10 +220,10 @@
       for (const p of phases) { phase = p; if (pos < p[1]) break; pos -= p[1]; }
       const scale = phase[2] + (phase[3] - phase[2]) * Math.min(1, pos / phase[1]);
       v.orbStyle = 'transform: scale(' + scale.toFixed(3) + ')';
-      v.brPhase = sub.finished ? 'Done' : !sub.progress ? 'Ready' : phase[0];
+      v.brPhase = sub.finished ? L.done : !sub.progress ? L.ready : L.phase[phase[0]] || phase[0];
       v.brCount = sub.progress && !sub.finished ? String(Math.ceil(phase[1] - pos)) : '';
       v.brClock = fmt(sub.progress) + ' / ' + fmt(st.seconds);
-      v.brToggleLabel = sub.running ? 'Pause' : 'Start';
+      v.brToggleLabel = sub.running ? L.pause : L.start;
       v.brToggle = () => { if (sub.finished) return; if (s.paused) this.resumeClock(true); this.setSub({ running: !sub.running }); };
       v.brSlower = () => this.setSub({ pace: Math.max(0.6, (sub.pace || 1) - 0.1) });
       v.brFaster = () => this.setSub({ pace: Math.min(1.5, (sub.pace || 1) + 0.1) });
@@ -248,17 +261,17 @@
       v.cdPick = () => { const k = Math.floor(Math.random() * D.cards.length); this.setSub({ topic: k, offset: Math.floor(Math.random() * D.cards[k].cards.length), card: 0, ideas: {}, follow: false }); };
       if (v.cdPlaying) {
         const deck = D.cards[sub.topic], card = deck.cards[(sub.offset + sub.card) % deck.cards.length];
-        v.cdDeck = deck.name; v.cdCardLabel = 'Card ' + (sub.card + 1);
+        v.cdDeck = deck.name; v.cdCardLabel = L.card + ' ' + (sub.card + 1);
         v.cdSides = (deck.action ? ['a'] : ['a', 'b']).filter((side) => card[side]).map((side) => {
           const show = !!(sub.ideas || {})[side];
-          return { label: deck.action ? 'Action card' : side === 'a' ? 'Question 1' : 'Question 2', q: card[side], ideas: card['ideas_' + side],
-            hasIdeas: !!card['ideas_' + side], show, toggleLabel: show ? 'Hide ideas' : 'Ideas',
+          return { label: deck.action ? L.actionCard : side === 'a' ? L.q1 : L.q2, q: card[side], ideas: card['ideas_' + side],
+            hasIdeas: !!card['ideas_' + side], show, toggleLabel: show ? L.hideIdeas : L.ideas,
             toggle: () => this.setSub({ ideas: Object.assign({}, sub.ideas, { [side]: !show }) }) };
         });
         v.cdFollowups = card.followups; v.cdHasFollow = card.followups.length > 0; v.cdShowFollow = !!sub.follow;
-        v.cdFollowLabel = sub.follow ? 'Hide follow-up questions' : 'Follow-up questions';
+        v.cdFollowLabel = sub.follow ? L.hideFollowUp : L.followUp;
         v.cdToggleFollow = () => this.setSub({ follow: !sub.follow });
-        v.cdNextLabel = sub.card < 1 ? 'Next card' : 'Another card';
+        v.cdNextLabel = sub.card < 1 ? L.nextCard : L.anotherCard;
         v.cdNext = () => this.setSub({ card: sub.card + 1, ideas: {}, follow: false });
         v.cdCanFinish = sub.card >= 1;
         v.cdAnother = () => this.setSub({ topic: null });
@@ -274,7 +287,7 @@
         v.rfMissing = 'prompt for this step (' + part.part + ')';
         v.rfHasIdeas = part.ideas.length > 0; v.rfShowIdeas = !!sub.ideas;
         v.rfIdeasHe = !!part.ideasLabel && !sub.ideas; v.rfIdeasLabel = part.ideasLabel;
-        v.rfIdeasLab = !v.rfIdeasHe; v.rfIdeasLabLabel = sub.ideas ? 'Hide ideas' : 'Ideas';
+        v.rfIdeasLab = !v.rfIdeasHe; v.rfIdeasLabLabel = sub.ideas ? L.hideIdeas : L.ideas;
         v.rfToggleIdeas = () => this.setSub({ ideas: !sub.ideas });
         v.rfIdeas = part.ideas.map((t) => ({ t }));
         v.rfHold = part.hold; v.rfHasHold = !!part.hold;

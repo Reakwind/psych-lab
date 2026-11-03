@@ -21,10 +21,10 @@
     <button class="pbtn primary" onClick="{{jGo}}">Go to session {{jTarget}}</button>
   </div>
   <p class="muted">{{jTitle}}</p>
-  <h2>Missed-day rule</h2>
-  <div class="seg2"><button class="{{resumeCls}}" onClick="{{modeResume}}" aria-pressed="{{resumePressed}}">Resume where she stopped</button><button class="{{calendarCls}}" onClick="{{modeCalendar}}" aria-pressed="{{calendarPressed}}">Follow the calendar</button></div>
+  <h2>Missed-day rule · resume</h2>
+  <p>Each day offers the next session not yet done, so missed days move the rest of the program later and nothing is skipped (owner decision, 2026-11-03).</p>
   <p class="quote">“{{specMissed}}” · {{specSource}}</p>
-  <p class="muted">{{modeNote}}</p>
+  <sc-if value="{{rLoop}}" hint-placeholder-val="{{ false }}"><h2>Week 13+ rhythm</h2><p>After session {{sTotal}} the prototype repeats the spec's suggested week. Today, per the spec:</p><p class="quote">“{{rLoopSpec}}”</p></sc-if>
   <h2>This session</h2>
   <p><strong>{{tClock}}</strong> in the open flow · {{rState}}</p>
   <p class="muted">{{rPlanLine}}</p>
@@ -35,43 +35,27 @@
   <div class="rowline"><span>Practices opened from the library</span><span>{{sLibrary}}</span></div>
   <div class="rowline"><span>Measured time in flows</span><span>{{sTime}}</span></div>
   <h2>Diary</h2>
-  <sc-if value="{{hasLog}}" hint-placeholder-val="{{ false }}"><sc-for list="{{log}}" as="x" hint-placeholder-count="4"><div class="rowline"><span>{{x.when}}</span><span class="muted" style="text-align: right">{{x.what}}</span></div></sc-for></sc-if>
-  <sc-if value="{{noLog}}" hint-placeholder-val="{{ true }}"><p class="muted">Nothing yet. Start today's session in the phone.</p></sc-if>
+  <sc-for list="{{log}}" as="x" hint-placeholder-count="4"><div class="rowline"><span>{{x.when}}</span><span class="muted" style="text-align: right">{{x.what}}</span></div></sc-for>
   <h2>Reading the phone</h2>
-  <p><span class="key" style="background: #2B6A62"></span>Hebrew is program text quoted exactly from the sources.</p>
-  <p><span class="key" style="background: #BEC9C5"></span>English words are Lab labels, not app copy.</p>
+  <p><span class="key" style="background: #2B6A62"></span>Program text (titles, intro pages, scripts, thoughts, cards, prompts) is quoted exactly from the program sources.</p>
+  <p><span class="key" style="background: #8FD6CA"></span>Hebrew interface words (tabs, buttons, status words) quote the original design's Ruth journey and practice boards, as approved by the owner; canvas/interface-he.json lists each with its file.</p>
+  <p><span class="key" style="background: #BEC9C5"></span>English on the phone is a Lab label where neither has wording.</p>
   <p><span class="key" style="background: #FFDEA3"></span>Amber marks text or media the sources do not have yet.</p>
-  <p class="muted" style="margin-top: 6px">Progress is kept in this browser only. Each session is the one program.json and core.mjs give for that day; practice recordings, films and texts are the ones the Phone preview plays.</p>
+  <p class="quote">Practice library: “{{specLibrary}}”</p>
+  <p class="muted" style="margin-top: 6px">Progress is kept in this browser only. App day 1 is orientation for the other modules, so the journey starts on app day 2. Films, recordings and step screens are the ones the Phone preview plays.</p>
 </div>
 
-<div class="app" style="--font-body: 'Atkinson Hyperlegible Next', system-ui, sans-serif">
-
-<sc-if value="{{isOnboard}}" hint-placeholder-val="{{ false }}">
-<div class="screen center" style="justify-content: center; gap: 26px; text-align: center; padding-top: 40px">
-  <div class="art" style="width: 200px; height: 200px">
-    <div class="layer shape shape-sunny spin-slow" style="width: 200px; height: 200px; background: var(--primary-container)"></div>
-    <div class="layer shape shape-cookie9" style="width: 120px; height: 120px; background: var(--primary)"></div>
-    <span class="glyph icon icon-xxl icon-fill" style="color: var(--on-primary)">psychology</span>
-  </div>
-  <div class="stack center" style="gap: 10px">
-    <h1 class="t-headline lab" style="text-align: center">Psychology program</h1>
-    <p class="t-body muted lab" style="text-align: center">Lab prototype. Live the 87 sessions one app day at a time, as Ruth would: today's session, your journey, and the practices you have met.</p>
-    <p class="lab muted" style="font-size: 15px; line-height: 22px; text-align: center">{{onboardNote}}</p>
-  </div>
-  <div class="grow"></div>
-</div>
-<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block lab" onClick="{{begin}}"><span class="icon icon-fill">play_arrow</span>Begin on app day {{firstDay}}</button></div>
-</sc-if>
+<div class="app" dir="rtl" lang="he" style="--font-display: 'Rubik', system-ui, sans-serif; --font-body: 'Rubik', system-ui, sans-serif">
 
 <sc-if value="{{isToday}}" hint-placeholder-val="{{ true }}">
 <div class="screen scroll" style="padding-top: 36px; gap: 16px">
   <div class="row" style="justify-content: space-between; align-items: flex-end">
-    <div class="stack" style="gap: 2px"><span class="where lab">{{dayLabel}}</span><h1 class="t-headline lab">Today</h1></div>
+    <div class="stack" style="gap: 2px"><span class="where">{{whereLine}}</span><h1 class="t-headline">{{U.hello}}</h1></div>
     <span class="art" style="width: 52px; height: 52px"><span class="layer shape shape-cookie9" style="width: 52px; height: 52px; background: var(--primary-container)"></span><span class="glyph t-label lab" style="color: var(--on-primary-container)">RA</span></span>
   </div>
   <div class="stack" style="gap: 6px">
     <div class="progress" role="img" aria-label="{{doneLine}}"><div style="{{pctStyle}}"></div></div>
-    <span class="t-label-s muted lab">{{doneLine}}</span>
+    <span class="t-label-s muted">{{doneLine}}</span>
   </div>
   <div class="row" style="gap: 2px">
     <sc-for list="{{week}}" as="d" hint-placeholder-count="7">
@@ -80,59 +64,50 @@
   </div>
 
   <sc-if value="{{showMissed}}" hint-placeholder-val="{{ false }}">
-    <div class="card card-tertiary row lab" style="padding: 16px 18px; gap: 14px; align-items: flex-start">
+    <div class="card card-tertiary row" style="padding: 16px 18px; gap: 14px; align-items: flex-start">
       <span class="icon icon-l icon-fill">waving_hand</span>
-      <div class="stack" style="gap: 2px"><span class="t-title-s">{{missedTitle}}</span><span style="font-size: 16px; line-height: 22px">{{missedText}}</span></div>
+      <div class="stack" style="gap: 2px"><span class="t-title-s">{{U.welcomeBack}}</span><span style="font-size: 17px; line-height: 24px">{{U.placeKept}}</span></div>
     </div>
   </sc-if>
 
   <sc-if value="{{todayOpen}}" hint-placeholder-val="{{ true }}">
     <div class="card card-primary elev-1" style="padding: 22px; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden">
-      <div class="art" style="position: absolute; right: -40px; top: -34px; width: 160px; height: 160px; opacity: .9"><div class="layer shape shape-sunny spin-slow" style="width: 160px; height: 160px; background: #8FD6CA"></div></div>
-      <span class="pill lab" style="align-self: flex-start; position: relative; background: rgba(255,255,255,.7); color: var(--on-primary-container)">{{heroPill}}</span>
-      <h2 class="t-headline-s he" dir="rtl" lang="he" style="position: relative">{{heroTitle}}</h2>
-      <span class="lab" style="position: relative; margin-top: -10px; font-size: 15px; opacity: .8">{{heroEnglish}}</span>
+      <div class="art" style="position: absolute; left: -40px; top: -34px; width: 160px; height: 160px; opacity: .9"><div class="layer shape shape-sunny spin-slow" style="width: 160px; height: 160px; background: #8FD6CA"></div></div>
+      <sc-if value="{{isLoop}}" hint-placeholder-val="{{ false }}"><span class="pill lab" style="align-self: flex-start; position: relative; background: rgba(255,255,255,.7); color: var(--on-primary-container); font-size: 13px">{{loopChip}}</span></sc-if>
+      <sc-if value="{{heroPill}}" hint-placeholder-val="{{ true }}"><div class="row" style="justify-content: space-between; position: relative"><span class="pill" style="background: rgba(255,255,255,.7); color: var(--on-primary-container)">{{heroPill}}</span><span class="pill lab" style="background: transparent; color: var(--on-primary-container)"><span class="icon icon-s">schedule</span>{{heroTime}}</span></div></sc-if>
+      <h2 class="t-headline-s" style="position: relative">{{heroTitle}}</h2>
       <ol class="stack" style="gap: 8px; margin: 0; padding: 0; list-style: none; position: relative">
         <sc-for list="{{heroSteps}}" as="p" hint-placeholder-count="2">
           <li class="row" style="gap: 12px; align-items: center">
-            <span class="list-lead {{p.lead}}" style="width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0"><span class="icon icon-s">{{p.icon}}</span></span>
-            <span class="stack" style="gap: 0; flex: 1 1 auto"><span class="he" dir="rtl" lang="he" style="font-size: 18px; line-height: 24px; font-weight: 600">{{p.title}}</span><span class="t-label-s lab" style="opacity: .8">{{p.sub}}</span></span>
+            <span class="list-lead {{p.lead}}" style="width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0; box-shadow: 0 0 0 2px rgba(255,255,255,.8)"><span class="icon icon-s">{{p.icon}}</span></span>
+            <span class="stack" style="gap: 0; flex: 1 1 auto"><span style="font-size: 18px; line-height: 24px; font-weight: 600">{{p.title}}</span><span class="t-label-s" style="opacity: .8">{{p.sub}}</span></span>
+            <sc-if value="{{p.gap}}" hint-placeholder-val="{{ false }}"><span class="pill pill-amber lab" style="font-size: 12px; height: 26px">not recorded yet</span></sc-if>
           </li>
         </sc-for>
       </ol>
-      <sc-if value="{{heroHasSpec}}" hint-placeholder-val="{{ false }}"><p class="lab" style="margin: 0; font-size: 14px; line-height: 20px; position: relative">Spec suggestion: “{{heroSpec}}”</p></sc-if>
-      <button class="btn btn-filled btn-l btn-block lab" onClick="{{startToday}}" style="position: relative"><span class="icon icon-fill">play_arrow</span>{{heroCta}}</button>
+      <button class="btn btn-filled btn-l btn-block" onClick="{{startToday}}" style="position: relative"><span class="icon icon-fill">play_arrow</span>{{U.start}}</button>
     </div>
   </sc-if>
 
   <sc-if value="{{todayDone}}" hint-placeholder-val="{{ false }}">
     <div class="card card-primary elev-1 stack center" style="padding: 24px 22px; gap: 12px; text-align: center">
       <div class="art" style="width: 88px; height: 88px"><div class="layer shape shape-cookie9" style="width: 88px; height: 88px; background: var(--primary)"></div><span class="glyph icon icon-xl icon-fill" style="color: var(--on-primary)">check</span></div>
-      <h2 class="t-title lab">Done for today</h2>
-      <span class="he" dir="rtl" lang="he" style="font-size: 18px">{{doneTitle}}</span>
-      <span class="lab" style="font-size: 15px; opacity: .8">{{doneSub}}</span>
-      <button class="btn btn-text lab" onClick="{{replayToday}}">Do it again</button>
+      <h2 class="t-title">{{doneHead}}</h2>
+      <span style="font-size: 18px">{{doneTitle}}</span>
+      <button class="btn btn-text" onClick="{{replayToday}}">{{U.again}}</button>
     </div>
     <sc-if value="{{hasNext}}" hint-placeholder-val="{{ true }}">
       <div class="stack" style="gap: 8px">
-        <span class="where lab">Next up</span>
-        <button class="list-row" onClick="{{goNext}}"><span class="list-lead {{nextLead}}"><span class="icon">{{nextIcon}}</span></span><span class="list-text"><span class="list-title he" dir="rtl" lang="he">{{nextTitle}}</span><span class="list-sub lab">{{nextSub}}</span></span><span class="icon muted">chevron_right</span></button>
+        <span class="where">{{U.nextUp}}</span>
+        <button class="list-row" onClick="{{goNext}}" style="text-align: right"><span class="list-lead {{nextLead}}"><span class="icon">{{nextIcon}}</span></span><span class="list-text"><span class="list-title">{{nextTitle}}</span><span class="list-sub">{{nextSub}}</span></span><span class="icon muted mirror-rtl">chevron_right</span></button>
       </div>
     </sc-if>
   </sc-if>
 
-  <sc-if value="{{todayRest}}" hint-placeholder-val="{{ false }}">
-    <div class="card card-low lab" style="padding: 20px 22px"><p class="t-title-s" style="margin: 0">{{restTitle}}</p><p style="margin: 4px 0 0; font-size: 16px; line-height: 22px">{{restText}}</p></div>
-  </sc-if>
-
-  <sc-if value="{{hasCatchUp}}" hint-placeholder-val="{{ false }}">
-    <button class="list-row lab" onClick="{{toJourney}}"><span class="list-lead lead-game"><span class="icon">history</span></span><span class="list-text"><span class="list-title">{{catchUpTitle}}</span><span class="list-sub">Open them from the journey</span></span><span class="icon muted">chevron_right</span></button>
-  </sc-if>
-
   <sc-if value="{{hasRecent}}" hint-placeholder-val="{{ false }}">
-    <span class="where lab">Practise again</span>
+    <span class="where">{{U.libSub}}</span>
     <sc-for list="{{recent}}" as="p" hint-placeholder-count="2">
-      <button class="list-row" onClick="{{p.open}}" style="flex-shrink: 0"><span class="list-lead {{p.lead}}"><span class="icon">{{p.icon}}</span></span><span class="list-text"><span class="list-title he" dir="rtl" lang="he">{{p.title}}</span><span class="list-sub lab">{{p.sub}}</span></span><span class="icon muted">play_arrow</span></button>
+      <button class="list-row" onClick="{{p.open}}" style="flex-shrink: 0; text-align: right"><span class="list-lead {{p.lead}}"><span class="icon">{{p.icon}}</span></span><span class="list-text"><span class="list-title">{{p.title}}</span><span class="list-sub">{{p.sub}}</span></span><span class="icon muted">play_arrow</span></button>
     </sc-for>
   </sc-if>
 </div>
@@ -140,80 +115,72 @@
 
 <sc-if value="{{isJourney}}" hint-placeholder-val="{{ false }}">
 <div class="topbar" style="padding-inline: 24px">
-  <div class="stack" style="gap: 0"><span class="where lab">{{doneLine}}</span><span class="t-title lab">Journey</span></div>
+  <div class="stack" style="gap: 0"><span class="where">{{journeyLine}}</span><span class="t-title">{{U.journeyTitle}}</span></div>
 </div>
-<div class="screen scroll" style="padding-top: 8px; gap: 8px">
-  <sc-for list="{{weeks}}" as="w" hint-placeholder-count="4">
-    <button class="wkhead lab" onClick="{{w.toggle}}" aria-expanded="{{w.expanded}}">
-      <span class="stack" style="gap: 0; text-align: left"><span class="t-title-s">{{w.label}}</span><span class="t-label-s muted">{{w.sub}}</span></span>
-      <span class="icon muted">{{w.chevron}}</span>
+<div class="screen scroll" style="padding-top: 8px; gap: 6px">
+  <sc-if value="{{hasEarlier}}" hint-placeholder-val="{{ true }}">
+    <button class="btn btn-tonal btn-block" onClick="{{showEarlier}}" style="flex-shrink: 0; margin-bottom: 6px"><span class="icon">expand_less</span>{{earlierLabel}}</button>
+  </sc-if>
+  <sc-for list="{{journey}}" as="d" hint-placeholder-count="8">
+    <button class="jrow" onClick="{{d.open}}" disabled="{{d.locked}}" style="text-align: right">
+      <span class="jdot" style="{{d.dotStyle}}"><span class="icon icon-s {{d.fill}}">{{d.icon}}</span></span>
+      <span class="stack" style="gap: 0; flex: 1 1 auto; min-width: 0"><span style="font-size: 17px; line-height: 23px; font-weight: 600">{{d.title}}</span><span class="t-label-s muted">{{d.sub}}</span></span>
     </button>
-    <sc-if value="{{w.open}}" hint-placeholder-val="{{ false }}">
-      <sc-for list="{{w.rows}}" as="d" hint-placeholder-count="7">
-        <button class="jrow" onClick="{{d.open}}" disabled="{{d.locked}}">
-          <span class="jdot" style="{{d.dotStyle}}"><span class="icon icon-s {{d.fill}}">{{d.icon}}</span></span>
-          <span class="stack" style="gap: 0; flex: 1 1 auto; min-width: 0"><span class="he" dir="rtl" lang="he" style="font-size: 17px; line-height: 23px; font-weight: 600">{{d.title}}</span><span class="t-label-s muted lab">{{d.sub}}</span></span>
-        </button>
-      </sc-for>
-    </sc-if>
   </sc-for>
-  <div class="card card-inverse lab" style="padding: 18px 20px; margin-top: 6px; flex-shrink: 0">
-    <p class="t-title-s" style="margin: 0">Week 13+ · 7-day rhythm</p>
-    <p style="margin: 4px 0 8px; font-size: 15px; line-height: 21px; opacity: .85">After session {{sTotal}} the prototype repeats the spec's suggested week. It is a suggestion in the spec, not a final schedule.</p>
-    <sc-for list="{{loopRows}}" as="l" hint-placeholder-count="7"><p style="margin: 2px 0; font-size: 14px; line-height: 20px"><span class="he" dir="rtl" lang="he" style="font-weight: 600">{{l.title}}</span> · {{l.label}}</p></sc-for>
+  <div class="card card-inverse" style="padding: 18px 20px; margin-top: 6px; flex-shrink: 0">
+    <p class="lab" style="margin: 0 0 8px; font-size: 14px; opacity: .85">{{loopChipJ}}</p>
+    <sc-for list="{{loopRows}}" as="l" hint-placeholder-count="7"><p style="margin: 2px 0; font-size: 16px; line-height: 22px"><span class="lab" style="opacity: .7">{{l.day}}</span> · <span style="font-weight: 600">{{l.title}}</span></p></sc-for>
   </div>
 </div>
 </sc-if>
 
 <sc-if value="{{isPreview}}" hint-placeholder-val="{{ false }}">
 <div class="topbar">
-  <button class="btn btn-text lab" onClick="{{toJourney}}"><span class="icon">arrow_back</span>Journey</button>
+  <button class="btn btn-text" onClick="{{toJourney}}"><span class="icon mirror-rtl">arrow_back</span>{{U.backJourney}}</button>
   <span class="topbar-title"></span><span class="topbar-spacer"></span>
 </div>
 <div class="screen scroll" style="padding-top: 4px; gap: 16px">
-  <div class="stack" style="gap: 6px"><span class="where lab">{{pvWhere}}</span><h2 class="t-headline he" dir="rtl" lang="he">{{pvTitle}}</h2><span class="lab muted">{{pvEnglish}}</span></div>
+  <div class="stack" style="gap: 6px"><span class="where">{{pvWhere}}</span><h2 class="t-headline">{{pvTitle}}</h2></div>
   <ol class="stack" style="gap: 10px; margin: 0; padding: 0; list-style: none">
     <sc-for list="{{pvSteps}}" as="p" hint-placeholder-count="2">
       <li class="card card-low row" style="padding: 14px 16px; gap: 14px; align-items: center">
         <span class="list-lead {{p.lead}}" style="flex-shrink: 0"><span class="icon">{{p.icon}}</span></span>
-        <span class="stack" style="gap: 0; flex: 1 1 auto"><span class="he" dir="rtl" lang="he" style="font-size: 19px; line-height: 26px; font-weight: 600">{{p.title}}</span><span class="t-label-s muted lab">{{p.sub}}</span></span>
+        <span class="stack" style="gap: 0; flex: 1 1 auto"><span style="font-size: 19px; line-height: 26px; font-weight: 600">{{p.title}}</span><span class="t-label-s muted">{{p.sub}}</span></span>
+        <sc-if value="{{p.gap}}" hint-placeholder-val="{{ false }}"><span class="pill pill-amber lab" style="font-size: 12px; height: 26px">not recorded yet</span></sc-if>
       </li>
     </sc-for>
   </ol>
-  <p class="lab muted" style="margin: 0; font-size: 15px">{{pvRange}}</p>
+  <p class="lab muted" style="margin: 0; font-size: 15px; direction: rtl; text-align: right"><span class="icon icon-s" style="vertical-align: middle">schedule</span> {{pvRange}}</p>
   <sc-if value="{{pvHasGaps}}" hint-placeholder-val="{{ false }}"><p class="gap">{{pvGaps}}</p></sc-if>
 </div>
-<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block lab" onClick="{{pvStart}}"><span class="icon icon-fill">{{pvIcon}}</span>{{pvCta}}</button></div>
+<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block" onClick="{{pvStart}}"><span class="icon icon-fill">{{pvIcon}}</span>{{pvCta}}</button></div>
 </sc-if>
 
 <sc-if value="{{isLibrary}}" hint-placeholder-val="{{ false }}">
 <div class="topbar" style="padding-inline: 24px">
-  <div class="stack" style="gap: 0"><span class="where lab">{{libLine}}</span><span class="t-title lab">Practices</span></div>
+  <div class="stack" style="gap: 0"><span class="where">{{U.libSub}}</span><span class="t-title">{{U.tabLibrary}}</span></div>
 </div>
 <div class="screen scroll" style="padding-top: 8px; gap: 10px">
-  <sc-if value="{{libEmpty}}" hint-placeholder-val="{{ false }}"><p class="t-body muted lab">Practices you meet in your sessions appear here, ready to repeat without their intro film.</p></sc-if>
-  <sc-for list="{{libGroups}}" as="g" hint-placeholder-count="3">
-    <span class="where lab" style="margin-top: 6px">{{g.label}}</span>
-    <sc-for list="{{g.items}}" as="p" hint-placeholder-count="3">
-      <button class="list-row" onClick="{{p.open}}" disabled="{{p.locked}}" style="flex-shrink: 0; opacity: {{p.opacity}}"><span class="list-lead {{p.lead}}"><span class="icon">{{p.icon}}</span></span><span class="list-text"><span class="list-title he" dir="rtl" lang="he">{{p.title}}</span><span class="list-sub lab">{{p.sub}}</span></span><span class="icon muted">{{p.trail}}</span></button>
-    </sc-for>
+  <sc-if value="{{libEmpty}}" hint-placeholder-val="{{ false }}"><p class="t-body muted">{{U.libEmpty}}</p></sc-if>
+  <span class="where">{{U.practices}}</span>
+  <sc-for list="{{library}}" as="p" hint-placeholder-count="4">
+    <button class="list-row" onClick="{{p.open}}" disabled="{{p.locked}}" style="flex-shrink: 0; opacity: {{p.opacity}}; text-align: right"><span class="list-lead {{p.lead}}"><span class="icon">{{p.icon}}</span></span><span class="list-text"><span class="list-title">{{p.title}}</span><span class="list-sub">{{p.sub}}</span></span><sc-if value="{{p.gap}}" hint-placeholder-val="{{ false }}"><span class="pill pill-amber lab" style="font-size: 12px; height: 26px">not recorded yet</span></sc-if><span class="icon muted">{{p.trail}}</span></button>
   </sc-for>
-  <p class="lab muted" style="font-size: 13px; line-height: 18px; margin: 8px 0 0">Library replays skip the intro film. Spec: “{{specLibrary}}”</p>
 </div>
 </sc-if>
 
 <sc-if value="{{showNav}}" hint-placeholder-val="{{ true }}">
-<nav class="navbar lab">
-  <button class="nav-item {{navToday}}" onClick="{{toToday}}"><span class="nav-ind"><span class="icon">today</span></span>Today</button>
-  <button class="nav-item {{navJourney}}" onClick="{{toJourney}}"><span class="nav-ind"><span class="icon">route</span></span>Journey</button>
-  <button class="nav-item {{navLibrary}}" onClick="{{toLibrary}}"><span class="nav-ind"><span class="icon">self_improvement</span></span>Practices</button>
+<nav class="navbar">
+  <button class="nav-item {{navToday}}" onClick="{{toToday}}"><span class="nav-ind"><span class="icon">today</span></span>{{U.tabToday}}</button>
+  <button class="nav-item {{navJourney}}" onClick="{{toJourney}}"><span class="nav-ind"><span class="icon">route</span></span>{{U.tabJourney}}</button>
+  <button class="nav-item {{navLibrary}}" onClick="{{toLibrary}}"><span class="nav-ind"><span class="icon">local_library</span></span>{{U.tabLibrary}}</button>
 </nav>
 </sc-if>
 
 <sc-if value="{{isFlow}}" hint-placeholder-val="{{ false }}">
 <div class="topbar">
-  <button class="icon-btn" onClick="{{close}}" aria-label="Leave"><span class="icon">close</span></button>
-  <span class="topbar-title lab" style="font-size: 16px">{{stepText}}</span>
+  <button class="icon-btn" onClick="{{close}}" aria-label="{{U.close}}"><span class="icon">close</span></button>
+  <span class="topbar-title" style="font-size: 17px">{{stepText}}</span>
   <span class="topbar-spacer"></span>
 </div>
 <div style="padding: 0 24px 10px; flex-shrink: 0"><div class="progress"><div style="{{progressStyle}}"></div></div></div>
@@ -226,12 +193,10 @@
     <div class="layer shape shape-cookie9" style="width: 116px; height: 116px; background: var(--primary)"></div>
     <span class="glyph icon icon-xxl icon-fill" style="color: var(--on-primary)">check</span>
   </div>
-  <h1 class="t-headline lab" style="text-align: center">{{completeTitle}}</h1>
-  <p class="lab" style="margin: 0">{{runSummary}}</p>
-  <sc-if value="{{runPartial}}" hint-placeholder-val="{{ false }}"><p class="lab muted" style="margin: 0; font-size: 15px">This run included skipped, simulated or missing content.</p></sc-if>
+  <h1 class="t-headline" style="text-align: center">{{completeTitle}}</h1>
   <p class="gap"><strong>No source text</strong> · closing message</p>
 </div>
-<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block lab" onClick="{{finish}}">{{finishLabel}}</button></div>
+<div style="padding: 0 24px 24px; flex-shrink: 0"><button class="btn btn-filled btn-l btn-block" onClick="{{finish}}">{{finishLabel}}</button></div>
 </sc-if>
 </sc-if>
 

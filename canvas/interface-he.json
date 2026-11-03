@@ -1,0 +1,317 @@
+{
+ "note": "Hebrew interface wording for the App prototype's phone: tabs, buttons and status words. Owner decision 2026-11-03: the phone uses the original design's Hebrew interface wording. Every label quotes one whole text piece of an original design board (labels) or a whole cell of a program source (program_labels); scripts/verbatim.py verifies each, and a label passes on a board only as a whole run. Interface words only: program text (titles, scripts, prompts, questions, closing messages) always comes from program sources, and where the design or sources have no wording the board keeps an English Lab label.",
+ "labels": [
+  {
+   "key": "tabToday",
+   "text": "היום",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "tabJourney",
+   "text": "המסע",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "tabLibrary",
+   "text": "ספרייה",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "hello",
+   "text": "שלום, רות",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "session",
+   "text": "מפגש",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "of",
+   "text": "מתוך",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "sessionsDone",
+   "text": "מפגשים הושלמו",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "done",
+   "text": "הושלמו",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "welcomeBack",
+   "text": "טוב שחזרת",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "placeKept",
+   "text": "המקום שלך שמור. ממשיכים בדיוק מכאן.",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "todaySession",
+   "text": "היום · מפגש",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "start",
+   "text": "מתחילים",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "todayDone",
+   "text": "המפגש של היום הושלם",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "again",
+   "text": "לעשות שוב",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "nextUp",
+   "text": "הבא בתור",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "jumpAhead",
+   "text": "אפשר לקפוץ קדימה",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "journeyTitle",
+   "text": "המסע שלך",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "showEarlier",
+   "text": "הצגת מפגשים 1 עד",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "statusDone",
+   "text": "הושלם",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "statusOpen",
+   "text": "עוד לא בוצע",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "statusLater",
+   "text": "בהמשך",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "backJourney",
+   "text": "למסע",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "libSub",
+   "text": "לתרגל מתי שרוצים",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "practices",
+   "text": "תרגולים",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "libEmpty",
+   "text": "תרגולים ושיעורים מהמפגשים שלך יופיעו כאן.",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "kVideo",
+   "text": "סרטון",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "kAudio",
+   "text": "הקלטה",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "kGame",
+   "text": "משחק",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "kBreath",
+   "text": "תרגול נשימה",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "kChoice",
+   "text": "בחירה אחת",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "kPractice",
+   "text": "תרגול",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "kIntro",
+   "text": "מבוא",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "choosePractice",
+   "text": "בחירת תרגול",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "continue",
+   "text": "המשך",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "close",
+   "text": "סגירה",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "practiceDone",
+   "text": "התרגול הושלם",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "backToday",
+   "text": "חזרה להיום",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "backLibrary",
+   "text": "חזרה לספרייה",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Ruth.dc.html"
+  },
+  {
+   "key": "inhale",
+   "text": "שואפים",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Breathing.dc.html"
+  },
+  {
+   "key": "exhale",
+   "text": "נושפים",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Breathing.dc.html"
+  },
+  {
+   "key": "hold",
+   "text": "עוצרים",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Breathing.dc.html"
+  },
+  {
+   "key": "ready",
+   "text": "אפשר להתחיל",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Breathing.dc.html"
+  },
+  {
+   "key": "pause",
+   "text": "השהיה",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Breathing.dc.html"
+  },
+  {
+   "key": "slower",
+   "text": "לאט יותר",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Breathing.dc.html"
+  },
+  {
+   "key": "faster",
+   "text": "מהר יותר",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Breathing.dc.html"
+  },
+  {
+   "key": "finishPractice",
+   "text": "סיום התרגול",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Breathing.dc.html"
+  },
+  {
+   "key": "finish",
+   "text": "סיום",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Breathing.dc.html"
+  },
+  {
+   "key": "endEarly",
+   "text": "עוצרים כאן",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Choice.dc.html"
+  },
+  {
+   "key": "chooseOne",
+   "text": "בוחרים אחד",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Choice.dc.html"
+  },
+  {
+   "key": "alone",
+   "text": "לבד",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Cards.dc.html"
+  },
+  {
+   "key": "together",
+   "text": "יחד",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Cards.dc.html"
+  },
+  {
+   "key": "luck",
+   "text": "שהמזל יבחר ערימה",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Cards.dc.html"
+  },
+  {
+   "key": "nextCard",
+   "text": "הקלף הבא",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Cards.dc.html"
+  },
+  {
+   "key": "backDecks",
+   "text": "חזרה לערימות",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/Cards.dc.html"
+  },
+  {
+   "key": "nextThought",
+   "text": "הבא",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/InnerVoice.dc.html"
+  },
+  {
+   "key": "roundDone",
+   "text": "האימון הושלם",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/InnerVoice.dc.html"
+  },
+  {
+   "key": "card",
+   "text": "כרטיס",
+   "source": "animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/scripts/InnerVoice.dc.html"
+  }
+ ],
+ "program_labels": [
+  {
+   "key": "sideA",
+   "text": "צד א",
+   "source": "psych-lab/intervention/sources/cards.json"
+  },
+  {
+   "key": "sideB",
+   "text": "צד ב",
+   "source": "psych-lab/intervention/sources/cards.json"
+  },
+  {
+   "key": "actionCard",
+   "text": "פעולה",
+   "source": "psych-lab/intervention/sources/cards.json"
+  },
+  {
+   "key": "followUp",
+   "text": "שאלת המשך",
+   "source": "psych-lab/intervention/sources/cards.json"
+  },
+  {
+   "key": "ideas",
+   "text": "אשמח לרעיונות",
+   "source": "psych-lab/intervention/sources/mindful-moments.json"
+  }
+ ]
+}
