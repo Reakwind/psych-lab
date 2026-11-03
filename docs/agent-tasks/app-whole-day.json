@@ -1,0 +1,17 @@
+{
+  "task": "app-whole-day",
+  "agent": "claude-app-prototype",
+  "scope": [
+    "psych-lab/intervention/build.py",
+    "psych-lab/intervention/program.json",
+    "canvas/app-logic.js",
+    "canvas/app-markup.html",
+    "canvas/build.mjs",
+    "canvas/phone/",
+    "canvas/home/",
+    "tests/test_canvas.py",
+    "README.md",
+    "docs/ARCHITECTURE.md"
+  ],
+  "branch": "claude/gifted-goldberg-elib6d--app-whole-day"
+}
