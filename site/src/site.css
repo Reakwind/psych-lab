@@ -162,13 +162,13 @@ ul.he { padding-right: 22px; padding-left: 0; }
 
 /* No room beside the phone: the panel goes below it. */
 @media (max-width: 960px) {
+  .player .app { order: -1; }
   .player .panel, .player .rail { height: auto !important; max-height: none; width: min(100%, 620px) !important; }
 }
 /* A phone: the app is the screen. */
 @media (max-width: 520px) {
   .player-page { padding: 0 0 32px; }
   .player-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .player .app { order: -1; }
   .player > div { gap: 0 !important; }
   .player .app { width: 100vw !important; height: calc(100dvh - var(--hh)) !important; margin: 0; border-radius: 0; box-shadow: none; }
   .player .app .screen { padding-bottom: max(var(--s5), env(safe-area-inset-bottom)); }
