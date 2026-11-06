@@ -43,10 +43,10 @@
       const top = stack[stack.length - 1];
       if (m[1]) {                       // closing tag: close up to the matching element
         const tag = m[1].toLowerCase();
-        for (let i = stack.length - 1; i > 0; i--) if (stack[i].tag === tag) { stack.length = i; break; }
+        for (let i = stack.length - 1; i > 0; i--) if (stack[i].tag.toLowerCase() === tag) { stack.length = i; break; }
       } else if (m[2]) {                // opening tag
         const tag = m[2].toLowerCase();
-        const ns = tag === 'svg' ? SVG : top.ns === SVG && top.tag !== 'foreignobject' ? SVG : HTML;
+        const ns = tag === 'svg' ? SVG : top.ns === SVG && top.tag.toLowerCase() !== 'foreignobject' ? SVG : HTML;
         const node = { t: 'el', tag: ns === SVG ? m[2] : tag, ns, attrs: [], kids: [] };
         let a;
         attr.lastIndex = 0;
@@ -194,6 +194,7 @@
       const out = [];
       tree.kids.forEach((k, i) => build(k, vals, String(i), out));
       patchKids(container, out);
+      container.removeAttribute('data-error');
     };
     const flush = () => {
       pending = false;
