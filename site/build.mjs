@@ -34,7 +34,7 @@ const jsData = value => JSON.stringify(value).replace(/<\/(script)/gi, '<\\/$1')
 // A repository path whose folder names may be Hebrew: each segment is isolated so they read in order, left to right.
 const pathHtml = p => p.split('/').map((seg, i, all) => {
   const dot = i === all.length - 1 ? seg.lastIndexOf('.') : -1;
-  return `<span class="seg">${dot > 0 ? `<bdi>${esc(seg.slice(0, dot))}</bdi>${esc(seg.slice(dot))}` : `<bdi>${esc(seg)}</bdi>`}</span>`;
+  return `<span class="path-seg">${dot > 0 ? `<bdi>${esc(seg.slice(0, dot))}</bdi>${esc(seg.slice(dot))}` : `<bdi>${esc(seg)}</bdi>`}</span>`;
 }).join('/');
 const plural = (n, one, many = one + 's') => `${n} ${n === 1 ? one : many}`;
 

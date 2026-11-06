@@ -45,7 +45,7 @@ code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-w
   .notes-btn { padding: 0 9px; font-size: 13px; }
 }
 .path bdi { unicode-bidi: isolate; }
-.path .seg { display: inline-block; }
+.path .path-seg { display: inline-block; }
 @media (max-width: 374px) { .site-nav a { padding: 0 5px; font-size: 13px; } }
 
 /* ---------- notes panel ---------- */
