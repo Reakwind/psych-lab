@@ -17,7 +17,7 @@ const ROOT = path.resolve(HERE, '..');
 const args = process.argv.slice(2);
 const opt = name => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : null; };
 const DIST = path.resolve(opt('--dist') || path.join(HERE, 'dist'));
-const PORT = Number(opt('--port') || process.env.PORT || 63684);
+const PORT = Number(opt('--port') || 63684);
 const LAN = args.includes('--lan');
 const HOST = LAN ? '0.0.0.0' : '127.0.0.1';
 
@@ -29,11 +29,15 @@ if (!fs.existsSync(path.join(DIST, 'index.html'))) {
   process.exit(1);
 }
 
+// The media list is re-read when the build rewrites it; while a rebuild has it missing or half written,
+// the last good list stays in use.
 let media = {}, mediaStamp = 0;
 function mediaList() {
-  const file = path.join(DIST, 'media.json');
-  const stamp = fs.statSync(file).mtimeMs;
-  if (stamp !== mediaStamp) { media = JSON.parse(fs.readFileSync(file, 'utf8')); mediaStamp = stamp; }
+  try {
+    const file = path.join(DIST, 'media.json');
+    const stamp = fs.statSync(file).mtimeMs;
+    if (stamp !== mediaStamp) { media = JSON.parse(fs.readFileSync(file, 'utf8')); mediaStamp = stamp; }
+  } catch { /* keep the last good list */ }
   return media;
 }
 
@@ -49,7 +53,8 @@ function sendFile(req, res, file, cache) {
   const type = TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream';
   const headers = {'Content-Type': type, 'Accept-Ranges': 'bytes', 'Cache-Control': cache, 'X-Content-Type-Options': 'nosniff', 'Last-Modified': stat.mtime.toUTCString()};
   const range = req.headers.range;
-  if (range) {
+  // One range is answered with 206; a request for several ranges gets the whole file, as RFC 9110 allows.
+  if (range && !range.includes(',')) {
     const m = /^bytes=(\d*)-(\d*)$/.exec(range.trim());
     let start, end;
     if (m && (m[1] || m[2])) {
@@ -68,14 +73,14 @@ function sendFile(req, res, file, cache) {
   fs.createReadStream(file).on('error', () => res.destroy()).pipe(res);
 }
 
-const server = http.createServer((req, res) => {
+function handle(req, res) {
   if (req.method !== 'GET' && req.method !== 'HEAD') return send(res, 405, 'Method not allowed', {Allow: 'GET, HEAD'});
-  let pathname;
-  try { pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname); } catch { return send(res, 400, 'Bad request'); }
-  if (pathname.includes('\0')) return send(res, 400, 'Bad request');
+  let url, pathname;
+  try { url = new URL(req.url, 'http://localhost'); pathname = decodeURIComponent(url.pathname); } catch { return send(res, 400, 'Bad request'); }
+  if (pathname.includes('\0') || !url.pathname.startsWith('/') || url.pathname.startsWith('//')) return send(res, 400, 'Bad request');
   if (pathname.startsWith('/media/')) {
     // Only files the build placed; the URL is looked up exactly as the build wrote it.
-    const rel = mediaList()[new URL(req.url, 'http://localhost').pathname];
+    const rel = mediaList()[url.pathname];
     if (!rel) return send(res, 404, 'Not a Lab media file');
     return sendFile(req, res, path.join(ROOT, rel), 'no-cache');
   }
@@ -83,11 +88,22 @@ const server = http.createServer((req, res) => {
   if (file !== DIST && !file.startsWith(DIST + path.sep)) return send(res, 403, 'Forbidden');
   if (pathname.endsWith('/')) file = path.join(file, 'index.html');
   else if (!path.extname(file) && fs.existsSync(path.join(file, 'index.html'))) {
-    res.writeHead(301, {Location: pathname + '/'});
+    // Built from the raw path, which is plain ASCII and starts with a single '/', so the redirect stays on this site.
+    res.writeHead(301, {Location: url.pathname + '/' + url.search});
     return res.end();
   }
   if (path.basename(file) === 'media.json') return send(res, 404, 'Not found');
   sendFile(req, res, file, 'no-cache');
+}
+
+// One bad request never stops the server.
+const server = http.createServer((req, res) => {
+  try { handle(req, res); }
+  catch (e) {
+    console.error('Request failed:', req.url, e.message);
+    if (!res.headersSent) send(res, 500, 'Server error');
+    else res.destroy();
+  }
 });
 
 server.on('error', e => {
