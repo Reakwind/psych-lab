@@ -17,7 +17,7 @@ The Lab holds 87 session flows and 51 script/audio/storyboard/film trios. Read d
 The owner decided on 2026-11-06 that the Lab becomes a responsive website, hosted locally for now, and that it is the owner's main review surface. It is built in phases from the plan in `docs/WEBSITE_PLAN.md`; until `npm start` serves it, the canvases below remain where the owner sees the Lab.
 
 The website (`site/`):
-- Pages that show program content are generated from repository data (`site/build.mjs`, sharing its content layer with `canvas/build.mjs`), never hand-typed, so the verbatim rule holds. The generated `site/dist/` is not committed; `npm start` rebuilds it.
+- Pages that show program content are generated from repository data (`site/build.mjs`, sharing the content layer `canvas/content.mjs` with `canvas/build.mjs`), never hand-typed, so the verbatim rule holds. The generated `site/dist/` is not committed; `npm start` rebuilds it.
 - `npm start` serves it on loopback only (`http://127.0.0.1:63684`); `npm start -- --lan` also listens on the local network so the owner can open it on a phone on the same Wi-Fi. In a cloud session, report the port so the owner's app can preview it. Do not host it anywhere else without the owner's decision: the content is unpublished and any hosted copy needs sign-in protection.
 - Media plays from the repository files (Git LFS); a file that is not downloaded is shown as missing, never replaced. Source media stays untouched.
 - Before telling the owner a page is done, `npm test` must pass and the page must be rendered and looked at on the 390 x 844 phone and on desktop.
