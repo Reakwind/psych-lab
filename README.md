@@ -6,13 +6,19 @@ The repository includes **87 session flows, 51 completed narrated animation trio
 
 ## See the Lab
 
-The Lab is becoming a responsive website, hosted locally for now (owner decision 2026-11-06). It is built in phases from [the website plan](docs/WEBSITE_PLAN.md) and will be served by `npm start` at `http://127.0.0.1:63684`, with `npm start -- --lan` to open it on a phone on the same Wi-Fi. The films and recordings play from the repository, so download them first:
+The Lab is a responsive website, hosted locally for now (owner decision 2026-11-06; [plan and record](docs/WEBSITE_PLAN.md)). The films and recordings play from the repository, so download them first (about 0.5 GB):
 
 ```bash
 git lfs pull --include="voice-over/mp4/*-animated.mp4,psych-lab/intervention/media/*.mp3,psych-lab/intervention/media/*.mp4"
 ```
 
-Until the site serves, and as a frozen record afterwards, the Lab is in connected Claude Design canvases. Start at **[Home](https://claude.ai/artifact/WAWMSHN8NVvUtk2Mp5vaW6)**, which links:
+```bash
+npm start
+```
+
+Then open http://127.0.0.1:63684. It has Home, Sessions (walk and time all 87 sessions), App (the program day by day, in Hebrew), Films & scripts and Activities, with per-page review notes saved in your browser and exported as JSON. To open it on a phone on the same Wi-Fi, run `npm start -- --lan` and use the network address it prints; anyone on that network can then open it while it runs. A page names any film or recording that is not downloaded rather than replacing it.
+
+The Lab's earlier connected Claude Design canvases are kept as a frozen record. Start at **[Home](https://claude.ai/artifact/WAWMSHN8NVvUtk2Mp5vaW6)**, which links:
 
 | Canvas | What it shows |
 | --- | --- |
@@ -34,8 +40,10 @@ bash scripts/cloud-bootstrap.sh
 ```
 
 ```bash
+npm start                # build the website into site/dist/ and serve it on 127.0.0.1:63684
+npm run site             # build the website only
 npm run canvas           # regenerate the canvas boards in canvas/<canvas>/project/
-npm test                 # sequence, canvas, verbatim, ownership, policy, and Git safety tests
+npm test                 # sequence, canvas, website, verbatim, ownership, policy, and Git safety tests
 npm run check            # tracked-source syntax and credential scan
 npm run media:check      # verify every referenced recording/video with FFprobe
 npm run doctor           # agent readiness: tools, guards, task claim, LFS media, GitHub access
@@ -53,7 +61,7 @@ Every agent uses an isolated workspace, a unique task branch with a committed cl
 
 | Path | Contents |
 | --- | --- |
-| `site/` | The responsive local Lab website: generator, local server and page sources (in progress, see [the plan](docs/WEBSITE_PLAN.md)) |
+| `site/` | The responsive local Lab website: generator (`build.mjs`), local server (`serve.mjs`), page styles and scripts (`src/`) and self-hosted fonts (`vendor/fonts/`) |
 | `canvas/` | Canvas registry, board generator and the committed boards of each canvas |
 | `psych-lab/` | Source/media audit, film-script pairing, production tools |
 | `psych-lab/intervention/` | Program manifest built from the sources, session sequencing (`core.mjs`), source snapshots and media |

@@ -62,3 +62,13 @@ Each phase is its own commit on the session branch; the owner checks each one in
 ## Later hosting
 
 The output is static, so it can move to a host later (Cloudflare is connected to the owner's sessions). The 23 MB PS-CONT-013 original is close to Cloudflare's 25 MiB static-asset limit, and this is unpublished program content: any hosted copy needs sign-in protection (for example Cloudflare Access), not a public URL. Hosting is a separate owner decision.
+
+## What was built (2026-11-06)
+
+All phases are done; `npm start` serves the site and `tests/test_site.py` covers it. Where the build differs from the plan above:
+
+- **The players are the canvases' own boards, not a port.** Phases 5 and 6 planned a vanilla JS port of `canvas/phone-logic.js` and `app-logic.js`. Instead, `site/src/dc-lite.js` (about 200 lines, no dependencies) renders the small template subset those boards use, so the logic and markup run unchanged on both the canvas and the site. There is one copy of the player behaviour, and the verbatim rule is checked on exactly what both outputs show. The boards' styles moved to `canvas/phone-board.css` and `canvas/app-board.css` so both read them; the canvases stayed byte-identical.
+- **Film pages compare line by line instead of using tabs.** Each script line is followed by what was narrated (and the text sent for voicing), with differing words highlighted. On a phone that already reads top to bottom, so tabs would only hide the comparison. Each voiced sentence sits on its own line, because the narration record holds them as separate sentences.
+- **Fonts:** Material Symbols is subset to the icons the app shows (55 KB instead of 5.4 MB). If the app gains an icon, refresh the subset (`site/vendor/fonts/README.md`).
+
+Checked on 2026-11-06 in Chrome at 390 × 844 and 1280 × 800: every section without sideways scroll; sessions 1, 2, 3, 4, 6, 8, 10, 13 and 15 walked to the end with films, the portrait Remepy clip PS-CONT-029 and the recordings playing and seeking, and the breathing clock running; the card game's topic and card screens; the app's day controls, three tabs and a whole Protocol.xlsx day; review notes saved, kept across pages and exported; `--lan` reachable from the network and the default not.

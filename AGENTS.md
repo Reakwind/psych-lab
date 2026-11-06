@@ -14,13 +14,13 @@ The Lab holds 87 session flows and 51 script/audio/storyboard/film trios. Read d
 
 ## Where output goes: the website, then the canvases
 
-The owner decided on 2026-11-06 that the Lab becomes a responsive website, hosted locally for now, and that it is the owner's main review surface. It is built in phases from the plan in `docs/WEBSITE_PLAN.md`; until `npm start` serves it, the canvases below remain where the owner sees the Lab.
+The owner decided on 2026-11-06 that the Lab becomes a responsive website, hosted locally for now, and that it is the owner's main review surface. `npm start` builds and serves it (plan and record: `docs/WEBSITE_PLAN.md`); put new work there.
 
 The website (`site/`):
-- Pages that show program content are generated from repository data (`site/build.mjs`, sharing the content layer `canvas/content.mjs` with `canvas/build.mjs`), never hand-typed, so the verbatim rule holds. The generated `site/dist/` is not committed; `npm start` rebuilds it.
+- Pages that show program content are generated from repository data (`site/build.mjs`, sharing the content layer `canvas/content.mjs` with `canvas/build.mjs`), never hand-typed, so the verbatim rule holds. The session player and app prototype run `canvas/phone-logic.js`, `app-logic.js` and their markup unchanged through `site/src/dc-lite.js`; change those files for both outputs, and keep `node canvas/build.mjs --check` passing. The generated `site/dist/` is not committed; `npm start` rebuilds it.
 - `npm start` serves it on loopback only (`http://127.0.0.1:63684`); `npm start -- --lan` also listens on the local network so the owner can open it on a phone on the same Wi-Fi. In a cloud session, report the port so the owner's app can preview it. Do not host it anywhere else without the owner's decision: the content is unpublished and any hosted copy needs sign-in protection.
 - Media plays from the repository files (Git LFS); a file that is not downloaded is shown as missing, never replaced. Source media stays untouched.
-- Before telling the owner a page is done, `npm test` must pass and the page must be rendered and looked at on the 390 x 844 phone and on desktop.
+- Before telling the owner a page is done, `npm test` must pass (`tests/test_site.py`: repeatable build, verbatim pages, links, media, server, and a browser walk at 390 x 844 and 1280 x 800) and the page must be rendered and looked at on the 390 x 844 phone and on desktop.
 - Original design stays on its canvas; the site links to it. Review notes are kept per page in the browser and exported as JSON.
 
 The connected Claude Design canvases are frozen as they are (owner decision 2026-11-06): keep `node canvas/build.mjs --check` and `tests/test_canvas.py` passing so they stay reproducible, and republish them only when the owner asks. Home links every canvas (registry: `canvas/canvases.json`):
