@@ -373,6 +373,9 @@ ${en('h1', 'Films & scripts', 'title')}
 
 // ---------- Phone preview ----------
 const PHONE_LOGIC = fs.readFileSync(path.join(HERE, 'phone-logic.js'), 'utf8');
+// Stylesheets of the Phone and App boards, also used by the website's session player and app prototype.
+const PHONE_CSS = fs.readFileSync(path.join(HERE, 'phone-board.css'), 'utf8');
+const APP_CSS = fs.readFileSync(path.join(HERE, 'app-board.css'), 'utf8');
 // The step players (intro page, film, choice, breathing, audio, Inner Voice, cards, reflection) are shared by
 // the Phone preview and the app prototype, so both boards show the same verified screens.
 const FLOW_MARKUP = fs.readFileSync(path.join(HERE, 'flow-markup.html'), 'utf8');
@@ -394,28 +397,7 @@ function buildPhone() {
 <helmet>
 ${FONTS}
 <style>
-body{margin:0}
-.lab{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;direction:ltr;text-align:left}
-.he{font-family:Rubik,system-ui,sans-serif;direction:rtl;text-align:right}
-.gap{display:block;background:#FFDEA3;color:#261900;border-radius:12px;padding:10px 14px;font:14px/1.45 system-ui,sans-serif;direction:ltr;text-align:left}
-.srow{display:flex;flex-direction:column;align-items:stretch;gap:2px;width:100%;min-height:64px;border:0;border-bottom:1px solid #DDE4E1;background:transparent;padding:10px 4px;cursor:pointer;text-align:right;color:inherit}
-.opt{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:72px;border:1.5px solid #BEC9C5;border-radius:20px;background:#FFFFFF;padding:12px 16px;cursor:pointer;color:inherit;margin-bottom:10px}
-.word{display:inline-block;background:#E3EAE7;border-radius:999px;padding:4px 12px;margin:0 0 8px 8px;font-size:16px}
-.orb{width:180px;height:180px;border-radius:50%;background:#B3EFE4;margin:0 auto;transition:transform .1s linear}
-.panel{box-sizing:border-box;width:458px;height:844px;overflow-y:auto;background:#FFFFFF;border-radius:20px;padding:22px 24px;color:#171D1B;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.panel h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#3F4946;margin:16px 0 6px}
-.panel p{margin:2px 0}
-.panel .big{font-size:30px;font-weight:600;font-variant-numeric:tabular-nums}
-.panel .muted{color:#3F4946;font-size:13px}
-.panel .bar{display:flex;height:10px;border-radius:999px;background:#E3EAE7;overflow:hidden;margin:6px 0}
-.panel .rowline{display:flex;justify-content:space-between;gap:10px;border-top:1px solid #E3EAE7;padding:5px 0;font-size:13px}
-.panel .now{font-weight:600;color:#2B6A62}
-.panel .pbtn{border:1.5px solid #BEC9C5;background:#F5FBF8;border-radius:10px;padding:6px 12px;font:inherit;cursor:pointer;color:inherit;min-height:36px}
-.panel .seg2{display:inline-flex;border:1.5px solid #BEC9C5;border-radius:10px;overflow:hidden}
-.panel .seg2 button{border:0;background:transparent;padding:5px 12px;font:inherit;cursor:pointer;color:inherit}
-.panel .seg2 button.is-selected{background:#CCE8E2}
-.panel textarea{width:100%;height:180px;font:12px/1.4 ui-monospace,monospace;box-sizing:border-box}
-</style>
+${PHONE_CSS}</style>
 </helmet>
 ${PHONE_MARKUP}
 </x-dc>
@@ -498,47 +480,7 @@ ${FONTS}
 ${UI_FONTS}
 ${ICON_FONT}
 <style>
-body{margin:0}
-.lab{font-family:'Atkinson Hyperlegible Next',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;direction:ltr;text-align:left}
-.he{font-family:Rubik,system-ui,sans-serif;direction:rtl;text-align:right}
-.gap{display:block;background:#FFDEA3;color:#261900;border-radius:12px;padding:10px 14px;font:14px/1.45 system-ui,sans-serif;direction:ltr;text-align:left}
-.opt{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:72px;border:1.5px solid #BEC9C5;border-radius:20px;background:#FFFFFF;padding:12px 16px;cursor:pointer;color:inherit;margin-bottom:10px}
-.word{display:inline-block;background:#E3EAE7;border-radius:999px;padding:4px 12px;margin:0 0 8px 8px;font-size:16px}
-.orb{width:180px;height:180px;border-radius:50%;background:#B3EFE4;margin:0 auto;transition:transform .1s linear}
-.app .screen.scroll > *{flex-shrink:0}
-.list-row.is-picked{background:var(--primary-container);box-shadow:inset 0 0 0 2px var(--primary)}
-.day-slot{background:rgba(255,255,255,.45)}
-.day-slot .list-lead{opacity:.7}
-.day-psych{background:#FFFFFF;box-shadow:inset 0 0 0 2px var(--primary)}
-.slot-video{aspect-ratio:16/9;width:100%;border-radius:20px;background:repeating-linear-gradient(135deg,var(--surface-high) 0 14px,var(--surface-container) 14px 28px);color:var(--on-surface-variant);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:16px;box-sizing:border-box;font-size:15px;font-weight:600}
-.where{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--on-surface-variant)}
-.wk{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1 1 0}
-.wk-dot{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;box-sizing:border-box}
-.wk-done{background:var(--primary);color:var(--on-primary)}
-.wk-today{box-shadow:inset 0 0 0 3px var(--primary);background:var(--primary-container);color:var(--on-primary-container)}
-.wk-missed{box-shadow:inset 0 0 0 2px var(--outline-variant);color:var(--outline)}
-.wk-future{background:var(--surface-high);color:var(--on-surface-variant)}
-.wk-lbl{font:600 12px/16px 'Atkinson Hyperlegible Next',system-ui,sans-serif;color:var(--on-surface-variant)}
-.jrow{width:100%;display:flex;align-items:center;gap:12px;min-height:68px;padding:8px 12px;border:none;border-radius:20px;background:var(--surface-low);color:inherit;cursor:pointer;box-sizing:border-box;text-align:left;flex-shrink:0}
-.jrow:disabled{cursor:default;opacity:.55}
-.jdot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.wkhead{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:60px;padding:8px 16px;border:none;border-radius:20px;background:var(--surface-container);color:inherit;cursor:pointer;box-sizing:border-box;flex-shrink:0}
-.rail{box-sizing:border-box;width:442px;height:844px;overflow-y:auto;background:#FFFFFF;border-radius:20px;padding:22px 24px;color:#171D1B;font:14px/1.5 'Atkinson Hyperlegible Next',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.rail h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#3F4946;margin:16px 0 6px}
-.rail p{margin:2px 0}
-.rail .big{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;line-height:36px}
-.rail .muted{color:#3F4946;font-size:13px}
-.rail .quote{border-left:3px solid #BEC9C5;padding:2px 0 2px 10px;color:#3F4946;font-size:13px;margin:6px 0}
-.rail .rowline{display:flex;justify-content:space-between;gap:10px;border-top:1px solid #E3EAE7;padding:5px 0;font-size:13px}
-.rail .pbtn{border:1.5px solid #BEC9C5;background:#F5FBF8;border-radius:10px;padding:6px 12px;font:inherit;cursor:pointer;color:inherit;min-height:36px}
-.rail .pbtn.primary{background:#2B6A62;border-color:#2B6A62;color:#fff;font-weight:600}
-.rail .btns{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
-.rail .seg2{display:inline-flex;border:1.5px solid #BEC9C5;border-radius:10px;overflow:hidden}
-.rail .seg2 button{border:0;background:transparent;padding:6px 12px;font:inherit;cursor:pointer;color:inherit}
-.rail .seg2 button.is-selected{background:#CCE8E2;font-weight:600}
-.rail .num{display:inline-block;min-width:44px;text-align:center;font-weight:700;font-size:16px}
-.rail .key{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
-</style>
+${APP_CSS}</style>
 </helmet>
 ${APP_MARKUP}
 </x-dc>
