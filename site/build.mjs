@@ -17,7 +17,14 @@ import {time, introClip, reflectionType, read, P, FS, kindNames, KINDS, THEMES, 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '..');
 const outArg = process.argv.indexOf('--out');
-const OUT = outArg > 0 ? path.resolve(process.argv[outArg + 1]) : path.join(HERE, 'dist');
+const OUT = outArg > 0 && process.argv[outArg + 1] ? path.resolve(process.argv[outArg + 1]) : path.join(HERE, 'dist');
+// The output folder is deleted and rewritten, so it must be a build folder: never the repository, a folder
+// holding it, or a folder inside it other than site/dist; an existing folder elsewhere must be a previous build.
+{
+  const inside = (dir, root) => dir === root || dir.startsWith(root + path.sep);
+  const ok = OUT === path.join(HERE, 'dist') || (!inside(OUT, ROOT) && !inside(ROOT, OUT) && (!fs.existsSync(OUT) || fs.readdirSync(OUT).length === 0 || fs.existsSync(path.join(OUT, 'media.json'))));
+  if (!ok) { console.error(`Refusing to replace ${OUT}: --out must be a new or empty folder, or an earlier site build, outside the repository.`); process.exit(1); }
+}
 const REG = read('canvas/canvases.json');
 const AUDIT = read('psych-lab/status.json');
 const UI_CSS = 'animation-kit/artifact-files/79280df1-062f-40c5-86a9-f904218fbf5c/project/ui.css';
@@ -70,7 +77,7 @@ function missingBanner(missing) {
 const NAV = [['/', 'Home'], ['/sessions/', 'Sessions'], ['/app/', 'App'], ['/films/', 'Films'], ['/activities/', 'Activities']];
 const PAGES = new Map();    // output path -> html
 
-function page({file, title, section, body, css = [], scripts = [], cls = 'page', missing = new Set(), description = ''}) {
+function page({file, title, section, body, css = [], scripts = [], cls = 'page', missing = new Set(), description = '', bannerAfter = false}) {
   const nav = NAV.map(([href, label]) => `<a href="${href}"${href === section ? ' aria-current="page"' : ''}>${esc(label)}</a>`).join('');
   const html = `<!doctype html>
 <html lang="en">
@@ -101,7 +108,7 @@ ${css.map(c => `<link rel="stylesheet" href="${c}">`).join('\n')}
 <p class="meta" data-notes-status></p>
 </aside>
 <main id="main" class="${cls}">
-${missingBanner(missing)}${body}
+${bannerAfter ? '' : missingBanner(missing)}${body}${bannerAfter ? missingBanner(missing) : ''}
 </main>
 <footer class="site-foot">
 <p>Program text is quoted verbatim from the source files in the repository, with its source; where no source text exists the page says so. Built by site/build.mjs from program.json (built ${esc(P.built_at)}), film-scripts.json and the films' narration record.</p>
@@ -392,7 +399,7 @@ ${APP_LOGIC}
 DCLite.mount(document.getElementById('player'), ${jsData(APP_MARKUP)}, Component);
 `;
   const playerCss = ['/assets/phone-board.css'];
-  page({file: 'sessions/index.html', title: 'Sessions', section: '/sessions/', cls: 'page player-page', missing: sessions.missing, css: playerCss,
+  page({file: 'sessions/index.html', title: 'Sessions', section: '/sessions/', cls: 'page player-page', missing: sessions.missing, bannerAfter: true, css: playerCss,
     scripts: ['/assets/dc-lite.js', '/assets/sessions.js'],
     body: `<h1 class="kicker player-title" style="text-align: center; margin: 0 0 8px">Sessions · walk and time all ${P.sessions.length}</h1>
 <div class="player" id="player" aria-label="Session player"></div>
@@ -406,7 +413,7 @@ DCLite.mount(document.getElementById('player'), ${jsData(APP_MARKUP)}, Component
 <p>${link('/sessions/held-out-047.html', 'PS-CONT-047 is held out of the breathing flow')}: its source video conflicts with its metadata.</p></div>
 </div>
 </section>`});
-  page({file: 'app/index.html', title: 'App prototype', section: '/app/', cls: 'page player-page', missing: app.missing, css: [...playerCss, '/assets/app-board.css'],
+  page({file: 'app/index.html', title: 'App prototype', section: '/app/', cls: 'page player-page', missing: app.missing, bannerAfter: true, css: [...playerCss, '/assets/app-board.css'],
     scripts: ['/assets/dc-lite.js', '/assets/app.js'],
     body: `<h1 class="kicker player-title" style="text-align: center; margin: 0 0 8px">App prototype · live the program day by day</h1>
 <div class="player" id="player" aria-label="App prototype"></div>

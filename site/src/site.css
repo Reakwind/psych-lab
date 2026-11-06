@@ -158,6 +158,7 @@ ul.he { padding-right: 22px; padding-left: 0; }
 .player .panel, .player .rail { height: 864px !important; max-width: 100%; box-shadow: var(--elev-1); }
 .player .app video { max-width: 100% !important; }
 .player-about { max-width: 1000px; margin: 28px auto 0; }
+.player-page > .banner { max-width: 1000px; margin: 20px auto 0; }
 .player[data-error]::before { content: 'The player stopped: ' attr(data-error); display: block; background: var(--gap-bg); padding: 12px; border-radius: 12px; }
 
 /* No room beside the phone: the panel goes below it. */
