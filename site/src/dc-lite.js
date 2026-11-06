@@ -206,7 +206,8 @@
     render();
     mounted = true;
     try { logic.componentDidMount(); } catch (e) { console.error(e); }
-    window.addEventListener('pagehide', () => { try { logic.componentWillUnmount(); } catch (e) { console.error(e); } }, { once: true });
+    // No unmount on pagehide: a page restored from the back/forward cache resumes with its timers and
+    // listeners intact, and a page that is discarded takes them with it.
     return logic;
   }
 
