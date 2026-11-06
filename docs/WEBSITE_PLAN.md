@@ -26,8 +26,8 @@ site/
 ```
 
 - **Shared content layer.** What to show (session steps, activity sections, film/script pairs, missing-source markers) moves out of `canvas/build.mjs` into one module both outputs use. `node canvas/build.mjs --check` must stay green throughout: the canvases do not change.
-- **Media.** The server maps the media URLs that `program.json` names to the repository files and answers byte-range requests (video seeking; Safari needs them). A file Git LFS has not downloaded shows a visible "media not downloaded" marker. The site needs the films and the MP3/MP4 recordings, not the full 1.3 GB:
-  `git lfs pull --include="animation-kit/film*/*-full.mp4,psych-lab/intervention/media/*.mp3,psych-lab/intervention/media/*.mp4"`.
+- **Media.** The server maps the media URLs that `program.json` names to the repository files and answers byte-range requests (video seeking; Safari needs them). A file Git LFS has not downloaded shows a visible "media not downloaded" marker. The site needs the 51 films (`voice-over/mp4/`, the files the audit in `psych-lab/status.json` names) and the MP3/MP4 recordings, about 0.5 GB instead of the full 1.3 GB:
+  `git lfs pull --include="voice-over/mp4/*-animated.mp4,psych-lab/intervention/media/*.mp3,psych-lab/intervention/media/*.mp4"`.
   PS-CONT-013 and PS-CONT-047 play their originals; the canvases' 15 MB per-file limit does not apply.
 - **Commands.** `npm run site` builds; `npm start` builds and serves at `http://127.0.0.1:63684` (the retired site's port); `npm start -- --lan` for a phone on the same network.
 - **Same text rules as the canvases** (AGENTS.md): program content verbatim with its source ID, gaps shown as gaps, the Lab interface in English, Hebrew interface words on the phone prototype only from `canvas/interface-he.json`.
