@@ -247,11 +247,11 @@ class Repository(unittest.TestCase):
         self.assertFalse(corpus.anywhere('מה גרם לכם לחייך השבוע?'))
 
     def test_sequencing_code_shows_no_unsourced_hebrew(self):
-        # core.mjs sequences sessions for the canvases; it holds no program wording of its own.
+        # core.mjs sequences sessions and canvas/content.mjs selects what the Lab shows; neither holds program wording of its own.
         corpus = verbatim.Corpus()
         if [p for p in corpus.unreadable if p.endswith(('.xlsx', '.docx'))]:
             self.skipTest('Text sources not downloaded (git lfs pull)')
-        files = [str(ROOT / 'psych-lab/intervention/core.mjs'), str(ROOT / 'canvas/build.mjs'), str(ROOT / 'canvas/phone-logic.js'), str(ROOT / 'canvas/phone-markup.html'),
+        files = [str(ROOT / 'psych-lab/intervention/core.mjs'), str(ROOT / 'canvas/build.mjs'), str(ROOT / 'canvas/content.mjs'), str(ROOT / 'canvas/phone-logic.js'), str(ROOT / 'canvas/phone-markup.html'),
                  str(ROOT / 'canvas/flow-markup.html'), str(ROOT / 'canvas/app-logic.js'), str(ROOT / 'canvas/app-markup.html')]
         problems, _ = verbatim.check(files, corpus)
         self.assertEqual(problems, [])
