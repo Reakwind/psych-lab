@@ -12,7 +12,9 @@
     "site/",
     "package.json",
     ".gitignore",
-    "tests/test_site.py"
+    "tests/test_site.py",
+    "canvas/build.mjs",
+    "canvas/content.mjs"
   ],
   "branch": "claude/affectionate-knuth-9dmy4f"
 }
