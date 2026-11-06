@@ -66,6 +66,13 @@ class Site(unittest.TestCase):
             return out
         self.assertEqual(differences(compared), [])
 
+    def test_out_never_replaces_the_repository(self):
+        for out in ['.', 'site', '..']:
+            result = subprocess.run(['node', 'site/build.mjs', '--out', out], cwd=ROOT, capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0, out)
+            self.assertIn('Refusing', result.stderr)
+        self.assertTrue((ROOT / 'package.json').is_file())
+
     def test_every_section_is_built(self):
         names = {str(p.relative_to(self.dist)) for p in self.pages}
         program = json.loads((ROOT / 'psych-lab/intervention/program.json').read_text())
@@ -188,6 +195,18 @@ class Server(unittest.TestCase):
                      '/assets/../../package.json', '/media/..%2fpackage.json']:
             self.assertIn(self.get(path)[0], (400, 403, 404), path)
 
+    def test_redirects_stay_on_this_site_and_bad_requests_never_stop_it(self):
+        for raw in ['/%2fevil.example%2f..%2ffilms', '/x%0a%2f..%2ffilms', '/%D7%90%2f..%2ffilms', '//evil.example/films']:
+            conn = http.client.HTTPConnection('127.0.0.1', self.port, timeout=10)
+            conn.request('GET', raw)
+            r = conn.getresponse()
+            location = r.getheader('Location') or ''
+            conn.close()
+            self.assertFalse(location.startswith('//') or '://' in location, f'{raw} redirects off the site: {location}')
+        self.assertEqual(self.get('/')[0], 200, 'the server stopped')
+        status, headers, _ = self.get('/films?x=1')
+        self.assertEqual(status, 200)
+
     def test_media_answer_byte_ranges(self):
         if not self.media:
             self.skipTest('No media downloaded (git lfs pull)')
@@ -198,6 +217,8 @@ class Server(unittest.TestCase):
         self.assertEqual(headers['Content-Range'], f'bytes 10-19/{size}')
         self.assertEqual(body, (ROOT / rel).read_bytes()[10:20])
         self.assertEqual(self.get(url, {'Range': f'bytes={size + 10}-'})[0], 416)
+        status, _, body = self.get(url, {'Range': 'bytes=0-1,5-9'})
+        self.assertEqual((status, len(body)), (200, size), 'several ranges get the whole file')
 
 
 # Drives the built site in a real browser: no sideways scroll on any section at phone or desktop size, a
