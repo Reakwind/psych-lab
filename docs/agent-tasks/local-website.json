@@ -14,7 +14,8 @@
     ".gitignore",
     "tests/test_site.py",
     "canvas/build.mjs",
-    "canvas/content.mjs"
+    "canvas/content.mjs",
+    "tests/test_verbatim.py"
   ],
   "branch": "claude/affectionate-knuth-9dmy4f"
 }
