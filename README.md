@@ -6,7 +6,13 @@ The repository includes **87 session flows, 51 completed narrated animation trio
 
 ## See the Lab
 
-The Lab is viewed in connected Claude Design canvases. Start at **[Home](https://claude.ai/artifact/WAWMSHN8NVvUtk2Mp5vaW6)**, which links:
+The Lab is becoming a responsive website, hosted locally for now (owner decision 2026-11-06). It is built in phases from [the website plan](docs/WEBSITE_PLAN.md) and will be served by `npm start` at `http://127.0.0.1:63684`, with `npm start -- --lan` to open it on a phone on the same Wi-Fi. The films and recordings play from the repository, so download them first:
+
+```bash
+git lfs pull --include="voice-over/mp4/*-animated.mp4,psych-lab/intervention/media/*.mp3,psych-lab/intervention/media/*.mp4"
+```
+
+Until the site serves, and as a frozen record afterwards, the Lab is in connected Claude Design canvases. Start at **[Home](https://claude.ai/artifact/WAWMSHN8NVvUtk2Mp5vaW6)**, which links:
 
 | Canvas | What it shows |
 | --- | --- |
@@ -15,7 +21,7 @@ The Lab is viewed in connected Claude Design canvases. Start at **[Home](https:/
 | [Films & scripts](https://claude.ai/artifact/KkY7FBBxvJtd38pTcKNsLT) | Each film beside the script document it narrates, differences highlighted |
 | [Phone preview](https://claude.ai/artifact/8NYov7M3HXKPhX49GV6WMw) | Walk and time any of the 87 sessions on a phone, as the sources sequence them, against the 30-minute planned day; the App prototype board lives the program day by day in Hebrew: each app day as Protocol.xlsx lays it out, with psychology playable and the other modules as marked slots (Today, Journey, Library, missed days, the week-13+ rhythm) |
 
-The canvases are private to their owner until shared from each page's Share menu.
+The canvases are private to their owner until shared from each page's Share menu. They are republished only when the owner asks.
 
 ## Build and check
 
@@ -35,7 +41,7 @@ npm run media:check      # verify every referenced recording/video with FFprobe
 npm run doctor           # agent readiness: tools, guards, task claim, LFS media, GitHub access
 ```
 
-Boards are published to their canvas with Claude's Artifact tool (see [AGENTS.md](AGENTS.md), "Where output goes"). PR CI uses code and LFS pointers; full media verification is an explicit workflow to avoid repeated archive downloads.
+Canvas boards are published to their canvas with Claude's Artifact tool when the owner asks (see [AGENTS.md](AGENTS.md), "Where output goes"). PR CI uses code and LFS pointers; full media verification is an explicit workflow to avoid repeated archive downloads.
 
 ## Work autonomously
 
@@ -47,6 +53,7 @@ Every agent uses an isolated workspace, a unique task branch with a committed cl
 
 | Path | Contents |
 | --- | --- |
+| `site/` | The responsive local Lab website: generator, local server and page sources (in progress, see [the plan](docs/WEBSITE_PLAN.md)) |
 | `canvas/` | Canvas registry, board generator and the committed boards of each canvas |
 | `psych-lab/` | Source/media audit, film-script pairing, production tools |
 | `psych-lab/intervention/` | Program manifest built from the sources, session sequencing (`core.mjs`), source snapshots and media |
@@ -55,6 +62,6 @@ Every agent uses an isolated workspace, a unique task branch with a committed cl
 | Root DOCX / CSV | Original project specifications, scripts, and timeline |
 | `docs/` | Architecture, cloud setup, agent workflow and task manifests |
 
-Source hierarchy, content conflicts, and current limitations are documented in [architecture](docs/ARCHITECTURE.md). Review notes are left as comments on the canvases.
+Source hierarchy, content conflicts, and current limitations are documented in [architecture](docs/ARCHITECTURE.md). Review notes on the website are kept per page in the browser and exported as JSON; on the canvases they are comments.
 
 Credentials, disposable frame/synthesis caches, installed dependencies, and machine logs are excluded. Finished media and original source documents use Git LFS. The repository being public does not select an open-source license; preserve existing authorship and rights notices.
