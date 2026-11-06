@@ -21,17 +21,22 @@
   area.value = (load()[page] || {}).text || '';
   count();
 
-  let timer = null;
-  area.addEventListener('input', () => {
+  let timer = null, dirty = false;
+  const flush = () => {
     clearTimeout(timer);
-    timer = setTimeout(() => {
-      const all = load();
-      if (area.value.trim()) all[page] = { title: document.title, text: area.value, updated: new Date().toISOString() };
-      else delete all[page];
-      if (!save(all)) status.textContent = 'This browser refused to save the note.';
-      else count();
-    }, 300);
-  });
+    if (!dirty) return;
+    dirty = false;
+    const all = load();
+    if (area.value.trim()) all[page] = { title: document.title, text: area.value, updated: new Date().toISOString() };
+    else delete all[page];
+    if (!save(all)) status.textContent = 'This browser refused to save the note.';
+    else count();
+  };
+  area.addEventListener('input', () => { dirty = true; clearTimeout(timer); timer = setTimeout(flush, 300); });
+  // Leaving the page, the box or exporting saves at once, so the last words are never lost.
+  area.addEventListener('blur', flush);
+  window.addEventListener('pagehide', flush);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flush(); });
 
   const open = (yes) => {
     panel.hidden = !yes;
@@ -43,6 +48,7 @@
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) { open(false); button.focus(); } });
 
   panel.querySelector('[data-notes-export]').addEventListener('click', () => {
+    flush();
     const all = load();
     const blob = new Blob([JSON.stringify({ exported: new Date().toISOString(), site: 'Psych Lab', notes: all }, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
