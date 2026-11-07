@@ -29,6 +29,16 @@ The Lab's earlier connected Claude Design canvases are kept as a frozen record. 
 
 The canvases are private to their owner until shared from each page's Share menu. They are republished only when the owner asks.
 
+## Draw instead of describing: the sketchpad
+
+The sketchpad lets you direct Claude's designs by drawing on them. You draw on a design in the board (on the Mac, or later an iPad), press **Send to Claude**, and a pane beside the chat in the Claude desktop app hands the marks to Claude, which changes the design; the board reloads with the result. It is a Claude Code plugin in `sketchpad/`; designs live in `studio/designs/`. Plan, setup on the Mac and what was checked: [docs/SKETCHPAD_PLAN.md](docs/SKETCHPAD_PLAN.md).
+
+In a local Claude Code session in this folder (desktop app Code tab, or a terminal):
+
+```text
+/plugin install sketchpad --marketplace ./
+```
+
 ## Build and check
 
 Use Node.js 22+, Python 3.11+, Git LFS, and FFmpeg/FFprobe. Open in a GitHub Codespace/dev container for a ready-made Linux environment, or install the dependencies in [docs/CLOUD.md](docs/CLOUD.md).
@@ -61,6 +71,8 @@ Every agent uses an isolated workspace, a unique task branch with a committed cl
 
 | Path | Contents |
 | --- | --- |
+| `sketchpad/` | The sketchpad plugin: the relay and drawing board (`relay/`), the mod with its pane (`hooks/`), Claude's instructions (`skills/`) and tests |
+| `studio/` | Designs to draw on (`designs/`); sketch packets (`sketches/`) stay local |
 | `site/` | The responsive local Lab website: generator (`build.mjs`), local server (`serve.mjs`), page styles and scripts (`src/`) and self-hosted fonts (`vendor/fonts/`) |
 | `canvas/` | Canvas registry, board generator and the committed boards of each canvas |
 | `psych-lab/` | Source/media audit, film-script pairing, production tools |

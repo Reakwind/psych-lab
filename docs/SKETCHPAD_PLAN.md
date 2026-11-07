@@ -1,6 +1,6 @@
 # Plan: the sketchpad (Mac, and optionally iPad)
 
-**Status: a draft the owner is still refining (2026-11-07).** It changes no rules: AGENTS.md still governs. It replaces `docs/HARNESS_PLAN.md`, the earlier "harness" framing that the owner set aside.
+**Status (2026-11-07): phase 1 is built (see "What was built" at the end); the rest is a draft the owner is still refining.** It changes no rules: AGENTS.md still governs. It replaces `docs/HARNESS_PLAN.md`, the earlier "harness" framing that the owner set aside.
 
 ## The problem
 
@@ -105,6 +105,37 @@ Each phase is its own commit; the owner tries it on the Mac (and the iPad, where
 | 3. Edits and voice | Direct editing on the board; voice memos timed with the pen | Show a change by doing it, or say it while pointing |
 | 4. Psych Lab work | Use it on real work: the breathing exercise pilot as an app mockup, a pacer animation, a spec page, video frames | Shape an intervention by drawing on it |
 | 5. Away from home | The same board through a private claude.ai page instead of the home Wi-Fi, for cloud sessions (no pane there; the sketch still reaches Claude) | Sketch when the Mac is not on the same network |
+
+## What was built: phase 1 (2026-11-07)
+
+The owner asked for phase 1. It is the plugin in `sketchpad/`, listed by the repository's marketplace file (`.claude-plugin/marketplace.json`), and one design to draw on.
+
+| Part | Where | What it does |
+| --- | --- | --- |
+| Relay | `sketchpad/relay/server.mjs` | Serves the board and `studio/designs/`, on this computer only (`127.0.0.1:63690`, or the next free port). Saves each Send to `studio/sketches/<id>/` (`packet.json`, `snapshot.png`, `strokes.png`, `before/`), reloads boards when a design's files change, and reports each event to the mod. Also runs on its own: `node sketchpad/relay/server.mjs`. |
+| Board | `sketchpad/relay/board/` | The design in a frame with a drawing layer: Draw and Use modes, three inks, undo, clear, a note, Send. Pen pressure where there is a pen; palm ignored once a pencil is used; trackpad scrolling moves the design while drawing. Each mark is numbered and sent with the elements it touches or encloses, and a snapshot of the whole design with the marks on it (made in the browser by html-to-image, MIT, vendored). |
+| Mod | `sketchpad/hooks/register.tsx` | In a project with `studio/designs/`, starts the relay when the session starts and opens the **Sketchpad** pane: the board's address, the marks as they are drawn, the sketches sent. On Send it hands the packet to Claude as a prompt of its own. `/sketchpad` opens the pane and starts the board anywhere. |
+| Skill | `sketchpad/skills/sketchpad/SKILL.md` | How Claude reads a packet (snapshot first, then the marks and what they touch), what common marks mean, and to change the design straight away and reply one line per mark. |
+| First design | `studio/designs/breathing/` | A breathing-exercise mockup with a working pacer, labelled "AI draft · not from the Remepy sources". |
+
+Sketch packets are not committed (`.gitignore`); designs are.
+
+**Checked here:** `tests/test_sketchpad.py` (in `npm test`): the relay's files, packets, reports and refusals; a real browser drawing a loop around the breathing circle at 1280 x 800 and 390 x 844 and sending it, the packet naming `#breath-circle` and carrying a snapshot; the mod's validation and its own tests (`claude plugin test sketchpad`: the board starting, live marks, a Send handed to Claude, the pane on the terminal and desktop surfaces); the designs self-contained and labelled. The mod type-checks against the engine's types. A rehearsal of the whole loop (Send, a change to the design file, the board reloading with the sent marks cleared) passed in a browser.
+
+**Not checked here (needs the owner's Mac):** the pane in the desktop app, the board in the desktop app's preview panel, the relay starting from the desktop app (finding Node), and the prompt arriving in a real session.
+
+### Setting it up on the Mac
+
+Needs Node.js 22 or later (the repository already does) and the desktop app's Claude Code 2.1.286 or later (`/status` in a Code session shows it).
+
+1. Get this work onto the Mac. It is on the branch `claude/nifty-noether-h0tgfc` until a PR merges it:
+   `git clone https://github.com/Reakwind/psych-lab.git`, then `cd psych-lab` and `git checkout claude/nifty-noether-h0tgfc`.
+2. In the Claude desktop app, open the **Code** tab and start a **local** session in the `psych-lab` folder.
+3. Install the plugin from the repository's own marketplace. In the session type `/plugin install sketchpad --marketplace ./` and choose "this repo only". Or, in a terminal in the folder: `claude plugin install sketchpad --marketplace ./ --scope local`. Then start a new session (or run `/reload-plugins`).
+4. The **Sketchpad** pane opens beside the chat with the board's address. Open it in the desktop app's preview panel, or in a browser.
+5. Draw on the breathing mockup, add a note if words help, press **Send to Claude**.
+
+The plugin is copied into Claude Code when installed: after pulling a newer version, update it from `/plugin` (Installed → sketchpad → Update now).
 
 ## Kept from the earlier plan, for later
 
