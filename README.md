@@ -6,7 +6,7 @@ The repository includes **87 session flows, 51 completed narrated animation trio
 
 ## See the Lab
 
-The Lab is a responsive website, hosted locally for now (owner decision 2026-11-06; [plan and record](docs/WEBSITE_PLAN.md)). The films and recordings play from the repository, so download them first (about 0.5 GB):
+The Lab is a responsive website ([plan and record](docs/WEBSITE_PLAN.md)). Open it from any device at its **[private claude.ai page](https://claude.ai/artifact/JxJ3F78P4PfDVpouwa3iXZ)** (visible only to its owner unless shared from the page's Share menu), or run it locally. Locally, the films and recordings play from the repository, so download them first (about 0.5 GB):
 
 ```bash
 git lfs pull --include="voice-over/mp4/*-animated.mp4,psych-lab/intervention/media/*.mp3,psych-lab/intervention/media/*.mp4"
