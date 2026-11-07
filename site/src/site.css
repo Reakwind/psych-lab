@@ -14,6 +14,8 @@
 @media (min-width: 720px) { :root { --gutter: 32px; } }
 
 html { -webkit-text-size-adjust: 100%; }
+/* In a phone app the band above the sticky header (the safe area) is painted like the header. */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 25; background: var(--surface-lowest); }
 body { margin: 0; background: var(--surface); color: var(--on-surface); font: 16px/1.55 var(--lab-font); }
 *, *::before, *::after { box-sizing: border-box; }
 a { color: var(--primary); text-underline-offset: 2px; }
@@ -26,7 +28,7 @@ code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-w
 .skip:focus { left: 0; }
 
 /* ---------- header ---------- */
-.site-head { position: sticky; top: 0; z-index: 20; height: var(--hh); display: flex; align-items: center; gap: 4px;
+.site-head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; height: var(--hh); display: flex; align-items: center; gap: 4px;
   padding: 0 max(8px, env(safe-area-inset-right)) 0 max(8px, env(safe-area-inset-left)); background: var(--surface-lowest); border-bottom: 1px solid var(--surface-highest); }
 .brand { font: 700 17px/1 var(--font-display); color: var(--on-surface); text-decoration: none; padding: 0 8px; white-space: nowrap; flex-shrink: 0; }
 .site-nav { flex: 1 1 auto; min-width: 0; display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }

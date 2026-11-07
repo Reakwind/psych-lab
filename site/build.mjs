@@ -16,13 +16,19 @@ import {time, introClip, reflectionType, read, P, FS, kindNames, KINDS, THEMES, 
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '..');
+// --artifact FILE builds the private claude.ai copy (owner decision 2026-11-07) into site/dist-claude/. FILE
+// (site/artifact.json) names the page and the claude.ai address of each media file it holds, copied from the
+// Lab's canvases; links become relative and the home page is written without its document wrapper, which
+// claude.ai adds. A media file the page does not hold is named as missing, as in the local build.
+const artArg = process.argv.indexOf('--artifact');
+const ARTIFACT = artArg > 0 ? JSON.parse(fs.readFileSync(path.resolve(process.argv[artArg + 1]), 'utf8')) : null;
 const outArg = process.argv.indexOf('--out');
-const OUT = outArg > 0 && process.argv[outArg + 1] ? path.resolve(process.argv[outArg + 1]) : path.join(HERE, 'dist');
+const OUT = outArg > 0 && process.argv[outArg + 1] ? path.resolve(process.argv[outArg + 1]) : path.join(HERE, ARTIFACT ? 'dist-claude' : 'dist');
 // The output folder is deleted and rewritten, so it must be a build folder: never the repository, a folder
 // holding it, or a folder inside it other than site/dist; an existing folder elsewhere must be a previous build.
 {
   const inside = (dir, root) => dir === root || dir.startsWith(root + path.sep);
-  const ok = OUT === path.join(HERE, 'dist') || (!inside(OUT, ROOT) && !inside(ROOT, OUT) && (!fs.existsSync(OUT) || fs.readdirSync(OUT).length === 0 || fs.existsSync(path.join(OUT, 'media.json'))));
+  const ok = OUT === path.join(HERE, 'dist') || OUT === path.join(HERE, 'dist-claude') || (!inside(OUT, ROOT) && !inside(ROOT, OUT) && (!fs.existsSync(OUT) || fs.readdirSync(OUT).length === 0 || fs.existsSync(path.join(OUT, 'media.json'))));
   if (!ok) { console.error(`Refusing to replace ${OUT}: --out must be a new or empty folder, or an earlier site build, outside the repository.`); process.exit(1); }
 }
 const REG = read('canvas/canvases.json');
@@ -51,6 +57,12 @@ const served = new Map();   // URL -> repository path
 let pageMissing = null;     // repository paths a page needs that Git LFS has not downloaded
 function place(repoPath) {
   if (!repoPath) return null;
+  if (ARTIFACT) {
+    const url = (ARTIFACT.media || {})[repoPath];
+    if (!url) { if (pageMissing) pageMissing.add(repoPath); return null; }
+    served.set(url, repoPath);
+    return url;
+  }
   const abs = path.join(ROOT, repoPath);
   if (!fs.existsSync(abs)) return null;
   const fd = fs.openSync(abs, 'r'), head = Buffer.alloc(LFS.length);
@@ -65,11 +77,14 @@ function place(repoPath) {
 const FILM_FILE = Object.fromEntries(AUDIT.sessions.map(s => [s.id, s.animation_path]));
 const programFile = url => (url && url.startsWith('/intervention/') ? 'psych-lab' + url : null);
 const filmUrl = id => place(FILM_FILE[id]);
-const SITE_MEDIA = {clip: clip => ({url: isFilm(clip.id) ? filmUrl(clip.id) : place(programFile(clip.url)), preview: false}),
+// On claude.ai, PS-CONT-013 and PS-CONT-047 play the canvases' 720p preview encodes (the originals exceed its 15 MB file limit).
+const isPreview = repoPath => !!ARTIFACT && (ARTIFACT.previews || []).includes(repoPath);
+const SITE_MEDIA = {clip: clip => ({url: isFilm(clip.id) ? filmUrl(clip.id) : place(programFile(clip.url)), preview: !isFilm(clip.id) && isPreview(programFile(clip.url))}),
   audio: url => place(programFile(url))};
 
 function missingBanner(missing) {
   if (!missing.size) return '';
+  if (ARTIFACT) return `<p class="banner" role="status"><strong>${plural(missing.size, 'media file')} on this page ${missing.size === 1 ? 'is' : 'are'} not on this claude.ai page</strong>, so ${missing.size === 1 ? 'it shows' : 'they show'} as missing. Run the site locally with <code>npm start</code> to play ${missing.size === 1 ? 'it' : 'them'} from the repository.</p>`;
   return `<p class="banner" role="status"><strong>${plural(missing.size, 'media file')} on this page ${missing.size === 1 ? 'is' : 'are'} not downloaded on this computer</strong>, so ${missing.size === 1 ? 'it shows' : 'they show'} as missing. To play ${missing.size === 1 ? 'it' : 'them'}, run <code>${esc(MEDIA_PULL)}</code> and restart <code>npm start</code>.</p>`;
 }
 
@@ -106,6 +121,7 @@ ${css.map(c => `<link rel="stylesheet" href="${c}">`).join('\n')}
 <textarea aria-label="Your notes on this page"></textarea>
 <div class="row-btns"><button class="pbtn primary" type="button" data-notes-export>Export all notes (JSON)</button><button class="pbtn" type="button" data-notes-close>Close</button></div>
 <p class="meta" data-notes-status></p>
+<div data-notes-json hidden><textarea readonly aria-label="All notes as JSON" style="min-height: 120px; font: 12px/1.4 ui-monospace, monospace"></textarea><button class="pbtn" type="button" data-notes-copy>Copy</button></div>
 </aside>
 <main id="main" class="${cls}">
 ${bannerAfter ? '' : missingBanner(missing)}${body}${bannerAfter ? missingBanner(missing) : ''}
@@ -437,7 +453,7 @@ function buildHeldOut() {
 ${en('h1', 'PS-CONT-047', 'title')}
 <p class="sub">${esc(HELD_OUT_047)}</p>
 ${src ? `<video class="film-video portrait" controls preload="metadata" playsinline src="${src}" style="margin: 16px 0"></video>` : '<p class="gap">Source video not available on this computer</p>'}
-<p class="meta">The original file, psych-lab/intervention/media/PS-CONT-047.mp4.</p>
+<p class="meta">${isPreview('psych-lab/intervention/media/PS-CONT-047.mp4') ? '720p preview encode, as on the Phone preview canvas; the original file stays in psych-lab/intervention/media/PS-CONT-047.mp4.' : 'The original file, psych-lab/intervention/media/PS-CONT-047.mp4.'}</p>
 ${issueNotes(intro).map(n => en('p', n, 'issue')).join('\n')}
 <nav class="pager" aria-label="Sessions">${link('/sessions/', '← Sessions')}${link(activityHref('PS-CONT-047'), 'Activity page')}</nav>`;
   });
@@ -460,10 +476,28 @@ ASSETS['assets/ui.css'] = text(UI_CSS);
 ASSETS['assets/phone-board.css'] = text('canvas/phone-board.css');
 ASSETS['assets/app-board.css'] = text('canvas/app-board.css');
 
+if (ARTIFACT) {
+  // Site paths become relative to each page; media addresses on claude.ai (/_blob/...) stay as they are.
+  const relative = (file, target) => {
+    let p = target.replace(/^\//, '');
+    if (p === '' || p.endsWith('/')) p += 'index.html';
+    return path.posix.relative(path.posix.dirname(file), p) || 'index.html';
+  };
+  for (const [file, html] of PAGES) {
+    let out = html.replace(/(href|src)="\/(?!_blob\/)([^"]*)"/g, (m, attr, rest) => `${attr}="${relative(file, '/' + rest)}"`);
+    if (file === 'index.html') {
+      out = out.replace(/^<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport"[^>]*>\n/, '')
+        .replace('</head>\n<body>\n', '').replace('</body>\n</html>\n', '');
+      if (out.includes('<html') || out.includes('<body')) throw Error('Home page still has a document wrapper');
+      out = out.replace('<title>Home · Psych Lab</title>', '<title>Psych Lab</title>');
+    }
+    PAGES.set(file, out);
+  }
+}
 fs.rmSync(OUT, {recursive: true, force: true});
 const write = (rel, content) => { const f = path.join(OUT, rel); fs.mkdirSync(path.dirname(f), {recursive: true}); fs.writeFileSync(f, content); };
 for (const [rel, html] of PAGES) write(rel, html);
 for (const [rel, content] of Object.entries(ASSETS)) write(rel, content);
 for (const f of fs.readdirSync(path.join(HERE, 'vendor/fonts'))) if (/\.(woff2|css)$/.test(f)) write(`assets/fonts/${f}`, fs.readFileSync(path.join(HERE, 'vendor/fonts', f)));
-write('media.json', JSON.stringify(Object.fromEntries([...served].sort()), null, 1) + '\n');
-console.log(`site: ${PAGES.size} pages, ${served.size} media files served from the repository${players.missing.size ? `, ${players.missing.size} player media files not downloaded` : ''} · ${path.relative(ROOT, OUT) || OUT}`);
+if (!ARTIFACT) write('media.json', JSON.stringify(Object.fromEntries([...served].sort()), null, 1) + '\n');
+console.log(`site${ARTIFACT ? ' (claude.ai copy)' : ''}: ${PAGES.size} pages, ${served.size} media files ${ARTIFACT ? 'held on claude.ai' : 'served from the repository'}${players.missing.size ? `, ${players.missing.size} player media files not downloaded` : ''} · ${path.relative(ROOT, OUT) || OUT}`);

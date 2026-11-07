@@ -47,15 +47,36 @@
   panel.querySelector('[data-notes-close]').addEventListener('click', () => { open(false); button.focus(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) { open(false); button.focus(); } });
 
-  panel.querySelector('[data-notes-export]').addEventListener('click', () => {
+  // On claude.ai a page cannot start a download itself; it asks the viewer through the downloads capability,
+  // looked up at load so the click does not wait. Where that is not offered, the browser downloads the file,
+  // and the JSON is also shown to copy, in case the download is blocked.
+  const downloads = window.claude && typeof window.claude.use === 'function'
+    ? window.claude.use('downloads').catch(() => null) : Promise.resolve(null);
+  const copyBox = panel.querySelector('[data-notes-json]');
+  panel.querySelector('[data-notes-export]').addEventListener('click', async () => {
     flush();
-    const all = load();
-    const blob = new Blob([JSON.stringify({ exported: new Date().toISOString(), site: 'Psych Lab', notes: all }, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'psych-lab-notes-' + new Date().toISOString().slice(0, 10) + '.json';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+    const text = JSON.stringify({ exported: new Date().toISOString(), site: 'Psych Lab', notes: load() }, null, 2);
+    const filename = 'psych-lab-notes-' + new Date().toISOString().slice(0, 10) + '.json';
+    const ready = await Promise.race([downloads, new Promise((r) => setTimeout(() => r(undefined), 50))]);
+    if (ready) {
+      try { await ready.save({ filename, data: text }); status.textContent = 'Notes exported.'; return; }
+      catch (e) { if (e && e.code === 'declined') { status.textContent = 'Export cancelled.'; return; } }
+    } else if (ready === null || !window.claude) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+    }
+    copyBox.hidden = false;
+    copyBox.querySelector('textarea').value = text;
+    status.textContent = 'If no file was saved, copy the notes below.';
+  });
+  panel.querySelector('[data-notes-copy]').addEventListener('click', () => {
+    const box = copyBox.querySelector('textarea');
+    const done = () => { status.textContent = 'Copied.'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(box.value).then(done, () => { box.select(); });
+    else box.select();
   });
 })();

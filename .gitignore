@@ -28,3 +28,4 @@ playwright-report/
 
 # Generated website (npm start rebuilds it)
 site/dist/
+site/dist-claude/
