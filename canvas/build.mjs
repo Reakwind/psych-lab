@@ -9,14 +9,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {minuteLabel as time, sessionSteps, chooseSteps, practiceSteps, sessionRange, thoughtTheme, reflectionType, introClip} from '../psych-lab/intervention/core.mjs';
+import {time, reflectionType, introClip, read, P, FS, kindNames, KINDS, THEMES, isFilm, shownActivities, sessionsFor, scheduleTags, unscheduledNote,
+  issueNotes, sourceNames, thoughtSheet, filmIds, filmLines, stats as labStats, sourceGaps, HELD_OUT_047, phoneData, appData} from './content.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '..');
-const read = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
-const P = read('psych-lab/intervention/program.json');
-const FS = read('psych-lab/film-scripts.json');
-const NARRATION = read(FS.narration);
 const REG = read('canvas/canvases.json');
 const ORIGINAL = read('canvas/original-films.json').films;
 const pairs = f => Object.fromEntries(fs.readFileSync(path.join(HERE, f), 'utf8').trim().split('\n').map(l => l.split(' ')));
@@ -42,10 +39,11 @@ const noSource = what => `<p class="gap"><strong>No source text</strong> · ${es
 const link = (href, text, cls = '') => `<a href="${esc(href)}"${cls ? ` class="${cls}"` : ''}${href.startsWith('https://') ? ' target="_blank" rel="noopener"' : ''}>${esc(text)}</a>`;
 // The JSON a board's script reads. Strings stay whole, so the verbatim check sees each one as the source has it.
 const jsData = value => JSON.stringify(value).replace(/<\/(script)/gi, '<\\/$1').replace(/[\u2028\u2029]/g, c => '\\u' + c.charCodeAt(0).toString(16));
-const kindNames = {video: 'Video', audio: 'Guided audio', choice: 'Choose one', breathing: 'Breathing', inner: 'Inner Voice', cards: 'Cardversation', reflection: 'Reflection'};
-const isFilm = id => /^S\d/.test(id || '');
 const filmAsset = (canvas, filmId) => ORIGINAL[filmId] && FILM_ASSETS[canvas][ORIGINAL[filmId]] ? '/_blob/' + FILM_ASSETS[canvas][ORIGINAL[filmId]] : null;
 const mediaAsset = (canvas, url) => REG.media[canvas]?.[url] || null;
+// Media resolver (canvas/content.mjs) for the Phone preview canvas, which holds the films and recordings it plays.
+const PHONE_MEDIA = {clip: clip => ({url: isFilm(clip.id) ? filmAsset('phone', clip.id) : mediaAsset('phone', clip.url), preview: REG.media.previews.includes(clip.url)}),
+  audio: url => mediaAsset('phone', url)};
 
 // Rough text height so a board's frame holds its content; the root also scrolls if an estimate runs short.
 function textHeight(text, width, size = 16, line = 1.6) {
@@ -137,20 +135,7 @@ function layout(rows, startY, colW, perRow) {
 
 // ---------- Activities ----------
 const ACT_W = 760, ACT_INNER = ACT_W - 72;
-const KINDS = [['breathing', 'Breathing'], ['inner', 'Inner Voice'], ['cards', 'Cardversation'], ['reflection', 'Reflection'], ['audio', 'Guided audio'], ['choice', 'Choice groups'], ['video', 'Videos']];
-const THEMES = {motivation: 'Motivation', balanced: 'Balancing thoughts', relaxation: 'Relaxation', mindfulness: 'Mindfulness', compassion: 'Compassion & validation', labels: 'Labels', flexible: 'Flexible thinking (General sheet)'};
 const activityFile = id => `a/${id}.dc.html`;
-
-function sessionsFor(id) {
-  const direct = P.sessions.filter(s => s.activities.some(o => o.id === id)).map(s => ({s, via: null, parameter: s.activities.find(o => o.id === id).parameter}));
-  const viaGroups = Object.entries(P.groups).filter(([, options]) => options.some(o => o.id === id))
-    .flatMap(([gid]) => P.sessions.filter(s => s.activities.some(o => o.id === gid)).map(s => ({s, via: gid, parameter: ''})));
-  return [...direct, ...viaGroups];
-}
-
-function issueNotes(item) {
-  return [...new Set([...(item?.issues || []), item?.source_conflict, item?.source_note].filter(Boolean))];
-}
 
 function filmMention(clip, label) {
   if (!clip) return '';
@@ -170,8 +155,8 @@ function activityBoard(a) {
   if (a.bullets?.length) { intro.push(`<ul class="he text" dir="rtl" lang="he">${a.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>`); ih += a.bullets.reduce((n, b) => n + textHeight(b, ACT_INNER - 30, 17, 1.7), 0) + 30; }
   for (const extra of [a.equipment, a.safety]) if (extra) { intro.push(he('p', extra, 'text')); ih += textHeight(extra, ACT_INNER, 17, 1.7) + 12; }
   if (!intro.length) { intro.push(noSource('intro page text')); ih += 40; }
-  const sourceNames = (a.sources || []).map(k => P.sources[k]?.title || k);
-  if (sourceNames.length) { intro.push(`<p class="meta">From: ${sourceNames.map(esc).join(' · ')}</p>`); ih += textHeight(sourceNames.join(' · '), ACT_INNER, 13) + 10; }
+  const names = sourceNames(a);
+  if (names.length) { intro.push(`<p class="meta">From: ${names.map(esc).join(' · ')}</p>`); ih += textHeight(names.join(' · '), ACT_INNER, 13) + 10; }
   add(`<section class="sec"><h3>Intro page</h3>\n${intro.join('\n')}\n</section>`, ih);
   // Intro film
   if (a.intro_id) {
@@ -187,9 +172,9 @@ function activityBoard(a) {
   }
   // Schedule
   const rows = sessionsFor(a.id);
-  if (!rows.length) add(`<section class="sec"><h3>Schedule</h3>\n${en('p', a.library_only ? 'Not on the V0 timeline: library only.' : 'Not scheduled on the V0 timeline.', 'meta')}\n</section>`, 70);
+  if (!rows.length) add(`<section class="sec"><h3>Schedule</h3>\n${en('p', unscheduledNote(a), 'meta')}\n</section>`, 70);
   else {
-    const tags = rows.map(({s, via, parameter}) => `${s.id} · week ${s.week}` + (parameter ? ` · ${parameter}` : '') + (via ? ` · option of ${P.activities[via]?.english || via}` : ''));
+    const tags = scheduleTags(rows);
     add(`<section class="sec"><h3>Schedule · ${rows.length} session${rows.length === 1 ? '' : 's'}</h3>\n<p>${tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</p>\n</section>`, 60 + Math.ceil(tags.join('    ').length * 6.6 / ACT_INNER + 1) * 30);
   }
   // Content
@@ -213,9 +198,8 @@ function activityBoard(a) {
     add(`<section class="sec"><h3>Options · choose one</h3>\n${opts.join('\n')}\n</section>`, 50 + (a.options || []).length * 96);
   } else if (a.kind === 'inner') {
     const items = Object.entries(THEMES).map(([key, label]) => {
-      const list = P.thoughts[key] || [];
-      const uses = P.sessions.filter(s => s.activities.some(o => o.id === a.id && thoughtTheme(o.parameter) === key)).map(s => s.id);
-      return `<div class="box">${link(`${a.id}-${key}.dc.html`, `${label} · ${list.length} thoughts`)}<p class="meta">Feedback text for ${list.filter(t => t.correct || t.incorrect).length} · played in ${esc(uses.join(', ') || 'no scheduled session')}</p></div>`;
+      const {list, uses, feedback} = thoughtSheet(a, key);
+      return `<div class="box">${link(`${a.id}-${key}.dc.html`, `${label} · ${list.length} thoughts`)}<p class="meta">Feedback text for ${feedback} · played in ${esc(uses.join(', ') || 'no scheduled session')}</p></div>`;
     });
     add(`<section class="sec"><h3>Thought sheets</h3>\n${items.join('\n')}\n</section>`, 50 + items.length * 92);
   } else if (a.kind === 'cards') {
@@ -243,8 +227,7 @@ function activityBoard(a) {
 }
 
 function thoughtBoard(a, key, label) {
-  const list = P.thoughts[key] || [];
-  const uses = P.sessions.filter(s => s.activities.some(o => o.id === a.id && thoughtTheme(o.parameter) === key)).map(s => s.id);
+  const {list, uses, feedback} = thoughtSheet(a, key);
   const w = 1100, inner = w - 72;
   let h = 190;
   const rows = list.map(t => {
@@ -255,7 +238,7 @@ function thoughtBoard(a, key, label) {
     return `<tr><td class="he" dir="rtl" lang="he" style="width: 34%">${esc(t.text)}</td><td style="width: 12%">${t.type_he ? he('span', t.type_he, 'tag') : en('span', t.type, 'tag')}</td><td style="width: 22%">${esc(t.english)}</td><td style="width: 32%">${fb}</td></tr>`;
   });
   h = Math.min(8000, Math.round(h * 1.1));
-  const body = `${en('p', `Inner Voice · ${a.id} · thought sheet`, 'kicker')}\n${en('h2', label, 'title')}\n<p class="meta">${list.length} thoughts · feedback text for ${list.filter(t => t.correct || t.incorrect).length} · played in ${esc(uses.join(', ') || 'no scheduled session')} · ${link(activityFile(a.id).slice(2), 'back to Inner Voice')}</p>\n<table><tr><th>Thought</th><th>Type</th><th>English</th><th>Feedback</th></tr>\n${rows.join('\n')}\n</table>`;
+  const body = `${en('p', `Inner Voice · ${a.id} · thought sheet`, 'kicker')}\n${en('h2', label, 'title')}\n<p class="meta">${list.length} thoughts · feedback text for ${feedback} · played in ${esc(uses.join(', ') || 'no scheduled session')} · ${link(activityFile(a.id).slice(2), 'back to Inner Voice')}</p>\n<table><tr><th>Thought</th><th>Type</th><th>English</th><th>Feedback</th></tr>\n${rows.join('\n')}\n</table>`;
   return {path: `a/${a.id}-${key}.dc.html`, w, h, title: `Inner Voice · ${label}`, html: board({title: `Inner Voice · ${label}`, w, h, uiCss: '../ui.css', body: labPage(w, h, body)})};
 }
 
@@ -286,7 +269,7 @@ function deckBoard(a, deck, i) {
 }
 
 function buildActivities() {
-  const acts = Object.values(P.activities).filter(a => kindNames[a.kind]);
+  const acts = shownActivities();
   const rows = KINDS.map(([kind, label]) => {
     const items = [];
     for (const a of acts.filter(x => x.kind === kind)) {
@@ -313,14 +296,7 @@ ${index}`)})};
 // ---------- Films & scripts ----------
 const FILM_W = 1240;
 function filmBoard(id) {
-  const film = FS.films[id], record = NARRATION[id];
-  const lines = film.lines.map(line => {
-    const scene = record.scenes[line.scene];
-    return {v: !!line.verbatim, script: line.script.map(q => q.text), sc: line.script_changed || [],
-      said: line.verbatim ? null : scene.orig, fc: line.film_changed || [],
-      voiced: line.voiced_changed ? scene.sents.map(s => s.plain) : null, vc: line.voiced_changed || []};
-  });
-  const exact = film.lines.filter(l => l.verbatim).length;
+  const {film, lines, exact} = filmLines(id);
   const right = FILM_W - 72 - 400;
   let h = 260;
   for (const l of lines) {
@@ -381,7 +357,7 @@ ${notNarrated}
 }
 
 function buildFilms() {
-  const ids = Object.keys(FS.films);
+  const ids = filmIds();
   const exactAll = ids.filter(id => FS.films[id].lines.every(l => l.verbatim)).length;
   const mainH = 560;
   const main = {path: 'Main.dc.html', w: 1100, h: mainH, title: 'Films & scripts · index',
@@ -396,102 +372,17 @@ ${en('h1', 'Films & scripts', 'title')}
 }
 
 // ---------- Phone preview ----------
-const breathPhases = {'PS-ACT-001': [['Inhale', 3, .6, 1], ['Exhale', 5, 1, .6]], 'PS-ACT-005': [['Inhale', 3, .6, 1], ['Hold', 3, 1, 1], ['Exhale', 3, 1, .6], ['Hold', 3, .6, .6]], 'PS-ACT-019': [['Inhale', 2, .6, .88], ['Top-up', 1, .88, 1], ['Exhale', 6, 1, .6]], 'PS-ACT-020': [['Inhale', 5.5, .6, 1], ['Exhale', 5.5, 1, .6]]};
-
-function phoneClip(clip) {
-  if (!clip) return null;
-  const url = isFilm(clip.id) ? filmAsset('phone', clip.id) : mediaAsset('phone', clip.url);
-  return {id: clip.id, url, seconds: clip.seconds, preview: REG.media.previews.includes(clip.url)};
-}
-
-function reflectionScript(a, session) {
-  const type = reflectionType(a.id);
-  const rows = (screen, field) => P.reflections[type].filter(r => r.screen.toLowerCase() === screen.toLowerCase() && (!field || r.field === field));
-  const text = (screen, field) => { const l = rows(screen, field); return l[0]?.hebrew || l[0]?.english || ''; };
-  let parts = type === 'pleasant' ? ['Recall', 'Return', 'Emotions', 'Body', 'Thoughts', 'Notice now'] : type === 'gratitude' ? ['Bring to mind', 'Focus', 'Effect', 'Appreciate'] : ['Invite', 'Look back', 'Notice', 'Make room', 'Action'];
-  if (!session.context) parts = ['Context', ...parts];
-  const variant = session.number % 5;
-  return {
-    parts: parts.map(part => {
-      let list = rows(part, 'Prompt');
-      if (!list.length) list = rows(part).filter(r => /^\d+$/.test(r.field));
-      if (!list.length && part === 'Context') list = rows(part);
-      const related = type === 'pleasant' ? ({Recall: 'Ideas', Emotions: 'Emotion words', Body: 'Body words', Thoughts: 'Thought phrases'}[part]) : (part === 'Invite' || part === 'Bring to mind') ? 'Ideas' : null;
-      return {part, prompt: list.length ? list[variant % list.length].hebrew : '',
-        ideasLabel: related ? text(part, 'Button 1') : '', ideas: related ? rows(related).map(r => r.hebrew).filter(Boolean) : [],
-        hold: text(part, 'Hold label') || (['Look back', 'Notice', 'Make room'].includes(part) ? text('Reflection screens', 'Hold label') : ''),
-        next: text(part, 'Button 2') || text(part, 'Button')};
-    }),
-    title: text('Summary', 'Title'), subtitle: text('Summary', 'Subtitle'),
-    tip: P.reflections[type].filter(r => r.screen === 'Tip 1' && r.field === 'Body')[0]?.hebrew || ''
-  };
-}
-
-function phoneStep(st, session) {
-  const out = {kind: st.kind, activity: st.activity || null};
-  if (st.kind === 'video') Object.assign(out, {clip: phoneClip(st.clip), seconds: st.seconds, trailer: !!st.trailer, source_id: st.source_id});
-  if (st.kind === 'context') Object.assign(out, {hebrew: st.content.hebrew || '', english: st.content.english || ''});
-  if (st.kind === 'breathing') Object.assign(out, {seconds: st.seconds, phases: breathPhases[st.activity] || breathPhases['PS-ACT-001']});
-  if (st.kind === 'audio') Object.assign(out, {seconds: st.seconds, audio: st.audio ? {url: mediaAsset('phone', st.audio.url), seconds: st.audio.seconds, status: st.audio.status} : null});
-  if (st.kind === 'inner') out.theme = thoughtTheme(st.parameter);
-  if (st.kind === 'reflection') out.reflection = reflectionScript(P.activities[st.activity], session);
-  return out;
-}
-
-// Board steps for a sequence core.mjs made; a choice carries each option's own steps (one branch is added when picked).
-function flowSteps(steps, session, settings) {
-  return steps.map((st, i) => {
-    const step = phoneStep(st, session);
-    if (st.kind === 'choice') {
-      const a = P.activities[st.activity];
-      const introduced = steps.slice(0, i).filter(s => s.kind === 'video').flatMap(s => [s.source_id, s.clip?.id]);
-      step.options = a.options.map(o => ({id: o.id, steps: chooseSteps(P, o.id, session, settings, {}, o.parameter, introduced).map(x => phoneStep(x, session))}));
-    }
-    return step;
-  });
-}
-
-function phoneSessions() {
-  return P.sessions.map(session => {
-    const out = flowSteps(sessionSteps(P, session, {intros: 'timeline', durations: {}, keeps: false}, {}), session, {intros: 'timeline', durations: {}});
-    const range = sessionRange(P, session, {}, {});
-    const hasChoice = session.activities.some(o => P.activities[o.id].kind === 'choice');
-    return {n: session.number, id: session.id, title: session.title, english: session.english, week: session.week, day: session.app_day,
-      acts: session.activities.map(o => o.id), range: time(range.low) + (range.high - range.low > 1 ? '–' + time(range.high) : ''),
-      low: Math.round(range.low), high: Math.round(range.high),
-      missing: range.missing.map(id => P.activities[id]?.english || id),
-      choice: hasChoice && range.missing.length ? 'Includes every option of the choice; choosing a recorded practice may avoid a gap.' : '',
-      steps: out};
-  });
-}
-
-function actRecord(id) {
-  const a = P.activities[id];
-  return {id, kind: a.kind, title: a.title, english: a.english, subtitle: a.subtitle || '', lead: a.lead || '', bullets: a.bullets || [], equipment: a.equipment || '', safety: a.safety || '',
-    planned: a.audio?.seconds || a.planned_seconds || 0};
-}
-
-function phoneData() {
-  const sessions = phoneSessions();
-  const used = new Set();
-  const walk = steps => steps.forEach(s => { if (s.activity) used.add(s.activity); (s.options || []).forEach(o => { used.add(o.id); walk(o.steps); }); });
-  sessions.forEach(s => { s.acts.forEach(id => used.add(id)); walk(s.steps); });
-  const acts = Object.fromEntries([...used].map(id => [id, actRecord(id)]));
-  const typeLabel = type => Object.values(P.thoughts).flat().find(t => t.type === type && t.type_he)?.type_he || '';
-  return {sessions, acts, daily: P.daily_totals_minutes,
-    thoughts: Object.fromEntries(Object.entries(P.thoughts).map(([k, v]) => [k, v.map(t => ({text: t.text, keep: !!t.keep, type: t.type, type_he: t.type_he || '', correct: t.correct || '', incorrect: t.incorrect || ''}))])),
-    cards: P.cards.map(d => ({name: d.name, action: d.type === 'action', cards: d.cards.map(c => ({number: c.number, a: c.a || '', b: c.b || '', ideas_a: c.ideas_a || '', ideas_b: c.ideas_b || '', followups: (c.followups || []).filter(f => f.text).map(f => ({text: f.text, ideas: f.ideas || ''}))}))})),
-    labels: {let: typeLabel('Let it go'), keep: typeLabel('Take it in')}};
-}
-
 const PHONE_LOGIC = fs.readFileSync(path.join(HERE, 'phone-logic.js'), 'utf8');
+// Stylesheets of the Phone and App boards, also used by the website's session player and app prototype.
+const PHONE_CSS = fs.readFileSync(path.join(HERE, 'phone-board.css'), 'utf8');
+const APP_CSS = fs.readFileSync(path.join(HERE, 'app-board.css'), 'utf8');
 // The step players (intro page, film, choice, breathing, audio, Inner Voice, cards, reflection) are shared by
 // the Phone preview and the app prototype, so both boards show the same verified screens.
 const FLOW_MARKUP = fs.readFileSync(path.join(HERE, 'flow-markup.html'), 'utf8');
 const PHONE_MARKUP = fs.readFileSync(path.join(HERE, 'phone-markup.html'), 'utf8').replace('<!-- flow-markup.html -->\n', FLOW_MARKUP);
 
 function buildPhone() {
-  const data = phoneData();
+  const data = phoneData(PHONE_MEDIA);
   const phone = {path: 'Phone.dc.html', w: 880, h: 844, title: 'Phone · all 87 sessions, timed', interactive: true,
     html: `<!doctype html>
 <html lang="en">
@@ -506,28 +397,7 @@ function buildPhone() {
 <helmet>
 ${FONTS}
 <style>
-body{margin:0}
-.lab{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;direction:ltr;text-align:left}
-.he{font-family:Rubik,system-ui,sans-serif;direction:rtl;text-align:right}
-.gap{display:block;background:#FFDEA3;color:#261900;border-radius:12px;padding:10px 14px;font:14px/1.45 system-ui,sans-serif;direction:ltr;text-align:left}
-.srow{display:flex;flex-direction:column;align-items:stretch;gap:2px;width:100%;min-height:64px;border:0;border-bottom:1px solid #DDE4E1;background:transparent;padding:10px 4px;cursor:pointer;text-align:right;color:inherit}
-.opt{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:72px;border:1.5px solid #BEC9C5;border-radius:20px;background:#FFFFFF;padding:12px 16px;cursor:pointer;color:inherit;margin-bottom:10px}
-.word{display:inline-block;background:#E3EAE7;border-radius:999px;padding:4px 12px;margin:0 0 8px 8px;font-size:16px}
-.orb{width:180px;height:180px;border-radius:50%;background:#B3EFE4;margin:0 auto;transition:transform .1s linear}
-.panel{box-sizing:border-box;width:458px;height:844px;overflow-y:auto;background:#FFFFFF;border-radius:20px;padding:22px 24px;color:#171D1B;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.panel h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#3F4946;margin:16px 0 6px}
-.panel p{margin:2px 0}
-.panel .big{font-size:30px;font-weight:600;font-variant-numeric:tabular-nums}
-.panel .muted{color:#3F4946;font-size:13px}
-.panel .bar{display:flex;height:10px;border-radius:999px;background:#E3EAE7;overflow:hidden;margin:6px 0}
-.panel .rowline{display:flex;justify-content:space-between;gap:10px;border-top:1px solid #E3EAE7;padding:5px 0;font-size:13px}
-.panel .now{font-weight:600;color:#2B6A62}
-.panel .pbtn{border:1.5px solid #BEC9C5;background:#F5FBF8;border-radius:10px;padding:6px 12px;font:inherit;cursor:pointer;color:inherit;min-height:36px}
-.panel .seg2{display:inline-flex;border:1.5px solid #BEC9C5;border-radius:10px;overflow:hidden}
-.panel .seg2 button{border:0;background:transparent;padding:5px 12px;font:inherit;cursor:pointer;color:inherit}
-.panel .seg2 button.is-selected{background:#CCE8E2}
-.panel textarea{width:100%;height:180px;font:12px/1.4 ui-monospace,monospace;box-sizing:border-box}
-</style>
+${PHONE_CSS}</style>
 </helmet>
 ${PHONE_MARKUP}
 </x-dc>
@@ -548,7 +418,7 @@ ${PHONE_LOGIC}
   const held = {path: 'HeldOut-047.dc.html', w: 520, h: heldH, title: 'PS-CONT-047 · held out of the flow',
     html: board({title: 'PS-CONT-047 held out', w: 520, h: heldH, body: labPage(520, heldH, `${en('p', 'Source conflict', 'kicker')}
 ${en('h2', 'PS-CONT-047', 'title')}
-<p class="sub">The timeline and metadata call this a breathing introduction; the supplied Hebrew source video is a mindfulness text that overlaps old S28. It is kept here for inspection and is never played in the breathing flow.</p>
+<p class="sub">${esc(HELD_OUT_047)}</p>
 ${src047 ? `<video controls="controls" preload="none" playsinline="playsinline" src="${src047}" style="width: 220px; height: 391px; border-radius: 16px; background: #E9EFEC; display: block; margin: 12px 0"></video>` : ''}
 <p class="meta">720p preview encode for the canvas; the original file stays in psych-lab/intervention/media/PS-CONT-047.mp4.</p>
 ${notes047.map(n => en('p', n, 'issue')).join('\n')}`)})};
@@ -587,93 +457,13 @@ ${en('h1', 'Phone preview', 'title')}
 }
 
 // ---------- App prototype (on the Phone preview canvas, which holds the media it plays) ----------
-// The spec's post-12-week suggestion (Psycological therapy specification- May 2026.docx, "Thoughts for after
-// the 12 weeks"), quoted exactly; each day opens the program's own choice group or activity for it.
-const SPEC = 'Psycological therapy specification- May 2026.docx';
-const LOOP = [
-  ['PS-ACT-012', 'Day 1 – choice between relaxation exercises: PMR, guided imagery relaxation, guided imagery safe place, grounding'],
-  ['PS-ACT-006', 'Day 2 – choice between breathing exercises: belly, square, coherent, sigh'],
-  ['PS-ACT-013', 'Day 3 – choice between “self-care” reflections – gratitude, self-compassion, pleasant moment, I am enough audio'],
-  ['PS-ACT-007', 'Day 4 – choice between mindfulness exercises – awareness of breath, body scan, observing thoughts, mindful eating, mindful walking, attention to hands and feet'],
-  ['PS-ACT-004', 'Day 5 – Card game (can be self reflection or with someone)'],
-  ['PS-ACT-002', 'Day 6 – combined inner voice workout'],
-  ['PS-ACT-008', 'Day 7 – choice between in-the-moment tools to practice – one breath reset, soften one place, three anchors']];
-const SPEC_MISSED = 'Logic for missed days – the anchor should be prioritized and not to be missed.';
-const SPEC_LIBRARY = 'In the library (or wherever else the user will be able to go back to the practice) the user should be able to skip the intro.';
-const LIBRARY_KINDS = ['breathing', 'audio', 'inner', 'cards', 'reflection'];
-// The phone's Hebrew interface words: owner-approved quotes of the original design (and a few program-source
-// cells), each verified by scripts/verbatim.py. Program text never comes from here.
-const INTERFACE_HE = read('canvas/interface-he.json');
-
-// Protocol.xlsx names a module one way in its week sheets and another in its 'Status 1st month' sheet;
-// this Lab table pairs them. 'Mindset' is the psychology session itself. An unknown name stops the build.
-const PROTOCOL_STATUS = {'PT practice': 'PT', 'OT practice': 'OT', 'Dance practice': 'Dance', 'Sustained P': 'Sustained P.', 'Pitch glides': 'Pitch Glides',
-  'Reading': 'Reading', 'Speech Reading': 'Reading', 'Maze play': 'Maze', 'TipTap': 'Tiptap', 'Orchestra': 'Orchestra', 'Lived experience': 'Lived Experience'};
-
-function protocolPlans() {
-  const status = Object.fromEntries(P.protocol.status.map(r => [r.item, r]));
-  const plan = key => P.protocol[key].days.map(day => day.map(x => {
-    const psych = x.activity === 'Mindset';
-    if (!psych && !status[PROTOCOL_STATUS[x.activity]]) throw Error('Protocol activity without a status row: ' + x.activity);
-    const st = psych ? null : status[PROTOCOL_STATUS[x.activity]], mod = P.protocol.modules[x.activity] || {pages: [], scripts: []};
-    // The first-month workouts are the codes the status sheet lists (e.g. 'A1+B1 * 3 Levels').
-    const month1 = st ? (st.content.match(/[A-C]\d/g) || []) : [];
-    return {name: x.activity, minutes: x.minutes, rounds: x.rounds, med: x.time_since_med, category: x.category, psych, status: st,
-      pages: mod.pages.map(p => ({...p, month1: month1.includes(p.code), keys: p.scripts.concat((p.excerpts || []).map(ex => ex.script + '#' + p.id)), excerpts: undefined})), scripts: mod.scripts};
-  }));
-  // Each module script once, as its paragraphs; text exactly as its snapshot in sources/module-scripts has it.
-  // A page excerpt is the run of the script from its section heading up to the next section's heading.
-  const paras = text => text.split('\n').filter(t => t.trim());
-  const scripts = Object.fromEntries(Object.entries(P.protocol.scripts).map(([slug, m]) => {
-    const snap = read(m.path);
-    return [slug, {title: m.title, updated: m.updated_at.slice(0, 10), path: m.path, paras: paras(snap.content)}];
-  }));
-  const excerptKey = ex => ex.script + '#' + ex.n;
-  for (const mod of Object.values(P.protocol.modules)) for (const pg of mod.pages) (pg.excerpts || []).forEach((ex, k) => {
-    const m = P.protocol.scripts[ex.script], content = read(m.path).content;
-    const at = content.indexOf(ex.from), end = ex.to ? content.indexOf(ex.to, at + 1) : content.length;
-    if (at < 0 || end < 0) throw Error('Script section not found: ' + ex.script);
-    ex.n = pg.id;  // a key without program text in it
-    scripts[excerptKey(ex)] = {title: m.title, section: ex.from, updated: m.updated_at.slice(0, 10), path: m.path, paras: paras(content.slice(at, end))};
-  });
-  return {light: plan('light'), heavy: plan('heavy'), sheets: {light: P.protocol.light.sheet, heavy: P.protocol.heavy.sheet}, scripts};
-}
-
-function appData() {
-  const base = phoneData();
-  // A practice joins the library once the user has met it: in a session, or as an option of a session's choice.
-  const met = {}, offered = {};
-  const meet = (id, n) => { if (!(id in met)) met[id] = n; (offered[id] = offered[id] || []).push(n); };
-  for (const s of P.sessions) for (const o of s.activities) { meet(o.id, s.number); (P.activities[o.id].options || []).forEach(x => meet(x.id, s.number)); }
-  const repeat = {intros: 'repeat', durations: {}};
-  // Library and loop flows replay a practice without its intro film (spec: the library can skip the intro).
-  const library = Object.keys(met).filter(id => LIBRARY_KINDS.includes(P.activities[id].kind)).sort((a, b) => met[a] - met[b]).map(id => {
-    const session = P.sessions[met[id] - 1], a = P.activities[id];
-    return {id, kind: a.kind, met: met[id], in: [...new Set(offered[id])], week: session.week, recording: a.recording_status || '',
-      steps: flowSteps(practiceSteps(P, id, session, repeat, {}, ''), session, repeat).concat([{kind: 'complete'}])};
-  });
-  const last = P.sessions[P.sessions.length - 1];
-  const loop = LOOP.map(([id, spec], k) => {
-    const session = Object.assign({}, last, {context: null});
-    return {day: k + 1, id, spec, steps: flowSteps(practiceSteps(P, id, session, repeat, {}, ''), session, repeat).concat([{kind: 'complete'}])};
-  });
-  const ids = new Set(Object.keys(base.acts));
-  const walk = steps => steps.forEach(s => { if (s.activity) ids.add(s.activity); (s.options || []).forEach(o => { ids.add(o.id); walk(o.steps); }); });
-  library.forEach(x => { ids.add(x.id); walk(x.steps); });
-  loop.forEach(x => { ids.add(x.id); walk(x.steps); });
-  base.acts = Object.fromEntries([...ids].sort().map(id => [id, actRecord(id)]));
-  const ui = Object.fromEntries([...INTERFACE_HE.labels, ...INTERFACE_HE.program_labels].map(x => [x.key, x.text]));
-  return Object.assign(base, {library, loop, ui, protocol: protocolPlans(), firstDay: P.sessions[0].app_day, lastDay: last.app_day,
-    spec: {source: SPEC, missed: SPEC_MISSED, library: SPEC_LIBRARY}});
-}
-
 const APP_LOGIC = fs.readFileSync(path.join(HERE, 'app-logic.js'), 'utf8');
 const APP_MARKUP = fs.readFileSync(path.join(HERE, 'app-markup.html'), 'utf8').replace('<!-- flow-markup.html -->\n', FLOW_MARKUP);
 const ICON_FONT = '<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" rel="stylesheet">';
 const UI_FONTS = '<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;family=Google+Sans+Flex:opsz,wght,ROND@6..144,400..700,0..100&amp;display=swap" rel="stylesheet">';
 
 function buildApp() {
-  const data = appData();
+  const data = appData(PHONE_MEDIA);
   return {path: 'App.dc.html', w: 860, h: 844, title: 'App prototype · live the program day by day', interactive: true,
     html: `<!doctype html>
 <html lang="en">
@@ -690,47 +480,7 @@ ${FONTS}
 ${UI_FONTS}
 ${ICON_FONT}
 <style>
-body{margin:0}
-.lab{font-family:'Atkinson Hyperlegible Next',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;direction:ltr;text-align:left}
-.he{font-family:Rubik,system-ui,sans-serif;direction:rtl;text-align:right}
-.gap{display:block;background:#FFDEA3;color:#261900;border-radius:12px;padding:10px 14px;font:14px/1.45 system-ui,sans-serif;direction:ltr;text-align:left}
-.opt{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;min-height:72px;border:1.5px solid #BEC9C5;border-radius:20px;background:#FFFFFF;padding:12px 16px;cursor:pointer;color:inherit;margin-bottom:10px}
-.word{display:inline-block;background:#E3EAE7;border-radius:999px;padding:4px 12px;margin:0 0 8px 8px;font-size:16px}
-.orb{width:180px;height:180px;border-radius:50%;background:#B3EFE4;margin:0 auto;transition:transform .1s linear}
-.app .screen.scroll > *{flex-shrink:0}
-.list-row.is-picked{background:var(--primary-container);box-shadow:inset 0 0 0 2px var(--primary)}
-.day-slot{background:rgba(255,255,255,.45)}
-.day-slot .list-lead{opacity:.7}
-.day-psych{background:#FFFFFF;box-shadow:inset 0 0 0 2px var(--primary)}
-.slot-video{aspect-ratio:16/9;width:100%;border-radius:20px;background:repeating-linear-gradient(135deg,var(--surface-high) 0 14px,var(--surface-container) 14px 28px);color:var(--on-surface-variant);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:16px;box-sizing:border-box;font-size:15px;font-weight:600}
-.where{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--on-surface-variant)}
-.wk{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1 1 0}
-.wk-dot{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;box-sizing:border-box}
-.wk-done{background:var(--primary);color:var(--on-primary)}
-.wk-today{box-shadow:inset 0 0 0 3px var(--primary);background:var(--primary-container);color:var(--on-primary-container)}
-.wk-missed{box-shadow:inset 0 0 0 2px var(--outline-variant);color:var(--outline)}
-.wk-future{background:var(--surface-high);color:var(--on-surface-variant)}
-.wk-lbl{font:600 12px/16px 'Atkinson Hyperlegible Next',system-ui,sans-serif;color:var(--on-surface-variant)}
-.jrow{width:100%;display:flex;align-items:center;gap:12px;min-height:68px;padding:8px 12px;border:none;border-radius:20px;background:var(--surface-low);color:inherit;cursor:pointer;box-sizing:border-box;text-align:left;flex-shrink:0}
-.jrow:disabled{cursor:default;opacity:.55}
-.jdot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.wkhead{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:60px;padding:8px 16px;border:none;border-radius:20px;background:var(--surface-container);color:inherit;cursor:pointer;box-sizing:border-box;flex-shrink:0}
-.rail{box-sizing:border-box;width:442px;height:844px;overflow-y:auto;background:#FFFFFF;border-radius:20px;padding:22px 24px;color:#171D1B;font:14px/1.5 'Atkinson Hyperlegible Next',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.rail h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#3F4946;margin:16px 0 6px}
-.rail p{margin:2px 0}
-.rail .big{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;line-height:36px}
-.rail .muted{color:#3F4946;font-size:13px}
-.rail .quote{border-left:3px solid #BEC9C5;padding:2px 0 2px 10px;color:#3F4946;font-size:13px;margin:6px 0}
-.rail .rowline{display:flex;justify-content:space-between;gap:10px;border-top:1px solid #E3EAE7;padding:5px 0;font-size:13px}
-.rail .pbtn{border:1.5px solid #BEC9C5;background:#F5FBF8;border-radius:10px;padding:6px 12px;font:inherit;cursor:pointer;color:inherit;min-height:36px}
-.rail .pbtn.primary{background:#2B6A62;border-color:#2B6A62;color:#fff;font-weight:600}
-.rail .btns{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
-.rail .seg2{display:inline-flex;border:1.5px solid #BEC9C5;border-radius:10px;overflow:hidden}
-.rail .seg2 button{border:0;background:transparent;padding:6px 12px;font:inherit;cursor:pointer;color:inherit}
-.rail .seg2 button.is-selected{background:#CCE8E2;font-weight:600}
-.rail .num{display:inline-block;min-width:44px;text-align:center;font-weight:700;font-size:16px}
-.rail .key{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
-</style>
+${APP_CSS}</style>
 </helmet>
 ${APP_MARKUP}
 </x-dc>
@@ -752,18 +502,12 @@ ${APP_LOGIC}
 
 // ---------- Home ----------
 function buildHome(stats) {
-  const status = read('psych-lab/intervention/implementation-status.json');
   const tiles = [
     ['original', 'The preserved design canvas: who we design for, the design system, daily experience, practices and games, program rhythm, the 51 animated script films with their storyboards, Ruth\'s journey and the scene library.'],
     ['activities', `${stats.activities} activities, one board each: intro pages, intro films, schedules, all ${stats.thoughts} Inner Voice thoughts, ${stats.cards} Cardversation cards, every reflection screen and the four recordings.`],
     ['films', `The ${stats.films} films beside the script documents they narrate; ${stats.exactFilms} are word for word and differences are highlighted.`],
     ['phone', `Walk and time any of the ${stats.sessions} psychology sessions on a phone, in the order the sources give them, against the 30-minute planned day, or live them as Ruth would, one app day at a time, in the app prototype.`]];
-  const gaps = [
-    `Eight scheduled practice recordings are not yet recorded: ${status.scheduled_recording_status.ids.join(', ')} (owner confirmation ${status.scheduled_recording_status.confirmed_on}).`,
-    `Five library-only recordings were not supplied: ${status.unavailable_library_only_recordings.join(', ')}.`,
-    ...Object.entries(status.other_source_gaps).map(([id, why]) => `${id}: ${why}.`),
-    `Inner Voice feedback text exists for ${stats.feedback} of ${stats.thoughts} thoughts.`,
-    'Guided relaxation (PS-CONT-065) is a draft edit, marked not finalized in its source.'];
+  const gaps = sourceGaps(stats);
   const w = 1280, h = 1000;
   const body = labPage(w, h, `${en('p', 'Remepy · Parkinson\'s psychological program', 'kicker')}
 <h1 class="title" style="font-size: 40px">Psych Lab</h1>
@@ -834,10 +578,7 @@ function emit(name, title, built, check) {
 const check = process.argv.includes('--check');
 const activities = buildActivities();
 const films = buildFilms();
-const stats = {activities: Object.values(P.activities).filter(a => kindNames[a.kind]).length,
-  thoughts: Object.values(P.thoughts).flat().length, feedback: Object.values(P.thoughts).flat().filter(t => t.correct || t.incorrect).length,
-  cards: P.cards.reduce((n, d) => n + d.cards.length, 0), films: Object.keys(FS.films).length,
-  exactFilms: Object.values(FS.films).filter(f => f.lines.every(l => l.verbatim)).length, sessions: P.sessions.length};
+const stats = labStats();
 const results = {
   home: emit('home', TITLE.home, buildHome(stats), check),
   activities: emit('activities', TITLE.activities, {boards: [{path: activities.main.path, frame: {x: 0, y: 0, w: activities.main.w, h: activities.main.h, title: activities.main.title}, html: activities.main.html}, ...activities.boards], notes: activities.notes}, check),

@@ -2,7 +2,7 @@
 
 ## GitHub Codespaces / dev containers
 
-Open this repository in a Codespace or any Dev Containers implementation. `.devcontainer/` builds Node.js 22 on Debian with Python, FFmpeg, Chromium, Git LFS and GitHub CLI. The setup hydrates media, installs pinned npm dependencies, installs guards, and runs tests. There is no preview server: the Lab is viewed in its Claude Design canvases (AGENTS.md, "Where output goes").
+Open this repository in a Codespace or any Dev Containers implementation. `.devcontainer/` builds Node.js 22 on Debian with Python, FFmpeg, Chromium, Git LFS and GitHub CLI. The setup hydrates media, installs pinned npm dependencies, installs guards, and runs tests. The container forwards port 63684 for the local Lab website (`npm start`; AGENTS.md, "Where output goes"). In a hosted Claude session, start the server and report its port so the owner's app can preview it. The website's browser test uses the browser `scripts/browser.mjs` finds (system Chrome or `CHROME_PATH`) and skips without one; films and recordings need `git lfs pull` for the media in README.md, and pages name any file that is not downloaded.
 
 One cloud environment per concurrently active agent is the simplest isolation. For several agents on one host use `scripts/agents.py start`, which creates separate Git worktrees and branches. The capture tool allocates its own Chrome debugging port and profile, so renders on one host do not collide.
 

@@ -1,0 +1,23 @@
+{
+  "task": "local-website",
+  "agent": "claude-affectionate-knuth",
+  "scope": [
+    "docs/WEBSITE_PLAN.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "README.md",
+    "docs/ARCHITECTURE.md",
+    "docs/CLOUD.md",
+    ".devcontainer/devcontainer.json",
+    "site/",
+    "package.json",
+    ".gitignore",
+    "tests/test_site.py",
+    "canvas/build.mjs",
+    "canvas/content.mjs",
+    "tests/test_verbatim.py",
+    "canvas/phone-board.css",
+    "canvas/app-board.css"
+  ],
+  "branch": "claude/affectionate-knuth-9dmy4f"
+}

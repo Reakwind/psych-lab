@@ -3,5 +3,7 @@
   "build": {"dockerfile": "Dockerfile"},
   "remoteUser": "node",
   "postCreateCommand": "bash scripts/cloud-bootstrap.sh",
+  "forwardPorts": [63684],
+  "portsAttributes": {"63684": {"label": "Psych Lab website"}},
   "customizations": {"vscode": {"settings": {"files.eol": "\n"}}}
 }

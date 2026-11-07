@@ -25,3 +25,7 @@ __pycache__/
 voice-over/elevenlabs/cache/
 test-results/
 playwright-report/
+
+# Generated website (npm start rebuilds it)
+site/dist/
+site/dist-claude/
