@@ -3,7 +3,14 @@
   "agent": "claude",
   "scope": [
     "docs/HARNESS_PLAN.md",
-    "docs/SKETCHPAD_PLAN.md"
+    "docs/SKETCHPAD_PLAN.md",
+    "sketchpad/",
+    "studio/",
+    ".claude-plugin/",
+    "tests/test_sketchpad.py",
+    ".gitignore",
+    "README.md",
+    "package.json"
   ],
   "branch": "claude/nifty-noether-h0tgfc"
 }
