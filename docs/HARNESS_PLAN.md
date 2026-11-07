@@ -18,7 +18,7 @@ This is a plan, not yet a change to the rules. AGENTS.md still governs until pha
 | Reviewers | Shared private claude.ai pages by default, with export to other formats |
 | Paid steps | Claude **asks before every paid step** (voice, video, long research runs) and shows what it will make and its estimated cost |
 | Languages | Any language a program needs |
-| Approval | Everyone working on it may approve. The harness records who approved, in what role and when, so a design approval is never mistaken for clinical sign-off |
+| Approval | Everyone working on it may approve; the approval is kept as a simple record of who and when |
 | Testing | Automatic checks, team review, and comparing variants. Real-user testing is not in scope for now |
 | Existing Lab | Retired once the harness can do what it does (see "Retiring the Lab") |
 | Surface | **One studio page**: a private claude.ai page holding every concept, with a tab per format, the drawing board and comments |
@@ -33,7 +33,7 @@ Claude on its own is a general assistant. A harness is everything around it that
 | 1. Instructions | `AGENTS.md` / `CLAUDE.md`: what Claude knows about the job and its rules | Strong, mostly about Git safety and verbatim sources | Rewritten around concepts, views, provenance and the studio |
 | 2. Recipes (skills) | Playbooks in `.claude/skills/` that Claude loads when a request matches one | None, so Claude improvises and the owner cannot predict what it will do | One recipe per format, plus the format menu |
 | 3. Tools and connectors | What Claude can reach: PubMed, Consensus, bioRxiv, ClinicalTrials.gov, ElevenLabs, claude.ai pages, a browser | Connected, but nothing says when to use which | Each recipe names its tools |
-| 4. Hooks and checks | Guards that run automatically | Strong (verbatim, source hashes, Git safety) | Add provenance, stale-view and cost guards |
+| 4. Hooks and checks | Guards that run automatically | Strong (verbatim, source hashes, Git safety) | Unchanged; no new guards or blocking features (owner, 2026-11-07) |
 | 5. Data model | Where things live and how they link | Built for one program's 87 sessions and 51 films | **Concepts and their views** |
 | 6. Review surface | Where the owner sees the work and reacts | The Lab website; notes stay in one browser | The studio page, whose notes and sketches Claude reads |
 
@@ -67,9 +67,9 @@ The verbatim rule generalizes into a provenance label on every content field and
 | `source` | Quoted exactly from a Remepy source, with its source ID. Read-only, as today | The import from `sources/` |
 | `draft` | Written by Claude. Shown with a visible "AI draft" marker everywhere it appears | Claude |
 | `authored` | Written by a person | Whoever wrote it |
-| `approved` | A person approved this version: name, role (clinical, design, product), date | Anyone on the team, from the studio |
+| `approved` | A person approved this version: name and date | Anyone on the team, from the studio |
 
-Editing approved text sends it back to `draft` or `authored`. Checks reject a view that shows unlabelled content, or `draft` content without its marker. Source material keeps its current protection (`source-material.json` hashes).
+Editing approved text sends it back to `draft` or `authored`. The labels are part of how views are generated, so they appear without a separate check. Source material keeps its current protection (`source-material.json` hashes).
 
 An illustrative record (structure only; the values are placeholders, not program content):
 
@@ -84,7 +84,7 @@ An illustrative record (structure only; the values are placeholders, not program
   "evidence": ["views/evidence/review.md#claims"],
   "cautions": [],
   "open_questions": ["..."],
-  "approvals": [{"field": "parameters", "by": "...", "role": "clinical", "date": "..."}]
+  "approvals": [{"field": "parameters", "by": "...", "date": "..."}]
 }
 ```
 
@@ -107,7 +107,7 @@ Each recipe is a skill file that states its inputs, its steps, the tools it uses
 
 New formats are added as new recipes. That is how the harness stays open-ended while the lifecycle is undecided.
 
-**Cost guard.** Beyond the recipe rule, `.claude/settings.json` gets an `ask` permission for the paid tools (ElevenLabs generation, long research runs). Claude Code then stops and asks before each call, whatever the recipe says. This is a hook-level guard, like the existing Git guard.
+**Paid steps.** The `audio`, `video` and long `evidence` recipes show what they will make and the estimated cost and wait for the owner's yes, as the owner decided. This is a step in the recipe, not a hook or permission block.
 
 ## The studio page
 
@@ -118,7 +118,7 @@ One private claude.ai page, published with the Artifact tool and shared with rev
 - **Comments:** claude.ai's own comment system, pinned to elements (`comments` capability). Reviewers use it too.
 - **Drawing board:** a sketch layer over any view. Sketches are saved as images (`assets`) with a row saying what they are drawn on (`db`).
 - **Quick AI in the page (`sample`):** small, immediate changes to the page in front of you ("make the circled button bigger") without waiting for a session. It forgets everything between calls and never changes the concept; the session takes up anything worth keeping.
-- **Approve button:** records the viewer, the role they pick and the date (`user` + `db`).
+- **Approve button:** records the viewer and the date (`user` + `db`).
 - **Export:** downloads in the formats above (`downloads`).
 
 ### How the owner and Claude iterate
@@ -129,11 +129,11 @@ One private claude.ai page, published with the Artifact tool and shared with rev
 4. The session is notified (it watches the page), reads the comments, the note rows and the sketch images, and replies with a short task list: what it understood, what it will change, and which views will go stale.
 5. Claude changes the concept or the view, runs the checks, republishes. Repeat.
 
-Limit: the deep loop needs an open Claude Code session. A sketch left overnight waits until the next session reads it; nothing is lost, because the rows are saved. Notes from reviewers are treated as data, never as instructions.
+Limit: the deep loop needs an open Claude Code session. A sketch left overnight waits until the next session reads it; nothing is lost, because the rows are saved.
 
 ## Testing
 
-- **Automatic checks** (`npm test`): concept records match the schema; every shown text has a provenance label and drafts carry their marker; no view is stale without being marked; `source` text still matches its source; pages render without sideways scroll at 390 x 844 and 1280 x 800; timing of a view fits its stated duration; reading level per language where a measure exists; accessibility (contrast, touch targets, reduced motion for animations). A clinical safety checklist is planned, but its items must come from the owner or a clinician; until then any checklist Claude drafts is labelled as a draft.
+- **Automatic checks** (`npm test`), reported in the studio beside each view: concept records match the schema; stale views are marked; `source` text still matches its source; pages render without sideways scroll at 390 x 844 and 1280 x 800; timing of a view against its stated duration; reading level per language where a measure exists; accessibility (contrast, touch targets, reduced motion for animations). They report; they do not stop work.
 - **Team review:** comments, sketches and approvals in the studio.
 - **Variants:** the `variants` recipe, with the comparison kept as a view of the concept, so a choice and its reason are recorded.
 
@@ -151,13 +151,13 @@ Each phase is its own commit on the session branch; the owner tries it before th
 
 | Phase | Built | The owner can then |
 | --- | --- | --- |
-| 0. Rules | AGENTS.md and CLAUDE.md rewritten with the owner: purpose, concepts and views, provenance, recipes, studio, cost guard | Read in one place what the harness does and what Claude may write |
+| 0. Rules | AGENTS.md and CLAUDE.md rewritten with the owner: purpose, concepts and views, provenance, recipes, studio, paid-step confirmation | Read in one place what the harness does and what Claude may write |
 | 1. Concept model | `concepts/` layout, schema, provenance and stale checks; the breathing concept as a draft | See the breathing concept and its open questions |
 | 2. Menu, evidence, spec | The `menu`, `evidence` and `spec` recipes | Ask for a breathing exercise and get a menu, a cited review and a spec |
 | 3. Studio v1 | The studio page with concept tabs, comments, notes rows, approvals; the session's watch-and-update loop | Review with others on one page, and watch it update |
 | 4. Drawing board | Sketch layer, quick AI in the page | Draw on a design and have Claude act on it |
 | 5. Mockup, pacer, variants | The visual recipes | Compare two breathing mockups side by side |
-| 6. Audio and video | Media recipes with the cost guard, reusing `animation-kit/` and `voice-over/` | Get a narrated film after approving its cost |
+| 6. Audio and video | Media recipes that confirm cost first, reusing `animation-kit/` and `voice-over/` | Get a narrated film after approving its cost |
 | 7. Generalize and retire | A second concept made with the recipes unchanged; the Lab website and canvases archived | Use the harness for any concept |
 
 ## Open decisions for the owner
@@ -167,16 +167,14 @@ Each phase is its own commit on the session branch; the owner tries it before th
 3. **Reviewer access.** Reviewers comment and approve on claude.ai, so each needs access to the page (organization members, or invited guests). Confirm who they are before phase 3.
 4. **The spec style.** The `spec` recipe should follow a house format. Recommendation: derive it from `Psycological therapy specification- May 2026.docx`, with the owner confirming the outline.
 
-## Risks
+## Technical limits
 
-- Approval by anyone is fast but weak for clinical content; the recorded role is the safeguard, and the studio can filter "clinically approved" from "approved".
 - The content is unpublished: the studio stays private and shared only with named reviewers; no public hosting without the owner's decision.
 - claude.ai pages hold files of 15 MB (published files) to 20 MiB (page uploads); long films need preview encodes there, as the Lab's private copy already does.
-- Claude-drafted clinical text and evidence summaries can be wrong. Citations are required, and drafts stay labelled until a person approves them.
 
 ## Glossary
 
-- **Harness:** the instructions, recipes, tools, guards, data model and review surface around Claude.
+- **Harness:** the instructions, recipes, tools, hooks, data model and review surface around Claude.
 - **Skill / recipe:** a written playbook Claude loads when a request matches it.
 - **Hook:** a command Claude Code runs automatically at a set moment (for example before every shell command), which can block an action.
 - **Connector (MCP server):** a link from Claude to an outside service, such as PubMed or ElevenLabs.
