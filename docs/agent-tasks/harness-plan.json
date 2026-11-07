@@ -2,7 +2,8 @@
   "task": "harness-plan",
   "agent": "claude",
   "scope": [
-    "docs/HARNESS_PLAN.md"
+    "docs/HARNESS_PLAN.md",
+    "docs/SKETCHPAD_PLAN.md"
   ],
   "branch": "claude/nifty-noether-h0tgfc"
 }
