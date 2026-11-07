@@ -1,6 +1,6 @@
 # Plan: Psych Lab as a harness for prototyping interventions
 
-> **Superseded (2026-11-07)** by [the iPad sketchpad plan](SKETCHPAD_PLAN.md). The owner set the harness framing aside; kept for the ideas the new plan parks.
+> **Superseded (2026-11-07)** by [the sketchpad plan](SKETCHPAD_PLAN.md). The owner set the harness framing aside; kept for the ideas the new plan parks.
 
 Owner interview, 2026-11-07. The Lab moves from a canvas for exploring one program to a **Claude harness for prototyping, iterating on and testing psychological intervention concepts, and turning them into a digital program**. The central requirement is format flexibility: one concept (for example a breathing exercise) can become an evidence review, a prose spec, an app mockup, a narrated video, or any other representation, and the owner and Claude iterate on all of them together.
 
