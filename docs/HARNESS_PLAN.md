@@ -2,7 +2,9 @@
 
 Owner interview, 2026-11-07. The Lab moves from a canvas for exploring one program to a **Claude harness for prototyping, iterating on and testing psychological intervention concepts, and turning them into a digital program**. The central requirement is format flexibility: one concept (for example a breathing exercise) can become an evidence review, a prose spec, an app mockup, a narrated video, or any other representation, and the owner and Claude iterate on all of them together.
 
-This is a plan, not yet a change to the rules. AGENTS.md still governs until phase 0 rewrites it with the owner.
+**Status: a draft the owner is still refining; not yet committed to.** It changes no rules: AGENTS.md still governs until phase 0 rewrites it with the owner.
+
+The owner's main aim (2026-11-07): move away from directing prototypes in prose. Today the image in the owner's head reaches the agent through comments or chat, and the owner has to hope it was described well and understood. The harness lets the owner **sketch, edit, upload, write and speak** directly on what Claude made, and Claude reads all of it and iterates. See "Showing, not telling".
 
 ## Owner decisions (2026-11-07)
 
@@ -14,7 +16,9 @@ This is a plan, not yet a change to the rules. AGENTS.md still governs until pha
 | Formats | No format is more important than another and the lifecycle is not fixed yet, so **flexibility of output comes first** |
 | Who writes content | Claude may draft new content, always visibly labelled as an AI draft until approved. Existing Remepy sources stay read-only and verbatim |
 | Request without a format | Claude shows a **format menu** (what it can make, with time and cost) and the owner picks |
-| Steering visual work | Comments pinned on the page; chatting while the page updates at the same link; and a new **drawing board**: sketching freely over what Claude designed, with AI built in |
+| Steering visual work | **The central feature.** Freehand sketching on top of the design, direct editing, uploads (images, PDFs, video, documents) and voice memos, plus comments and chat while the page updates at the same link |
+| Claude's response to direction | **Just build it**: Claude changes the design straight away and shows before and after; the owner corrects it if it is wrong |
+| Drawing device | An **iPad with a stylus as the input device**, drawing live into the session's page, whether the session runs on the owner's computer or in the cloud |
 | Reviewers | Shared private claude.ai pages by default, with export to other formats |
 | Paid steps | Claude **asks before every paid step** (voice, video, long research runs) and shows what it will make and its estimated cost |
 | Languages | Any language a program needs |
@@ -35,7 +39,7 @@ Claude on its own is a general assistant. A harness is everything around it that
 | 3. Tools and connectors | What Claude can reach: PubMed, Consensus, bioRxiv, ClinicalTrials.gov, ElevenLabs, claude.ai pages, a browser | Connected, but nothing says when to use which | Each recipe names its tools |
 | 4. Hooks and checks | Guards that run automatically | Strong (verbatim, source hashes, Git safety) | Unchanged; no new guards or blocking features (owner, 2026-11-07) |
 | 5. Data model | Where things live and how they link | Built for one program's 87 sessions and 51 films | **Concepts and their views** |
-| 6. Review surface | Where the owner sees the work and reacts | The Lab website; notes stay in one browser | The studio page, whose notes and sketches Claude reads |
+| 6. Review surface | Where the owner sees the work and reacts | The Lab website; notes stay in one browser | The studio page, where the owner sketches, edits, uploads and speaks, and Claude reads it all |
 
 The biggest single gap is part 2: without recipes, "make a breathing exercise" has no defined meaning.
 
@@ -109,6 +113,47 @@ New formats are added as new recipes. That is how the harness stays open-ended w
 
 **Paid steps.** The `audio`, `video` and long `evidence` recipes show what they will make and the estimated cost and wait for the owner's yes, as the owner decided. This is a step in the recipe, not a hook or permission block.
 
+## Showing, not telling (the central feature)
+
+Prose loses detail at every hand-over: **the image in the owner's head → the owner's words → Claude's reading of them → Claude's code.** The harness removes the middle steps. Everything the owner does on a design is recorded with what it was done *to*, so Claude does not have to work out what "this" or "a bit bigger" means.
+
+### Ways to give direction (all four chosen by the owner)
+
+| Input | What the owner does | What Claude receives |
+| --- | --- | --- |
+| **Freehand sketch** | Draws on a transparent layer on top of the live design (a mockup, a video frame, a document): circles, arrows, crossings-out, handwriting, rough new shapes | The strokes as vectors, a snapshot of the view with the strokes drawn in, and the element under each stroke with the view and its version |
+| **Direct editing** | Drags, resizes, retypes text, picks colours on the design itself | The exact change: element, property, before and after (for example "moved 40 px down", "font 18 → 24"). Claude makes the same change in the real source |
+| **Uploads** | Drops screenshots, inspiration images, PDFs, videos or documents onto the spot they refer to | The file, pinned to where it was dropped. Claude reads images and PDFs directly, videos through frames taken from them, documents as text |
+| **Voice memos** | Talks while drawing or pointing ("this one... slower, and softer blue") | A transcript with timings lined up with the pen, so "this one" resolves to what the pen touched at that second |
+
+Comments and chat stay available beside these.
+
+Each time the owner presses **Send**, the board saves one **direction packet**: the snapshot, the strokes, the anchors, the edits, the uploads and the transcript, together, so Claude reads them as one instruction and nothing gets separated.
+
+**Claude's response: just build it** (owner decision). Claude makes the change at once and shows the result **before and after** in the same place. Every version is kept, so going back to the previous one is one tap.
+
+Claude reads rough sketches well for layout and intent ("big circle in the middle, button under it") but not as precise measurements. Direct editing covers precision, and voice adds intent, so the inputs work best together.
+
+**Drawing tool.** Rather than build one, embed an open-source whiteboard library (Excalidraw, MIT licence), if it runs inside a claude.ai page (to be tested).
+
+### The iPad as an input device
+
+The owner's goal: draw with the stylus on an iPad while the session runs on the computer or in the cloud, and see it appear in the session.
+
+**How it can work.** The studio is a claude.ai page, so it opens on both the iPad (Safari or the Claude app) and the computer. Its `room` capability connects everyone who has the page open at that moment: pen strokes on the iPad stream live to the page on the computer. The session that publishes the page can join the same room, so Claude can follow the drawing as it happens. On Send, the packet is saved (`db` and `assets`), so it stays even if nobody is watching. Because the link runs through the claude.ai page and not the session's machine, it works the same for a cloud session and a desktop session.
+
+Safari gives the stylus's pressure and tilt (Pointer Events), and the board can ignore the palm while the pen is down.
+
+**Fallback for a desktop session:** the local server (`npm start -- --lan`) serves the same board to the iPad over the home Wi-Fi, without claude.ai in between.
+
+**What must be tested first (phase 1 spike):**
+
+1. Drawing with the stylus inside a claude.ai page on the iPad, without the page scrolling or the app taking over the gesture.
+2. How quickly strokes appear on the computer.
+3. How the session joins the room, and whether a Send wakes the session or only a comment or republish does. If only those do, Send also posts a short comment that wakes it.
+4. Excalidraw (or another whiteboard library) loading inside a claude.ai page.
+5. Recording a voice memo in a claude.ai page on the iPad (microphone permission), and which transcription to use: the browser's own speech recognition (free) or ElevenLabs (paid, so it would ask each time under the paid-step rule).
+
 ## The studio page
 
 One private claude.ai page, published with the Artifact tool and shared with reviewers from its Share menu.
@@ -116,7 +161,7 @@ One private claude.ai page, published with the Artifact tool and shared with rev
 - **Concept list:** every concept, its status, its languages, and how many views are current or stale.
 - **Concept page:** a tab per view (evidence, spec, mockup, pacer, video...), each tab carrying its provenance markers, approval state and a "stale" badge when it is behind the concept.
 - **Comments:** claude.ai's own comment system, pinned to elements (`comments` capability). Reviewers use it too.
-- **Drawing board:** a sketch layer over any view. Sketches are saved as images (`assets`) with a row saying what they are drawn on (`db`).
+- **Board on every view:** the sketch layer, direct editing, uploads and voice memos described in "Showing, not telling", on any view, from the computer or the iPad.
 - **Quick AI in the page (`sample`):** small, immediate changes to the page in front of you ("make the circled button bigger") without waiting for a session. It forgets everything between calls and never changes the concept; the session takes up anything worth keeping.
 - **Approve button:** records the viewer and the date (`user` + `db`).
 - **Export:** downloads in the formats above (`downloads`).
@@ -125,9 +170,9 @@ One private claude.ai page, published with the Artifact tool and shared with rev
 
 1. The owner, in the session: "breathing exercise". Claude shows the format menu; the owner picks "mockup, two variants".
 2. Claude builds them and republishes the studio. The owner watches the same link update.
-3. The owner and reviewers comment and sketch on the page.
-4. The session is notified (it watches the page), reads the comments, the note rows and the sketch images, and replies with a short task list: what it understood, what it will change, and which views will go stale.
-5. Claude changes the concept or the view, runs the checks, republishes. Repeat.
+3. The owner sketches, edits, uploads or speaks on the page (on the computer or the iPad) and presses Send. Reviewers do the same or comment.
+4. The session is notified, reads the direction packet and builds the change straight away.
+5. The page shows before and after in place; the owner keeps it, goes back, or sends the next direction. Repeat.
 
 Limit: the deep loop needs an open Claude Code session. A sketch left overnight waits until the next session reads it; nothing is lost, because the rows are saved.
 
@@ -152,12 +197,12 @@ Each phase is its own commit on the session branch; the owner tries it before th
 | Phase | Built | The owner can then |
 | --- | --- | --- |
 | 0. Rules | AGENTS.md and CLAUDE.md rewritten with the owner: purpose, concepts and views, provenance, recipes, studio, paid-step confirmation | Read in one place what the harness does and what Claude may write |
-| 1. Concept model | `concepts/` layout, schema, provenance and stale checks; the breathing concept as a draft | See the breathing concept and its open questions |
-| 2. Menu, evidence, spec | The `menu`, `evidence` and `spec` recipes | Ask for a breathing exercise and get a menu, a cited review and a spec |
-| 3. Studio v1 | The studio page with concept tabs, comments, notes rows, approvals; the session's watch-and-update loop | Review with others on one page, and watch it update |
-| 4. Drawing board | Sketch layer, quick AI in the page | Draw on a design and have Claude act on it |
-| 5. Mockup, pacer, variants | The visual recipes | Compare two breathing mockups side by side |
-| 6. Audio and video | Media recipes that confirm cost first, reusing `animation-kit/` and `voice-over/` | Get a narrated film after approving its cost |
+| 1. Input spike | A small private test page: draw with the stylus on the iPad, see it on the computer, and the session receives it; the five tests above | Know which parts of the board work as planned, before building on them |
+| 2. Concept model and board v1 | `concepts/` layout and the breathing concept as a draft; the studio page with freehand sketching on top of the design, uploads, Send, and before/after with versions | Draw on a breathing mockup, from the iPad, and watch Claude change it |
+| 3. Direct editing and voice | Drag, resize, retype and recolour as instructions; voice memos linked to the pen | Show a change by doing it, or say it while pointing |
+| 4. Menu, evidence, spec | The `menu`, `evidence` and `spec` recipes; comments and approvals in the studio | Ask for a breathing exercise and get a menu, a cited review and a spec, and mark them up the same way |
+| 5. Mockup, pacer, variants | The visual recipes | Compare two breathing mockups side by side and sketch on both |
+| 6. Audio and video | Media recipes that confirm cost first, reusing `animation-kit/` and `voice-over/`; sketching on video frames | Get a narrated film after approving its cost, and mark up any frame |
 | 7. Generalize and retire | A second concept made with the recipes unchanged; the Lab website and canvases archived | Use the harness for any concept |
 
 ## Open decisions for the owner
@@ -166,6 +211,8 @@ Each phase is its own commit on the session branch; the owner tries it before th
 2. **Interface words in other languages.** Today Hebrew interface words come only from `canvas/interface-he.json`. For new programs in any language, Claude would draft interface labels, labelled as drafts, per program. Recommendation: keep `interface-he.json` for the Parkinson's program and allow labelled drafts for new programs.
 3. **Reviewer access.** Reviewers comment and approve on claude.ai, so each needs access to the page (organization members, or invited guests). Confirm who they are before phase 3.
 4. **The spec style.** The `spec` recipe should follow a house format. Recommendation: derive it from `Psycological therapy specification- May 2026.docx`, with the owner confirming the outline.
+
+5. **Voice transcription.** The browser's free speech recognition, or ElevenLabs (paid, so it would ask before each memo)? Recommendation: decide after the phase 1 spike shows how well the free one handles Hebrew.
 
 ## Technical limits
 
