@@ -148,6 +148,63 @@ class Site(unittest.TestCase):
                 self.assertNotIn('<video', page)
 
 
+class ClaudeCopy(unittest.TestCase):
+    """The private claude.ai copy (owner decision 2026-11-07): relative links, every media file mapped, verbatim."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = Path(tempfile.mkdtemp(prefix='psych-lab-claude-'))
+        cls.dist = cls.tmp / 'dist-claude'
+        result = subprocess.run(['node', 'site/build.mjs', '--artifact', 'site/artifact.json', '--out', str(cls.dist)], cwd=ROOT, capture_output=True, text=True)
+        if result.returncode:
+            raise AssertionError(result.stderr)
+        cls.pages = sorted(cls.dist.rglob('*.html'))
+        cls.artifact = json.loads((ROOT / 'site/artifact.json').read_text())
+
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(cls.tmp, ignore_errors=True)
+
+    def test_links_are_relative_and_resolve(self):
+        broken = []
+        for page in self.pages:
+            for attr, url in re.findall(r'(href|src)="([^"#]*)"', page.read_text()):
+                if not url or url.startswith(('data:', 'https://', '/_blob/')):
+                    continue
+                if url.startswith('/'):
+                    broken.append(f'{page.relative_to(self.dist)}: absolute {url}')
+                elif not (page.parent / url).resolve().is_file():
+                    broken.append(f'{page.relative_to(self.dist)} -> {url}')
+        self.assertEqual(broken, [])
+
+    def test_media_are_the_pages_own_copies(self):
+        held = set(self.artifact['media'].values())
+        texts = [p.read_text() for p in self.pages] + [(self.dist / f'assets/{n}.js').read_text() for n in ('sessions', 'app')]
+        used = {u for t in texts for u in re.findall(r'/_blob/[0-9a-f]{32}', t)}
+        self.assertTrue(used)
+        self.assertEqual(used - held, set())
+        audit = json.loads((ROOT / 'psych-lab/status.json').read_text())
+        for s in audit['sessions']:
+            self.assertIn(s['animation_path'], self.artifact['media'], s['id'])
+
+    def test_home_is_unwrapped_and_named(self):
+        home = (self.dist / 'index.html').read_text()
+        self.assertNotIn('<!doctype', home.lower())
+        self.assertNotIn('<body', home)
+        self.assertIn('<title>Psych Lab</title>', home[:8192])
+
+    def test_program_text_is_verbatim(self):
+        # The narration record vouches only for film pages, as in the local build's tests.
+        corpus = verbatim.Corpus()
+        needed = [p for p in corpus.unreadable if p.endswith(('.xlsx', '.docx'))]
+        if needed:
+            self.skipTest('Text sources not downloaded (git lfs pull): ' + ', '.join(needed))
+        files = [str(p) for p in self.pages if p.parent.name != 'films'] + [str(self.dist / 'assets/sessions.js'), str(self.dist / 'assets/app.js')]
+        problems, _ = verbatim.check(files, corpus)
+        films, _ = verbatim.check([str(p) for p in self.pages if p.parent.name == 'films'], verbatim.Corpus(narration=True))
+        self.assertEqual(problems + films, [])
+
+
 class Server(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
