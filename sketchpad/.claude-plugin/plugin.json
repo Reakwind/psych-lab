@@ -1,0 +1,6 @@
+{
+  "name": "sketchpad",
+  "version": "0.1.0",
+  "description": "Draw on Claude's designs (on the Mac or an iPad) and send the marks to Claude, with a pane beside the chat",
+  "types": "./types/index.d.ts"
+}

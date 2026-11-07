@@ -29,3 +29,7 @@ playwright-report/
 # Generated website (npm start rebuilds it)
 site/dist/
 site/dist-claude/
+
+# Sketchpad: sketch packets stay on the computer they were drawn on; the engine writes the mod's types
+studio/sketches/
+sketchpad/.claude-plugin/types/

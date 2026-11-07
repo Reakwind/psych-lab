@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breathing exercise (mockup)</title>
+<style>
+  :root { --bg: #eef1f5; --phone: #ffffff; --ink: #1d2433; --muted: #667085; --calm: #7fb4d8; --calm-deep: #3f7fae; --line: #dde3ea; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--ink); font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 24px 16px 48px; }
+  #phone { width: 390px; max-width: 100%; min-height: 780px; background: var(--phone); border-radius: 36px; border: 1px solid var(--line);
+    box-shadow: 0 12px 40px rgba(29, 36, 51, .10); padding: 20px 24px 28px; display: flex; flex-direction: column; gap: 18px; }
+  #draft-label { align-self: flex-start; font-size: 12px; font-weight: 600; letter-spacing: .02em; color: #8a5a00; background: #fff4d6;
+    border: 1px solid #f1d58a; border-radius: 999px; padding: 4px 10px; }
+  #top-bar { display: flex; align-items: center; justify-content: space-between; }
+  #back-button, #settings-button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: #fff; font-size: 20px; color: var(--ink); }
+  #title { margin: 0; font-size: 26px; font-weight: 700; }
+  #subtitle { margin: -10px 0 0; color: var(--muted); }
+  #circle-area { flex: 1; display: grid; place-items: center; min-height: 340px; }
+  #breath-circle { width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, var(--calm), var(--calm-deep));
+    display: grid; place-items: center; color: #fff; font-weight: 600; font-size: 18px; transform: scale(1); transition: transform 4s ease-in-out; }
+  #breath-circle.in { transform: scale(1.7); transition-duration: 4s; }
+  #breath-circle.out { transform: scale(1); transition-duration: 6s; }
+  #pace { text-align: center; color: var(--muted); margin: 0; }
+  #cycle-count { text-align: center; font-weight: 600; margin: 0; }
+  #start-button { height: 56px; border-radius: 16px; border: 0; background: var(--ink); color: #fff; font-size: 18px; font-weight: 600; }
+  @media (prefers-reduced-motion: reduce) { #breath-circle, #breath-circle.in, #breath-circle.out { transition: none; } }
+</style>
+</head>
+<body>
+<main id="phone" aria-label="Breathing exercise screen">
+  <span id="draft-label">AI draft · not from the Remepy sources</span>
+  <div id="top-bar">
+    <button id="back-button" aria-label="Back">‹</button>
+    <button id="settings-button" aria-label="Settings">⋯</button>
+  </div>
+  <h1 id="title">Paced breathing</h1>
+  <p id="subtitle">Follow the circle: breathe in as it grows, out as it shrinks.</p>
+  <section id="circle-area">
+    <div id="breath-circle"><span id="phase-label">Ready</span></div>
+  </section>
+  <p id="pace">In 4 s · Out 6 s</p>
+  <p id="cycle-count">0 of 6 breaths</p>
+  <button id="start-button">Start</button>
+</main>
+<script>
+  // The pacer: in 4 s, out 6 s, six breaths. A mockup for sketching on, not a finished exercise.
+  const IN = 4000, OUT = 6000, CYCLES = 6;
+  const circle = document.getElementById('breath-circle'), label = document.getElementById('phase-label');
+  const count = document.getElementById('cycle-count'), button = document.getElementById('start-button');
+  let timer = null, done = 0;
+  function stop(text) { clearTimeout(timer); timer = null; circle.className = ''; label.textContent = text; button.textContent = 'Start'; }
+  function breathe() {
+    circle.className = 'in'; label.textContent = 'Breathe in';
+    timer = setTimeout(() => {
+      circle.className = 'out'; label.textContent = 'Breathe out';
+      timer = setTimeout(() => {
+        done += 1; count.textContent = `${done} of ${CYCLES} breaths`;
+        if (done >= CYCLES) stop('Done'); else breathe();
+      }, OUT);
+    }, IN);
+  }
+  button.addEventListener('click', () => {
+    if (timer) return stop('Paused');
+    if (done >= CYCLES) { done = 0; count.textContent = `0 of ${CYCLES} breaths`; }
+    button.textContent = 'Pause'; breathe();
+  });
+</script>
+</body>
+</html>

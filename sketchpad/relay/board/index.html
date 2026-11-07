@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Sketchpad</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/board/board.css">
+</head>
+<body>
+<header class="bar" role="toolbar" aria-label="Sketchpad tools">
+  <label class="field">
+    <span class="sr">Design</span>
+    <select id="design" aria-label="Design"></select>
+  </label>
+  <div class="seg" role="radiogroup" aria-label="Mode">
+    <button type="button" id="mode-draw" role="radio" aria-checked="true" title="Draw on the design (D)">Draw</button>
+    <button type="button" id="mode-use" role="radio" aria-checked="false" title="Use the design: click, scroll, type (U)">Use</button>
+  </div>
+  <div class="inks" role="radiogroup" aria-label="Ink">
+    <button type="button" class="ink" data-color="#e5484d" role="radio" aria-checked="true" aria-label="Red ink" style="--c:#e5484d"></button>
+    <button type="button" class="ink" data-color="#0b7cff" role="radio" aria-checked="false" aria-label="Blue ink" style="--c:#0b7cff"></button>
+    <button type="button" class="ink" data-color="#1c1c1e" role="radio" aria-checked="false" aria-label="Dark ink" style="--c:#1c1c1e"></button>
+  </div>
+  <button type="button" id="undo" title="Undo the last mark (⌘Z)">Undo</button>
+  <button type="button" id="clear" title="Remove the marks not sent yet">Clear</button>
+  <label class="field note">
+    <span class="sr">Note for Claude</span>
+    <input id="note" type="text" placeholder="Note for Claude (optional)" autocomplete="off">
+  </label>
+  <button type="button" id="send" class="primary" title="Send the marks to Claude (⌘↵)">Send to Claude</button>
+  <span id="status" role="status" aria-live="polite"></span>
+</header>
+<main id="stage">
+  <iframe id="frame" title="Design"></iframe>
+  <canvas id="ink" aria-label="Drawing layer"></canvas>
+  <p id="empty" hidden>No designs yet. Ask Claude for one: it goes in <code>studio/designs/&lt;name&gt;/index.html</code>.</p>
+</main>
+<script src="/board/board.js"></script>
+</body>
+</html>

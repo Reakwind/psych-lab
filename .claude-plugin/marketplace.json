@@ -1,0 +1,14 @@
+{
+  "name": "psych-lab",
+  "description": "Psych Lab tools for Claude Code: the sketchpad, for drawing on Claude's designs instead of describing changes in words",
+  "owner": {
+    "name": "Reakwind"
+  },
+  "plugins": [
+    {
+      "name": "sketchpad",
+      "source": "./sketchpad",
+      "description": "Draw on Claude's designs (on the Mac or an iPad) and send the marks to Claude, with a pane beside the chat"
+    }
+  ]
+}
