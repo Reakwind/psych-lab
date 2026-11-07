@@ -31,5 +31,7 @@ site/dist/
 site/dist-claude/
 
 # Sketchpad: sketch packets stay on the computer they were drawn on; the engine writes the mod's types
+# and the editor config that extends them
 studio/sketches/
 sketchpad/.claude-plugin/types/
+sketchpad/tsconfig.json
